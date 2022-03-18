@@ -1,9 +1,14 @@
-import 'package:adeline_project_dev/first_page.dart';
+import 'package:adeline_project_dev/constant/cupertino/cupertino_text_theme.dart';
+import 'package:adeline_project_dev/constant/material/material_text_theme.dart';
+import 'package:adeline_project_dev/screen/mobile/splash_screen/splash_mobile_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -13,32 +18,16 @@ class MyApp extends StatelessWidget {
     return PlatformApp(
       material: (_, __) => MaterialAppData(
         theme: ThemeData(
-          textTheme: TextTheme(
-            bodyText1: TextStyle(color: Colors.indigo, fontSize: 28),
-          ),
+          textTheme: materialTextTheme,
         ),
-        home: FirstPage(),
       ),
       cupertino: (_, __) => CupertinoAppData(
         theme: CupertinoThemeData(
-          textTheme: CupertinoTextThemeData(
-            textStyle: TextStyle(color: Colors.red),
-          ),
+          textTheme: cupertinoTextTheme,
         ),
       ),
-      home: PlatformScaffold(
-        appBar: PlatformAppBar(
-          title: PlatformText(
-            'Flutter Demo',
-            style: TextStyle(color: Theme.of(context).primaryColor),
-          ),
-        ),
-        body: Center(
-          child: Text(
-            'Noraml 하이',
-          ),
-        ),
-      ),
+      home: SplashMobileScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
