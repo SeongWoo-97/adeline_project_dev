@@ -1,5 +1,6 @@
 import 'package:adeline_project_dev/screen/blank_screen.dart';
-import 'package:adeline_project_dev/service/google_sign_in.dart';
+import 'package:adeline_project_dev/screen/mobile/init_screen/initSettings_screen.dart';
+import 'package:adeline_project_dev/service/firebase_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -47,16 +48,16 @@ class _GoogleSignInMobileScreenState extends State<GoogleSignInMobileScreen> {
                     elevation: 2,
                   ),
                   onPressed: () async {
-                    FirebaseService service = FirebaseService();
+                    // FirebaseService service = FirebaseService();
                     try {
-                      await service.signInGoogle();
+                      // await service.signInGoogle();
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => BlankScreen()),
+                              builder: (context) => InitSettingsScreen()),
                           (route) => false);
                     } catch (e) {
-                      if(e is FirebaseAuthException){
+                      if (e is FirebaseAuthException) {
                         print(e.message!);
                       }
                     }
@@ -80,7 +81,7 @@ class _GoogleSignInMobileScreenState extends State<GoogleSignInMobileScreen> {
                     ],
                   ),
                 ),
-                cupertino: (_,__) => OutlinedButton(
+                cupertino: (_, __) => OutlinedButton(
                   style: OutlinedButton.styleFrom(
                     backgroundColor: Colors.white,
                     side: BorderSide(color: Colors.grey),
@@ -96,9 +97,9 @@ class _GoogleSignInMobileScreenState extends State<GoogleSignInMobileScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => BlankScreen()),
-                              (route) => false);
+                          (route) => false);
                     } catch (e) {
-                      if(e is FirebaseAuthException){
+                      if (e is FirebaseAuthException) {
                         print(e.message!);
                       }
                     }

@@ -1,5 +1,6 @@
 import 'package:adeline_project_dev/constant/cupertino/cupertino_text_theme.dart';
 import 'package:adeline_project_dev/constant/material/material_text_theme.dart';
+import 'package:adeline_project_dev/screen/mobile/init_screen/initSettings_screen.dart';
 import 'package:adeline_project_dev/screen/mobile/splash_screen/splash_mobile_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,7 +19,18 @@ class MyApp extends StatelessWidget {
     return PlatformApp(
       material: (_, __) => MaterialAppData(
         theme: ThemeData(
-          textTheme: materialTextTheme,
+          textTheme: TextTheme(
+            headline1: TextStyle(
+                fontFamily: 'NotoSansKR',
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.black),
+            bodyText1: TextStyle(
+              fontSize: 16,
+              color: Colors.black,
+              fontFamily: 'NotoSansKR',
+            ),
+          ),
         ),
       ),
       cupertino: (_, __) => CupertinoAppData(
@@ -26,7 +38,8 @@ class MyApp extends StatelessWidget {
           textTheme: cupertinoTextTheme,
         ),
       ),
-      home: SplashMobileScreen(),
+      // home: SplashMobileScreen(),
+      home: InitSettingsScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
