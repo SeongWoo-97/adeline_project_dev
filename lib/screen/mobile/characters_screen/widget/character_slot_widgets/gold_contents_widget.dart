@@ -3,6 +3,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../constant/constant.dart';
+import '../../../../../model/user/character/character_model.dart';
 import '../../../../../model/user/content/gold_content.dart';
 import '../../../../../model/user/user_provider.dart';
 
@@ -21,17 +22,19 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
   TextEditingController addGoldTextEditingController = TextEditingController();
   TextEditingController numberOfPersonTextEditingController = TextEditingController();
   TextEditingController busCostTextEditingController = TextEditingController();
-  List<GoldContent> defaultGoldContents = constGoldContents;
+  List<GoldContent> defaultGoldContents =
+      List.generate(constGoldContents.length, (index) => GoldContent.clone(constGoldContents[index]));
+
+  @override
+  void initState() {
+    super.initState();
+    print(widget.characterIndex);
+  }
 
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
     int characterIndex = widget.characterIndex;
-    constGoldContents.forEach(
-      (element) {
-        element.isChecked = false;
-      },
-    );
     if (userProvider.charactersProvider.characters[characterIndex].goldContents.length == 0) {
       return Column(
         children: [
@@ -71,7 +74,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 5),
-                              child: Text('${defaultGoldContents[index].clearGold} Gold',
+                              child: Text('${clearGoldTotal(defaultGoldContents[index].goldPerPhase)} Gold',
                                   style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 15)),
                             ),
                             SizedBox(
@@ -99,6 +102,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
               onPressed: () {
                 setState(() {
                   userProvider.charactersProvider.characters[characterIndex].goldContents = defaultGoldContents;
+                  userProvider.updateContentBoard();
                 });
               },
               child: Text('저장')),
@@ -142,14 +146,93 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                         Padding(
                           padding: const EdgeInsets.only(left: 5),
                           child: Text(
-                              '${userProvider.charactersProvider.characters[characterIndex].goldContents[index].clearGold} Gold',
+                              '${clearGoldPerCharacter(userProvider.charactersProvider.characters[characterIndex], index)}',
                               style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 15)),
                         ),
                         SizedBox(
                           height: 25,
                           child: Checkbox(
                             value: userProvider.charactersProvider.characters[characterIndex].goldContents[index].clearChecked,
-                            onChanged: (bool? value) => userProvider.goldContentsClearCheck(characterIndex, index, value),
+                            onChanged: (bool? value) {
+                              if (userProvider.charactersProvider.characters[characterIndex].goldContents[index].characterAlwaysMaxClear) {
+                                int totalGold = 0;
+                                userProvider.charactersProvider.characters[characterIndex].goldContents[index].goldPerPhase
+                                    .forEach((element) => totalGold += element);
+                                userProvider.charactersProvider.characters[characterIndex].goldContents[index].clearGold =
+                                    totalGold;
+                                userProvider.goldContentsClearCheck(characterIndex, index, value);
+                              } else {
+                                showPlatformDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
+                                        return PlatformAlertDialog(
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                  '${userProvider.charactersProvider.characters[characterIndex].goldContents[index].name}(${userProvider.charactersProvider.characters[characterIndex].goldContents[index].difficulty})'),
+                                              Container(
+                                                width: 300,
+                                                height: 90,
+                                                child: GridView.builder(
+                                                  shrinkWrap: true,
+                                                  physics: const NeverScrollableScrollPhysics(),
+                                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisCount: 3,
+                                                    childAspectRatio: 1 / 2,
+                                                    mainAxisExtent: 40,
+                                                    crossAxisSpacing: 5,
+                                                    mainAxisSpacing: 5,
+                                                  ),
+                                                  itemCount: userProvider.charactersProvider.characters[characterIndex]
+                                                      .goldContents[index].totalPhase,
+                                                  itemBuilder: (context, gridIndex) {
+                                                    return ElevatedButton(
+                                                        onPressed: () {
+                                                          int totalGold = 0;
+                                                          for(int i = 0; i <= gridIndex; i++){
+                                                            totalGold += userProvider.charactersProvider.characters[characterIndex].goldContents[index].goldPerPhase[i];
+                                                          }
+                                                          userProvider.charactersProvider.characters[characterIndex].goldContents[index].clearGold = totalGold;
+                                                          userProvider.goldContentsClearCheck(characterIndex, index, value);
+                                                        },
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.all(3.0),
+                                                          child: Column(
+                                                            mainAxisSize: MainAxisSize.min,
+                                                            children: [
+                                                              Text('${gridIndex + 1}관문'),
+                                                              Text(
+                                                                  '${clearGoldIndex(userProvider.charactersProvider.characters[characterIndex].goldContents[index].goldPerPhase, gridIndex)} G'),
+                                                            ],
+                                                          ),
+                                                        ));
+                                                  },
+                                                ),
+                                              ),
+                                             Row(
+                                               children: [
+                                                 Checkbox(
+                                                   value: userProvider.charactersProvider.characters[characterIndex]
+                                                       .goldContents[index].characterAlwaysMaxClear,
+                                                   onChanged: (bool? value) {
+                                                     setState(() {
+                                                       userProvider.charactersProvider.characters[characterIndex].goldContents[index]
+                                                           .characterAlwaysMaxClear = value!;
+                                                     });
+                                                   },
+                                                 ),
+                                                 Text('이 캐릭터는 항상 최대관문 클리어 설정',style: TextStyle(fontSize: 14),)
+                                               ],
+                                             )
+                                            ],
+                                          ),
+                                        );
+                                      });
+                                    });
+                              }
+                            },
                           ),
                         )
                       ],
@@ -518,6 +601,43 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
       }
     }
     return Container();
+  }
+
+  int clearGoldTotal(List<int> list) {
+    int clearGold = 0;
+    list.forEach((element) {
+      clearGold += element;
+    });
+    return clearGold;
+  }
+
+  int clearGoldIndex(List<int> list, int index) {
+    int clearGold = 0;
+    for (int i = 0; i <= index; i++) {
+      clearGold += list[i];
+    }
+    return clearGold;
+  }
+
+  String clearGoldPerCharacter(Character character, int index) {
+    int level = int.parse(character.level);
+    bool getGoldLevelLimit = level <= character.goldContents[index].getGoldLevelLimit; // 골드획득 레벨제한
+    bool enterGoldLevelLimit = level >= character.goldContents[index].enterLevelLimit;
+    print(getGoldLevelLimit);
+    if (getGoldLevelLimit && character.goldContents[index].characterAlwaysMaxClear && enterGoldLevelLimit) {
+      int total = 0;
+      character.goldContents[index].goldPerPhase.forEach((element) {
+        total += element;
+      });
+      return total.toString() + " Gold";
+    }
+    if (getGoldLevelLimit && character.goldContents[index].characterAlwaysMaxClear == false && enterGoldLevelLimit) {
+      return "관문 선택";
+    }
+    if (level < character.goldContents[index].enterLevelLimit) {
+      return "입장레벨 제한";
+    }
+    return "골드획득 불가";
   }
 }
 

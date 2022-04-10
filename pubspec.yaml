@@ -44,6 +44,7 @@ dependencies:
   chips_choice_null_safety: ^2.0.6
   persistent_bottom_nav_bar: ^4.0.2
   custom_pop_up_menu: ^1.2.3+1
+  intl: ^0.17.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -74,7 +75,7 @@ flutter:
     - assets/etc/
     - assets/expedition/
     - assets/map/
-    - assets/job/bard.png
+    - assets/job/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

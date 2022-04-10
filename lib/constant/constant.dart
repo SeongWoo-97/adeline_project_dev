@@ -1,17 +1,29 @@
 import 'package:adeline_project_dev/model/user/content/gold_content.dart';
+import 'package:flutter/cupertino.dart';
+
+ValueNotifier<int> valTanNormal = ValueNotifier<int>(0);
+ValueNotifier<int> valTanHard = ValueNotifier<int>(0);
+ValueNotifier<int> biacKissNormal = ValueNotifier<int>(0);
+ValueNotifier<int> biacKissHard = ValueNotifier<int>(0);
+ValueNotifier<int> koukoSatonNormal = ValueNotifier<int>(0);
+ValueNotifier<int> abrelshudNormal = ValueNotifier<int>(0);
+ValueNotifier<int> abrelshudHard = ValueNotifier<int>(0);
+ValueNotifier<int> orehaNormal = ValueNotifier<int>(0);
+ValueNotifier<int> orehaHard = ValueNotifier<int>(0);
+ValueNotifier<int> argus = ValueNotifier<int>(0);
 
 final List<GoldContent> constGoldContents = [
- GoldContent(
+  GoldContent(
     type: "어비스 던전",
     name: "오레하의 우물",
     difficulty: "노말",
     totalPhase: 2,
     enterLevelLimit: 1325,
     levelLimitPerPhase: [1325, 1325],
-    goldPerPhase: [],
+    goldPerPhase: [1100],
     getGoldLevelLimit: 1415,
-    clearGold: 1100,
-    characterAlwaysMaxClear: false,
+    clearGold: 0,
+    characterAlwaysMaxClear: true,
   ),
   GoldContent(
     type: "어비스 던전",
@@ -21,9 +33,9 @@ final List<GoldContent> constGoldContents = [
     enterLevelLimit: 1325,
     levelLimitPerPhase: [1325, 1325],
     getGoldLevelLimit: 1415,
-    goldPerPhase: [],
-    clearGold: 1300,
-    characterAlwaysMaxClear: false,
+    goldPerPhase: [1300],
+    clearGold: 0,
+    characterAlwaysMaxClear: true,
   ),
   GoldContent(
     type: "어비스 레이드",
@@ -32,9 +44,9 @@ final List<GoldContent> constGoldContents = [
     totalPhase: 3,
     enterLevelLimit: 1370,
     levelLimitPerPhase: [1370, 1385, 1415],
-    getGoldLevelLimit: 1415,
+    getGoldLevelLimit: 1475,
     goldPerPhase: [700, 400, 500],
-    clearGold: 1600,
+    clearGold: 0,
     characterAlwaysMaxClear: true,
   ),
   GoldContent(
@@ -46,7 +58,7 @@ final List<GoldContent> constGoldContents = [
     levelLimitPerPhase: [1415, 1415],
     getGoldLevelLimit: 9999,
     goldPerPhase: [500, 2000],
-    clearGold: 2500,
+    clearGold: 0,
     characterAlwaysMaxClear: true,
   ),
   GoldContent(
@@ -58,7 +70,7 @@ final List<GoldContent> constGoldContents = [
     levelLimitPerPhase: [1445, 1445],
     getGoldLevelLimit: 9999,
     goldPerPhase: [1000, 3500],
-    clearGold: 4500,
+    clearGold: 0,
     characterAlwaysMaxClear: true,
   ),
   GoldContent(
@@ -70,7 +82,7 @@ final List<GoldContent> constGoldContents = [
     levelLimitPerPhase: [1430, 1430, 1430],
     getGoldLevelLimit: 9999,
     goldPerPhase: [500, 2000],
-    clearGold: 2500,
+    clearGold: 0,
     characterAlwaysMaxClear: true,
   ),
   GoldContent(
@@ -82,7 +94,7 @@ final List<GoldContent> constGoldContents = [
     levelLimitPerPhase: [1460, 1460, 1460],
     getGoldLevelLimit: 9999,
     goldPerPhase: [1000, 1000, 2500],
-    clearGold: 4500,
+    clearGold: 0,
     characterAlwaysMaxClear: true,
   ),
   GoldContent(
@@ -94,7 +106,7 @@ final List<GoldContent> constGoldContents = [
     levelLimitPerPhase: [1475, 1475, 1475],
     getGoldLevelLimit: 9999,
     goldPerPhase: [1000, 1000, 2500],
-    clearGold: 4500,
+    clearGold: 0,
     characterAlwaysMaxClear: true,
   ),
   GoldContent(
@@ -106,8 +118,8 @@ final List<GoldContent> constGoldContents = [
     levelLimitPerPhase: [1490, 1490, 1500, 1500, 1520, 1520],
     getGoldLevelLimit: 9999,
     goldPerPhase: [2000, 2500, 700, 800, 1000, 1500],
-    clearGold: 8500,
-    characterAlwaysMaxClear: true,
+    clearGold: 0,
+    characterAlwaysMaxClear: false,
   ),
   GoldContent(
     type: "군단장",
@@ -118,7 +130,7 @@ final List<GoldContent> constGoldContents = [
     levelLimitPerPhase: [1540, 1540, 1550, 1550, 1560, 1560],
     getGoldLevelLimit: 9999,
     goldPerPhase: [2500, 3000, 900, 1100, 1200, 1800],
-    clearGold: 10500,
-    characterAlwaysMaxClear: true,
+    clearGold: 0,
+    characterAlwaysMaxClear: false,
   ),
 ];

@@ -3,6 +3,7 @@ import 'package:adeline_project_dev/screen/mobile/characters_screen/widget/chara
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../model/user/user_provider.dart';
@@ -37,7 +38,7 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: ExpansionTile(
-                  tilePadding: EdgeInsets.fromLTRB(12, 0, 10, 0),
+                  tilePadding: EdgeInsets.fromLTRB(7, 0, 5, 0),
                   expandedCrossAxisAlignment: CrossAxisAlignment.start,
                   expandedAlignment: Alignment.topLeft,
                   textColor: Colors.black,
@@ -47,138 +48,155 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      InkWell(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(userProvider.charactersProvider.characters[index].nickName,
-                                style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16)),
-                            Text(
-                                'Lv.${userProvider.charactersProvider.characters[index].level} ${userProvider.charactersProvider.characters[index].job}',
-                                style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14)),
-                            Text('주간 골드 : ${weeklyGold(index)} G',
-                                style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14)),
-                            Row(
-                              children: [
-                                Row(
-                                  children: [
-                                    Image.asset(
-                                      'assets/daily/Chaos.png',
-                                      width: 22,
-                                      height: 22,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 5, right: 5),
-                                      child: Container(
-                                        width: 30,
-                                        child: Text(
-                                          '0',
-                                          style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset('assets/job/105.png',width: 40,height: 40,),
+                              SizedBox(width: 7,),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(userProvider.charactersProvider.characters[index].nickName,
+                                          style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16)),
+                                      SizedBox(width: 3,),
+                                      Text(
+                                          '${userProvider.charactersProvider.characters[index].job} Lv.${userProvider.charactersProvider.characters[index].level} ',
+                                          style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 13,color: Colors.grey)),
+                                    ],
+                                  ),
+                                  Text('주간 골드 : ${weeklyGold(index)} G',
+                                      style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14)),
+                                  Row(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            'assets/daily/Chaos.png',
+                                            width: 22,
+                                            height: 22,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 5, right: 5),
+                                            child: Container(
+                                              width: 30,
+                                              child: Text(
+                                                '0',
+                                                style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Image.asset(
-                                      'assets/daily/Guardian.png',
-                                      width: 22,
-                                      height: 22,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 5, right: 5),
-                                      child: Container(
-                                        width: 30,
-                                        child: Text(
-                                          '0',
-                                          style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                                        ),
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            'assets/daily/Guardian.png',
+                                            width: 22,
+                                            height: 22,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 5, right: 5),
+                                            child: Container(
+                                              width: 30,
+                                              child: Text(
+                                                '0',
+                                                style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Image.asset(
-                                      'assets/daily/Epona.png',
-                                      width: 22,
-                                      height: 22,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 5, right: 5),
-                                      child: Container(
-                                        width: 30,
-                                        child: Text(
-                                          '0',
-                                          style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                                        ),
+                                      Row(
+                                        children: [
+                                          Image.asset(
+                                            'assets/daily/Epona.png',
+                                            width: 22,
+                                            height: 22,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 5, right: 5),
+                                            child: Container(
+                                              width: 30,
+                                              child: Text(
+                                                '0',
+                                                style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                        onLongPress: () {},
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 3, 10, 5),
-                                  child: Text(
-                                    '일일',
-                                    style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 15,
-                                  height: 25,
-                                  child: Checkbox(value: false, onChanged: (value) {}),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 3, 10, 5),
-                                  child: Text(
-                                    '주간',
-                                    style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 15,
-                                  height: 25,
-                                  child: Checkbox(value: false, onChanged: (value) {}),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.fromLTRB(0, 3, 10, 5),
-                                  child: Text(
-                                    '골드',
-                                    style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 15,
-                                  height: 25,
-                                  child: Checkbox(value: false, onChanged: (value) {}),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(right: 20),
+                      //   child: Column(
+                      //     mainAxisAlignment: MainAxisAlignment.start,
+                      //     children: [
+                      //       Row(
+                      //         children: [
+                      //           Padding(
+                      //             padding: const EdgeInsets.fromLTRB(0, 3, 10, 5),
+                      //             child: Text(
+                      //               '일일',
+                      //               style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                      //             ),
+                      //           ),
+                      //           SizedBox(
+                      //             width: 15,
+                      //             height: 25,
+                      //             child: Checkbox(value: false, onChanged: (value) {}),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //       Row(
+                      //         children: [
+                      //           Padding(
+                      //             padding: const EdgeInsets.fromLTRB(0, 3, 10, 5),
+                      //             child: Text(
+                      //               '주간',
+                      //               style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                      //             ),
+                      //           ),
+                      //           SizedBox(
+                      //             width: 15,
+                      //             height: 25,
+                      //             child: Checkbox(value: false, onChanged: (value) {}),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //       Row(
+                      //         children: [
+                      //           Padding(
+                      //             padding: const EdgeInsets.fromLTRB(0, 3, 10, 5),
+                      //             child: Text(
+                      //               '골드',
+                      //               style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                      //             ),
+                      //           ),
+                      //           SizedBox(
+                      //             width: 15,
+                      //             height: 25,
+                      //             child: Checkbox(value: false, onChanged: (value) {}),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),
                   children: [
@@ -240,7 +258,7 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
     return Container();
   }
 
-  int weeklyGold(int characterIndex) {
+  String weeklyGold(int characterIndex) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
     int weeklyGold = 0;
     print('${userProvider.charactersProvider.characters[characterIndex].nickName}');
@@ -248,10 +266,11 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
       (element) {
         if (element.isChecked == true && element.clearChecked == true) {
           weeklyGold += element.addGold;
-          weeklyGold += element.clearGold!;
+          weeklyGold += element.clearGold;
         }
       },
     );
-    return weeklyGold;
+
+    return NumberFormat('###,###,###,###').format(weeklyGold).replaceAll(' ', '');
   }
 }
