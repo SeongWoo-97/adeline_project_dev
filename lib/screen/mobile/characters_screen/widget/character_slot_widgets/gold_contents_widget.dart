@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../../constant/constant.dart';
 import '../../../../../model/user/character/character_model.dart';
@@ -37,9 +38,31 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
     int characterIndex = widget.characterIndex;
     if (userProvider.charactersProvider.characters[characterIndex].goldContents.length == 0) {
       return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('해당 캐릭터는 골드 콘텐츠가 설정되어 있지 않습니다.'),
-          Text('원하시는 콘텐츠를 선택하신후 저장 버튼을 눌러주세요!'),
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('해당 캐릭터는 골드 콘텐츠가 설정되어 있지 않습니다.'),
+                  Text('원하시는 콘텐츠를 선택하신후 저장 버튼을 눌러주세요!'),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 5),
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      userProvider.charactersProvider.characters[characterIndex].goldContents = defaultGoldContents;
+                      userProvider.updateContentBoard();
+                    });
+                  },
+                  child: Text('저장'),
+                ),
+              )
+            ],
+          ),
           ListView.builder(
             shrinkWrap: true,
             itemCount: defaultGoldContents.length,
@@ -98,14 +121,6 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
               );
             },
           ),
-          ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  userProvider.charactersProvider.characters[characterIndex].goldContents = defaultGoldContents;
-                  userProvider.updateContentBoard();
-                });
-              },
-              child: Text('저장')),
         ],
       );
     }
@@ -133,9 +148,24 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                           padding: const EdgeInsets.all(5.0),
                           child: iconPerType(userProvider.charactersProvider.characters[characterIndex].goldContents[index].type),
                         ),
-                        Text(
-                          '${userProvider.charactersProvider.characters[characterIndex].goldContents[index].name}',
-                          style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
+                        InkWell(
+                          child: Text(
+                            '${userProvider.charactersProvider.characters[characterIndex].goldContents[index].name}',
+                            style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
+                          ),
+                          onLongPress: () {
+                            setState(() {
+                              userProvider.charactersProvider.characters[characterIndex].goldContents[index]
+                                  .characterAlwaysMaxClear = false;
+                              userProvider.goldContentsClearCheck(characterIndex, index, false);
+                            });
+                            Fluttertoast.showToast(
+                                msg: "항상 최대 관문 클리어 체크가 해제되었습니다.",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                backgroundColor: Colors.grey,
+                                fontSize: 14.0);
+                          },
                         ),
                         difficultyText(
                             userProvider.charactersProvider.characters[characterIndex].goldContents[index].difficulty.toString()),
@@ -154,7 +184,8 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                           child: Checkbox(
                             value: userProvider.charactersProvider.characters[characterIndex].goldContents[index].clearChecked,
                             onChanged: (bool? value) {
-                              if (userProvider.charactersProvider.characters[characterIndex].goldContents[index].characterAlwaysMaxClear) {
+                              if (userProvider
+                                  .charactersProvider.characters[characterIndex].goldContents[index].characterAlwaysMaxClear) {
                                 int totalGold = 0;
                                 userProvider.charactersProvider.characters[characterIndex].goldContents[index].goldPerPhase
                                     .forEach((element) => totalGold += element);
@@ -191,11 +222,14 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                     return ElevatedButton(
                                                         onPressed: () {
                                                           int totalGold = 0;
-                                                          for(int i = 0; i <= gridIndex; i++){
-                                                            totalGold += userProvider.charactersProvider.characters[characterIndex].goldContents[index].goldPerPhase[i];
+                                                          for (int i = 0; i <= gridIndex; i++) {
+                                                            totalGold += userProvider.charactersProvider
+                                                                .characters[characterIndex].goldContents[index].goldPerPhase[i];
                                                           }
-                                                          userProvider.charactersProvider.characters[characterIndex].goldContents[index].clearGold = totalGold;
-                                                          userProvider.goldContentsClearCheck(characterIndex, index, value);
+                                                          userProvider.charactersProvider.characters[characterIndex]
+                                                              .goldContents[index].clearGold = totalGold;
+                                                          userProvider.goldContentsClearCheck(characterIndex, index, true);
+                                                          Navigator.pop(context);
                                                         },
                                                         child: Padding(
                                                           padding: const EdgeInsets.all(3.0),
@@ -211,21 +245,24 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                   },
                                                 ),
                                               ),
-                                             Row(
-                                               children: [
-                                                 Checkbox(
-                                                   value: userProvider.charactersProvider.characters[characterIndex]
-                                                       .goldContents[index].characterAlwaysMaxClear,
-                                                   onChanged: (bool? value) {
-                                                     setState(() {
-                                                       userProvider.charactersProvider.characters[characterIndex].goldContents[index]
-                                                           .characterAlwaysMaxClear = value!;
-                                                     });
-                                                   },
-                                                 ),
-                                                 Text('이 캐릭터는 항상 최대관문 클리어 설정',style: TextStyle(fontSize: 14),)
-                                               ],
-                                             )
+                                              Row(
+                                                children: [
+                                                  Checkbox(
+                                                    value: userProvider.charactersProvider.characters[characterIndex]
+                                                        .goldContents[index].characterAlwaysMaxClear,
+                                                    onChanged: (bool? value) {
+                                                      setState(() {
+                                                        userProvider.charactersProvider.characters[characterIndex]
+                                                            .goldContents[index].characterAlwaysMaxClear = value!;
+                                                      });
+                                                    },
+                                                  ),
+                                                  Text(
+                                                    '이 캐릭터는 항상 최대관문 클리어 설정',
+                                                    style: TextStyle(fontSize: 14),
+                                                  )
+                                                ],
+                                              )
                                             ],
                                           ),
                                         );
@@ -623,6 +660,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
     int level = int.parse(character.level);
     bool getGoldLevelLimit = level <= character.goldContents[index].getGoldLevelLimit; // 골드획득 레벨제한
     bool enterGoldLevelLimit = level >= character.goldContents[index].enterLevelLimit;
+    bool clearCheck = character.goldContents[index].clearChecked;
     print(getGoldLevelLimit);
     if (getGoldLevelLimit && character.goldContents[index].characterAlwaysMaxClear && enterGoldLevelLimit) {
       int total = 0;
@@ -630,6 +668,12 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
         total += element;
       });
       return total.toString() + " Gold";
+    }
+    if (getGoldLevelLimit &&
+        character.goldContents[index].characterAlwaysMaxClear == false &&
+        enterGoldLevelLimit &&
+        clearCheck) {
+      return "${character.goldContents[index].clearGold} Gold";
     }
     if (getGoldLevelLimit && character.goldContents[index].characterAlwaysMaxClear == false && enterGoldLevelLimit) {
       return "관문 선택";

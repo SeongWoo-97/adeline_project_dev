@@ -1,4 +1,6 @@
+import 'package:adeline_project_dev/constant/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TotalGoldWidget extends StatelessWidget {
   const TotalGoldWidget({Key? key}) : super(key: key);
@@ -25,9 +27,14 @@ class TotalGoldWidget extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
-                      '75,000 G ',
-                      style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                    ValueListenableBuilder(
+                      valueListenable: totalGold,
+                      builder: (BuildContext context, int value, Widget? child) {
+                        return Text(
+                          '${NumberFormat('###,###,###,###').format(totalGold.value).replaceAll(' ', '')} G ',
+                          style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                        );
+                      },
                     ),
                   ],
                 )
@@ -37,5 +44,9 @@ class TotalGoldWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getTotalGold() {
+    return NumberFormat('###,###,###,###').format(totalGold.value).replaceAll(' ', '');
   }
 }

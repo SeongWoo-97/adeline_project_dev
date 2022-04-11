@@ -40,6 +40,11 @@ class MyApp extends StatelessWidget {
               color: Colors.black,
               fontFamily: 'NotoSansKR',
             ),
+            bodyText2: TextStyle(
+              fontSize: 14,
+              color: Colors.black,
+              fontFamily: 'NotoSansKR',
+            ),
           ),
         ),
       ),

@@ -1,7 +1,7 @@
+import 'package:adeline_project_dev/screen/mobile/character_setting_screen/character_setting_screen.dart';
 import 'package:adeline_project_dev/screen/mobile/characters_screen/widget/character_slot_widgets/gold_contents_widget.dart';
 import 'package:adeline_project_dev/screen/mobile/characters_screen/widget/character_slot_widgets/weekly_contents_widget.dart';
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
-import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +19,6 @@ class CharacterSlotWidget extends StatefulWidget {
 class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
   int tag = 0;
   List<String> options = ['일일', '주간', '골드'];
-  CustomPopupMenuController _customPopupMenuController = CustomPopupMenuController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
     return Expanded(
       child: ListView.builder(
         itemCount: userProvider.charactersProvider.characters.length,
-        itemBuilder: (context, index) {
+        itemBuilder: (context, characterIndex) {
           return Padding(
             padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
             child: Container(
@@ -54,24 +53,37 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.asset('assets/job/105.png',width: 40,height: 40,),
-                              SizedBox(width: 7,),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 5),
+                                child: Image.asset(
+                                  'assets/job/105.png',
+                                  width: 40,
+                                  height: 40,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 7,
+                              ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      Text(userProvider.charactersProvider.characters[index].nickName,
+                                      Text(userProvider.charactersProvider.characters[characterIndex].nickName,
                                           style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16)),
-                                      SizedBox(width: 3,),
+                                      SizedBox(
+                                        width: 3,
+                                      ),
                                       Text(
-                                          '${userProvider.charactersProvider.characters[index].job} Lv.${userProvider.charactersProvider.characters[index].level} ',
-                                          style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 13,color: Colors.grey)),
+                                          '${userProvider.charactersProvider.characters[characterIndex].job} Lv.${userProvider.charactersProvider.characters[characterIndex].level} ',
+                                          style:
+                                              Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 13, color: Colors.grey)),
                                     ],
                                   ),
-                                  Text('주간 골드 : ${weeklyGold(index)} G',
+                                  Text('주간 골드 : ${weeklyGold(characterIndex)} G',
                                       style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14)),
                                   Row(
                                     children: [
@@ -138,65 +150,8 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                               ),
                             ],
                           ),
-
                         ],
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(right: 20),
-                      //   child: Column(
-                      //     mainAxisAlignment: MainAxisAlignment.start,
-                      //     children: [
-                      //       Row(
-                      //         children: [
-                      //           Padding(
-                      //             padding: const EdgeInsets.fromLTRB(0, 3, 10, 5),
-                      //             child: Text(
-                      //               '일일',
-                      //               style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                      //             ),
-                      //           ),
-                      //           SizedBox(
-                      //             width: 15,
-                      //             height: 25,
-                      //             child: Checkbox(value: false, onChanged: (value) {}),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //       Row(
-                      //         children: [
-                      //           Padding(
-                      //             padding: const EdgeInsets.fromLTRB(0, 3, 10, 5),
-                      //             child: Text(
-                      //               '주간',
-                      //               style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                      //             ),
-                      //           ),
-                      //           SizedBox(
-                      //             width: 15,
-                      //             height: 25,
-                      //             child: Checkbox(value: false, onChanged: (value) {}),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //       Row(
-                      //         children: [
-                      //           Padding(
-                      //             padding: const EdgeInsets.fromLTRB(0, 3, 10, 5),
-                      //             child: Text(
-                      //               '골드',
-                      //               style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                      //             ),
-                      //           ),
-                      //           SizedBox(
-                      //             width: 15,
-                      //             height: 25,
-                      //             child: Checkbox(value: false, onChanged: (value) {}),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
                     ],
                   ),
                   children: [
@@ -231,11 +186,13 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                         ),
                         IconButton(
                           icon: Icon(Icons.settings, color: Colors.grey),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterSettingsScreen(characterIndex)));
+                          },
                         )
                       ],
                     ),
-                    widgetPerContents(options[tag], index),
+                    widgetPerContents(options[tag], characterIndex),
                   ],
                 ),
               ),

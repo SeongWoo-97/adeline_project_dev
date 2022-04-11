@@ -19,7 +19,24 @@ class UserProvider extends ChangeNotifier {
   void goldContentsClearCheck(int characterIndex, int index, bool? value) {
     charactersProvider.characters[characterIndex].goldContents[index].clearChecked = value!;
     updateContentBoard();
+    updateTotalGold();
     notifyListeners();
+  }
+
+  void updateTotalGold() {
+    totalGold.value = 0;
+    charactersProvider.characters.forEach((character) {
+      character.goldContents.forEach((goldContent) {
+        if (goldContent.clearChecked == true && goldContent.characterAlwaysMaxClear == true) {
+          goldContent.goldPerPhase.forEach((element) {
+            totalGold.value += element;
+          });
+        } else if(goldContent.clearChecked == true && goldContent.characterAlwaysMaxClear == false){
+          totalGold.value += goldContent.clearGold;
+        }
+      });
+    });
+    print(totalGold.value);
   }
 
   void updateContentBoard() {
@@ -33,7 +50,6 @@ class UserProvider extends ChangeNotifier {
     argus.value = 0;
     orehaNormal.value = 0;
     orehaHard.value = 0;
-    print('하이2');
     for (int i = 0; i < charactersProvider.characters.length; i++) {
       for (int j = 0; j < charactersProvider.characters[i].goldContents.length; j++) {
         GoldContent goldContent = charactersProvider.characters[i].goldContents[j];
