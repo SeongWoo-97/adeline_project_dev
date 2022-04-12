@@ -4,12 +4,13 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:web_scraper/web_scraper.dart';
 import '../../../../model/user/character/character_model.dart';
+import '../../../../model/user/expedition/expedition_model.dart';
 import '../../../../model/user/user_provider.dart';
 import '../../bottom_navigation_screen/bottom_navigation_screen.dart';
 
 class InitSettingsController extends ChangeNotifier {
   final webScraper = WebScraper('https://lostark.game.onstove.com');
-  TextEditingController textEditingController = TextEditingController(text: "황농노");
+  TextEditingController textEditingController = TextEditingController(text: "성우웅");
   var nickName;
   var level;
   var job;
@@ -27,9 +28,10 @@ class InitSettingsController extends ChangeNotifier {
 
   void configCompleted(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context,listen: false);
+    ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context,listen: false);
     List<String> server = servers.keys.toList();
     userProvider.charactersProvider.characters = servers[server[tag]]!;
-    userProvider.expeditionProvider = ExpeditionProvider();
+    expeditionProvider.expedition = Expedition();
     Navigator.pushAndRemoveUntil(
         context, MaterialPageRoute(builder: (context) => BottomNavigationScreen()), (route) => false);
   }

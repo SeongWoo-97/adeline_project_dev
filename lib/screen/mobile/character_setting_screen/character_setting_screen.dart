@@ -13,7 +13,6 @@ import 'package:provider/provider.dart';
 import '../../../constant/constant.dart';
 import '../../../model/user/character/character_model.dart';
 
-
 class CharacterSettingsScreen extends StatefulWidget {
   final int characterIndex;
 
@@ -31,8 +30,7 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
   List<Card> dailyCardList = [];
   List<Card> weeklyCardList = [];
 
-  final key = GlobalKey<FormState>();
-  final formKey = GlobalKey<FormState>();
+  final formKey1 = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
 
   bool nickNameError = false;
@@ -51,8 +49,6 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
   DragAndDropList weeklyDragAndDrop = DragAndDropList(children: []);
   DragAndDropList dailyDragAndDrop = DragAndDropList(children: []);
 
-  late Character character;
-
   @override
   void initState() {
     // TODO: implement initState
@@ -60,16 +56,17 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
     nickNameController.text = userProvider.charactersProvider.characters[widget.characterIndex].nickName;
     levelController.text = userProvider.charactersProvider.characters[widget.characterIndex].level;
-    chaosGaugeController.text = userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0].restGauge.toString();
-    guardianGaugeController.text = userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1].restGauge.toString();
-    eponaGaugeController.text = userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2].restGauge.toString();
+    chaosGaugeController.text =
+        userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0].restGauge.toString();
+    guardianGaugeController.text =
+        userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1].restGauge.toString();
+    eponaGaugeController.text =
+        userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2].restGauge.toString();
   }
 
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
-
-    character = userProvider.charactersProvider.characters[widget.characterIndex];
     return PlatformScaffold(
       appBar: PlatformAppBar(
         title: Text(
@@ -82,6 +79,35 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
           elevation: .5,
           title: Text('캐릭터 정보수정', style: Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold)),
         ),
+        trailingActions: [
+          TextButton(
+            onPressed: () async {
+              userProvider.updateContentBoard();
+              if (nickNameError == true) {
+                toast('닉네임이 잘못 설정되었습니다.');
+                await Future.delayed(Duration(seconds: 1, milliseconds: 500));
+              }
+              if (levelError == true) {
+                toast('아이템 레벨 값이 잘못 설정되었습니다.');
+                await Future.delayed(Duration(seconds: 1, milliseconds: 500));
+              }
+              if (chaosError == true || guardianError == true || eponaError == true) {
+                toast('휴식 게이지 값이 잘못되었습니다.');
+                await Future.delayed(Duration(seconds: 1, milliseconds: 500));
+              }
+              if (nickNameError == false && levelError == false && chaosError == false && guardianError == false && eponaError == false) {
+                formKey1.currentState?.save();
+                formKey2.currentState?.save();
+                userProvider.providerSetState();
+                Navigator.pop(context);
+              }
+            },
+            child: Text(
+              '저장',
+              style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.blue, fontWeight: FontWeight.bold),
+            ),
+          )
+        ],
       ),
       cupertino: (_, __) => CupertinoPageScaffoldData(),
       material: (_, __) => MaterialScaffoldData(
@@ -89,7 +115,7 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
           children: [
             // 닉네임, 레벨 TextField
             Form(
-              key: formKey,
+              key: formKey1,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(3, 5, 3, 5),
                 child: Row(
@@ -127,7 +153,7 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                               });
                             },
                             onSaved: (value) {
-                              character.nickName = value!;
+                              userProvider.charactersProvider.characters[widget.characterIndex].nickName = value!;
                             },
                           ),
                         ),
@@ -166,7 +192,8 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                               });
                             },
                             onSaved: (value) {
-                              character.level = int.parse(value.toString()).toString();
+                              userProvider.charactersProvider.characters[widget.characterIndex].level =
+                                  int.parse(value.toString()).toString();
                             },
                           ),
                         ),
@@ -204,7 +231,8 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                 });
                               },
                               onSaved: (value) {
-                                character.level = int.parse(value.toString()).toString();
+                                userProvider.charactersProvider.characters[widget.characterIndex].level =
+                                    int.parse(value.toString()).toString();
                               },
                             ),
                           ),
@@ -258,7 +286,8 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                               ),
                                             ),
                                             onSaved: (value) {
-                                              character.dailyContents[0].restGauge = int.parse(value.toString());
+                                              userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0]
+                                                  .restGauge = int.parse(value.toString());
                                             },
                                             onChanged: (value) {
                                               setState(() {
@@ -298,7 +327,8 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                                   ),
                                                 ),
                                                 onSaved: (value) {
-                                                  character.dailyContents[0].restGauge = int.parse(value.toString());
+                                                  userProvider.charactersProvider.characters[widget.characterIndex]
+                                                      .dailyContents[0].restGauge = int.parse(value.toString());
                                                 },
                                                 onChanged: (value) {
                                                   setState(() {
@@ -336,8 +366,11 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                           height: 25,
                                         ),
                                         onTap: () {
-                                          if (character.dailyContents[0].clearNum > 0) {
-                                            character.dailyContents[0].clearNum -= 1;
+                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0]
+                                                  .clearNum >
+                                              0) {
+                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0]
+                                                .clearNum -= 1;
                                             setState(() {});
                                           } else {
                                             toast('최소 클리어 횟수는 0입니다.');
@@ -345,7 +378,7 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                         },
                                       ),
                                       Text(
-                                        '${character.dailyContents[0].clearNum}',
+                                        '${userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0].clearNum}',
                                         style: Theme.of(context).textTheme.bodyText1,
                                       ),
                                       InkWell(
@@ -355,9 +388,12 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                           height: 25,
                                         ),
                                         onTap: () {
-                                          if (character.dailyContents[0].clearNum <
-                                              character.dailyContents[0].maxClearNum) {
-                                            character.dailyContents[0].clearNum += 1;
+                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0]
+                                                  .clearNum <
+                                              userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0]
+                                                  .maxClearNum) {
+                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0]
+                                                .clearNum += 1;
                                             setState(() {});
                                           } else {
                                             toast('최대 클리어 횟수를 초과할 수 없습니다.');
@@ -397,7 +433,8 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                               ),
                                             ),
                                             onSaved: (value) {
-                                              character.dailyContents[1].restGauge = int.parse(value.toString());
+                                              userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1]
+                                                  .restGauge = int.parse(value.toString());
                                             },
                                             onChanged: (value) {
                                               setState(() {
@@ -437,7 +474,8 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                                   ),
                                                 ),
                                                 onSaved: (value) {
-                                                  character.dailyContents[1].restGauge = int.parse(value.toString());
+                                                  userProvider.charactersProvider.characters[widget.characterIndex]
+                                                      .dailyContents[1].restGauge = int.parse(value.toString());
                                                 },
                                                 onChanged: (value) {
                                                   setState(() {
@@ -475,8 +513,11 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                           height: 25,
                                         ),
                                         onTap: () {
-                                          if (character.dailyContents[1].clearNum > 0) {
-                                            character.dailyContents[1].clearNum -= 1;
+                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1]
+                                                  .clearNum >
+                                              0) {
+                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1]
+                                                .clearNum -= 1;
                                             setState(() {});
                                           } else {
                                             toast('최소 클리어 횟수는 0입니다.');
@@ -484,7 +525,7 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                         },
                                       ),
                                       Text(
-                                        '${character.dailyContents[1].clearNum}',
+                                        '${userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1].clearNum}',
                                         style: Theme.of(context).textTheme.bodyText1,
                                       ),
                                       InkWell(
@@ -494,9 +535,12 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                           height: 25,
                                         ),
                                         onTap: () {
-                                          if (character.dailyContents[1].clearNum <
-                                              character.dailyContents[1].maxClearNum) {
-                                            character.dailyContents[1].clearNum += 1;
+                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1]
+                                                  .clearNum <
+                                              userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1]
+                                                  .maxClearNum) {
+                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1]
+                                                .clearNum += 1;
                                             setState(() {});
                                           } else {
                                             toast('최대 클리어 횟수를 초과할 수 없습니다.');
@@ -536,7 +580,8 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                               ),
                                             ),
                                             onSaved: (value) {
-                                              character.dailyContents[2].restGauge = int.parse(value.toString());
+                                              userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2]
+                                                  .restGauge = int.parse(value.toString());
                                             },
                                             onChanged: (value) {
                                               setState(() {
@@ -576,7 +621,8 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                                   ),
                                                 ),
                                                 onSaved: (value) {
-                                                  character.dailyContents[2].restGauge = int.parse(value.toString());
+                                                  userProvider.charactersProvider.characters[widget.characterIndex]
+                                                      .dailyContents[2].restGauge = int.parse(value.toString());
                                                 },
                                                 onChanged: (value) {
                                                   setState(() {
@@ -614,8 +660,11 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                           height: 25,
                                         ),
                                         onTap: () {
-                                          if (character.dailyContents[2].clearNum > 0) {
-                                            character.dailyContents[2].clearNum -= 1;
+                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2]
+                                                  .clearNum >
+                                              0) {
+                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2]
+                                                .clearNum -= 1;
                                             setState(() {});
                                           } else {
                                             toast('최소 클리어 횟수는 0입니다.');
@@ -623,7 +672,7 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                         },
                                       ),
                                       Text(
-                                        '${character.dailyContents[2].clearNum}',
+                                        '${userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2].clearNum}',
                                         style: Theme.of(context).textTheme.bodyText1,
                                       ),
                                       InkWell(
@@ -633,9 +682,12 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                           height: 25,
                                         ),
                                         onTap: () {
-                                          if (character.dailyContents[2].clearNum <
-                                              character.dailyContents[2].maxClearNum) {
-                                            character.dailyContents[2].clearNum += 1;
+                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2]
+                                                  .clearNum <
+                                              userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2]
+                                                  .maxClearNum) {
+                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2]
+                                                .clearNum += 1;
                                             setState(() {});
                                           } else {
                                             toast('최대 클리어 횟수를 초과할 수 없습니다.');
@@ -688,6 +740,7 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
       ),
     );
   }
+
   Widget widgetPerContents(String tag, int characterIndex) {
     switch (tag) {
       case "일일 콘텐츠":
@@ -699,6 +752,7 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
     }
     return Container();
   }
+
   void toast(String msg) {
     Fluttertoast.showToast(
       msg: msg,

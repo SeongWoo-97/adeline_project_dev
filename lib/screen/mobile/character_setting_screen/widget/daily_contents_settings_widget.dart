@@ -101,7 +101,7 @@ class _DailyContentSettingWidgetState extends State<DailyContentSettingWidget> {
         (i) => DragAndDropItem(
           child: Card(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(7),
+              borderRadius: BorderRadius.circular(8),
               side: BorderSide(color: Colors.grey, width: 0.8),
             ),
             child: CheckboxListTile(
@@ -179,8 +179,7 @@ class _DailyContentSettingWidgetState extends State<DailyContentSettingWidget> {
                         ),
                       ),
                       onTap: () async {
-                        addController.text =
-                            '${userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[i].name}';
+                        addController.text = '${userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[i].name}';
                         userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[i] is RestGaugeContent
                             ? toast('고정 콘텐츠는 수정할 수 없습니다.')
                             : await showDialog(
@@ -277,8 +276,7 @@ class _DailyContentSettingWidgetState extends State<DailyContentSettingWidget> {
               contentPadding: EdgeInsets.fromLTRB(0, 0, 40, 0),
             ),
           ),
-          canDrag:
-              userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[i] is DailyContent ? true : false,
+          canDrag: userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[i] is DailyContent ? true : false,
         ),
       ),
     );

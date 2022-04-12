@@ -7,7 +7,6 @@ import 'content/gold_content.dart';
 
 class UserProvider extends ChangeNotifier {
   CharacterProvider charactersProvider;
-  ExpeditionProvider expeditionProvider = ExpeditionProvider();
 
   UserProvider({required this.charactersProvider});
 
@@ -27,16 +26,22 @@ class UserProvider extends ChangeNotifier {
     totalGold.value = 0;
     charactersProvider.characters.forEach((character) {
       character.goldContents.forEach((goldContent) {
-        if (goldContent.clearChecked == true && goldContent.characterAlwaysMaxClear == true) {
-          goldContent.goldPerPhase.forEach((element) {
-            totalGold.value += element;
-          });
-        } else if(goldContent.clearChecked == true && goldContent.characterAlwaysMaxClear == false){
-          totalGold.value += goldContent.clearGold;
+        int level = int.parse(character.level);
+
+        if (goldContent.isChecked && goldContent.clearChecked) {
+          // 클리어 골드 획득 조건
+          if (level < goldContent.getGoldLevelLimit) {
+            if (goldContent.characterAlwaysMaxClear) {
+              goldContent.goldPerPhase.forEach((element) => totalGold.value += element);
+            } else {
+              totalGold.value += goldContent.clearGold;
+            }
+          }
+          // 추가 골드
+          totalGold.value += goldContent.addGold;
         }
       });
     });
-    print(totalGold.value);
   }
 
   void updateContentBoard() {
@@ -92,5 +97,9 @@ class UserProvider extends ChangeNotifier {
         }
       }
     }
+  }
+
+  void providerSetState() {
+    notifyListeners();
   }
 }

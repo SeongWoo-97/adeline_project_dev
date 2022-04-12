@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
+import 'model/user/expedition/expedition_provider.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +22,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => InitSettingsController()),
         ChangeNotifierProvider(create: (context) => CharacterProvider()),
         ChangeNotifierProvider(create: (context) => UserProvider(charactersProvider: CharacterProvider())),
+        ChangeNotifierProvider(create: (context) => ExpeditionProvider()),
       ],
       child: MyApp(),
     ),
@@ -42,6 +45,11 @@ class MyApp extends StatelessWidget {
             ),
             bodyText2: TextStyle(
               fontSize: 14,
+              color: Colors.black,
+              fontFamily: 'NotoSansKR',
+            ),
+            caption: TextStyle(
+              fontSize: 12,
               color: Colors.black,
               fontFamily: 'NotoSansKR',
             ),

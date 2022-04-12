@@ -16,8 +16,7 @@ class GoldContentSettingWidget extends StatefulWidget {
 }
 
 class _GoldContentSettingWidgetState extends State<GoldContentSettingWidget> {
-  List<GoldContent> defaultGoldContents =
-      List.generate(constGoldContents.length, (index) => GoldContent.clone(constGoldContents[index]));
+  List<GoldContent> defaultGoldContents = List.generate(constGoldContents.length, (index) => GoldContent.clone(constGoldContents[index]));
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +41,10 @@ class _GoldContentSettingWidgetState extends State<GoldContentSettingWidget> {
                 padding: const EdgeInsets.only(right: 5),
                 child: ElevatedButton(
                     onPressed: () {
-                      userProvider.charactersProvider.characters[widget.characterIndex].goldContents = defaultGoldContents;
-                      userProvider.updateContentBoard();
+                      setState(() {
+                        userProvider.charactersProvider.characters[widget.characterIndex].goldContents = defaultGoldContents;
+                        userProvider.updateContentBoard();
+                      });
                     },
                     child: Text('저장')),
               )
@@ -113,24 +114,9 @@ class _GoldContentSettingWidgetState extends State<GoldContentSettingWidget> {
 
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(),
-            Padding(
-              padding: const EdgeInsets.only(right: 5),
-              child: ElevatedButton(
-                  onPressed: () {
-                    userProvider.charactersProvider.characters[widget.characterIndex].goldContents = defaultGoldContents;
-                    userProvider.updateContentBoard();
-                  },
-                  child: Text('저장')),
-            )
-          ],
-        ),
         ListView.builder(
           shrinkWrap: true,
-          itemCount: userProvider.charactersProvider.characters.length,
+          itemCount: userProvider.charactersProvider.characters[widget.characterIndex].goldContents.length,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             return Card(
@@ -175,7 +161,6 @@ class _GoldContentSettingWidgetState extends State<GoldContentSettingWidget> {
                               value:
                                   userProvider.charactersProvider.characters[widget.characterIndex].goldContents[index].isChecked,
                               onChanged: (bool? value) {
-                                print(value);
                                 setState(() {
                                   userProvider.charactersProvider.characters[widget.characterIndex].goldContents[index]
                                       .isChecked = value!;

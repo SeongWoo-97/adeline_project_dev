@@ -29,7 +29,6 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
   @override
   void initState() {
     super.initState();
-    print(widget.characterIndex);
   }
 
   @override
@@ -41,13 +40,17 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('해당 캐릭터는 골드 콘텐츠가 설정되어 있지 않습니다.'),
-                  Text('원하시는 콘텐츠를 선택하신후 저장 버튼을 눌러주세요!'),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(left: 5, right: 7),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('해당 캐릭터는 골드 콘텐츠가 설정되어 있지 않습니다.', style: Theme.of(context).textTheme.caption),
+                    Text('콘텐츠를 선택하신 후 "저장" 버튼을 눌러주세요!', style: Theme.of(context).textTheme.caption),
+                  ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 5),
@@ -58,7 +61,18 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                       userProvider.updateContentBoard();
                     });
                   },
-                  child: Text('저장'),
+                  child: Text('저장', style: Theme.of(context).textTheme.bodyText2),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.white,
+                    elevation: 1,
+                    side: BorderSide(
+                      width: .7,
+                      color: Colors.grey,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(7),
+                    ),
+                  ),
                 ),
               )
             ],
@@ -184,15 +198,8 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                           child: Checkbox(
                             value: userProvider.charactersProvider.characters[characterIndex].goldContents[index].clearChecked,
                             onChanged: (bool? value) {
-                              if (userProvider
+                              if (!userProvider
                                   .charactersProvider.characters[characterIndex].goldContents[index].characterAlwaysMaxClear) {
-                                int totalGold = 0;
-                                userProvider.charactersProvider.characters[characterIndex].goldContents[index].goldPerPhase
-                                    .forEach((element) => totalGold += element);
-                                userProvider.charactersProvider.characters[characterIndex].goldContents[index].clearGold =
-                                    totalGold;
-                                userProvider.goldContentsClearCheck(characterIndex, index, value);
-                              } else {
                                 showPlatformDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -268,6 +275,13 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                         );
                                       });
                                     });
+                              } else {
+                                int totalGold = 0;
+                                userProvider.charactersProvider.characters[characterIndex].goldContents[index].goldPerPhase
+                                    .forEach((element) => totalGold += element);
+                                userProvider.charactersProvider.characters[characterIndex].goldContents[index].clearGold =
+                                    totalGold;
+                                userProvider.goldContentsClearCheck(characterIndex, index, value);
                               }
                             },
                           ),
@@ -551,10 +565,12 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                       if (_goldType == AddGoldType.normal) {
                                                         userProvider.updateAddGold(
                                                             characterIndex, index, int.parse(addGoldTextEditingController.text));
+                                                        userProvider.updateTotalGold();
                                                       } else {
                                                         if (numberOfPersonTextEditingController.text.isNotEmpty &&
                                                             busCostTextEditingController.text.isNotEmpty) {
                                                           userProvider.updateAddGold(characterIndex, index, busCost);
+                                                          userProvider.updateTotalGold();
                                                         }
                                                       }
                                                       Navigator.pop(context);
