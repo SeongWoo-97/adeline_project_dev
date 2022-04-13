@@ -1,4 +1,3 @@
-import 'package:adeline_project_dev/constant/constant.dart';
 import 'package:adeline_project_dev/model/user/content/weekly_content.dart';
 
 import '../content/gold_content.dart';
@@ -8,6 +7,7 @@ class Character {
   String nickName;
   String server;
   String groupName = "";
+  String jobCode = "";
   var level;
   var job;
   bool expanded = false;
@@ -23,6 +23,6 @@ class Character {
   ];
   List<GoldContent> goldContents = [];
 
-  Character({required this.server, required this.nickName, this.level, this.job});
+  Character({required this.server, required this.nickName, this.level, this.job,required this.jobCode});
 
 }

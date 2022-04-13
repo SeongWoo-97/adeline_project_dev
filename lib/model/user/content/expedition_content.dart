@@ -1,7 +1,9 @@
 class ExpeditionContent {
+  String type;
   String name;
   String iconName;
-  bool isChecked = false;
+  bool clearCheck = false;
+  bool isChecked = true;
 
-  ExpeditionContent(this.name, this.iconName);
+  ExpeditionContent(this.type,this.name, this.iconName);
 }

@@ -8,6 +8,9 @@ import '../../../../model/user/expedition/expedition_model.dart';
 import '../../../../model/user/user_provider.dart';
 import '../../bottom_navigation_screen/bottom_navigation_screen.dart';
 
+ValueNotifier<String> getCharacterNickName = ValueNotifier<String>('');
+ValueNotifier<int> getCharacterNum = ValueNotifier<int>(0);
+
 class InitSettingsController extends ChangeNotifier {
   final webScraper = WebScraper('https://lostark.game.onstove.com');
   TextEditingController textEditingController = TextEditingController(text: "성우웅");
@@ -27,19 +30,17 @@ class InitSettingsController extends ChangeNotifier {
   }
 
   void configCompleted(BuildContext context) {
-    UserProvider userProvider = Provider.of<UserProvider>(context,listen: false);
-    ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context,listen: false);
+    UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+    ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context, listen: false);
     List<String> server = servers.keys.toList();
     userProvider.charactersProvider.characters = servers[server[tag]]!;
     expeditionProvider.expedition = Expedition();
-    Navigator.pushAndRemoveUntil(
-        context, MaterialPageRoute(builder: (context) => BottomNavigationScreen()), (route) => false);
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => BottomNavigationScreen()), (route) => false);
   }
 
   // 캐릭터 유무확인 메서드
   bool getCharStateCheck(String nickName) {
-    bool state =
-        webScraper.getElementTitle('div.profile-ingame > div.profile-attention').toString().contains('캐릭터 정보가 없습니다.');
+    bool state = webScraper.getElementTitle('div.profile-ingame > div.profile-attention').toString().contains('캐릭터 정보가 없습니다.');
     // state 참 - 캐릭터가 존재하지 않음
     // state 거짓 - 캐릭터가 존재함
     return state ? true : false;
@@ -57,8 +58,7 @@ class InitSettingsController extends ChangeNotifier {
     if (loadWebPageBool & getCharStateCheckBool & textControllerEmptyBool) {
       Navigator.pop(context);
       job = webScraper.getElementAttribute('div > main > div > div.profile-character-info > img', 'alt');
-      level =
-          webScraper.getElementTitle('div.profile-ingame > div.profile-info > div.level-info2 > div.level-info2__item');
+      level = webScraper.getElementTitle('div.profile-ingame > div.profile-info > div.level-info2 > div.level-info2__item');
 
       if (job.isNotEmpty && level.isNotEmpty) {
         showPlatformDialog(
@@ -103,9 +103,6 @@ class InitSettingsController extends ChangeNotifier {
     }
   }
 
-  ValueNotifier<String> getCharacterNickName = ValueNotifier<String>('');
-  ValueNotifier<int> getCharacterNum = ValueNotifier<int>(0);
-
   getCharList(BuildContext context) async {
     characters.clear();
     servers.clear();
@@ -136,23 +133,26 @@ class InitSettingsController extends ChangeNotifier {
         getCharacterNickName.value = nickNameList[i];
         getCharacterNum.value = i;
         var _job = webScraper.getElementAttribute('div > main > div > div.profile-character-info > img', 'alt')[0];
-        var _level = levelText(webScraper
-            .getElementTitle('div.profile-ingame > div.profile-info > div.level-info2 > div.level-info2__item')[0]);
-        var _server = serverText(
-            webScraper.getElementTitle('div.profile-character-info > span.profile-character-info__server')[0]);
+        var _level = levelText(
+            webScraper.getElementTitle('div.profile-ingame > div.profile-info > div.level-info2 > div.level-info2__item')[0]);
+        var _server =
+            serverText(webScraper.getElementTitle('div.profile-character-info > span.profile-character-info__server')[0]);
         Character character = Character(
           server: _server,
           nickName: getCharacterNickName.value,
           level: _level,
           job: _job,
+          jobCode: getJobCode(_job),
         );
         characters.add(character);
+        // 서버 분류
         if (servers.containsKey('$_server')) {
           servers['$_server']?.add(Character(
             server: _server,
             nickName: getCharacterNickName.value,
             level: _level,
             job: _job,
+            jobCode: getJobCode(_job),
           ));
         } else {
           servers['$_server'] = [];
@@ -161,6 +161,7 @@ class InitSettingsController extends ChangeNotifier {
             nickName: getCharacterNickName.value,
             level: _level,
             job: _job,
+            jobCode: getJobCode(_job),
           ));
         }
       }
@@ -244,5 +245,55 @@ class InitSettingsController extends ChangeNotifier {
   cancel() {
     currentStep > 0 ? currentStep -= 1 : null;
     notifyListeners();
+  }
+
+  String getJobCode(String? job) {
+    switch (job) {
+      case "버서커":
+        return "102";
+      case "디스트로이어":
+        return "103";
+      case "워로드":
+        return "104";
+      case "홀리나이트":
+        return "105";
+      case "아르카나":
+        return "202";
+      case "서머너":
+        return "203";
+      case "바드":
+        return "204";
+      case "소서리스":
+        return "205";
+      case "배틀마스터":
+        return "302";
+      case "인파이터":
+        return "303";
+      case "기공사":
+        return "304";
+      case "창술사":
+        return "305";
+      case "스트라이커":
+        return "312";
+      case "데모닉":
+        return "403";
+      case "블레이드":
+        return "402";
+      case "리퍼":
+        return "404";
+      case "호크아이":
+        return "502";
+      case "데빌헌터":
+        return "503";
+      case "블래스터":
+        return "504";
+      case "스카우터":
+        return "505";
+      case "건슬링어":
+        return "512";
+      case "도화가":
+        return "602";
+    }
+    return "0";
   }
 }

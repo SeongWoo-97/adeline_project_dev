@@ -41,7 +41,7 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                 child: Consumer<UserProvider>(
                   builder: (context, instance, child) {
                     return ExpansionTile(
-                      tilePadding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                      tilePadding: EdgeInsets.fromLTRB(3, 0, 5, 0),
                       expandedCrossAxisAlignment: CrossAxisAlignment.start,
                       expandedAlignment: Alignment.topLeft,
                       textColor: Colors.black,
@@ -62,9 +62,9 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                                   Padding(
                                     padding: const EdgeInsets.only(top: 5),
                                     child: Image.asset(
-                                      'assets/job/105.png',
-                                      width: 40,
-                                      height: 40,
+                                      'assets/job/${userProvider.charactersProvider.characters[characterIndex].jobCode}.png',
+                                      width: 45,
+                                      height: 45,
                                     ),
                                   ),
                                   SizedBox(

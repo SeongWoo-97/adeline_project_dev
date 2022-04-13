@@ -9,6 +9,7 @@ import '../../../../constant/constant.dart';
 import '../../../../model/user/content/restGauge_content.dart';
 import '../../../../model/user/content/weekly_content.dart';
 import '../../../../model/user/user_provider.dart';
+import 'add_content_widget.dart';
 
 class WeeklyContentSettingWidget extends StatefulWidget {
   final int characterIndex;
@@ -34,16 +35,7 @@ class _WeeklyContentSettingWidgetState extends State<WeeklyContentSettingWidget>
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              child: IconButton(
-                icon: Icon(
-                  Icons.add,
-                  color: Colors.blue,
-                ),
-                iconSize: 30,
-                constraints: BoxConstraints(maxHeight: 25),
-                padding: EdgeInsets.only(right: 10),
-                onPressed: () {},
-              ),
+              child: AddContentIconWidget(widget.characterIndex,"주간"),
             )
           ],
         ),

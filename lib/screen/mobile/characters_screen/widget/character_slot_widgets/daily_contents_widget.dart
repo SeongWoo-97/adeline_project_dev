@@ -71,15 +71,15 @@ class _DailyContentsWidgetState extends State<DailyContentsWidget> {
                     ),
                     Checkbox(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      value: userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearCheck,
+                      value: userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearChecked,
                       checkColor: Color.fromRGBO(119, 210, 112, 1),
                       activeColor: Colors.transparent,
                       side: BorderSide(color: Colors.grey, width: 1.5),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
                       onChanged: (bool? value) {
                         setState(() {
-                          userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearCheck =
-                              !userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearCheck;
+                          userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearChecked =
+                              !userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearChecked;
                         });
                       },
                     )
@@ -88,8 +88,8 @@ class _DailyContentsWidgetState extends State<DailyContentsWidget> {
               ),
               onTap: () {
                 setState(() {
-                  userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearCheck =
-                      !userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearCheck;
+                  userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearChecked =
+                      !userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearChecked;
                 });
               },
             );

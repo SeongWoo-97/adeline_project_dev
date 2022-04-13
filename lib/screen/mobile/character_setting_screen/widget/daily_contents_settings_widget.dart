@@ -1,3 +1,4 @@
+import 'package:adeline_project_dev/screen/mobile/character_setting_screen/widget/add_content_widget.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:drag_and_drop_lists/drag_handle.dart';
 import 'package:flutter/material.dart';
@@ -36,16 +37,7 @@ class _DailyContentSettingWidgetState extends State<DailyContentSettingWidget> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              child: IconButton(
-                icon: Icon(
-                  Icons.add,
-                  color: Colors.blue,
-                ),
-                iconSize: 30,
-                constraints: BoxConstraints(maxHeight: 25),
-                padding: EdgeInsets.only(right: 10),
-                onPressed: () {},
-              ),
+              child: AddContentIconWidget(widget.characterIndex,"일일"),
             )
           ],
         ),

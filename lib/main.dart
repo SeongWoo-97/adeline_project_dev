@@ -1,4 +1,6 @@
 import 'package:adeline_project_dev/constant/cupertino/cupertino_text_theme.dart';
+import 'package:adeline_project_dev/model/add_content_provider/add_content_provider.dart';
+import 'package:adeline_project_dev/model/add_content_provider/add_expedition_content_provider.dart';
 import 'package:adeline_project_dev/model/user/user_provider.dart';
 import 'package:adeline_project_dev/screen/mobile/init_screen/controller/initSettings_controller.dart';
 
@@ -12,7 +14,6 @@ import 'package:provider/provider.dart';
 
 import 'model/user/expedition/expedition_provider.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -23,6 +24,8 @@ void main() async {
         ChangeNotifierProvider(create: (context) => CharacterProvider()),
         ChangeNotifierProvider(create: (context) => UserProvider(charactersProvider: CharacterProvider())),
         ChangeNotifierProvider(create: (context) => ExpeditionProvider()),
+        ChangeNotifierProvider(create: (context) => AddContentProvider()),
+        ChangeNotifierProvider(create: (context) => AddExpeditionContentProvider()),
       ],
       child: MyApp(),
     ),
@@ -36,8 +39,7 @@ class MyApp extends StatelessWidget {
       material: (_, __) => MaterialAppData(
         theme: ThemeData(
           textTheme: TextTheme(
-            headline1:
-                TextStyle(fontFamily: 'NotoSansKR', fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black),
+            headline1: TextStyle(fontFamily: 'NotoSansKR', fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black),
             bodyText1: TextStyle(
               fontSize: 16,
               color: Colors.black,
