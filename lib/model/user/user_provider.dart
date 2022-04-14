@@ -1,12 +1,14 @@
 import 'package:adeline_project_dev/model/user/character/character_provider.dart';
-import 'package:adeline_project_dev/model/user/expedition/expedition_provider.dart';
+import 'package:adeline_project_dev/model/user/user.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:hive/hive.dart';
 
 import '../../constant/constant.dart';
 import 'content/gold_content.dart';
 
 class UserProvider extends ChangeNotifier {
   CharacterProvider charactersProvider;
+  final characterBox = Hive.box<User>('characters');
 
   UserProvider({required this.charactersProvider});
 
@@ -19,6 +21,7 @@ class UserProvider extends ChangeNotifier {
     charactersProvider.characters[characterIndex].goldContents[index].clearChecked = value!;
     updateContentBoard();
     updateTotalGold();
+    characterBox.put('user', User(characters: charactersProvider.characters));
     notifyListeners();
   }
 
@@ -30,7 +33,7 @@ class UserProvider extends ChangeNotifier {
 
         if (goldContent.isChecked && goldContent.clearChecked) {
           // 클리어 골드 획득 조건
-          if (level < goldContent.getGoldLevelLimit) {
+          if (level < goldContent.getGoldLevelLimit && level > goldContent.enterLevelLimit) {
             if (goldContent.characterAlwaysMaxClear) {
               goldContent.goldPerPhase.forEach((element) => totalGold.value += element);
             } else {
@@ -100,6 +103,36 @@ class UserProvider extends ChangeNotifier {
   }
 
   void providerSetState() {
+    notifyListeners();
+  }
+
+  void dailyContentClearCheck(int characterIndex, int index, bool? value) {
+    charactersProvider.characters[characterIndex].dailyContents[index].clearChecked = value!;
+    characterBox.put('user', User(characters: charactersProvider.characters));
+    notifyListeners();
+  }
+
+  void weeklyContentClearCheck(int characterIndex, int index, bool? value) {
+    charactersProvider.characters[characterIndex].weeklyContents[index].clearChecked = value!;
+    characterBox.put('user', User(characters: charactersProvider.characters));
+    notifyListeners();
+  }
+  void restGaugeContentClearCheck(int characterIndex, int index){
+    if (charactersProvider.characters[characterIndex].dailyContents[index].maxClearNum !=
+        charactersProvider.characters[characterIndex].dailyContents[index].clearNum) {
+      charactersProvider.characters[characterIndex].dailyContents[index].clearNum += 1;
+      if (charactersProvider.characters[characterIndex].dailyContents[index].restGauge >= 20) {
+        charactersProvider.characters[characterIndex].dailyContents[index].restGauge =
+            charactersProvider.characters[characterIndex].dailyContents[index].restGauge - 20;
+        charactersProvider.characters[characterIndex].dailyContents[index].saveRestGauge += 20;
+      }
+    } else if (charactersProvider.characters[characterIndex].dailyContents[index].maxClearNum ==
+        charactersProvider.characters[characterIndex].dailyContents[index].clearNum) {
+      charactersProvider.characters[characterIndex].dailyContents[index].clearNum = 0;
+      charactersProvider.characters[characterIndex].dailyContents[index].restGauge +=
+          charactersProvider.characters[characterIndex].dailyContents[index].saveRestGauge;
+      charactersProvider.characters[characterIndex].dailyContents[index].saveRestGauge = 0;
+    }
     notifyListeners();
   }
 }

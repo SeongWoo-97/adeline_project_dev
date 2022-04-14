@@ -1,10 +1,13 @@
-import 'package:adeline_project_dev/model/user/expedition/expedition_model.dart';
+import 'package:hive/hive.dart';
 
 import 'character/character_model.dart';
 
+part 'user.g.dart';
+
+@HiveType(typeId: 1)
 class User {
+  @HiveField(0)
   List<Character> characters;
-  Expedition expedition = Expedition();
 
   User({required this.characters});
 }

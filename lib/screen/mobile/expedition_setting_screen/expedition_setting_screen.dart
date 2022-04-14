@@ -5,10 +5,12 @@ import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constant/constant.dart';
 import '../../../model/user/content/expedition_content.dart';
+import '../../../model/user/expedition/expedition_model.dart';
 
 class ExpeditionSettingScreen extends StatefulWidget {
   const ExpeditionSettingScreen({Key? key}) : super(key: key);
@@ -19,6 +21,7 @@ class ExpeditionSettingScreen extends StatefulWidget {
 
 class _ExpeditionSettingScreenState extends State<ExpeditionSettingScreen> {
   DragAndDropList expeditionDragAndDrop = DragAndDropList(children: []);
+  final expeditionBox = Hive.box<Expedition>('expedition');
 
   @override
   Widget build(BuildContext context) {
@@ -249,7 +252,7 @@ class _ExpeditionSettingScreenState extends State<ExpeditionSettingScreen> {
               value: expeditionProvider.expedition.list[i].isChecked,
               onChanged: (value) {
                 setState(() {
-                  expeditionProvider.updateIsChecked(i, value!);
+                  expeditionProvider.updateIsChecked(context,i, value!);
                 });
               },
               contentPadding: EdgeInsets.fromLTRB(0, 0, 40, 0),

@@ -236,7 +236,10 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
 
     userProvider.charactersProvider.characters[characterIndex].goldContents.forEach(
       (element) {
-        if (element.isChecked == true && element.clearChecked == true && (level < element.getGoldLevelLimit)) {
+        if (element.isChecked == true &&
+            element.clearChecked == true &&
+            (level < element.getGoldLevelLimit) &&
+            (level > element.enterLevelLimit)) {
           weeklyGold += element.addGold;
           weeklyGold += element.clearGold;
         }

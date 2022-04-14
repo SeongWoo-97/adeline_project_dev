@@ -1,11 +1,8 @@
-import 'package:adeline_project_dev/model/user/content/expedition_content.dart';
-import 'package:adeline_project_dev/screen/mobile/character_setting_screen/widget/add_expedition_content_widget.dart';
 import 'package:adeline_project_dev/screen/mobile/expedition_setting_screen/expedition_setting_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../constant/constant.dart';
+import '../../../../model/user/expedition/expedition_model.dart';
 import '../../../../model/user/expedition/expedition_provider.dart';
 
 class ExpeditionContentWidget extends StatefulWidget {
@@ -17,6 +14,13 @@ class ExpeditionContentWidget extends StatefulWidget {
 
 class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
   List<Widget> list = [];
+  final expeditionBox = Hive.box<Expedition>('expedition');
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,8 +81,8 @@ class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
   List<Widget> listWidget() {
     ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context);
     list = [];
-    expeditionProvider.expedition.list.forEach((e) {
-      if (e.isChecked == true) {
+    for (int i = 0; i < expeditionProvider.expedition.list.length; i++) {
+      if (expeditionProvider.expedition.list[i].isChecked == true) {
         list.add(Padding(
           padding: const EdgeInsets.only(left: 5, right: 5),
           child: Card(
@@ -94,13 +98,13 @@ class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(3.0),
-                      child: Image.asset('${e.iconName}', width: 25, height: 25),
+                      child: Image.asset('${expeditionProvider.expedition.list[i].iconName}', width: 25, height: 25),
                     ),
                     SizedBox(
                       width: 5,
                     ),
                     Text(
-                      '${e.name}',
+                      '${expeditionProvider.expedition.list[i].name}',
                       style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
                     )
                   ],
@@ -109,7 +113,7 @@ class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
                   children: [
                     Checkbox(
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        value: e.clearCheck,
+                        value: expeditionProvider.expedition.list[i].clearCheck,
                         checkColor: Color.fromRGBO(119, 210, 112, 1),
                         activeColor: Colors.transparent,
                         side: BorderSide(color: Colors.grey, width: 1.5),
@@ -118,7 +122,8 @@ class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
                         ),
                         onChanged: (bool? value) {
                           setState(() {
-                            e.clearCheck = value!;
+                            expeditionProvider.expedition.list[i].clearCheck = value!;
+                            expeditionBox.put('expeditionList', expeditionProvider.expedition);
                           });
                         })
                   ],
@@ -128,7 +133,7 @@ class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
           ),
         ));
       }
-    });
+    }
     return list;
   }
 }

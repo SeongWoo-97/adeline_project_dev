@@ -19,7 +19,7 @@ class _InitSettingsScreenState extends State<InitSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     int _currentStep = Provider.of<InitSettingsController>(context).currentStep;
-    InitSettingsController controller = Provider.of<InitSettingsController>(context);
+    InitSettingsController controller = Provider.of<InitSettingsController>(context,listen: false);
     return PlatformScaffold(
       appBar: PlatformAppBar(
         title: Text('캐릭터 불러오기'),

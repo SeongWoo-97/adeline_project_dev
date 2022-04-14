@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../model/user/user.dart';
 import '../../../../../model/user/user_provider.dart';
 class WeeklyContentsWidget extends StatefulWidget {
   final int characterIndex;
@@ -11,6 +13,8 @@ class WeeklyContentsWidget extends StatefulWidget {
 }
 
 class _WeeklyContentsWidgetState extends State<WeeklyContentsWidget> {
+  final box = Hive.box<User>('characters');
+
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -59,6 +63,7 @@ class _WeeklyContentsWidgetState extends State<WeeklyContentsWidget> {
                         userProvider.charactersProvider.characters[characterIndex].weeklyContents[index].clearChecked =
                         !userProvider.charactersProvider.characters[characterIndex].weeklyContents[index].clearChecked;
                       });
+                      box.put('user', User(characters: userProvider.charactersProvider.characters));
                     },
                   )
                 ],
@@ -69,6 +74,7 @@ class _WeeklyContentsWidgetState extends State<WeeklyContentsWidget> {
                 userProvider.charactersProvider.characters[characterIndex].weeklyContents[index].clearChecked =
                 !userProvider.charactersProvider.characters[characterIndex].weeklyContents[index].clearChecked;
               });
+              box.put('user', User(characters: userProvider.charactersProvider.characters));
             },
           );
         } else {

@@ -198,8 +198,11 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                           child: Checkbox(
                             value: userProvider.charactersProvider.characters[characterIndex].goldContents[index].clearChecked,
                             onChanged: (bool? value) {
-                              if (!userProvider
-                                  .charactersProvider.characters[characterIndex].goldContents[index].characterAlwaysMaxClear) {
+                              bool characterAlwaysMaxClear = userProvider.charactersProvider.characters[characterIndex].goldContents[index].characterAlwaysMaxClear;
+                              int level = int.parse(userProvider.charactersProvider.characters[characterIndex].level);
+                              int getGoldLevelLimit = userProvider.charactersProvider.characters[characterIndex].goldContents[index].getGoldLevelLimit;
+                              int enterLevelLimit = userProvider.charactersProvider.characters[characterIndex].goldContents[index].enterLevelLimit;
+                              if (!characterAlwaysMaxClear && level > enterLevelLimit && level < getGoldLevelLimit) {
                                 showPlatformDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -275,14 +278,14 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                         );
                                       });
                                     });
-                              } else {
+                              } else if(level > enterLevelLimit && level < getGoldLevelLimit){
                                 int totalGold = 0;
                                 userProvider.charactersProvider.characters[characterIndex].goldContents[index].goldPerPhase
                                     .forEach((element) => totalGold += element);
                                 userProvider.charactersProvider.characters[characterIndex].goldContents[index].clearGold =
                                     totalGold;
-                                userProvider.goldContentsClearCheck(characterIndex, index, value);
                               }
+                              userProvider.goldContentsClearCheck(characterIndex, index, value);
                             },
                           ),
                         )
@@ -677,7 +680,6 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
     bool getGoldLevelLimit = level <= character.goldContents[index].getGoldLevelLimit; // 골드획득 레벨제한
     bool enterGoldLevelLimit = level >= character.goldContents[index].enterLevelLimit;
     bool clearCheck = character.goldContents[index].clearChecked;
-    print(getGoldLevelLimit);
     if (getGoldLevelLimit && character.goldContents[index].characterAlwaysMaxClear && enterGoldLevelLimit) {
       int total = 0;
       character.goldContents[index].goldPerPhase.forEach((element) {

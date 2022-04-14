@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../model/user/content/restGauge_content.dart';
+import '../../../../../model/user/user.dart';
 import '../../../../../model/user/user_provider.dart';
 
 class DailyContentsWidget extends StatefulWidget {
@@ -14,6 +16,7 @@ class DailyContentsWidget extends StatefulWidget {
 }
 
 class _DailyContentsWidgetState extends State<DailyContentsWidget> {
+  final box = Hive.box<User>('characters');
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -44,6 +47,7 @@ class _DailyContentsWidgetState extends State<DailyContentsWidget> {
                     userProvider.charactersProvider.characters[characterIndex].dailyContents[index].saveRestGauge = 0;
                   }
                 });
+                box.put('user', User(characters: userProvider.charactersProvider.characters));
               },
             );
           } else if (userProvider.charactersProvider.characters[characterIndex].dailyContents[index].isChecked == true) {
@@ -60,8 +64,10 @@ class _DailyContentsWidgetState extends State<DailyContentsWidget> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                          child: Image.asset('${userProvider.charactersProvider.characters[characterIndex].dailyContents[index].iconName}',
-                              width: 22, height: 22),
+                          child: Image.asset(
+                              '${userProvider.charactersProvider.characters[characterIndex].dailyContents[index].iconName}',
+                              width: 22,
+                              height: 22),
                         ),
                         Text(
                           userProvider.charactersProvider.characters[characterIndex].dailyContents[index].name,
@@ -81,6 +87,7 @@ class _DailyContentsWidgetState extends State<DailyContentsWidget> {
                           userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearChecked =
                               !userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearChecked;
                         });
+                        box.put('user', User(characters: userProvider.charactersProvider.characters));
                       },
                     )
                   ],
@@ -91,6 +98,7 @@ class _DailyContentsWidgetState extends State<DailyContentsWidget> {
                   userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearChecked =
                       !userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearChecked;
                 });
+                box.put('user', User(characters: userProvider.charactersProvider.characters));
               },
             );
           } else {
