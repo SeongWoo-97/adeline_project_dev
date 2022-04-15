@@ -1,4 +1,3 @@
-import 'package:adeline_project_dev/model/user/content/gold_content.dart';
 import 'package:adeline_project_dev/model/user/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

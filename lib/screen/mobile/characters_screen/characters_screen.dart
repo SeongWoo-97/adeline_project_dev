@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:adeline_project_dev/model/user/content/expedition_content.dart';
 import 'package:adeline_project_dev/model/user/user_provider.dart';
 import 'package:adeline_project_dev/screen/mobile/characters_screen/widget/character_slot_widget.dart';

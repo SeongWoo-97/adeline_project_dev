@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
+import '../Distribution_calu_Screen/distribution_calu_screen.dart';
+
 
 
 class BottomNavigationScreen extends StatefulWidget {
@@ -16,7 +18,7 @@ class BottomNavigationScreen extends StatefulWidget {
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   PersistentTabController _controller = PersistentTabController(initialIndex: 2);
   List<Widget> screens = [
-    BlankScreen(),
+    DistributionCaluScreen(),
     BlankScreen(),
     CharactersScreen(),
     BlankScreen(),

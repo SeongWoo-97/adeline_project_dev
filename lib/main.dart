@@ -28,7 +28,7 @@ import 'model/user/expedition/expedition_provider.dart';
 
 bool userDB = false;
 bool expeditionDB = false;
-
+// 경로 : Directory: '/data/user/0/com.example.adeline_project_dev/app_flutter'
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
@@ -70,8 +70,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    dirInit();
-
     return PlatformApp(
       material: (_, __) => MaterialAppData(
         theme: ThemeData(
@@ -104,10 +102,5 @@ class MyApp extends StatelessWidget {
       home: userDB && expeditionDB ? BottomNavigationScreen() : InitSettingsScreen(),
       debugShowCheckedModeBanner: false,
     );
-  }
-
-  Future<void> dirInit() async {
-    final dir = await getApplicationDocumentsDirectory();
-    print('경로 : $dir');
   }
 }

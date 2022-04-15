@@ -89,67 +89,75 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                                                   ?.copyWith(fontSize: 13, color: Colors.grey)),
                                         ],
                                       ),
-                                      Text('주간 골드 : ${weeklyGold(characterIndex)} G',
-                                          style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14)),
+                                      Text(
+                                        '주간 골드 : ${weeklyGold(characterIndex)} G',
+                                        style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                                      ),
                                       Row(
                                         children: [
-                                          Row(
-                                            children: [
-                                              Image.asset(
-                                                'assets/daily/Chaos.png',
-                                                width: 22,
-                                                height: 22,
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(left: 5, right: 5),
-                                                child: Container(
-                                                  width: 30,
-                                                  child: Text(
-                                                    '${userProvider.charactersProvider.characters[characterIndex].dailyContents[0].restGauge}',
-                                                    style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Image.asset(
-                                                'assets/daily/Guardian.png',
-                                                width: 22,
-                                                height: 22,
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(left: 5, right: 5),
-                                                child: Container(
-                                                  width: 30,
-                                                  child: Text(
-                                                    '${userProvider.charactersProvider.characters[characterIndex].dailyContents[1].restGauge}',
-                                                    style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              Image.asset(
-                                                'assets/daily/Epona.png',
-                                                width: 22,
-                                                height: 22,
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(left: 5, right: 5),
-                                                child: Container(
-                                                  width: 30,
-                                                  child: Text(
-                                                    '${userProvider.charactersProvider.characters[characterIndex].dailyContents[2].restGauge}',
-                                                    style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                          userProvider.charactersProvider.characters[characterIndex].dailyContents[0].isChecked
+                                              ? Row(
+                                                  children: [
+                                                    Image.asset(
+                                                      'assets/daily/Chaos.png',
+                                                      width: 22,
+                                                      height: 22,
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(left: 5, right: 5),
+                                                      child: Container(
+                                                        width: 30,
+                                                        child: Text(
+                                                          '${userProvider.charactersProvider.characters[characterIndex].dailyContents[0].restGauge}',
+                                                          style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              : Container(),
+                                          userProvider.charactersProvider.characters[characterIndex].dailyContents[1].isChecked
+                                              ? Row(
+                                                  children: [
+                                                    Image.asset(
+                                                      'assets/daily/Guardian.png',
+                                                      width: 22,
+                                                      height: 22,
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(left: 5, right: 5),
+                                                      child: Container(
+                                                        width: 30,
+                                                        child: Text(
+                                                          '${userProvider.charactersProvider.characters[characterIndex].dailyContents[1].restGauge}',
+                                                          style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              : Container(),
+                                          userProvider.charactersProvider.characters[characterIndex].dailyContents[2].isChecked
+                                              ? Row(
+                                                  children: [
+                                                    Image.asset(
+                                                      'assets/daily/Epona.png',
+                                                      width: 22,
+                                                      height: 22,
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(left: 5, right: 5),
+                                                      child: Container(
+                                                        width: 30,
+                                                        child: Text(
+                                                          '${userProvider.charactersProvider.characters[characterIndex].dailyContents[2].restGauge}',
+                                                          style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              : Container(),
                                         ],
                                       )
                                     ],

@@ -291,7 +291,7 @@ class InitSettingsController extends ChangeNotifier {
       case "리퍼":
         return "404";
       case "호크아이":
-        return "502";
+        return "502"; // 65215124
       case "데빌헌터":
         return "503";
       case "블래스터":
