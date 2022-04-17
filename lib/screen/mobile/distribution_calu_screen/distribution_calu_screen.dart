@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+
+import '../../../model/dark_mode/dark_theme_provider.dart';
 
 class DistributionCaluScreen extends StatefulWidget {
   const DistributionCaluScreen({Key? key}) : super(key: key);
@@ -29,19 +32,10 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     return PlatformScaffold(
         appBar: PlatformAppBar(
-          title: Text('분배금 계산기', style: Theme.of(context).textTheme.bodyText1),
-          material: (_, __) => MaterialAppBarData(
-            backgroundColor: Colors.white,
-            elevation: .5,
-            title: Text(
-              '분배금 계산기',
-              style:
-                  Theme.of(context).textTheme.bodyText1?.copyWith(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            centerTitle: true,
-          ),
+          title: Text('분배금 계산기'),
         ),
         body: SafeArea(
           child: Column(
@@ -64,17 +58,14 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> {
                       defaultSelected: 4,
                       buttonTextStyle: ButtonTextStyle(
                         textStyle: Theme.of(context).textTheme.bodyText1,
-                        selectedColor: Colors.black,
-                        unSelectedColor: Colors.blue,
+                        selectedColor: themeProvider.darkTheme ? Colors.white : Colors.black,
+                        unSelectedColor:  themeProvider.darkTheme ? Colors.white : Colors.black,
                       ),
                       unSelectedColor: Colors.transparent,
-                      unSelectedBorderColor: Colors.grey,
-                      selectedBorderColor: Colors.indigo,
-                      selectedColor: Colors.black26,
+                      selectedColor:themeProvider.darkTheme ? Colors.white24 : Colors.black26,
                       width: MediaQuery.of(context).size.width * 0.453,
                       absoluteZeroSpacing: false,
-                      customShape:
-                          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8), side: BorderSide(color: Colors.grey)),
+                      customShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8), side: BorderSide(color: Colors.grey)),
                       enableShape: true,
                     ),
                   )
@@ -147,7 +138,6 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> {
                         padding: const EdgeInsets.only(top: 5),
                         child: Text(
                           '$memberNum인 기준',
-                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                       ),
                       Padding(

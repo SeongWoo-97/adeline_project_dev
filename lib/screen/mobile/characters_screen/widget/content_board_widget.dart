@@ -15,8 +15,9 @@ class ContentBoardWidget extends StatefulWidget {
 class _ContentBoardWidgetState extends State<ContentBoardWidget> {
   @override
   Widget build(BuildContext context) {
-    UserProvider userProvider = Provider.of<UserProvider>(context);
+    UserProvider userProvider = Provider.of<UserProvider>(context,listen: false);
     ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    userProvider.updateContentBoard(); // 처음에 dumpWidget 개수 만큼 build 된다... 수정이 필요함
     return Container(
       height: 76,
       child: ListView(
@@ -24,14 +25,10 @@ class _ContentBoardWidgetState extends State<ContentBoardWidget> {
         scrollDirection: Axis.horizontal,
         children: [
           dumpWidget('발탄', '군단장', valTanNormal, valTanHard, color: Colors.teal.shade300),
-          dumpWidget('비아', '군단장', biacKissNormal, biacKissHard,
-              color: Colors.deepOrange.shade300),
-          dumpWidget('쿠크', '군단장', koukoSatonNormal, ValueNotifier<int>(0),
-              color: Colors.pinkAccent),
-          dumpWidget('아브', '군단장', abrelshudNormal, abrelshudHard,
-              color: Colors.deepPurpleAccent),
-          dumpWidget('아르고스', '어비스 레이드', argus, ValueNotifier<int>(0),
-              color: Colors.blueAccent),
+          dumpWidget('비아', '군단장', biacKissNormal, biacKissHard, color: Colors.deepOrange.shade300),
+          dumpWidget('쿠크', '군단장', koukoSatonNormal, ValueNotifier<int>(0), color: Colors.pinkAccent), // 쿠크는 하드가 없다
+          dumpWidget('아브', '군단장', abrelshudNormal, abrelshudHard, color: Colors.deepPurpleAccent),
+          dumpWidget('아르고스', '어비스 레이드', argus, ValueNotifier<int>(0), color: Colors.blueAccent), // 아르고스는 하드가 없다.
           dumpWidget('오레하', '어비스 던전', orehaNormal, orehaHard, color: themeProvider.darkTheme ? Colors.green : Colors.brown),
         ],
       ),
@@ -90,7 +87,8 @@ class _ContentBoardWidgetState extends State<ContentBoardWidget> {
         elevation: 2,
         child: Column(
           children: [
-            Text('$name', style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14, color: color, fontWeight: FontWeight.bold)),
+            Text('$name',
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14, color: color, fontWeight: FontWeight.bold)),
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
               child: Row(

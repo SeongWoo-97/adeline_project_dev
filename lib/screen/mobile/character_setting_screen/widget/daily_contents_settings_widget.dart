@@ -75,7 +75,7 @@ class _DailyContentSettingWidgetState extends State<DailyContentSettingWidget> {
                 padding: EdgeInsets.only(right: 15),
                 child: Icon(
                   Icons.menu,
-                  color: Colors.blue,
+                  color: Colors.grey,
                 ),
               ),
             ),
@@ -187,11 +187,11 @@ class _DailyContentSettingWidgetState extends State<DailyContentSettingWidget> {
                                               contentPadding: EdgeInsets.only(left: 5),
                                               hintText: '콘텐츠 이름',
                                               enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(color: Colors.black26, width: 0.5),
+                                                borderSide: BorderSide(color: Colors.grey, width: 0.5),
                                                 borderRadius: BorderRadius.circular(5),
                                               ),
                                               focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(color: Colors.black26, width: 0.5),
+                                                borderSide: BorderSide(color: Colors.grey, width: 0.5),
                                                 borderRadius: BorderRadius.circular(5),
                                               )),
                                         ),

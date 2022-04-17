@@ -1,11 +1,14 @@
 import 'package:adeline_project_dev/screen/mobile/merchant_location_screen/merchant_location_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:provider/provider.dart';
+
+import '../../../model/dark_mode/dark_theme_provider.dart';
 
 class DrawerScreen extends StatelessWidget {
-  final TextStyle textStyle = TextStyle(fontFamily: 'NotoSansKR', fontSize: 14);
   @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     return SafeArea(
       child: Drawer(
         child: ListView(
@@ -13,9 +16,9 @@ class DrawerScreen extends StatelessWidget {
           children: [
             Container(
               margin: const EdgeInsets.fromLTRB(15, 15, 0, 0),
-              child: const Text(
+              child: Text(
                 '도구',
-                style: TextStyle(fontFamily: 'NotoSansKR', fontSize: 14, color: Colors.black54),
+                style: TextStyle(color: themeProvider.darkTheme ? Colors.white70 : Colors.grey),
               ),
             ),
             ListTile(
@@ -52,9 +55,9 @@ class DrawerScreen extends StatelessWidget {
             Divider(color: Colors.grey,),
             Container(
               margin: const EdgeInsets.fromLTRB(15, 5, 0, 0),
-              child: const Text(
+              child: Text(
                 '검색',
-                style: TextStyle(fontFamily: 'NotoSansKR', fontSize: 14, color: Colors.black54),
+                style: TextStyle(color: themeProvider.darkTheme ? Colors.white70 : Colors.grey),
               ),
             ),
             ListTile(
@@ -70,9 +73,9 @@ class DrawerScreen extends StatelessWidget {
             Divider(color: Colors.grey,),
             Container(
               margin: const EdgeInsets.fromLTRB(15, 5, 0, 0),
-              child: const Text(
+              child: Text(
                 '소개',
-                style: TextStyle(fontFamily: 'NotoSansKR', fontSize: 14, color: Colors.black54),
+                style: TextStyle(color: themeProvider.darkTheme ? Colors.white70 : Colors.grey),
               ),
             ),
             ListTile(
@@ -94,9 +97,9 @@ class DrawerScreen extends StatelessWidget {
             Divider(color: Colors.grey,),
             Container(
               margin: const EdgeInsets.fromLTRB(15, 5, 0, 0),
-              child: const Text(
+              child: Text(
                 '정보',
-                style: TextStyle(fontFamily: 'NotoSansKR', fontSize: 14, color: Colors.black54),
+                style: TextStyle(color: themeProvider.darkTheme ? Colors.white70 : Colors.grey),
               ),
             ),
             ListTile(

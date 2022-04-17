@@ -9,6 +9,7 @@ import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constant/constant.dart';
+import '../../../model/dark_mode/dark_theme_provider.dart';
 import '../../../model/user/content/expedition_content.dart';
 import '../../../model/user/expedition/expedition_model.dart';
 
@@ -29,18 +30,16 @@ class _ExpeditionSettingScreenState extends State<ExpeditionSettingScreen> {
       appBar: PlatformAppBar(
         title: Text(
           '원정대 콘텐츠 설정',
-          style: Theme.of(context).textTheme.bodyText1,
+
         ),
-        material: (_, __) => MaterialAppBarData(
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          elevation: .5,
-          title: Text('원정대 콘텐츠 설정', style: Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold)),
+        trailingActions: [AddExpeditionContentWidget()],
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.blue,
+          ),
+          onPressed: () => Navigator.pop(context),
         ),
-        trailingActions: [
-          AddExpeditionContentWidget()
-        ],
-        leading: IconButton(icon: Icon(Icons.arrow_back,color: Colors.blue,),onPressed: () => Navigator.pop(context),),
       ),
       cupertino: (_, __) => CupertinoPageScaffoldData(),
       material: (_, __) => MaterialScaffoldData(
@@ -76,7 +75,7 @@ class _ExpeditionSettingScreenState extends State<ExpeditionSettingScreen> {
               padding: EdgeInsets.only(right: 15),
               child: Icon(
                 Icons.menu,
-                color: Colors.blue,
+                color: Colors.grey,
               ),
             ),
           ),
@@ -88,6 +87,7 @@ class _ExpeditionSettingScreenState extends State<ExpeditionSettingScreen> {
   DragAndDropList dailyDragAndDropList() {
     ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context, listen: false);
     AddExpeditionContentProvider addExpeditionContentProvider = Provider.of<AddExpeditionContentProvider>(context, listen: false);
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     expeditionDragAndDrop = DragAndDropList(
       children: List.generate(
         expeditionProvider.expedition.list.length,
@@ -170,11 +170,11 @@ class _ExpeditionSettingScreenState extends State<ExpeditionSettingScreen> {
                                           contentPadding: EdgeInsets.only(left: 5),
                                           hintText: '콘텐츠 이름',
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(color: Colors.black26, width: 0.5),
+                                            borderSide: BorderSide(color: Colors.grey, width: 0.5),
                                             borderRadius: BorderRadius.circular(5),
                                           ),
                                           focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(color: Colors.black26, width: 0.5),
+                                            borderSide: BorderSide(color: Colors.grey, width: 0.5),
                                             borderRadius: BorderRadius.circular(5),
                                           )),
                                     ),
@@ -200,8 +200,12 @@ class _ExpeditionSettingScreenState extends State<ExpeditionSettingScreen> {
                                                   borderRadius: BorderRadius.circular(10),
                                                   border: Border.all(
                                                       color: addExpeditionContentProvider.selected == index
-                                                          ? Colors.grey
-                                                          : Colors.white,
+                                                          ? themeProvider.darkTheme
+                                                              ? Colors.grey
+                                                              : Colors.grey
+                                                          : themeProvider.darkTheme
+                                                              ? Colors.grey[800]!
+                                                              : Colors.white,
                                                       width: 1.5),
                                                 ),
                                                 child: Image.asset(
@@ -252,7 +256,7 @@ class _ExpeditionSettingScreenState extends State<ExpeditionSettingScreen> {
               value: expeditionProvider.expedition.list[i].isChecked,
               onChanged: (value) {
                 setState(() {
-                  expeditionProvider.updateIsChecked(context,i, value!);
+                  expeditionProvider.updateIsChecked(context, i, value!);
                 });
               },
               contentPadding: EdgeInsets.fromLTRB(0, 0, 40, 0),

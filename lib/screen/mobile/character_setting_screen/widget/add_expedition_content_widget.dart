@@ -4,6 +4,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constant/constant.dart';
+import '../../../../model/dark_mode/dark_theme_provider.dart';
 import '../../../../model/user/content/expedition_content.dart';
 import '../../../../model/user/expedition/expedition_provider.dart';
 
@@ -22,6 +23,7 @@ class _AddExpeditionContentWidgetState extends State<AddExpeditionContentWidget>
   Widget build(BuildContext context) {
     AddExpeditionContentProvider addExpeditionContentProvider = Provider.of<AddExpeditionContentProvider>(context);
     ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context, listen: false);
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     return InkWell(
       child: Padding(
         padding: const EdgeInsets.only(top: 3,right: 10),
@@ -81,11 +83,11 @@ class _AddExpeditionContentWidgetState extends State<AddExpeditionContentWidget>
                               contentPadding: EdgeInsets.only(left: 5),
                               hintText: '콘텐츠 이름',
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black26, width: 0.5),
+                                borderSide: BorderSide(color: Colors.grey, width: 0.5),
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black26, width: 0.5),
+                                borderSide: BorderSide(color: Colors.grey, width: 0.5),
                                 borderRadius: BorderRadius.circular(5),
                               )),
                         ),
@@ -111,7 +113,15 @@ class _AddExpeditionContentWidgetState extends State<AddExpeditionContentWidget>
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: addExpeditionContentProvider.selected == index ? Colors.grey : Colors.white, width: 1.5),
+                                  border: Border.all(
+                                      color: addExpeditionContentProvider.selected == index
+                                          ? themeProvider.darkTheme
+                                          ? Colors.grey
+                                          : Colors.grey
+                                          : themeProvider.darkTheme
+                                          ? Colors.grey[800]!
+                                          : Colors.white,
+                                      width: 1.5),
                                 ),
                                 child: Image.asset(
                                   '${iconList[index].iconName}',

@@ -37,18 +37,12 @@ class _CharactersScreenState extends State<CharactersScreen> {
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context);
     ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context);
-
     expeditionProvider.expedition.list = expeditionList;
     userProvider.charactersProvider.characters = characterList;
     return PlatformScaffold(
-      material: (_, __) => MaterialScaffoldData(
-        drawer: Container(
-          width: 230,
-          child: DrawerScreen(),
-        ),
-      ),
+      material: (_, __) => MaterialScaffoldData(),
       appBar: PlatformAppBar(
-        title: Text('HOME'),
+        title: Text('숙제 관리'),
         material: (_, __) => MaterialAppBarData(),
         cupertino: (_, __) => CupertinoNavigationBarData(),
       ),

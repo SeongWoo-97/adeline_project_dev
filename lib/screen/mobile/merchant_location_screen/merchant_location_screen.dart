@@ -36,16 +36,7 @@ class _MerchantLocationScreenState extends State<MerchantLocationScreen> {
   Widget build(BuildContext context) {
     return PlatformScaffold(
       appBar: PlatformAppBar(
-        title: Text('떠돌이 상인 위치', style: Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold)),
-        material: (_, __) => MaterialAppBarData(
-          backgroundColor: Colors.white,
-          elevation: .5,
-          title: Text(
-            '떠돌이 상인 위치',
-            style: Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold),
-          ),
-          centerTitle: true,
-        ),
+        title: Text('떠돌이 상인 위치'),
       ),
       cupertino: (_, __) => CupertinoPageScaffoldData(
         body: SafeArea(

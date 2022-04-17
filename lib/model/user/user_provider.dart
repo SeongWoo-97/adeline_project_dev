@@ -89,7 +89,9 @@ class UserProvider extends ChangeNotifier {
             }
             break;
           case "아르고스":
-            argus.value += 1;
+            if (goldContent.isChecked && goldContent.clearChecked == false){
+              argus.value += 1;
+            }
             break;
           case "오레하의 우물":
             if (goldContent.isChecked && goldContent.clearChecked == false && goldContent.difficulty == "노말") {
