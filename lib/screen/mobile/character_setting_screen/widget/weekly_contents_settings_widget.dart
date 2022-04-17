@@ -35,7 +35,7 @@ class _WeeklyContentSettingWidgetState extends State<WeeklyContentSettingWidget>
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              child: AddContentIconWidget(widget.characterIndex,"주간"),
+              child: AddContentIconWidget(widget.characterIndex, "주간"),
             )
           ],
         ),
@@ -73,7 +73,7 @@ class _WeeklyContentSettingWidgetState extends State<WeeklyContentSettingWidget>
                 padding: EdgeInsets.only(right: 15),
                 child: Icon(
                   Icons.menu,
-                  color: Colors.blue,
+                  color: Colors.grey,
                 ),
               ),
             ),
@@ -126,14 +126,15 @@ class _WeeklyContentSettingWidgetState extends State<WeeklyContentSettingWidget>
                                   Padding(
                                     padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
                                     child: Image.asset(
-                                      userProvider.charactersProvider.characters[widget.characterIndex].weeklyContents[i].iconName,
+                                      userProvider
+                                          .charactersProvider.characters[widget.characterIndex].weeklyContents[i].iconName,
                                       width: 25,
                                       height: 25,
                                     ),
                                   ),
                                   Text(
                                     userProvider.charactersProvider.characters[widget.characterIndex].weeklyContents[i].name,
-                                     style: Theme.of(context).textTheme.bodyText1,
+                                    style: Theme.of(context).textTheme.bodyText1,
                                   ),
                                 ],
                               ),
@@ -142,21 +143,24 @@ class _WeeklyContentSettingWidgetState extends State<WeeklyContentSettingWidget>
                                   Padding(
                                     padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
                                     child: Image.asset(
-                                      userProvider.charactersProvider.characters[widget.characterIndex].weeklyContents[i].iconName,
+                                      userProvider
+                                          .charactersProvider.characters[widget.characterIndex].weeklyContents[i].iconName,
                                       width: 25,
                                       height: 25,
                                     ),
                                   ),
                                   Text(
                                     userProvider.charactersProvider.characters[widget.characterIndex].weeklyContents[i].name,
-                                     style: Theme.of(context).textTheme.bodyText1,
+                                    style: Theme.of(context).textTheme.bodyText1,
                                   ),
                                 ],
                               ),
                             ),
                             onTap: () async {
-                              addController.text = '${userProvider.charactersProvider.characters[widget.characterIndex].weeklyContents[i].name}';
-                              userProvider.charactersProvider.characters[widget.characterIndex].weeklyContents[i] is RestGaugeContent
+                              addController.text =
+                                  '${userProvider.charactersProvider.characters[widget.characterIndex].weeklyContents[i].name}';
+                              userProvider.charactersProvider.characters[widget.characterIndex].weeklyContents[i]
+                                      is RestGaugeContent
                                   ? toast('고정 콘텐츠는 수정할 수 없습니다.')
                                   : await showDialog(
                                       context: context,
@@ -229,7 +233,8 @@ class _WeeklyContentSettingWidgetState extends State<WeeklyContentSettingWidget>
                                               PlatformDialogAction(
                                                 child: Text('확인'),
                                                 onPressed: () {
-                                                  userProvider.charactersProvider.characters[widget.characterIndex].weeklyContents[i] =
+                                                  userProvider.charactersProvider.characters[widget.characterIndex]
+                                                          .weeklyContents[i] =
                                                       WeeklyContent(addController.text.toString(), iconName.toString(), true);
                                                   Navigator.pop(context);
                                                 },
@@ -257,6 +262,7 @@ class _WeeklyContentSettingWidgetState extends State<WeeklyContentSettingWidget>
     );
     return weeklyDragAndDrop;
   }
+
   _onItemReorder(int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
 
@@ -276,6 +282,7 @@ class _WeeklyContentSettingWidgetState extends State<WeeklyContentSettingWidget>
       // _contents.insert(newListIndex, movedList);
     });
   }
+
   void toast(String msg) {
     Fluttertoast.showToast(
       msg: msg,

@@ -4,6 +4,7 @@ import 'package:adeline_project_dev/screen/mobile/characters_screen/widget/chara
 import 'package:adeline_project_dev/screen/mobile/characters_screen/widget/content_board_widget.dart';
 import 'package:adeline_project_dev/screen/mobile/characters_screen/widget/expedition_content_widget.dart';
 import 'package:adeline_project_dev/screen/mobile/characters_screen/widget/total_gold_widget.dart';
+import 'package:adeline_project_dev/screen/mobile/drawer_screen/drawer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hive/hive.dart';
@@ -40,16 +41,16 @@ class _CharactersScreenState extends State<CharactersScreen> {
     expeditionProvider.expedition.list = expeditionList;
     userProvider.charactersProvider.characters = characterList;
     return PlatformScaffold(
+      material: (_, __) => MaterialScaffoldData(
+        drawer: Container(
+          width: 230,
+          child: DrawerScreen(),
+        ),
+      ),
       appBar: PlatformAppBar(
         title: Text('HOME'),
-        material: (_, __) => MaterialAppBarData(
-            centerTitle: true,
-            backgroundColor: Colors.white,
-            elevation: .5,
-            titleTextStyle: Theme.of(context).textTheme.headline1,
-            toolbarHeight: 45),
+        material: (_, __) => MaterialAppBarData(),
         cupertino: (_, __) => CupertinoNavigationBarData(),
-        trailingActions: [],
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,

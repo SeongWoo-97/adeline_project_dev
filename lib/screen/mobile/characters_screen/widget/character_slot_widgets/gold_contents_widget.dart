@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../../constant/constant.dart';
+import '../../../../../model/dark_mode/dark_theme_provider.dart';
 import '../../../../../model/user/character/character_model.dart';
 import '../../../../../model/user/content/gold_content.dart';
 import '../../../../../model/user/user_provider.dart';
@@ -34,6 +35,8 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+
     int characterIndex = widget.characterIndex;
     if (userProvider.charactersProvider.characters[characterIndex].goldContents.length == 0) {
       return Column(
@@ -43,7 +46,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 5, right: 7),
+                padding: const EdgeInsets.only(left: 9, right: 7),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -62,17 +65,6 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                     });
                   },
                   child: Text('저장', style: Theme.of(context).textTheme.bodyText2),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    elevation: 1,
-                    side: BorderSide(
-                      width: .7,
-                      color: Colors.grey,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7),
-                    ),
-                  ),
                 ),
               )
             ],
@@ -82,55 +74,58 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
             itemCount: defaultGoldContents.length,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
-              return Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  side: BorderSide(color: Colors.grey, width: 0.8),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: iconPerType(defaultGoldContents[index].type),
-                            ),
-                            Text(
-                              '${defaultGoldContents[index].name}',
-                              style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
-                            ),
-                            difficultyText(defaultGoldContents[index].difficulty.toString()),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5),
-                              child: Text('${clearGoldTotal(defaultGoldContents[index].goldPerPhase)} Gold',
-                                  style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 15)),
-                            ),
-                            SizedBox(
-                              height: 25,
-                              child: Checkbox(
-                                value: defaultGoldContents[index].isChecked,
-                                onChanged: (bool? value) {
-                                  print(value);
-                                  setState(() {
-                                    defaultGoldContents[index].isChecked = value!;
-                                  });
-                                },
+              return Padding(
+                padding: const EdgeInsets.only(left: 3, right: 3),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    side: BorderSide(color: Colors.grey, width: 0.8),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: iconPerType(defaultGoldContents[index].type),
                               ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                              Text(
+                                '${defaultGoldContents[index].name}',
+                                style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
+                              ),
+                              difficultyText(defaultGoldContents[index].difficulty.toString()),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: Text('${clearGoldTotal(defaultGoldContents[index].goldPerPhase)} Gold',
+                                    style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 15)),
+                              ),
+                              SizedBox(
+                                height: 25,
+                                child: Checkbox(
+                                  value: defaultGoldContents[index].isChecked,
+                                  onChanged: (bool? value) {
+                                    print(value);
+                                    setState(() {
+                                      defaultGoldContents[index].isChecked = value!;
+                                    });
+                                  },
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
@@ -144,460 +139,470 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         if (userProvider.charactersProvider.characters[characterIndex].goldContents[index].isChecked == true) {
-          return Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-              side: BorderSide(color: Colors.grey, width: 0.8),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: iconPerType(userProvider.charactersProvider.characters[characterIndex].goldContents[index].type),
-                        ),
-                        InkWell(
-                          child: Text(
-                            '${userProvider.charactersProvider.characters[characterIndex].goldContents[index].name}',
-                            style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
+          return Padding(
+            padding: const EdgeInsets.only(left: 3, right: 3),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+                side: BorderSide(color: Colors.grey, width: 0.8),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child:
+                                iconPerType(userProvider.charactersProvider.characters[characterIndex].goldContents[index].type),
                           ),
-                          onLongPress: () {
-                            setState(() {
-                              userProvider.charactersProvider.characters[characterIndex].goldContents[index]
-                                  .characterAlwaysMaxClear = false;
-                              userProvider.goldContentsClearCheck(characterIndex, index, false);
-                            });
-                            Fluttertoast.showToast(
-                                msg: "항상 최대 관문 클리어 체크가 해제되었습니다.",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                backgroundColor: Colors.grey,
-                                fontSize: 14.0);
-                          },
-                        ),
-                        difficultyText(
-                            userProvider.charactersProvider.characters[characterIndex].goldContents[index].difficulty.toString()),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: Text(
-                              '${clearGoldPerCharacter(userProvider.charactersProvider.characters[characterIndex], index)}',
-                              style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 15)),
-                        ),
-                        SizedBox(
-                          height: 25,
-                          child: Checkbox(
-                            value: userProvider.charactersProvider.characters[characterIndex].goldContents[index].clearChecked,
-                            onChanged: (bool? value) {
-                              bool characterAlwaysMaxClear = userProvider.charactersProvider.characters[characterIndex].goldContents[index].characterAlwaysMaxClear;
-                              int level = int.parse(userProvider.charactersProvider.characters[characterIndex].level);
-                              int getGoldLevelLimit = userProvider.charactersProvider.characters[characterIndex].goldContents[index].getGoldLevelLimit;
-                              int enterLevelLimit = userProvider.charactersProvider.characters[characterIndex].goldContents[index].enterLevelLimit;
-                              if (!characterAlwaysMaxClear && level > enterLevelLimit && level < getGoldLevelLimit) {
-                                showPlatformDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
-                                        return PlatformAlertDialog(
-                                          content: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Text(
-                                                  '${userProvider.charactersProvider.characters[characterIndex].goldContents[index].name}(${userProvider.charactersProvider.characters[characterIndex].goldContents[index].difficulty})'),
-                                              Container(
-                                                width: 300,
-                                                height: 90,
-                                                child: GridView.builder(
-                                                  shrinkWrap: true,
-                                                  physics: const NeverScrollableScrollPhysics(),
-                                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 3,
-                                                    childAspectRatio: 1 / 2,
-                                                    mainAxisExtent: 40,
-                                                    crossAxisSpacing: 5,
-                                                    mainAxisSpacing: 5,
-                                                  ),
-                                                  itemCount: userProvider.charactersProvider.characters[characterIndex]
-                                                      .goldContents[index].totalPhase,
-                                                  itemBuilder: (context, gridIndex) {
-                                                    return ElevatedButton(
-                                                        onPressed: () {
-                                                          int totalGold = 0;
-                                                          for (int i = 0; i <= gridIndex; i++) {
-                                                            totalGold += userProvider.charactersProvider
-                                                                .characters[characterIndex].goldContents[index].goldPerPhase[i];
-                                                          }
-                                                          userProvider.charactersProvider.characters[characterIndex]
-                                                              .goldContents[index].clearGold = totalGold;
-                                                          userProvider.goldContentsClearCheck(characterIndex, index, true);
-                                                          Navigator.pop(context);
-                                                        },
-                                                        child: Padding(
-                                                          padding: const EdgeInsets.all(3.0),
-                                                          child: Column(
-                                                            mainAxisSize: MainAxisSize.min,
-                                                            children: [
-                                                              Text('${gridIndex + 1}관문'),
-                                                              Text(
-                                                                  '${clearGoldIndex(userProvider.charactersProvider.characters[characterIndex].goldContents[index].goldPerPhase, gridIndex)} G'),
-                                                            ],
-                                                          ),
-                                                        ));
-                                                  },
-                                                ),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Checkbox(
-                                                    value: userProvider.charactersProvider.characters[characterIndex]
-                                                        .goldContents[index].characterAlwaysMaxClear,
-                                                    onChanged: (bool? value) {
-                                                      setState(() {
-                                                        userProvider.charactersProvider.characters[characterIndex]
-                                                            .goldContents[index].characterAlwaysMaxClear = value!;
-                                                      });
-                                                    },
-                                                  ),
-                                                  Text(
-                                                    '이 캐릭터는 항상 최대관문 클리어 설정',
-                                                    style: TextStyle(fontSize: 14),
-                                                  )
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        );
-                                      });
-                                    });
-                              } else if(level > enterLevelLimit && level < getGoldLevelLimit){
-                                int totalGold = 0;
-                                userProvider.charactersProvider.characters[characterIndex].goldContents[index].goldPerPhase
-                                    .forEach((element) => totalGold += element);
-                                userProvider.charactersProvider.characters[characterIndex].goldContents[index].clearGold =
-                                    totalGold;
-                              }
-                              userProvider.goldContentsClearCheck(characterIndex, index, value);
+                          InkWell(
+                            child: Text(
+                              '${userProvider.charactersProvider.characters[characterIndex].goldContents[index].name}',
+                              style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
+                            ),
+                            onLongPress: () {
+                              setState(() {
+                                userProvider.charactersProvider.characters[characterIndex].goldContents[index]
+                                    .characterAlwaysMaxClear = false;
+                                userProvider.goldContentsClearCheck(characterIndex, index, false);
+                              });
+                              Fluttertoast.showToast(
+                                  msg: "항상 최대 관문 클리어 체크가 해제되었습니다.",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  backgroundColor: Colors.grey,
+                                  fontSize: 14.0);
                             },
                           ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                      child: Column(
+                          difficultyText(userProvider.charactersProvider.characters[characterIndex].goldContents[index].difficulty
+                              .toString()),
+                        ],
+                      ),
+                      Row(
                         children: [
-                          Row(
-                            children: [
-                              Padding(
-                                  padding: const EdgeInsets.only(left: 5, bottom: 5, right: 2),
-                                  child: Consumer<UserProvider>(
-                                    builder: (context, instance, child) {
-                                      return Text(
-                                          "추가 골드 : ${instance.charactersProvider.characters[characterIndex].goldContents[index].addGold} G",
-                                          style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14));
-                                    },
-                                  )),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 5),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.white),
-                                    borderRadius: BorderRadius.circular(100),
-                                  ),
-                                  child: InkWell(
-                                    child: Icon(
-                                      Icons.add,
-                                      color: Colors.indigoAccent,
-                                      size: 20,
-                                    ),
-                                    onTap: () {
-                                      showPlatformDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          addGoldTextEditingController.text = userProvider
-                                              .charactersProvider.characters[characterIndex].goldContents[index].addGold
-                                              .toString();
-                                          busCost = 0;
-                                          busCostTextEditingController.clear();
-                                          numberOfPersonTextEditingController.clear();
-
-                                          return StatefulBuilder(
-                                            builder: (BuildContext context, StateSetter setState) {
-                                              return PlatformAlertDialog(
-                                                content: Column(
-                                                  mainAxisSize: MainAxisSize.min,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Flexible(
-                                                          child: ListTile(
-                                                            title: const Text('일반'),
-                                                            horizontalTitleGap: 0,
-                                                            leading: Radio<AddGoldType>(
-                                                              value: AddGoldType.normal,
-                                                              groupValue: _goldType,
-                                                              onChanged: (AddGoldType? value) {
-                                                                setState(() {
-                                                                  _goldType = value!;
-                                                                });
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Flexible(
-                                                          child: ListTile(
-                                                            title: const Text('버스'),
-                                                            horizontalTitleGap: 0,
-                                                            leading: Radio<AddGoldType>(
-                                                              value: AddGoldType.bus,
-                                                              groupValue: _goldType,
-                                                              onChanged: (AddGoldType? value) {
-                                                                setState(() {
-                                                                  _goldType = value!;
-                                                                });
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text(
+                                '${clearGoldPerCharacter(userProvider.charactersProvider.characters[characterIndex], index)}',
+                                style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 15)),
+                          ),
+                          SizedBox(
+                            height: 25,
+                            child: Checkbox(
+                              value: userProvider.charactersProvider.characters[characterIndex].goldContents[index].clearChecked,
+                              onChanged: (bool? value) {
+                                bool characterAlwaysMaxClear = userProvider
+                                    .charactersProvider.characters[characterIndex].goldContents[index].characterAlwaysMaxClear;
+                                int level = int.parse(userProvider.charactersProvider.characters[characterIndex].level);
+                                int getGoldLevelLimit = userProvider
+                                    .charactersProvider.characters[characterIndex].goldContents[index].getGoldLevelLimit;
+                                int enterLevelLimit = userProvider
+                                    .charactersProvider.characters[characterIndex].goldContents[index].enterLevelLimit;
+                                if (!characterAlwaysMaxClear && level > enterLevelLimit && level < getGoldLevelLimit) {
+                                  showPlatformDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
+                                          return PlatformAlertDialog(
+                                            content: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Text(
+                                                    '${userProvider.charactersProvider.characters[characterIndex].goldContents[index].name}(${userProvider.charactersProvider.characters[characterIndex].goldContents[index].difficulty})'),
+                                                Container(
+                                                  width: 300,
+                                                  height: 90,
+                                                  child: GridView.builder(
+                                                    shrinkWrap: true,
+                                                    physics: const NeverScrollableScrollPhysics(),
+                                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 3,
+                                                      childAspectRatio: 1 / 2,
+                                                      mainAxisExtent: 40,
+                                                      crossAxisSpacing: 5,
+                                                      mainAxisSpacing: 5,
                                                     ),
-                                                    _goldType.name == "normal"
-                                                        ? TextFormField(
-                                                            textAlign: TextAlign.center,
-                                                            keyboardType: TextInputType.number,
-                                                            controller: addGoldTextEditingController,
-                                                            decoration: InputDecoration(
-                                                              hintText: '골드 입력',
-                                                              contentPadding: EdgeInsets.zero,
-                                                              enabledBorder: OutlineInputBorder(
-                                                                borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                                                                borderRadius: BorderRadius.circular(8),
-                                                              ),
-                                                              focusedBorder: OutlineInputBorder(
-                                                                borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                                                                borderRadius: BorderRadius.circular(8),
-                                                              ),
+                                                    itemCount: userProvider.charactersProvider.characters[characterIndex]
+                                                        .goldContents[index].totalPhase,
+                                                    itemBuilder: (context, gridIndex) {
+                                                      return ElevatedButton(
+                                                          onPressed: () {
+                                                            int totalGold = 0;
+                                                            for (int i = 0; i <= gridIndex; i++) {
+                                                              totalGold += userProvider.charactersProvider
+                                                                  .characters[characterIndex].goldContents[index].goldPerPhase[i];
+                                                            }
+                                                            userProvider.charactersProvider.characters[characterIndex]
+                                                                .goldContents[index].clearGold = totalGold;
+                                                            userProvider.goldContentsClearCheck(characterIndex, index, true);
+                                                            Navigator.pop(context);
+                                                          },
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.all(3.0),
+                                                            child: Column(
+                                                              mainAxisSize: MainAxisSize.min,
+                                                              children: [
+                                                                Text('${gridIndex + 1}관문'),
+                                                                Text(
+                                                                    '${clearGoldIndex(userProvider.charactersProvider.characters[characterIndex].goldContents[index].goldPerPhase, gridIndex)} G'),
+                                                              ],
                                                             ),
-                                                          )
-                                                        : Column(
-                                                            children: [
-                                                              Text('손님 수'),
-                                                              Row(
-                                                                children: [
-                                                                  Flexible(
-                                                                    child: ElevatedButton(
-                                                                      child: Text('1명'),
-                                                                      onPressed: () {
-                                                                        numberOfPersonTextEditingController.text = "1";
-                                                                        if (numberOfPersonTextEditingController.text.isNotEmpty &&
-                                                                            busCostTextEditingController.text.isNotEmpty) {
-                                                                          setState(() {
-                                                                            int numberOfPerson = int.parse(
-                                                                                numberOfPersonTextEditingController.text);
-                                                                            int Cost =
-                                                                                int.parse(busCostTextEditingController.text);
-                                                                            busCost = numberOfPerson * Cost;
-                                                                          });
-                                                                        }
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                  Flexible(
-                                                                    child: ElevatedButton(
-                                                                      child: Text('2명'),
-                                                                      onPressed: () {
-                                                                        numberOfPersonTextEditingController.text = "2";
-                                                                        if (numberOfPersonTextEditingController.text.isNotEmpty &&
-                                                                            busCostTextEditingController.text.isNotEmpty) {
-                                                                          setState(() {
-                                                                            int numberOfPerson = int.parse(
-                                                                                numberOfPersonTextEditingController.text);
-                                                                            int Cost =
-                                                                                int.parse(busCostTextEditingController.text);
-                                                                            busCost = numberOfPerson * Cost;
-                                                                          });
-                                                                        }
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                  Flexible(
-                                                                    child: ElevatedButton(
-                                                                      child: Text('3명'),
-                                                                      onPressed: () {
-                                                                        numberOfPersonTextEditingController.text = "3";
-                                                                        if (numberOfPersonTextEditingController.text.isNotEmpty &&
-                                                                            busCostTextEditingController.text.isNotEmpty) {
-                                                                          setState(() {
-                                                                            int numberOfPerson = int.parse(
-                                                                                numberOfPersonTextEditingController.text);
-                                                                            int Cost =
-                                                                                int.parse(busCostTextEditingController.text);
-                                                                            busCost = numberOfPerson * Cost;
-                                                                          });
-                                                                        }
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                  Flexible(
-                                                                    child: ElevatedButton(
-                                                                      child: Text('7명'),
-                                                                      onPressed: () {
-                                                                        numberOfPersonTextEditingController.text = "7";
-                                                                        setState(() {
-                                                                          if (numberOfPersonTextEditingController
-                                                                                  .text.isNotEmpty &&
-                                                                              busCostTextEditingController.text.isNotEmpty) {
-                                                                            setState(() {
-                                                                              int numberOfPerson = int.parse(
-                                                                                  numberOfPersonTextEditingController.text);
-                                                                              int Cost =
-                                                                                  int.parse(busCostTextEditingController.text);
-                                                                              busCost = numberOfPerson * Cost;
-                                                                            });
-                                                                          }
-                                                                        });
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Row(
-                                                                children: [
-                                                                  Flexible(
-                                                                    child: SizedBox(
-                                                                      child: TextFormField(
-                                                                        textAlign: TextAlign.center,
-                                                                        keyboardType: TextInputType.number,
-                                                                        controller: numberOfPersonTextEditingController,
-                                                                        decoration: InputDecoration(
-                                                                          hintText: '인원',
-                                                                          contentPadding: EdgeInsets.zero,
-                                                                          enabledBorder: OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide(color: Colors.grey, width: 0.5),
-                                                                            borderRadius: BorderRadius.circular(8),
-                                                                          ),
-                                                                          focusedBorder: OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide(color: Colors.grey, width: 0.5),
-                                                                            borderRadius: BorderRadius.circular(8),
-                                                                          ),
-                                                                        ),
-                                                                        onChanged: (value) {
-                                                                          if (numberOfPersonTextEditingController
-                                                                                  .text.isNotEmpty &&
-                                                                              busCostTextEditingController.text.isNotEmpty) {
-                                                                            setState(() {
-                                                                              int numberOfPerson = int.parse(
-                                                                                  numberOfPersonTextEditingController.text);
-                                                                              int Cost =
-                                                                                  int.parse(busCostTextEditingController.text);
-                                                                              busCost = numberOfPerson * Cost;
-                                                                            });
-                                                                          }
-                                                                        },
-                                                                      ),
-                                                                      height: 30,
-                                                                    ),
-                                                                  ),
-                                                                  Text(' * '),
-                                                                  Flexible(
-                                                                    child: SizedBox(
-                                                                      height: 30,
-                                                                      child: TextFormField(
-                                                                        textAlign: TextAlign.center,
-                                                                        keyboardType: TextInputType.number,
-                                                                        controller: busCostTextEditingController,
-                                                                        decoration: InputDecoration(
-                                                                          hintText: '버스비',
-                                                                          contentPadding: EdgeInsets.zero,
-                                                                          enabledBorder: OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide(color: Colors.grey, width: 0.5),
-                                                                            borderRadius: BorderRadius.circular(8),
-                                                                          ),
-                                                                          focusedBorder: OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide(color: Colors.grey, width: 0.5),
-                                                                            borderRadius: BorderRadius.circular(8),
-                                                                          ),
-                                                                        ),
-                                                                        onChanged: (value) {
-                                                                          if (numberOfPersonTextEditingController
-                                                                                  .text.isNotEmpty &&
-                                                                              busCostTextEditingController.text.isNotEmpty) {
-                                                                            setState(() {
-                                                                              int numberOfPerson = int.parse(
-                                                                                  numberOfPersonTextEditingController.text);
-                                                                              int Cost =
-                                                                                  int.parse(busCostTextEditingController.text);
-                                                                              busCost = numberOfPerson * Cost;
-                                                                            });
-                                                                          }
-                                                                        },
-                                                                      ),
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                              Align(
-                                                                alignment: Alignment.bottomRight,
-                                                                child: Text('합계 : $busCost'),
-                                                              )
-                                                            ],
-                                                          ),
-                                                  ],
-                                                ),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      if (_goldType == AddGoldType.normal) {
-                                                        userProvider.updateAddGold(
-                                                            characterIndex, index, int.parse(addGoldTextEditingController.text));
-                                                        userProvider.updateTotalGold();
-                                                      } else {
-                                                        if (numberOfPersonTextEditingController.text.isNotEmpty &&
-                                                            busCostTextEditingController.text.isNotEmpty) {
-                                                          userProvider.updateAddGold(characterIndex, index, busCost);
-                                                          userProvider.updateTotalGold();
-                                                        }
-                                                      }
-                                                      Navigator.pop(context);
+                                                          ));
                                                     },
-                                                    child: Text('확인'),
                                                   ),
-                                                ],
-                                              );
-                                            },
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Checkbox(
+                                                      value: userProvider.charactersProvider.characters[characterIndex]
+                                                          .goldContents[index].characterAlwaysMaxClear,
+                                                      onChanged: (bool? value) {
+                                                        setState(() {
+                                                          userProvider.charactersProvider.characters[characterIndex]
+                                                              .goldContents[index].characterAlwaysMaxClear = value!;
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(
+                                                      '이 캐릭터는 항상 최대관문 클리어 설정',
+                                                      style: TextStyle(fontSize: 14),
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ),
                                           );
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ),
-                              )
-                            ],
+                                        });
+                                      });
+                                } else if (level > enterLevelLimit && level < getGoldLevelLimit) {
+                                  int totalGold = 0;
+                                  userProvider.charactersProvider.characters[characterIndex].goldContents[index].goldPerPhase
+                                      .forEach((element) => totalGold += element);
+                                  userProvider.charactersProvider.characters[characterIndex].goldContents[index].clearGold =
+                                      totalGold;
+                                }
+                                userProvider.goldContentsClearCheck(characterIndex, index, value);
+                              },
+                            ),
                           )
                         ],
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Padding(
+                                    padding: const EdgeInsets.only(left: 5, bottom: 5, right: 2),
+                                    child: Consumer<UserProvider>(
+                                      builder: (context, instance, child) {
+                                        return Text(
+                                            "추가 골드 : ${instance.charactersProvider.characters[characterIndex].goldContents[index].addGold} G",
+                                            style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14));
+                                      },
+                                    )),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 5),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: themeProvider.darkTheme ? Colors.grey[800]! : Colors.white),
+                                      borderRadius: BorderRadius.circular(100),
+                                    ),
+                                    child: InkWell(
+                                      child: Icon(
+                                        Icons.add,
+                                        color: themeProvider.darkTheme ? Colors.indigoAccent : Colors.indigoAccent,
+                                        size: 20,
+                                      ),
+                                      onTap: () {
+                                        showPlatformDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            addGoldTextEditingController.text = userProvider
+                                                .charactersProvider.characters[characterIndex].goldContents[index].addGold
+                                                .toString();
+                                            busCost = 0;
+                                            busCostTextEditingController.clear();
+                                            numberOfPersonTextEditingController.clear();
+
+                                            return StatefulBuilder(
+                                              builder: (BuildContext context, StateSetter setState) {
+                                                return PlatformAlertDialog(
+                                                  content: Column(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Flexible(
+                                                            child: ListTile(
+                                                              title: const Text('일반'),
+                                                              horizontalTitleGap: 0,
+                                                              leading: Radio<AddGoldType>(
+                                                                value: AddGoldType.normal,
+                                                                groupValue: _goldType,
+                                                                onChanged: (AddGoldType? value) {
+                                                                  setState(() {
+                                                                    _goldType = value!;
+                                                                  });
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Flexible(
+                                                            child: ListTile(
+                                                              title: const Text('버스'),
+                                                              horizontalTitleGap: 0,
+                                                              leading: Radio<AddGoldType>(
+                                                                value: AddGoldType.bus,
+                                                                groupValue: _goldType,
+                                                                onChanged: (AddGoldType? value) {
+                                                                  setState(() {
+                                                                    _goldType = value!;
+                                                                  });
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      _goldType.name == "normal"
+                                                          ? TextFormField(
+                                                              textAlign: TextAlign.center,
+                                                              keyboardType: TextInputType.number,
+                                                              controller: addGoldTextEditingController,
+                                                              decoration: InputDecoration(
+                                                                hintText: '골드 입력',
+                                                                contentPadding: EdgeInsets.zero,
+                                                                enabledBorder: OutlineInputBorder(
+                                                                  borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                                                                  borderRadius: BorderRadius.circular(8),
+                                                                ),
+                                                                focusedBorder: OutlineInputBorder(
+                                                                  borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                                                                  borderRadius: BorderRadius.circular(8),
+                                                                ),
+                                                              ),
+                                                            )
+                                                          : Column(
+                                                              children: [
+                                                                Text('손님 수'),
+                                                                Row(
+                                                                  children: [
+                                                                    Flexible(
+                                                                      child: ElevatedButton(
+                                                                        child: Text('1명'),
+                                                                        onPressed: () {
+                                                                          numberOfPersonTextEditingController.text = "1";
+                                                                          if (numberOfPersonTextEditingController
+                                                                                  .text.isNotEmpty &&
+                                                                              busCostTextEditingController.text.isNotEmpty) {
+                                                                            setState(() {
+                                                                              int numberOfPerson = int.parse(
+                                                                                  numberOfPersonTextEditingController.text);
+                                                                              int Cost =
+                                                                                  int.parse(busCostTextEditingController.text);
+                                                                              busCost = numberOfPerson * Cost;
+                                                                            });
+                                                                          }
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                    Flexible(
+                                                                      child: ElevatedButton(
+                                                                        child: Text('2명'),
+                                                                        onPressed: () {
+                                                                          numberOfPersonTextEditingController.text = "2";
+                                                                          if (numberOfPersonTextEditingController
+                                                                                  .text.isNotEmpty &&
+                                                                              busCostTextEditingController.text.isNotEmpty) {
+                                                                            setState(() {
+                                                                              int numberOfPerson = int.parse(
+                                                                                  numberOfPersonTextEditingController.text);
+                                                                              int Cost =
+                                                                                  int.parse(busCostTextEditingController.text);
+                                                                              busCost = numberOfPerson * Cost;
+                                                                            });
+                                                                          }
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                    Flexible(
+                                                                      child: ElevatedButton(
+                                                                        child: Text('3명'),
+                                                                        onPressed: () {
+                                                                          numberOfPersonTextEditingController.text = "3";
+                                                                          if (numberOfPersonTextEditingController
+                                                                                  .text.isNotEmpty &&
+                                                                              busCostTextEditingController.text.isNotEmpty) {
+                                                                            setState(() {
+                                                                              int numberOfPerson = int.parse(
+                                                                                  numberOfPersonTextEditingController.text);
+                                                                              int Cost =
+                                                                                  int.parse(busCostTextEditingController.text);
+                                                                              busCost = numberOfPerson * Cost;
+                                                                            });
+                                                                          }
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                    Flexible(
+                                                                      child: ElevatedButton(
+                                                                        child: Text('7명'),
+                                                                        onPressed: () {
+                                                                          numberOfPersonTextEditingController.text = "7";
+                                                                          setState(() {
+                                                                            if (numberOfPersonTextEditingController
+                                                                                    .text.isNotEmpty &&
+                                                                                busCostTextEditingController.text.isNotEmpty) {
+                                                                              setState(() {
+                                                                                int numberOfPerson = int.parse(
+                                                                                    numberOfPersonTextEditingController.text);
+                                                                                int Cost =
+                                                                                    int.parse(busCostTextEditingController.text);
+                                                                                busCost = numberOfPerson * Cost;
+                                                                              });
+                                                                            }
+                                                                          });
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Row(
+                                                                  children: [
+                                                                    Flexible(
+                                                                      child: SizedBox(
+                                                                        child: TextFormField(
+                                                                          textAlign: TextAlign.center,
+                                                                          keyboardType: TextInputType.number,
+                                                                          controller: numberOfPersonTextEditingController,
+                                                                          decoration: InputDecoration(
+                                                                            hintText: '인원',
+                                                                            contentPadding: EdgeInsets.zero,
+                                                                            enabledBorder: OutlineInputBorder(
+                                                                              borderSide:
+                                                                                  BorderSide(color: Colors.grey, width: 0.5),
+                                                                              borderRadius: BorderRadius.circular(8),
+                                                                            ),
+                                                                            focusedBorder: OutlineInputBorder(
+                                                                              borderSide:
+                                                                                  BorderSide(color: Colors.grey, width: 0.5),
+                                                                              borderRadius: BorderRadius.circular(8),
+                                                                            ),
+                                                                          ),
+                                                                          onChanged: (value) {
+                                                                            if (numberOfPersonTextEditingController
+                                                                                    .text.isNotEmpty &&
+                                                                                busCostTextEditingController.text.isNotEmpty) {
+                                                                              setState(() {
+                                                                                int numberOfPerson = int.parse(
+                                                                                    numberOfPersonTextEditingController.text);
+                                                                                int Cost =
+                                                                                    int.parse(busCostTextEditingController.text);
+                                                                                busCost = numberOfPerson * Cost;
+                                                                              });
+                                                                            }
+                                                                          },
+                                                                        ),
+                                                                        height: 30,
+                                                                      ),
+                                                                    ),
+                                                                    Text(' * '),
+                                                                    Flexible(
+                                                                      child: SizedBox(
+                                                                        height: 30,
+                                                                        child: TextFormField(
+                                                                          textAlign: TextAlign.center,
+                                                                          keyboardType: TextInputType.number,
+                                                                          controller: busCostTextEditingController,
+                                                                          decoration: InputDecoration(
+                                                                            hintText: '버스비',
+                                                                            contentPadding: EdgeInsets.zero,
+                                                                            enabledBorder: OutlineInputBorder(
+                                                                              borderSide:
+                                                                                  BorderSide(color: Colors.grey, width: 0.5),
+                                                                              borderRadius: BorderRadius.circular(8),
+                                                                            ),
+                                                                            focusedBorder: OutlineInputBorder(
+                                                                              borderSide:
+                                                                                  BorderSide(color: Colors.grey, width: 0.5),
+                                                                              borderRadius: BorderRadius.circular(8),
+                                                                            ),
+                                                                          ),
+                                                                          onChanged: (value) {
+                                                                            if (numberOfPersonTextEditingController
+                                                                                    .text.isNotEmpty &&
+                                                                                busCostTextEditingController.text.isNotEmpty) {
+                                                                              setState(() {
+                                                                                int numberOfPerson = int.parse(
+                                                                                    numberOfPersonTextEditingController.text);
+                                                                                int Cost =
+                                                                                    int.parse(busCostTextEditingController.text);
+                                                                                busCost = numberOfPerson * Cost;
+                                                                              });
+                                                                            }
+                                                                          },
+                                                                        ),
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                                Align(
+                                                                  alignment: Alignment.bottomRight,
+                                                                  child: Text('합계 : $busCost'),
+                                                                )
+                                                              ],
+                                                            ),
+                                                    ],
+                                                  ),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        if (_goldType == AddGoldType.normal) {
+                                                          userProvider.updateAddGold(characterIndex, index,
+                                                              int.parse(addGoldTextEditingController.text));
+                                                          userProvider.updateTotalGold();
+                                                        } else {
+                                                          if (numberOfPersonTextEditingController.text.isNotEmpty &&
+                                                              busCostTextEditingController.text.isNotEmpty) {
+                                                            userProvider.updateAddGold(characterIndex, index, busCost);
+                                                            userProvider.updateTotalGold();
+                                                          }
+                                                        }
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Text('확인'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           );
         } else {
@@ -620,6 +625,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
   }
 
   Widget difficultyText(String name) {
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     if (name.isEmpty) {
       return Container();
     } else {
@@ -628,8 +634,8 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
           return Container(
               margin: EdgeInsets.only(left: 5),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.greenAccent),
-                color: Colors.greenAccent,
+                border: Border.all(color: themeProvider.darkTheme ? Colors.green : Colors.greenAccent),
+                color: themeProvider.darkTheme ? Colors.green : Colors.greenAccent,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(
@@ -643,8 +649,8 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
           return Container(
               margin: EdgeInsets.only(left: 5),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.redAccent.shade200),
-                color: Colors.redAccent.shade200,
+                border: Border.all(color: themeProvider.darkTheme ? Colors.red : Colors.redAccent.shade200),
+                color: themeProvider.darkTheme ? Colors.red : Colors.redAccent.shade200,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(

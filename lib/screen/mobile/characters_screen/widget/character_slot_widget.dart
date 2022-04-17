@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constant/constant.dart';
+import '../../../../model/dark_mode/dark_theme_provider.dart';
 import '../../../../model/user/content/gold_content.dart';
 import '../../../../model/user/user_provider.dart';
 import 'character_slot_widgets/daily_contents_widget.dart';
@@ -25,198 +26,196 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context);
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     return Expanded(
       child: ListView.builder(
         itemCount: userProvider.charactersProvider.characters.length,
         itemBuilder: (context, characterIndex) {
           return Padding(
             padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Consumer<UserProvider>(
-                  builder: (context, instance, child) {
-                    return ExpansionTile(
-                      tilePadding: EdgeInsets.fromLTRB(3, 0, 5, 0),
-                      expandedCrossAxisAlignment: CrossAxisAlignment.start,
-                      expandedAlignment: Alignment.topLeft,
-                      textColor: Colors.black,
-                      backgroundColor: Colors.white,
-                      collapsedIconColor: Colors.grey,
-                      title: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 5),
-                                    child: Image.asset(
-                                      'assets/job/${userProvider.charactersProvider.characters[characterIndex].jobCode}.png',
-                                      width: 45,
-                                      height: 45,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 7,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        crossAxisAlignment: CrossAxisAlignment.end,
-                                        children: [
-                                          Text(userProvider.charactersProvider.characters[characterIndex].nickName,
-                                              style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16)),
-                                          SizedBox(
-                                            width: 3,
-                                          ),
-                                          Text(
-                                              '${userProvider.charactersProvider.characters[characterIndex].job} Lv.${userProvider.charactersProvider.characters[characterIndex].level} ',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1
-                                                  ?.copyWith(fontSize: 13, color: Colors.grey)),
-                                        ],
-                                      ),
-                                      Text(
-                                        '주간 골드 : ${weeklyGold(characterIndex)} G',
-                                        style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                                      ),
-                                      Row(
-                                        children: [
-                                          userProvider.charactersProvider.characters[characterIndex].dailyContents[0].isChecked
-                                              ? Row(
-                                                  children: [
-                                                    Image.asset(
-                                                      'assets/daily/Chaos.png',
-                                                      width: 22,
-                                                      height: 22,
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(left: 5, right: 5),
-                                                      child: Container(
-                                                        width: 30,
-                                                        child: Text(
-                                                          '${userProvider.charactersProvider.characters[characterIndex].dailyContents[0].restGauge}',
-                                                          style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                )
-                                              : Container(),
-                                          userProvider.charactersProvider.characters[characterIndex].dailyContents[1].isChecked
-                                              ? Row(
-                                                  children: [
-                                                    Image.asset(
-                                                      'assets/daily/Guardian.png',
-                                                      width: 22,
-                                                      height: 22,
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(left: 5, right: 5),
-                                                      child: Container(
-                                                        width: 30,
-                                                        child: Text(
-                                                          '${userProvider.charactersProvider.characters[characterIndex].dailyContents[1].restGauge}',
-                                                          style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                )
-                                              : Container(),
-                                          userProvider.charactersProvider.characters[characterIndex].dailyContents[2].isChecked
-                                              ? Row(
-                                                  children: [
-                                                    Image.asset(
-                                                      'assets/daily/Epona.png',
-                                                      width: 22,
-                                                      height: 22,
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(left: 5, right: 5),
-                                                      child: Container(
-                                                        width: 30,
-                                                        child: Text(
-                                                          '${userProvider.charactersProvider.characters[characterIndex].dailyContents[2].restGauge}',
-                                                          style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                )
-                                              : Container(),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+            child: Card(
+              clipBehavior: Clip.antiAlias,
+              margin: EdgeInsets.zero,
+              child: Consumer<UserProvider>(
+                builder: (context, instance, child) {
+                  return ExpansionTile(
+                    tilePadding: EdgeInsets.fromLTRB(3, 0, 5, 0),
+                    expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                    expandedAlignment: Alignment.topLeft,
+                    textColor: Colors.black,
+                    backgroundColor: themeProvider.darkTheme ? Colors.grey[800] : Colors.white,
+                    collapsedIconColor: themeProvider.darkTheme ? Colors.white : Colors.grey,
+                    iconColor: themeProvider.darkTheme ? Colors.white : Colors.grey,
+                    title: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisSize: MainAxisSize.max,
                           children: [
-                            ChipsChoice<int>.single(
-                              value: tag,
-                              onChanged: (val) {
-                                setState(() {
-                                  tag = val;
-                                });
-                              },
-                              choiceItems: C2Choice.listFrom<int, String>(
-                                source: options,
-                                value: (i, v) => i,
-                                label: (i, v) => v,
-                              ),
-                              choiceStyle: C2ChoiceStyle(
-                                showCheckmark: false,
-                                color: Colors.grey,
-                                backgroundColor: Colors.white,
-                                borderColor: Colors.grey,
-                                borderRadius: BorderRadius.all(Radius.circular(15)),
-                              ),
-                              choiceActiveStyle: C2ChoiceStyle(
-                                  color: Colors.black,
-                                  backgroundColor: Colors.white,
-                                  borderColor: Colors.black,
-                                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                                  showCheckmark: false),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5),
+                                  child: Image.asset(
+                                    'assets/job/${userProvider.charactersProvider.characters[characterIndex].jobCode}.png',
+                                    width: 45,
+                                    height: 45,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 7,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        Text(userProvider.charactersProvider.characters[characterIndex].nickName,
+                                            style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16)),
+                                        SizedBox(
+                                          width: 3,
+                                        ),
+                                        Text(
+                                            '${userProvider.charactersProvider.characters[characterIndex].job} Lv.${userProvider.charactersProvider.characters[characterIndex].level} ',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1
+                                                ?.copyWith(fontSize: 13, color: Colors.grey)),
+                                      ],
+                                    ),
+                                    Text(
+                                      '주간 골드 : ${weeklyGold(characterIndex)} G',
+                                      style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                                    ),
+                                    Row(
+                                      children: [
+                                        userProvider.charactersProvider.characters[characterIndex].dailyContents[0].isChecked
+                                            ? Row(
+                                                children: [
+                                                  Image.asset(
+                                                    'assets/daily/Chaos.png',
+                                                    width: 22,
+                                                    height: 22,
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 5, right: 5),
+                                                    child: Container(
+                                                      width: 30,
+                                                      child: Text(
+                                                        '${userProvider.charactersProvider.characters[characterIndex].dailyContents[0].restGauge}',
+                                                        style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            : Container(),
+                                        userProvider.charactersProvider.characters[characterIndex].dailyContents[1].isChecked
+                                            ? Row(
+                                                children: [
+                                                  Image.asset(
+                                                    'assets/daily/Guardian.png',
+                                                    width: 22,
+                                                    height: 22,
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 5, right: 5),
+                                                    child: Container(
+                                                      width: 30,
+                                                      child: Text(
+                                                        '${userProvider.charactersProvider.characters[characterIndex].dailyContents[1].restGauge}',
+                                                        style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            : Container(),
+                                        userProvider.charactersProvider.characters[characterIndex].dailyContents[2].isChecked
+                                            ? Row(
+                                                children: [
+                                                  Image.asset(
+                                                    'assets/daily/Epona.png',
+                                                    width: 22,
+                                                    height: 22,
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 5, right: 5),
+                                                    child: Container(
+                                                      width: 30,
+                                                      child: Text(
+                                                        '${userProvider.charactersProvider.characters[characterIndex].dailyContents[2].restGauge}',
+                                                        style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            : Container(),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ],
                             ),
-                            IconButton(
-                              icon: Icon(Icons.settings, color: Colors.grey),
-                              onPressed: () {
-                                if (userProvider.charactersProvider.characters[characterIndex].goldContents.length == 0) {
-                                  userProvider.charactersProvider.characters[characterIndex].goldContents = List.generate(
-                                      constGoldContents.length, (index) => GoldContent.clone(constGoldContents[index]));
-                                }
-
-                                Navigator.push(
-                                    context, MaterialPageRoute(builder: (context) => CharacterSettingsScreen(characterIndex)));
-                              },
-                            )
                           ],
                         ),
-                        widgetPerContents(options[tag], characterIndex),
                       ],
-                    );
-                  },
-                ),
+                    ),
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ChipsChoice<int>.single(
+                            padding: EdgeInsets.only(left: 2),
+                            value: tag,
+                            onChanged: (val) {
+                              setState(() {
+                                tag = val;
+                              });
+                            },
+                            choiceItems: C2Choice.listFrom<int, String>(
+                              source: options,
+                              value: (i, v) => i,
+                              label: (i, v) => v,
+                            ),
+                            choiceStyle: C2ChoiceStyle(
+                              showCheckmark: false,
+                              color: Colors.black,
+                              backgroundColor: themeProvider.darkTheme ? Colors.grey : Colors.white,
+                              borderColor: Colors.grey,
+                              borderRadius: BorderRadius.all(Radius.circular(12)),
+                            ),
+                            choiceActiveStyle: C2ChoiceStyle(
+                                color: Colors.black,
+                                backgroundColor: Colors.white,
+                                borderColor: Colors.black,
+                                borderRadius: BorderRadius.all(Radius.circular(12)),
+                                showCheckmark: false),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.settings, color: themeProvider.darkTheme ? Colors.white : Colors.grey),
+                            onPressed: () {
+                              if (userProvider.charactersProvider.characters[characterIndex].goldContents.length == 0) {
+                                userProvider.charactersProvider.characters[characterIndex].goldContents = List.generate(
+                                    constGoldContents.length, (index) => GoldContent.clone(constGoldContents[index]));
+                              }
+
+                              Navigator.push(
+                                  context, MaterialPageRoute(builder: (context) => CharacterSettingsScreen(characterIndex)));
+                            },
+                          )
+                        ],
+                      ),
+                      widgetPerContents(options[tag], characterIndex),
+                    ],
+                  );
+                },
               ),
             ),
           );

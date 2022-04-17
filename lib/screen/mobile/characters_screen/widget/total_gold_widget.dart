@@ -21,9 +21,12 @@ class TotalGoldWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Total Gold',
-                  style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5.0),
+                  child: Text(
+                    'Total Gold',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
                 ),
                 Row(
                   children: [

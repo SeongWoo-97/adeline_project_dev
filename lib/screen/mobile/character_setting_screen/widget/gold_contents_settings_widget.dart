@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constant/constant.dart';
+import '../../../../model/dark_mode/dark_theme_provider.dart';
 import '../../../../model/user/character/character_model.dart';
 import '../../../../model/user/content/gold_content.dart';
 import '../../../../model/user/user_provider.dart';
@@ -21,96 +22,6 @@ class _GoldContentSettingWidgetState extends State<GoldContentSettingWidget> {
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
-    if (userProvider.charactersProvider.characters[widget.characterIndex].goldContents.length == 0) {
-      return Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('해당 캐릭터는 골드 콘텐츠가 설정되어 있지 않습니다.'),
-                    Text('콘텐츠를 선택하신후 저장 버튼을 눌러주세요!'),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 5),
-                child: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        userProvider.charactersProvider.characters[widget.characterIndex].goldContents = defaultGoldContents;
-                        userProvider.updateContentBoard();
-                      });
-                    },
-                    child: Text('저장')),
-              )
-            ],
-          ),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: defaultGoldContents.length,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  side: BorderSide(color: Colors.grey, width: 0.8),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: iconPerType(defaultGoldContents[index].type),
-                            ),
-                            Text(
-                              '${defaultGoldContents[index].name}',
-                              style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
-                            ),
-                            difficultyText(defaultGoldContents[index].difficulty.toString()),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5),
-                              child: Text('${clearGoldTotal(defaultGoldContents[index].goldPerPhase)} Gold',
-                                  style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 15)),
-                            ),
-                            SizedBox(
-                              height: 25,
-                              child: Checkbox(
-                                value: defaultGoldContents[index].isChecked,
-                                onChanged: (bool? value) {
-                                  print(value);
-                                  setState(() {
-                                    defaultGoldContents[index].isChecked = value!;
-                                  });
-                                },
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ],
-      );
-    }
 
     return Column(
       children: [
@@ -194,6 +105,7 @@ class _GoldContentSettingWidgetState extends State<GoldContentSettingWidget> {
   }
 
   Widget difficultyText(String name) {
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     if (name.isEmpty) {
       return Container();
     } else {
@@ -202,8 +114,8 @@ class _GoldContentSettingWidgetState extends State<GoldContentSettingWidget> {
           return Container(
               margin: EdgeInsets.only(left: 5),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.greenAccent),
-                color: Colors.greenAccent,
+                border: Border.all(color: themeProvider.darkTheme ? Colors.green : Colors.greenAccent),
+                color: themeProvider.darkTheme ? Colors.green : Colors.greenAccent,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(
@@ -217,8 +129,8 @@ class _GoldContentSettingWidgetState extends State<GoldContentSettingWidget> {
           return Container(
               margin: EdgeInsets.only(left: 5),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.redAccent.shade200),
-                color: Colors.redAccent.shade200,
+                border: Border.all(color: themeProvider.darkTheme ? Colors.red : Colors.redAccent.shade200),
+                color: themeProvider.darkTheme ? Colors.red : Colors.redAccent.shade200,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(

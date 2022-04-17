@@ -35,19 +35,16 @@ class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(
+            Padding(
+              padding: const EdgeInsets.fromLTRB(11, 3, 10, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
                     '원정대 콘텐츠',
-                    style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Colors.black87, fontWeight: FontWeight.w300),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5, right: 10),
-                  child: InkWell(
+                  InkWell(
                     child: Icon(
                       Icons.settings,
                       color: Colors.grey,
@@ -56,9 +53,9 @@ class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ExpeditionSettingScreen()));
                     },
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 5),
@@ -86,11 +83,6 @@ class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
         list.add(Padding(
           padding: const EdgeInsets.only(left: 5, right: 5),
           child: Card(
-            elevation: 1,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-              side: BorderSide(color: Colors.grey, width: 0.5),
-            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

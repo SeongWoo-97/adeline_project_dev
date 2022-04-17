@@ -11,6 +11,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constant/constant.dart';
+import '../../../model/dark_mode/dark_theme_provider.dart';
 import '../../../model/user/character/character_model.dart';
 
 class CharacterSettingsScreen extends StatefulWidget {
@@ -67,18 +68,11 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+
     return PlatformScaffold(
       appBar: PlatformAppBar(
-        title: Text(
-          '캐릭터 설정',
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
-        material: (_, __) => MaterialAppBarData(
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          elevation: .5,
-          title: Text('캐릭터 정보수정', style: Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold)),
-        ),
+        title: Text('캐릭터 설정'),
         trailingActions: [
           TextButton(
             onPressed: () async {
@@ -95,7 +89,11 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                 toast('휴식 게이지 값이 잘못되었습니다.');
                 await Future.delayed(Duration(seconds: 1, milliseconds: 500));
               }
-              if (nickNameError == false && levelError == false && chaosError == false && guardianError == false && eponaError == false) {
+              if (nickNameError == false &&
+                  levelError == false &&
+                  chaosError == false &&
+                  guardianError == false &&
+                  eponaError == false) {
                 formKey1.currentState?.save();
                 formKey2.currentState?.save();
                 userProvider.providerSetState();
@@ -104,7 +102,7 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
             },
             child: Text(
               '저장',
-              style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.blue, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           )
         ],
@@ -722,16 +720,16 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
               ),
               choiceStyle: C2ChoiceStyle(
                 showCheckmark: false,
-                color: Colors.grey,
-                backgroundColor: Colors.white,
+                color: Colors.black,
+                backgroundColor: themeProvider.darkTheme ? Colors.grey : Colors.white,
                 borderColor: Colors.grey,
-                borderRadius: BorderRadius.all(Radius.circular(15)),
+                borderRadius: BorderRadius.all(Radius.circular(12)),
               ),
               choiceActiveStyle: C2ChoiceStyle(
                   color: Colors.black,
                   backgroundColor: Colors.white,
                   borderColor: Colors.black,
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
                   showCheckmark: false),
             ),
             Expanded(child: ListView(children: [widgetPerContents(options[tag], widget.characterIndex)])),

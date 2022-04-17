@@ -4,6 +4,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constant/constant.dart';
+import '../../../../model/dark_mode/dark_theme_provider.dart';
 
 class AddContentIconWidget extends StatefulWidget {
   final String contentListType;
@@ -19,6 +20,7 @@ class _AddContentWidgetState extends State<AddContentIconWidget> {
   @override
   Widget build(BuildContext context) {
     AddContentProvider addContentProvider = Provider.of<AddContentProvider>(context);
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     return IconButton(
       icon: Icon(
         Icons.add,
@@ -37,16 +39,17 @@ class _AddContentWidgetState extends State<AddContentIconWidget> {
                     child: TextFormField(
                       controller: addContentProvider.addController,
                       decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 5),
-                          hintText: '콘텐츠 이름',
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black26, width: 0.5),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black26, width: 0.5),
-                            borderRadius: BorderRadius.circular(5),
-                          )),
+                        contentPadding: EdgeInsets.only(left: 5),
+                        hintText: '콘텐츠 이름',
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
                     ),
                   ),
                   content: Container(
@@ -69,7 +72,14 @@ class _AddContentWidgetState extends State<AddContentIconWidget> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                      color: addContentProvider.selected == index ? Colors.grey : Colors.white, width: 1.5),
+                                      color: addContentProvider.selected == index
+                                          ? themeProvider.darkTheme
+                                              ? Colors.grey
+                                              : Colors.grey
+                                          : themeProvider.darkTheme
+                                              ? Colors.grey[800]!
+                                              : Colors.white,
+                                      width: 1.5),
                                 ),
                                 child: Image.asset(
                                   '${iconList[index].iconName}',
@@ -89,13 +99,18 @@ class _AddContentWidgetState extends State<AddContentIconWidget> {
                   ),
                   actions: [
                     PlatformDialogAction(
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        FocusScope.of(context).unfocus();
+                      },
                       child: Text('취소'),
                     ),
                     PlatformDialogAction(
                       onPressed: () {
-                        addContentProvider.addContent(context, widget.characterIndex, widget.contentListType, addContentProvider.addController.text);
+                        addContentProvider.addContent(
+                            context, widget.characterIndex, widget.contentListType, addContentProvider.addController.text);
                         Navigator.pop(context);
+                        FocusScope.of(context).unfocus();
                       },
                       child: Text('확인'),
                     ),
