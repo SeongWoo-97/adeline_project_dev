@@ -18,7 +18,7 @@ class RestGaugeContent {
   @HiveField(6)
   int restGauge = 0;
   @HiveField(7)
-  DateTime lateRevision = DateTime.utc(DateTime.now().year, DateTime.now().month, DateTime.now().day, 6); // 최근 수정일
+  DateTime lateRevision = DateTime.utc(DateTime.now().year, DateTime.now().month, DateTime.now().day, 6); // 마지막 수정일
   @HiveField(8)
   int saveRestGauge = 0;
   @HiveField(9)

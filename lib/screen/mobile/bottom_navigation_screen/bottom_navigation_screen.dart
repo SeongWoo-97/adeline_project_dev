@@ -4,6 +4,7 @@ import 'package:adeline_project_dev/screen/mobile/home_screen/home_screen.dart';
 import 'package:adeline_project_dev/screen/mobile/settings_screen/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
@@ -17,85 +18,53 @@ class BottomNavigationScreen extends StatefulWidget {
   State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
 }
 
-class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
-  PersistentTabController _controller = PersistentTabController(initialIndex: 1);
-  List<Widget> screens = [
-    DistributionCaluScreen(),
-    CharactersScreen(),
-    HomeScreen(),
-    SettingsScreen(),
-  ];
+class _BottomNavigationScreenState extends State<BottomNavigationScreen> with TickerProviderStateMixin {
+  late TabController tabController;
 
-  List<PersistentBottomNavBarItem> _navBarsItems() {
-    return [
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.calculate_outlined),
-        title: ("분배금"),
-        activeColorPrimary: Colors.indigoAccent,
-        inactiveColorPrimary: Colors.black54,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(
-          CupertinoIcons.calendar,
-        ),
-        title: ("숙제 관리"),
-        activeColorPrimary: Colors.indigoAccent,
-        inactiveColorPrimary: Colors.black54,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(
-          CupertinoIcons.home,
-        ),
-        title: ("홈 화면"),
-        activeColorPrimary: Colors.indigoAccent,
-        inactiveColorPrimary: Colors.black54,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.menu),
-        title: ("더보기"),
-        activeColorPrimary: Colors.indigoAccent,
-        inactiveColorPrimary: Colors.black54,
-      ),
-    ];
+  @override
+  void initState() {
+    tabController = TabController(initialIndex: 1, vsync: this, length: 4);
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
-    return PersistentTabView(
-      context,
-      controller: _controller,
-      screens: screens,
-      items: _navBarsItems(),
-      confineInSafeArea: true,
-      backgroundColor: themeProvider.darkTheme ? Colors.white54 : Colors.white,
-      // Default is Colors.white.
-      handleAndroidBackButtonPress: true,
-      // Default is true.
-      resizeToAvoidBottomInset: true,
-      // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-      stateManagement: true,
-      // Default is true.
-      hideNavigationBarWhenKeyboardShows: true,
-      // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
-      decoration: NavBarDecoration(
-        borderRadius: BorderRadius.circular(5.0),
-        colorBehindNavBar: themeProvider.darkTheme ? Colors.grey[800]! : Colors.white,
+    return DefaultTabController(
+      length: 4,
+      child: PlatformScaffold(
+        body: TabBarView(
+          controller: tabController,
+          children: [
+            DistributionCaluScreen(),
+            CharactersScreen(),
+            HomeScreen(),
+            SettingsScreen(),
+          ],
+        ),
+        material: (_, __) => MaterialScaffoldData(
+          bottomNavBar: TabBar(
+            controller: tabController,
+            tabs: [
+              Tab(
+                icon: Icon(Icons.home),
+                text: 'home',
+              ),
+              Tab(
+                icon: Icon(Icons.chat),
+                text: 'chat',
+              ),
+              Tab(
+                icon: Icon(Icons.people),
+                text: 'my',
+              ),
+              Tab(
+                icon: Icon(Icons.people),
+                text: 'my',
+              )
+            ],
+          ),
+        ),
       ),
-      popAllScreensOnTapOfSelectedTab: true,
-      popActionScreens: PopActionScreensType.all,
-      itemAnimationProperties: ItemAnimationProperties(
-        // Navigation Bar's items animation properties.
-        duration: Duration(milliseconds: 400),
-        curve: Curves.ease,
-      ),
-      screenTransitionAnimation: ScreenTransitionAnimation(
-        // Screen transition animation on change of selected tab.
-        animateTabTransition: true,
-        curve: Curves.ease,
-        duration: Duration(milliseconds: 400),
-      ),
-      navBarStyle: NavBarStyle.style3, // Choose the nav bar style with this property.
     );
   }
 }

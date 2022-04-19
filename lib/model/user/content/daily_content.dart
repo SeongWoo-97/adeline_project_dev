@@ -11,6 +11,8 @@ class DailyContent {
   bool isChecked = true;
   @HiveField(3)
   bool clearChecked = false;
+  @HiveField(4)
+  DateTime recentInitDateTime = DateTime.now();
 
   DailyContent(this.name, this.iconName, this.isChecked);
 }

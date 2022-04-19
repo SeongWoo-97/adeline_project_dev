@@ -20,13 +20,15 @@ class DailyContentAdapter extends TypeAdapter<DailyContent> {
       fields[0] as String,
       fields[1] as String,
       fields[2] as bool,
-    )..clearChecked = fields[3] as bool;
+    )
+      ..clearChecked = fields[3] as bool
+      ..recentInitDateTime = fields[4] as DateTime;
   }
 
   @override
   void write(BinaryWriter writer, DailyContent obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -34,7 +36,9 @@ class DailyContentAdapter extends TypeAdapter<DailyContent> {
       ..writeByte(2)
       ..write(obj.isChecked)
       ..writeByte(3)
-      ..write(obj.clearChecked);
+      ..write(obj.clearChecked)
+      ..writeByte(4)
+      ..write(obj.recentInitDateTime);
   }
 
   @override

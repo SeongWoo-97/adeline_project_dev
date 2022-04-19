@@ -15,7 +15,7 @@ class DistributionCaluScreen extends StatefulWidget {
   _DistributionCaluScreenState createState() => _DistributionCaluScreenState();
 }
 
-class _DistributionCaluScreenState extends State<DistributionCaluScreen> {
+class _DistributionCaluScreenState extends State<DistributionCaluScreen> with AutomaticKeepAliveClientMixin {
   bool fourMembers = false;
   bool eightMembers = false;
   int distributionValue1 = 0;
@@ -31,7 +31,11 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> {
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     return PlatformScaffold(
         appBar: PlatformAppBar(
@@ -59,13 +63,14 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> {
                       buttonTextStyle: ButtonTextStyle(
                         textStyle: Theme.of(context).textTheme.bodyText1,
                         selectedColor: themeProvider.darkTheme ? Colors.white : Colors.black,
-                        unSelectedColor:  themeProvider.darkTheme ? Colors.white : Colors.black,
+                        unSelectedColor: themeProvider.darkTheme ? Colors.white : Colors.black,
                       ),
                       unSelectedColor: Colors.transparent,
-                      selectedColor:themeProvider.darkTheme ? Colors.white24 : Colors.black26,
+                      selectedColor: themeProvider.darkTheme ? Colors.white24 : Colors.black26,
                       width: MediaQuery.of(context).size.width * 0.453,
                       absoluteZeroSpacing: false,
-                      customShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8), side: BorderSide(color: Colors.grey)),
+                      customShape:
+                          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8), side: BorderSide(color: Colors.grey)),
                       enableShape: true,
                     ),
                   )
@@ -157,15 +162,21 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 5,),
+                            SizedBox(
+                              height: 5,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Flexible(child: Text('본인 : ${(int.parse(itemPriceController.text) - distributionValue1 - (int.parse(itemPriceController.text) * 0.05)).round()} Gold')),
-                                Flexible(child: Text('파티원 : ${(distributionValue1/(memberNum-1)).round()} Gold')),
+                                Flexible(
+                                    child: Text(
+                                        '본인 : ${(int.parse(itemPriceController.text) - distributionValue1 - (int.parse(itemPriceController.text) * 0.05)).round()} Gold')),
+                                Flexible(child: Text('파티원 : ${(distributionValue1 / (memberNum - 1)).round()} Gold')),
                               ],
                             ),
-                            SizedBox(height: 10,),
+                            SizedBox(
+                              height: 10,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -177,15 +188,20 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> {
                                   '$distributionValue2 Gold',
                                   style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
                                 ),
-
                               ],
                             ),
-                            SizedBox(height: 5,),
+                            SizedBox(
+                              height: 5,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Flexible(child: Text('본인 : ${((int.parse(itemPriceController.text) -(int.parse(itemPriceController.text) * 0.05)) / memberNum).round()} Gold')),
-                                Flexible(child: Text('파티원 : ${((int.parse(itemPriceController.text) -(int.parse(itemPriceController.text) * 0.05)) / memberNum).round()} Gold')),
+                                Flexible(
+                                    child: Text(
+                                        '본인 : ${((int.parse(itemPriceController.text) - (int.parse(itemPriceController.text) * 0.05)) / memberNum).round()} Gold')),
+                                Flexible(
+                                    child: Text(
+                                        '파티원 : ${((int.parse(itemPriceController.text) - (int.parse(itemPriceController.text) * 0.05)) / memberNum).round()} Gold')),
                               ],
                             ),
                           ],

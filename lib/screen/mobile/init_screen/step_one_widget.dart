@@ -36,11 +36,11 @@ class StepOne extends StatelessWidget {
                     contentPadding: EdgeInsets.zero,
                     hintText: '닉네임',
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black26, width: 0.5),
+                      borderSide: BorderSide(color: Colors.grey, width: 0.5),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black26, width: 0.5),
+                      borderSide: BorderSide(color: Colors.grey, width: 0.5),
                       borderRadius: BorderRadius.circular(5),
                     )),
               ),
@@ -53,7 +53,6 @@ class StepOne extends StatelessWidget {
             icon: Icon(
               Icons.arrow_forward,
               size: 30,
-              color: Colors.blue,
             ),
             onPressed: () {
               FocusScope.of(context).unfocus();

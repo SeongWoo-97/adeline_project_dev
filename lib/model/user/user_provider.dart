@@ -108,6 +108,9 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void initCharactersScreen() {
+    characterBox.put('user', User(characters: charactersProvider.characters));
+  }
   void dailyContentClearCheck(int characterIndex, int index, bool? value) {
     charactersProvider.characters[characterIndex].dailyContents[index].clearChecked = value!;
     characterBox.put('user', User(characters: charactersProvider.characters));

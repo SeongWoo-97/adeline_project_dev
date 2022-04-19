@@ -41,6 +41,19 @@ class InitSettingsController extends ChangeNotifier {
     final characterBox = Hive.box<User>('characters');
     final expeditionBox = Hive.box<Expedition>('expedition');
 
+    DateTime now = DateTime.now();
+    DateTime nowDate = DateTime.utc(now.year, now.month, now.day, 6);
+
+    // nextWednesday 에 다음주 수요일 값을 넣는 코드
+    if (nowDate.weekday == 3) {
+      expeditionProvider.expedition.nextWednesday = nowDate.add(Duration(days: 7));
+    } else {
+      while (nowDate.weekday != 3) {
+        nowDate = nowDate.add(Duration(days: 1));
+        expeditionProvider.expedition.nextWednesday = nowDate;
+      }
+    }
+    print('설정완료 후 : ${expeditionProvider.expedition.nextWednesday}');
     characterBox.put('user', User(characters: userProvider.charactersProvider.characters));
     expeditionBox.put('expeditionList', expeditionProvider.expedition);
 

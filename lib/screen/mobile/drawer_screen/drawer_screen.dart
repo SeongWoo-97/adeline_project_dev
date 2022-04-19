@@ -33,12 +33,7 @@ class DrawerScreen extends StatelessWidget {
               visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
               title: const Text('떠돌이 상인 지도',style: const TextStyle(fontFamily: 'NotoSansKR', fontSize: 16),),
               onTap: () {
-                pushNewScreen(
-                  context,
-                  screen: MerchantLocationScreen(),
-                  withNavBar: false, // OPTIONAL VALUE. True by default.
-                  pageTransitionAnimation: PageTransitionAnimation.cupertino,
-                );
+                Navigator.push(context,MaterialPageRoute(builder: (context) =>  MerchantLocationScreen()));
               },
             ),
             ListTile(

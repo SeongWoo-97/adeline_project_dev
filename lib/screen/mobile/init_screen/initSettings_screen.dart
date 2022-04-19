@@ -23,13 +23,6 @@ class _InitSettingsScreenState extends State<InitSettingsScreen> {
     return PlatformScaffold(
       appBar: PlatformAppBar(
         title: Text('캐릭터 불러오기'),
-        material: (_, __) => MaterialAppBarData(
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          elevation: .5,
-          titleTextStyle: Theme.of(context).textTheme.headline1,
-        ),
-        cupertino: (_, __) => CupertinoNavigationBarData(),
         trailingActions: [
           _currentStep == 1
               ? TextButton(

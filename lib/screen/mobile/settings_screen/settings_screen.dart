@@ -1,11 +1,15 @@
 import 'package:adeline_project_dev/main.dart';
+import 'package:adeline_project_dev/screen/mobile/init_screen/initSettings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 import '../../../model/dark_mode/darkThemePreference.dart';
 import '../../../model/dark_mode/dark_theme_provider.dart';
+import '../../../model/user/expedition/expedition_model.dart';
+import '../../../model/user/user.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -14,22 +18,17 @@ class SettingsScreen extends StatefulWidget {
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final themeChange = Provider.of<ThemeProvider>(context);
     return PlatformScaffold(
       appBar: PlatformAppBar(
         title: Text('설정'),
-        material: (_, __) => MaterialAppBarData(
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          elevation: .5,
-          titleTextStyle: Theme.of(context).textTheme.headline1,
-          toolbarHeight: 45,
-          iconTheme: IconThemeData(color: Colors.black54),
-        ),
-        cupertino: (_, __) => CupertinoNavigationBarData(),
       ),
       body: SafeArea(
         child: SettingsList(
@@ -50,6 +49,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     '숙제관리에 있는 모든캐릭터가 사라집니다.',
                     style: Theme.of(context).textTheme.caption,
                   ),
+                  onPressed: (context) {
+                    final characterBox = Hive.box<User>('characters');
+                    final expeditionBox = Hive.box<Expedition>('expedition');
+                    characterBox.delete('user');
+                    expeditionBox.delete('expeditionList');
+
+                    Navigator.pushAndRemoveUntil(
+                        context, MaterialPageRoute(builder: (context) => InitSettingsScreen()), (route) => false);
+                  },
                 ),
                 SettingsTile.navigation(
                   title: Text('캐릭터 숙제 백업하기', style: Theme.of(context).textTheme.bodyText1),

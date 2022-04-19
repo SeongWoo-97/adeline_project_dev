@@ -30,23 +30,7 @@ class _DailyContentsWidgetState extends State<DailyContentsWidget> {
             return InkWell(
               child: restGaugeContentTile(userProvider.charactersProvider.characters[characterIndex].dailyContents[index]),
               onTap: () {
-                setState(() {
-                  if (userProvider.charactersProvider.characters[characterIndex].dailyContents[index].maxClearNum !=
-                      userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearNum) {
-                    userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearNum += 1;
-                    if (userProvider.charactersProvider.characters[characterIndex].dailyContents[index].restGauge >= 20) {
-                      userProvider.charactersProvider.characters[characterIndex].dailyContents[index].restGauge =
-                          userProvider.charactersProvider.characters[characterIndex].dailyContents[index].restGauge - 20;
-                      userProvider.charactersProvider.characters[characterIndex].dailyContents[index].saveRestGauge += 20;
-                    }
-                  } else if (userProvider.charactersProvider.characters[characterIndex].dailyContents[index].maxClearNum ==
-                      userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearNum) {
-                    userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearNum = 0;
-                    userProvider.charactersProvider.characters[characterIndex].dailyContents[index].restGauge +=
-                        userProvider.charactersProvider.characters[characterIndex].dailyContents[index].saveRestGauge;
-                    userProvider.charactersProvider.characters[characterIndex].dailyContents[index].saveRestGauge = 0;
-                  }
-                });
+                userProvider.restGaugeContentClearCheck(characterIndex,index);
                 box.put('user', User(characters: userProvider.charactersProvider.characters));
               },
             );

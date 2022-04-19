@@ -16,15 +16,22 @@ class ExpeditionAdapter extends TypeAdapter<Expedition> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Expedition()..list = (fields[0] as List).cast<ExpeditionContent>();
+    return Expedition()
+      ..list = (fields[0] as List).cast<ExpeditionContent>()
+      ..recentInitDateTime = fields[1] as DateTime
+      ..nextWednesday = fields[2] as DateTime;
   }
 
   @override
   void write(BinaryWriter writer, Expedition obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.list);
+      ..write(obj.list)
+      ..writeByte(1)
+      ..write(obj.recentInitDateTime)
+      ..writeByte(2)
+      ..write(obj.nextWednesday);
   }
 
   @override
