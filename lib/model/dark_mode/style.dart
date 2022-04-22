@@ -9,8 +9,9 @@ class ThemeColor {
         primaryColor: isDarkTheme ? Colors.grey[900] : Colors.white,
         scaffoldBackgroundColor: isDarkTheme ? Color(0xFF121212) : Colors.white,
         backgroundColor: isDarkTheme ? Colors.black : Color(0xffF1F5FB),
-        indicatorColor: isDarkTheme ? Color(0xFF121212) : Color(0xffCBDCF8),
-        hintColor: isDarkTheme ? Colors.grey : Colors.grey ,
+        indicatorColor: isDarkTheme ? Colors.cyanAccent : Colors.indigoAccent,
+        unselectedWidgetColor: isDarkTheme ? Colors.white : Colors.grey,
+        hintColor: isDarkTheme ? Colors.grey : Colors.grey,
         highlightColor: isDarkTheme ? Color(0xff372901) : Color(0xffFCE192),
         hoverColor: isDarkTheme ? Color(0xff3A3A3B) : Color(0xff4285F4),
         focusColor: isDarkTheme ? Color(0xff0B2512) : Color(0xffA8DAB5),
@@ -68,12 +69,14 @@ class ThemeColor {
         listTileTheme: ListTileThemeData(),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            primary: isDarkTheme ? Colors.grey[900] : Colors.white,
-            elevation: 1,
-            side: BorderSide(
-              width: .7,
-              color: Colors.grey,
+            primary: isDarkTheme ? Colors.grey[900] : Colors.grey,
+            textStyle: TextStyle(
+              fontSize: 14,
+              color: isDarkTheme ? Colors.white : Colors.black,
+              fontFamily: 'NotoSansKR',
             ),
+            elevation: 1,
+            side: BorderSide(width: .7, color: Colors.grey),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),

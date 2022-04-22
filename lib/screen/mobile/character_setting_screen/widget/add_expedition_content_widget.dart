@@ -1,17 +1,16 @@
 import 'package:adeline_project_dev/model/add_content_provider/add_expedition_content_provider.dart';
+import 'package:adeline_project_dev/model/user/expedition/expedition_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constant/constant.dart';
 import '../../../../model/dark_mode/dark_theme_provider.dart';
-import '../../../../model/user/content/expedition_content.dart';
 import '../../../../model/user/expedition/expedition_provider.dart';
 
 enum ExpeditionType { daily, weekly }
 
 class AddExpeditionContentWidget extends StatefulWidget {
-
   @override
   State<AddExpeditionContentWidget> createState() => _AddExpeditionContentWidgetState();
 }
@@ -21,16 +20,15 @@ class _AddExpeditionContentWidgetState extends State<AddExpeditionContentWidget>
 
   @override
   Widget build(BuildContext context) {
-    AddExpeditionContentProvider addExpeditionContentProvider = Provider.of<AddExpeditionContentProvider>(context);
+    AddExpeditionContentProvider addExpeditionContentProvider = Provider.of<AddExpeditionContentProvider>(context, listen: false);
     ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context, listen: false);
     ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     return InkWell(
       child: Padding(
-        padding: const EdgeInsets.only(top: 3,right: 10),
+        padding: const EdgeInsets.only(top: 3, right: 10),
         child: Icon(
           Icons.add,
           size: 30,
-          color: Colors.blue,
         ),
       ),
       onTap: () async {
@@ -116,11 +114,11 @@ class _AddExpeditionContentWidgetState extends State<AddExpeditionContentWidget>
                                   border: Border.all(
                                       color: addExpeditionContentProvider.selected == index
                                           ? themeProvider.darkTheme
-                                          ? Colors.grey
-                                          : Colors.grey
+                                              ? Colors.grey
+                                              : Colors.grey
                                           : themeProvider.darkTheme
-                                          ? Colors.grey[800]!
-                                          : Colors.white,
+                                              ? Colors.grey[800]!
+                                              : Colors.white,
                                       width: 1.5),
                                 ),
                                 child: Image.asset(
@@ -150,11 +148,11 @@ class _AddExpeditionContentWidgetState extends State<AddExpeditionContentWidget>
                       onPressed: () {
                         setState(() {
                           if (_expeditionType == "일일") {
-                            expeditionProvider.expedition.list
-                                .add(ExpeditionContent("일일", addExpeditionContentProvider.addController.text.toString(), addExpeditionContentProvider.iconName.toString()));
+                            expeditionProvider.addExpeditionContent(
+                                "일일", addExpeditionContentProvider.addController.text, addExpeditionContentProvider.iconName);
                           } else {
-                            expeditionProvider.expedition.list
-                                .add(ExpeditionContent("주간", addExpeditionContentProvider.addController.text.toString(), addExpeditionContentProvider.iconName.toString()));
+                            expeditionProvider.addExpeditionContent(
+                                "주간", addExpeditionContentProvider.addController.text, addExpeditionContentProvider.iconName);
                           }
                         });
                         Navigator.pop(context);

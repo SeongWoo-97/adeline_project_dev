@@ -212,8 +212,8 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                             content: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                Text(
-                                                    '${userProvider.charactersProvider.characters[characterIndex].goldContents[index].name}(${userProvider.charactersProvider.characters[characterIndex].goldContents[index].difficulty})'),
+                                                Text('${userProvider.charactersProvider.characters[characterIndex].goldContents[index].name} (${userProvider.charactersProvider.characters[characterIndex].goldContents[index].difficulty})'),
+                                                SizedBox(height: 10,),
                                                 Container(
                                                   width: 300,
                                                   height: 90,
@@ -223,7 +223,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                                       crossAxisCount: 3,
                                                       childAspectRatio: 1 / 2,
-                                                      mainAxisExtent: 40,
+                                                      mainAxisExtent: 46,
                                                       crossAxisSpacing: 5,
                                                       mainAxisSpacing: 5,
                                                     ),

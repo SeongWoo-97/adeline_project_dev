@@ -1,12 +1,15 @@
-import 'package:adeline_project_dev/constant/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../model/user/user_provider.dart';
 
 class TotalGoldWidget extends StatelessWidget {
   const TotalGoldWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.only(left: 5, right: 5),
       child: SizedBox(
@@ -30,14 +33,9 @@ class TotalGoldWidget extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    ValueListenableBuilder(
-                      valueListenable: totalGold,
-                      builder: (BuildContext context, int value, Widget? child) {
-                        return Text(
-                          '${NumberFormat('###,###,###,###').format(totalGold.value).replaceAll(' ', '')} G ',
-                          style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                        );
-                      },
+                    Text(
+                      '${NumberFormat('###,###,###,###').format(userProvider.totalGold).replaceAll(' ', '')} G ',
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
                     ),
                   ],
                 )
@@ -47,9 +45,5 @@ class TotalGoldWidget extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String getTotalGold() {
-    return NumberFormat('###,###,###,###').format(totalGold.value).replaceAll(' ', '');
   }
 }

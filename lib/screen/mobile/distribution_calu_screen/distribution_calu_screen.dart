@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/dark_mode/dark_theme_provider.dart';
@@ -121,9 +122,7 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
                         ),
                       ),
                       onChanged: (value) {
-                        if (memberNum != null) {
-                          bidPrice(value, memberNum);
-                        }
+                        bidPrice(value, memberNum);
                       },
                     ),
                   ),
@@ -157,7 +156,7 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
                                   style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
                                 ),
                                 Text(
-                                  '$distributionValue1 Gold',
+                                  '${getTotalGold(distributionValue1)} Gold',
                                   style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
                                 ),
                               ],
@@ -170,8 +169,8 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
                               children: [
                                 Flexible(
                                     child: Text(
-                                        '본인 : ${(int.parse(itemPriceController.text) - distributionValue1 - (int.parse(itemPriceController.text) * 0.05)).round()} Gold')),
-                                Flexible(child: Text('파티원 : ${(distributionValue1 / (memberNum - 1)).round()} Gold')),
+                                        '본인 - ${getTotalGold((int.parse(itemPriceController.text) - distributionValue1 - (int.parse(itemPriceController.text) * 0.05)).round())} G')),
+                                Flexible(child: Text('파티원 - ${getTotalGold((distributionValue1 / (memberNum - 1)).round())} G')),
                               ],
                             ),
                             SizedBox(
@@ -181,11 +180,11 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '파티원 균등 배분 : ',
+                                  '파티원 균등 분배 : ',
                                   style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
                                 ),
                                 Text(
-                                  '$distributionValue2 Gold',
+                                  '${getTotalGold(distributionValue2)} Gold',
                                   style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
                                 ),
                               ],
@@ -198,10 +197,10 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
                               children: [
                                 Flexible(
                                     child: Text(
-                                        '본인 : ${((int.parse(itemPriceController.text) - (int.parse(itemPriceController.text) * 0.05)) / memberNum).round()} Gold')),
+                                        '본인 - ${getTotalGold(((int.parse(itemPriceController.text) - (int.parse(itemPriceController.text) * 0.05)) / memberNum).round())} G')),
                                 Flexible(
                                     child: Text(
-                                        '파티원 : ${((int.parse(itemPriceController.text) - (int.parse(itemPriceController.text) * 0.05)) / memberNum).round()} Gold')),
+                                        '파티원 - ${getTotalGold(((int.parse(itemPriceController.text) - (int.parse(itemPriceController.text) * 0.05)) / memberNum).round())} G')),
                               ],
                             ),
                           ],
@@ -234,5 +233,9 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
       distributionValue1 = (num / 1.1).round();
       distributionValue2 = num;
     });
+  }
+
+  String getTotalGold(int number) {
+    return NumberFormat('###,###,###,###').format(number).replaceAll(' ', '');
   }
 }

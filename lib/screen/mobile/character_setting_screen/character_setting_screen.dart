@@ -25,11 +25,8 @@ class CharacterSettingsScreen extends StatefulWidget {
 
 class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
   int tag = 0;
-  String iconName = iconList[0].iconName!;
 
   List<String> options = ['일일 콘텐츠', '주간 콘텐츠', '골드 콘텐츠'];
-  List<Card> dailyCardList = [];
-  List<Card> weeklyCardList = [];
 
   final formKey1 = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
@@ -45,10 +42,6 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
   TextEditingController chaosGaugeController = TextEditingController();
   TextEditingController guardianGaugeController = TextEditingController();
   TextEditingController eponaGaugeController = TextEditingController();
-  TextEditingController addController = TextEditingController();
-
-  DragAndDropList weeklyDragAndDrop = DragAndDropList(children: []);
-  DragAndDropList dailyDragAndDrop = DragAndDropList(children: []);
 
   @override
   void initState() {

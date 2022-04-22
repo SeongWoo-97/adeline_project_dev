@@ -2,12 +2,15 @@ import 'package:adeline_project_dev/model/user/content/daily_content.dart';
 import 'package:adeline_project_dev/model/user/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../../constant/constant.dart';
 import '../user/content/weekly_content.dart';
+import '../user/user.dart';
 
 class AddContentProvider extends ChangeNotifier {
+  final characterBox = Hive.box<User>('characters');
   TextEditingController addController = TextEditingController();
   var key = GlobalKey<FormState>();
   int selected = 0;
@@ -25,6 +28,7 @@ class AddContentProvider extends ChangeNotifier {
         userProvider.charactersProvider.characters[characterIndex].weeklyContents.add(WeeklyContent(name, iconName, true));
         break;
     }
+    characterBox.put('user', User(characters: userProvider.charactersProvider.characters));
     notifyListeners();
   }
 }

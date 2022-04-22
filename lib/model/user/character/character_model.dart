@@ -35,4 +35,5 @@ class Character {
   bool expanded = false;
 
   Character({required this.server, required this.nickName, this.level, this.job, required this.jobCode});
+
 }

@@ -17,12 +17,6 @@ class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
   final expeditionBox = Hive.box<Expedition>('expedition');
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 5, right: 5),
@@ -95,10 +89,7 @@ class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      '${expeditionProvider.expedition.list[i].name}',
-                      style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                    )
+                    Container(width: 100,child: Text('${expeditionProvider.expedition.list[i].name}',overflow: TextOverflow.ellipsis,))
                   ],
                 ),
                 Row(

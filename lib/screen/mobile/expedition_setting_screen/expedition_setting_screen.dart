@@ -23,20 +23,17 @@ class ExpeditionSettingScreen extends StatefulWidget {
 class _ExpeditionSettingScreenState extends State<ExpeditionSettingScreen> {
   DragAndDropList expeditionDragAndDrop = DragAndDropList(children: []);
   final expeditionBox = Hive.box<Expedition>('expedition');
+  ExpeditionType _expeditionType = ExpeditionType.daily;
 
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
       appBar: PlatformAppBar(
-        title: Text(
-          '원정대 콘텐츠 설정',
-
-        ),
+        title: Text('원정대 콘텐츠 설정'),
         trailingActions: [AddExpeditionContentWidget()],
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Colors.blue,
           ),
           onPressed: () => Navigator.pop(context),
         ),
@@ -85,8 +82,8 @@ class _ExpeditionSettingScreenState extends State<ExpeditionSettingScreen> {
   }
 
   DragAndDropList dailyDragAndDropList() {
-    ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context, listen: false);
-    AddExpeditionContentProvider addExpeditionContentProvider = Provider.of<AddExpeditionContentProvider>(context, listen: false);
+    ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context);
+    AddExpeditionContentProvider addExpeditionContentProvider = Provider.of<AddExpeditionContentProvider>(context);
     ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     expeditionDragAndDrop = DragAndDropList(
       children: List.generate(
@@ -157,27 +154,69 @@ class _ExpeditionSettingScreenState extends State<ExpeditionSettingScreen> {
                       ),
                       onTap: () async {
                         addExpeditionContentProvider.addController.text = expeditionProvider.expedition.list[i].name;
+                        print(expeditionProvider.expedition.list[i].type);
+                        expeditionProvider.expedition.list[i].type == "일일"
+                            ? _expeditionType = ExpeditionType.daily
+                            : _expeditionType = ExpeditionType.weekly;
                         await showDialog(
                             context: context,
                             builder: (_) {
                               return StatefulBuilder(builder: (context, setState) {
                                 return PlatformAlertDialog(
-                                  title: Form(
-                                    key: addExpeditionContentProvider.key,
-                                    child: TextFormField(
-                                      controller: addExpeditionContentProvider.addController,
-                                      decoration: InputDecoration(
-                                          contentPadding: EdgeInsets.only(left: 5),
-                                          hintText: '콘텐츠 이름',
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                                            borderRadius: BorderRadius.circular(5),
+                                  title: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Flexible(
+                                            child: ListTile(
+                                              title: const Text('일일'),
+                                              horizontalTitleGap: 0,
+                                              leading: Radio<ExpeditionType>(
+                                                value: ExpeditionType.daily,
+                                                groupValue: _expeditionType,
+                                                onChanged: (ExpeditionType? value) {
+                                                  setState(() {
+                                                    _expeditionType = value!;
+                                                  });
+                                                },
+                                              ),
+                                            ),
                                           ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                                            borderRadius: BorderRadius.circular(5),
-                                          )),
-                                    ),
+                                          Flexible(
+                                            child: ListTile(
+                                              title: const Text('주간'),
+                                              horizontalTitleGap: 0,
+                                              leading: Radio<ExpeditionType>(
+                                                value: ExpeditionType.weekly,
+                                                groupValue: _expeditionType,
+                                                onChanged: (ExpeditionType? value) {
+                                                  setState(() {
+                                                    _expeditionType = value!;
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Form(
+                                        key: addExpeditionContentProvider.key,
+                                        child: TextFormField(
+                                          controller: addExpeditionContentProvider.addController,
+                                          decoration: InputDecoration(
+                                              contentPadding: EdgeInsets.only(left: 5),
+                                              hintText: '콘텐츠 이름',
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                                                borderRadius: BorderRadius.circular(5),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                                                borderRadius: BorderRadius.circular(5),
+                                              )),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   content: Container(
                                     width: MediaQuery.of(context).size.width * 0.7,
@@ -234,13 +273,24 @@ class _ExpeditionSettingScreenState extends State<ExpeditionSettingScreen> {
                                     PlatformDialogAction(
                                       child: Text('확인'),
                                       onPressed: () {
-                                        expeditionProvider.updateExpeditionContent(
-                                            i,
-                                            ExpeditionContent(
-                                              expeditionProvider.expedition.list[i].type,
-                                              addExpeditionContentProvider.addController.text.toString(),
-                                              addExpeditionContentProvider.iconName.toString(),
-                                            ));
+                                        print(_expeditionType);
+                                        if (_expeditionType == ExpeditionType.daily) {
+                                          expeditionProvider.updateExpeditionContent(
+                                              i,
+                                              ExpeditionContent(
+                                                "일일",
+                                                addExpeditionContentProvider.addController.text.toString(),
+                                                addExpeditionContentProvider.iconName.toString(),
+                                              ));
+                                        } else {
+                                          expeditionProvider.updateExpeditionContent(
+                                              i,
+                                              ExpeditionContent(
+                                                "주간",
+                                                addExpeditionContentProvider.addController.text.toString(),
+                                                addExpeditionContentProvider.iconName.toString(),
+                                              ));
+                                        }
                                         Navigator.pop(context);
                                       },
                                     ),

@@ -11,29 +11,40 @@ class ExpeditionProvider extends ChangeNotifier {
 
   void updateExpeditionContent(int index, ExpeditionContent expeditionContent) {
     expedition.list[index] = expeditionContent;
+    expeditionBox.put('expeditionList', expedition);
+
     notifyListeners();
   }
 
   void updateIsChecked(BuildContext context,int index, bool value) {
     expedition.list[index].isChecked = value;
+    expeditionBox.put('expeditionList', expedition);
+
     notifyListeners();
   }
 
   void removeExpeditionContent(int index) {
     expedition.list.removeAt(index);
+    expeditionBox.put('expeditionList', expedition);
 
     notifyListeners();
   }
 
   void insertExpeditionContent(int newItemIndex, var movedItem2) {
     expedition.list.insert(newItemIndex, movedItem2);
+    expeditionBox.put('expeditionList', expedition);
 
     notifyListeners();
   }
   void updateClearCheck(BuildContext context,int index,bool value){
-    ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context, listen: false);
     expedition.list[index].clearCheck = value;
-    expeditionBox.put('expeditionList', expeditionProvider.expedition);
+    expeditionBox.put('expeditionList', expedition);
+    notifyListeners();
+  }
+
+  void addExpeditionContent(String contentType, String name, String iconName) {
+    expedition.list.add(ExpeditionContent(contentType, name, iconName));
+    expeditionBox.put('expeditionList', expedition);
     notifyListeners();
   }
 }

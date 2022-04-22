@@ -1,39 +1,38 @@
-import 'package:adeline_project_dev/model/add_content_provider/add_content_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constant/constant.dart';
 import '../../../../model/dark_mode/dark_theme_provider.dart';
+import '../controller/add_character_provider.dart';
 
-class AddContentIconWidget extends StatefulWidget {
+class ManualAddIconWidget extends StatefulWidget {
   final String contentListType;
-  final int characterIndex;
 
-  AddContentIconWidget(this.characterIndex, this.contentListType);
+  ManualAddIconWidget(this.contentListType);
 
   @override
-  State<AddContentIconWidget> createState() => _AddContentWidgetState();
+  State<ManualAddIconWidget> createState() => _ManualAddIconWidgetState();
 }
 
-class _AddContentWidgetState extends State<AddContentIconWidget> {
+class _ManualAddIconWidgetState extends State<ManualAddIconWidget> {
   @override
   Widget build(BuildContext context) {
-    AddContentProvider addContentProvider = Provider.of<AddContentProvider>(context);
     ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    AddCharacterProvider addCharacterProvider = Provider.of<AddCharacterProvider>(context);
     return IconButton(
       icon: Icon(Icons.add, size: 25),
       onPressed: () async {
-        addContentProvider.addController.clear();
-        await showDialog(
+        addCharacterProvider.addController.clear();
+        await showPlatformDialog(
             context: context,
             builder: (_) {
               return StatefulBuilder(builder: (context, setState) {
-                return AlertDialog(
+                return PlatformAlertDialog(
                   title: Form(
-                    key: addContentProvider.key,
+                    key: addCharacterProvider.key,
                     child: TextFormField(
-                      controller: addContentProvider.addController,
+                      controller: addCharacterProvider.addController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.only(left: 5),
                         hintText: '콘텐츠 이름',
@@ -68,7 +67,7 @@ class _AddContentWidgetState extends State<AddContentIconWidget> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                      color: addContentProvider.selected == index
+                                      color: addCharacterProvider.selected == index
                                           ? themeProvider.darkTheme
                                               ? Colors.grey
                                               : Colors.grey
@@ -85,8 +84,8 @@ class _AddContentWidgetState extends State<AddContentIconWidget> {
                               ),
                               onTap: () {
                                 setState(() {
-                                  addContentProvider.selected = index;
-                                  addContentProvider.iconName = iconList[index].iconName!;
+                                  addCharacterProvider.selected = index;
+                                  addCharacterProvider.iconName = iconList[index].iconName!;
                                 });
                               },
                             ),
@@ -103,8 +102,7 @@ class _AddContentWidgetState extends State<AddContentIconWidget> {
                     ),
                     PlatformDialogAction(
                       onPressed: () {
-                        addContentProvider.addContent(
-                            context, widget.characterIndex, widget.contentListType, addContentProvider.addController.text);
+                        addCharacterProvider.addContent(context, widget.contentListType, addCharacterProvider.addController.text);
                         Navigator.pop(context);
                         FocusScope.of(context).unfocus();
                       },

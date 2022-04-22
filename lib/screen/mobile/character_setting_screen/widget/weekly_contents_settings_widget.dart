@@ -1,3 +1,4 @@
+import 'package:adeline_project_dev/model/add_content_provider/add_content_provider.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:drag_and_drop_lists/drag_handle.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constant/constant.dart';
+import '../../../../model/dark_mode/dark_theme_provider.dart';
 import '../../../../model/user/content/restGauge_content.dart';
 import '../../../../model/user/content/weekly_content.dart';
 import '../../../../model/user/user_provider.dart';
@@ -41,42 +43,46 @@ class _WeeklyContentSettingWidgetState extends State<WeeklyContentSettingWidget>
         ),
         Container(
           height: MediaQuery.of(context).size.height * 0.53,
-          child: DragAndDropLists(
-            children: [weeklyDragAndDropList()],
-            onItemReorder: _onItemReorder,
-            onListReorder: _onListReorder,
-            listPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-            itemDecorationWhileDragging: BoxDecoration(
-              color: Colors.transparent,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 2,
-                  blurRadius: 3,
-                  offset: Offset(0, 0), // changes position of shadow
+          child: Consumer<AddContentProvider>(
+            builder: (context,instance,child) {
+              return DragAndDropLists(
+                children: [weeklyDragAndDropList()],
+                onItemReorder: _onItemReorder,
+                onListReorder: _onListReorder,
+                listPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                itemDecorationWhileDragging: BoxDecoration(
+                  color: Colors.transparent,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 3,
+                      offset: Offset(0, 0), // changes position of shadow
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            listInnerDecoration: BoxDecoration(
-              color: Colors.transparent, // background 색
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            ),
-            lastItemTargetHeight: 8,
-            addLastItemTargetHeightToTop: true,
-            lastListTargetSize: 40,
-            listDragHandle: DragHandle(
-              verticalAlignment: DragHandleVerticalAlignment.top,
-              child: Container(),
-            ),
-            itemDragHandle: DragHandle(
-              child: Padding(
-                padding: EdgeInsets.only(right: 15),
-                child: Icon(
-                  Icons.menu,
-                  color: Colors.grey,
+                listInnerDecoration: BoxDecoration(
+                  color: Colors.transparent, // background 색
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 ),
-              ),
-            ),
+                lastItemTargetHeight: 8,
+                addLastItemTargetHeightToTop: true,
+                lastListTargetSize: 40,
+                listDragHandle: DragHandle(
+                  verticalAlignment: DragHandleVerticalAlignment.top,
+                  child: Container(),
+                ),
+                itemDragHandle: DragHandle(
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 15),
+                    child: Icon(
+                      Icons.menu,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ],
@@ -85,6 +91,7 @@ class _WeeklyContentSettingWidgetState extends State<WeeklyContentSettingWidget>
 
   DragAndDropList weeklyDragAndDropList() {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
 
     weeklyDragAndDrop = DragAndDropList(
       children: List.generate(
@@ -204,7 +211,13 @@ class _WeeklyContentSettingWidgetState extends State<WeeklyContentSettingWidget>
                                                           decoration: BoxDecoration(
                                                             borderRadius: BorderRadius.circular(10),
                                                             border: Border.all(
-                                                                color: _selected == index ? Colors.grey : Colors.white,
+                                                                color: _selected == index
+                                                                    ? themeProvider.darkTheme
+                                                                    ? Colors.grey
+                                                                    : Colors.grey
+                                                                    : themeProvider.darkTheme
+                                                                    ? Colors.grey[800]!
+                                                                    : Colors.white,
                                                                 width: 1.5),
                                                           ),
                                                           child: Image.asset(
@@ -233,8 +246,7 @@ class _WeeklyContentSettingWidgetState extends State<WeeklyContentSettingWidget>
                                               PlatformDialogAction(
                                                 child: Text('확인'),
                                                 onPressed: () {
-                                                  userProvider.charactersProvider.characters[widget.characterIndex]
-                                                          .weeklyContents[i] =
+                                                  userProvider.charactersProvider.characters[widget.characterIndex].weeklyContents[i] =
                                                       WeeklyContent(addController.text.toString(), iconName.toString(), true);
                                                   Navigator.pop(context);
                                                 },

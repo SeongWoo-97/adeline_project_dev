@@ -2,17 +2,6 @@ import 'package:adeline_project_dev/model/user/content/gold_content.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../model/icon/iconModel.dart';
-ValueNotifier<int> totalGold = ValueNotifier<int>(0);
-ValueNotifier<int> valTanNormal = ValueNotifier<int>(0);
-ValueNotifier<int> valTanHard = ValueNotifier<int>(0);
-ValueNotifier<int> biacKissNormal = ValueNotifier<int>(0);
-ValueNotifier<int> biacKissHard = ValueNotifier<int>(0);
-ValueNotifier<int> koukoSatonNormal = ValueNotifier<int>(0);
-ValueNotifier<int> abrelshudNormal = ValueNotifier<int>(0);
-ValueNotifier<int> abrelshudHard = ValueNotifier<int>(0);
-ValueNotifier<int> orehaNormal = ValueNotifier<int>(0);
-ValueNotifier<int> orehaHard = ValueNotifier<int>(0);
-ValueNotifier<int> argus = ValueNotifier<int>(0);
 List<IconModel> iconList = [
   IconModel('assets/daily/Chaos.png'),
   IconModel('assets/daily/Guardian.png'),
@@ -70,7 +59,7 @@ final List<GoldContent> constGoldContents = [
     difficulty: "",
     totalPhase: 3,
     enterLevelLimit: 1370,
-    levelLimitPerPhase: [1370, 1385, 1415],
+    levelLimitPerPhase: [1370, 1385, 1400],
     getGoldLevelLimit: 1475,
     goldPerPhase: [700, 400, 500],
     clearGold: 0,

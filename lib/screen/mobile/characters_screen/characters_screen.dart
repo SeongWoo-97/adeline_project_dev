@@ -2,11 +2,15 @@ import 'package:adeline_project_dev/model/user/content/daily_content.dart';
 import 'package:adeline_project_dev/model/user/content/expedition_content.dart';
 import 'package:adeline_project_dev/model/user/content/restGauge_content.dart';
 import 'package:adeline_project_dev/model/user/user_provider.dart';
+import 'package:adeline_project_dev/screen/mobile/bottom_navigation_screen/bottom_navigation_screen.dart';
+import 'package:adeline_project_dev/screen/mobile/character_manual_add_screen/character_manual_add_screen.dart';
 import 'package:adeline_project_dev/screen/mobile/characters_screen/widget/character_slot_widget.dart';
 import 'package:adeline_project_dev/screen/mobile/characters_screen/widget/content_board_widget.dart';
 import 'package:adeline_project_dev/screen/mobile/characters_screen/widget/expedition_content_widget.dart';
 import 'package:adeline_project_dev/screen/mobile/characters_screen/widget/total_gold_widget.dart';
 import 'package:adeline_project_dev/screen/mobile/drawer_screen/drawer_screen.dart';
+import 'package:adeline_project_dev/screen/mobile/init_date_check_screen/init_date_check_screen.dart';
+import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hive/hive.dart';
@@ -25,10 +29,12 @@ class CharactersScreen extends StatefulWidget {
 }
 
 class _CharactersScreenState extends State<CharactersScreen> with AutomaticKeepAliveClientMixin {
+  CustomPopupMenuController _customPopupMenuController = CustomPopupMenuController();
   List<Character> characterList = [];
   List<ExpeditionContent> expeditionList = [];
   late Expedition expedition;
-  DateTime nowDate = DateTime.utc(2022, 4, 20, 7);
+  // DateTime nowDate = DateTime.utc(2022, 4, 25, 10);
+  DateTime nowDate = DateTime.now();
   // late DateTime nowDate;
   @override
   void initState() {
@@ -36,32 +42,32 @@ class _CharactersScreenState extends State<CharactersScreen> with AutomaticKeepA
     characterList = Hive.box<User>('characters').get('user')!.characters;
     expeditionList = Hive.box<Expedition>('expedition').get('expeditionList')!.list;
     expedition = Hive.box<Expedition>('expedition').get('expeditionList')!;
-    /// 원래 코드
 
-    // if (DateTime.now().hour < 6) {
-    //   nowDate = DateTime.now();
-    // } else {
-    //   nowDate = DateTime.utc(DateTime.now().year, DateTime.now().month, DateTime.now().day, 6);
-    // }
+    /// 원래 코드
+    //
+    if (DateTime.now().hour < 6) {
+      nowDate = DateTime.now();
+    } else {
+      nowDate = DateTime.utc(DateTime.now().year, DateTime.now().month, DateTime.now().day, 6);
+    }
 
     /// 테스트 코드
 
-    if (nowDate.hour < 6) {
-        nowDate = nowDate;
-      } else {
-        nowDate = DateTime.utc(nowDate.year, nowDate.month, nowDate.day, 6);
-      }
+    // if (nowDate.hour < 6) {
+    //   nowDate = nowDate;
+    // } else {
+    //   nowDate = DateTime.utc(nowDate.year, nowDate.month, nowDate.day, 6);
+    // }
 
-    print('초기화 전(expedition.nextWednesday) : ${expedition.nextWednesday}');
-    print('초기화 전(expedition.recentInitDateTime) : ${expedition.recentInitDateTime}');
-    print('초기화 전(characterList[0].dailyContents[0].lateRevision) : ${characterList[0].dailyContents[0].lateRevision}');
+
     // 휴식게이지 로직
     characterList.forEach(
       (character) {
         character.dailyContents.forEach(
           (dailyContent) {
             if (dailyContent is RestGaugeContent) {
-              DateTime lateRevision = DateTime.utc(dailyContent.lateRevision.year, dailyContent.lateRevision.month, dailyContent.lateRevision.day, 6);
+              DateTime lateRevision =
+                  DateTime.utc(dailyContent.lateRevision.year, dailyContent.lateRevision.month, dailyContent.lateRevision.day, 6);
               int clearNum = dailyContent.clearNum;
               int maxClearNum = dailyContent.maxClearNum;
               dailyContent.saveLateRevision = DateTime.utc(nowDate.year, nowDate.month, nowDate.day, 6);
@@ -139,29 +145,149 @@ class _CharactersScreenState extends State<CharactersScreen> with AutomaticKeepA
         });
       });
     }
-    // 일반 일일 콘텐츠, 원정대 일일 콘텐츠 초기화
-    // 일반 주간 콘텐츠, 원정대 주간 콘텐츠, 골드 콘텐츠 초기화
-    print('초기화 후(expedition.nextWednesday) : ${expedition.nextWednesday}');
-    print('초기화 후(expedition.recentInitDateTime) : ${expedition.recentInitDateTime}');
-    print('초기화 후(characterList[0].dailyContents[0].lateRevision) : ${characterList[0].dailyContents[0].lateRevision}');
+
     Hive.box<User>('characters').put('user', User(characters: characterList));
     Hive.box<Expedition>('expedition').put('expeditionList', expedition);
   }
+
   @override
   bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
     UserProvider userProvider = Provider.of<UserProvider>(context);
     ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context);
+    userProvider.updateContentBoard();
+    userProvider.updateTotalGold();
     expeditionProvider.expedition = expedition;
     userProvider.charactersProvider.characters = characterList;
+
     return PlatformScaffold(
-      material: (_, __) => MaterialScaffoldData(),
+      material: (_, __) => MaterialScaffoldData(
+        drawer: Container(width: 230, child: DrawerScreen()),
+      ),
       appBar: PlatformAppBar(
         title: Text('숙제 관리'),
         material: (_, __) => MaterialAppBarData(),
         cupertino: (_, __) => CupertinoNavigationBarData(),
+        trailingActions: [
+          CustomPopupMenu(
+            controller: _customPopupMenuController,
+            pressType: PressType.singleClick,
+            verticalMargin: -10,
+            horizontalMargin: 0,
+            child: Container(
+              child: Icon(Icons.more_vert_outlined),
+              padding: EdgeInsets.only(right: 10),
+            ),
+            menuBuilder: () => ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Container(
+                color: Colors.white,
+                child: IntrinsicWidth(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        child: Container(
+                          height: 40,
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  child: Text(
+                                    '새로고침',
+                                    style: TextStyle(fontSize: 15, color: Colors.black),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        onTap: () {
+                          _customPopupMenuController.hideMenu();
+                          Navigator.pop(context);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavigationScreen()));
+                        },
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () async {
+                          _customPopupMenuController.hideMenu();
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterManualAddScreen()));
+                        },
+                        child: Container(
+                          height: 40,
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  child: Text(
+                                    '캐릭터 수동 추가',
+                                    style: TextStyle(fontSize: 15, color: Colors.black),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        child: Container(
+                          height: 40,
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  child: Text(
+                                    '캐릭터 순서 및 삭제',
+                                    style: TextStyle(fontSize: 15, color: Colors.black),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        onTap: () async {
+                          _customPopupMenuController.hideMenu();
+                        },
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        child: Container(
+                          height: 40,
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  child: Text(
+                                    '초기화 날짜 확인',
+                                    style: TextStyle(fontSize: 15, color: Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        onTap: () async {
+                          _customPopupMenuController.hideMenu();
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => InitDateCheckScreen()));
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,

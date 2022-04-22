@@ -58,6 +58,8 @@ dependencies:
   url_launcher: ^6.0.12
   flutter_typeahead: ^3.2.4
   shared_preferences: ^2.0.13
+  webview_flutter: ^3.0.2
+
 dev_dependencies:
   hive_generator: ^1.1.2
   build_runner: ^2.1.8
