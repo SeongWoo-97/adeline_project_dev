@@ -21,17 +21,6 @@ class DrawerScreen extends StatelessWidget {
                 style: TextStyle(color: themeProvider.darkTheme ? Colors.white70 : Colors.grey),
               ),
             ),
-            // ListTile(
-            //   visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
-            //   title: const Text(
-            //     '캐릭터 숙제 체크',
-            //     style: const TextStyle(fontFamily: 'NotoSansKR', fontSize: 16),
-            //   ),
-            //   onTap: () {
-            //     // bt_navigation_screen 에  PersistentTabController _controller = PersistentTabController(initialIndex: 2);
-            //     // 변수를 provider 로 꺼내서 페이지 이동 가능하도록 변경하기
-            //   },
-            // ),
             ListTile(
               visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
               title: const Text(
@@ -51,14 +40,14 @@ class DrawerScreen extends StatelessWidget {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => BinpagoWebView()));
               },
             ),
-            ListTile(
-              visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
-              title: const Text(
-                '레이드 보상 계산기',
-                style: const TextStyle(fontFamily: 'NotoSansKR', fontSize: 16),
-              ),
-              onTap: () {},
-            ),
+            // ListTile(
+            //   visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
+            //   title: const Text(
+            //     '레이드 보상 계산기',
+            //     style: const TextStyle(fontFamily: 'NotoSansKR', fontSize: 16),
+            //   ),
+            //   onTap: () {},
+            // ),
             // Divider(
             //   color: Colors.grey,
             // ),

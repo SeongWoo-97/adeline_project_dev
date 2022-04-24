@@ -18,7 +18,7 @@ class ThemeColor {
         disabledColor: Colors.grey,
         cardColor: isDarkTheme ? Colors.grey[800] : Colors.white,
         cardTheme: CardTheme(
-          elevation: 2,
+          elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
             side: BorderSide(color: isDarkTheme ? Colors.white70 : Colors.grey, width: 0.8),
@@ -69,14 +69,14 @@ class ThemeColor {
         listTileTheme: ListTileThemeData(),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            primary: isDarkTheme ? Colors.grey[900] : Colors.grey,
+            primary: isDarkTheme ? Colors.grey[900] : Colors.white,
             textStyle: TextStyle(
               fontSize: 14,
               color: isDarkTheme ? Colors.white : Colors.black,
               fontFamily: 'NotoSansKR',
             ),
-            elevation: 1,
-            side: BorderSide(width: .7, color: Colors.grey),
+            elevation: 0,
+            side: BorderSide(width: 1, color: Colors.grey),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),

@@ -651,11 +651,8 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                           height: 25,
                                         ),
                                         onTap: () {
-                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2]
-                                                  .clearNum >
-                                              0) {
-                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2]
-                                                .clearNum -= 1;
+                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2].clearNum > 0) {
+                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2].clearNum -= 1;
                                             setState(() {});
                                           } else {
                                             toast('최소 클리어 횟수는 0입니다.');

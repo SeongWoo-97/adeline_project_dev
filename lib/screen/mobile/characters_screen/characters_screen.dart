@@ -4,6 +4,7 @@ import 'package:adeline_project_dev/model/user/content/restGauge_content.dart';
 import 'package:adeline_project_dev/model/user/user_provider.dart';
 import 'package:adeline_project_dev/screen/mobile/bottom_navigation_screen/bottom_navigation_screen.dart';
 import 'package:adeline_project_dev/screen/mobile/character_manual_add_screen/character_manual_add_screen.dart';
+import 'package:adeline_project_dev/screen/mobile/character_reorder_screen/character_reorder_screen.dart';
 import 'package:adeline_project_dev/screen/mobile/characters_screen/widget/character_slot_widget.dart';
 import 'package:adeline_project_dev/screen/mobile/characters_screen/widget/content_board_widget.dart';
 import 'package:adeline_project_dev/screen/mobile/characters_screen/widget/expedition_content_widget.dart';
@@ -33,8 +34,10 @@ class _CharactersScreenState extends State<CharactersScreen> with AutomaticKeepA
   List<Character> characterList = [];
   List<ExpeditionContent> expeditionList = [];
   late Expedition expedition;
+
   // DateTime nowDate = DateTime.utc(2022, 4, 25, 10);
   DateTime nowDate = DateTime.now();
+
   // late DateTime nowDate;
   @override
   void initState() {
@@ -58,7 +61,6 @@ class _CharactersScreenState extends State<CharactersScreen> with AutomaticKeepA
     // } else {
     //   nowDate = DateTime.utc(nowDate.year, nowDate.month, nowDate.day, 6);
     // }
-
 
     // 휴식게이지 로직
     characterList.forEach(
@@ -256,6 +258,7 @@ class _CharactersScreenState extends State<CharactersScreen> with AutomaticKeepA
                         ),
                         onTap: () async {
                           _customPopupMenuController.hideMenu();
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterReOrderScreen()));
                         },
                       ),
                       GestureDetector(

@@ -56,7 +56,7 @@ class InitSettingsController extends ChangeNotifier {
     print('설정완료 후 : ${expeditionProvider.expedition.nextWednesday}');
     characterBox.put('user', User(characters: userProvider.charactersProvider.characters));
     expeditionBox.put('expeditionList', expeditionProvider.expedition);
-
+    Navigator.pop(context);
     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => BottomNavigationScreen()), (route) => false);
   }
 

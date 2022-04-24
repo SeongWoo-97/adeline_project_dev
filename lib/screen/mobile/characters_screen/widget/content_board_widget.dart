@@ -41,6 +41,10 @@ class _ContentBoardWidgetState extends State<ContentBoardWidget> {
       return Padding(
         padding: const EdgeInsets.only(top: 5, left: 2, right: 2),
         child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side: BorderSide(color: themeProvider.darkTheme ? Colors.grey : color, width: 1),
+          ),
           child: Column(
             children: [
               Padding(
@@ -74,7 +78,6 @@ class _ContentBoardWidgetState extends State<ContentBoardWidget> {
           borderRadius: BorderRadius.circular(8),
           side: BorderSide(color: themeProvider.darkTheme ? Colors.grey : color, width: 1),
         ),
-        elevation: 2,
         child: Column(
           children: [
             Text('$name',

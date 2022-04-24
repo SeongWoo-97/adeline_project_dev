@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 import '../../../../model/dark_mode/dark_theme_provider.dart';
 import '../../../../model/user/character/character_model.dart';
 
 import '../controller/add_character_provider.dart';
 
-class GoldContentList extends StatefulWidget {
-
+class GoldContentListWidget extends StatefulWidget {
   @override
-  State<GoldContentList> createState() => _GoldContentListState();
+  State<GoldContentListWidget> createState() => _GoldContentListWidgetState();
 }
 
-class _GoldContentListState extends State<GoldContentList> {
+class _GoldContentListWidgetState extends State<GoldContentListWidget> {
   @override
   Widget build(BuildContext context) {
     AddCharacterProvider addCharacterProvider = Provider.of<AddCharacterProvider>(context);
@@ -26,10 +24,6 @@ class _GoldContentListState extends State<GoldContentList> {
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             return Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-                side: BorderSide(color: Colors.grey, width: 0.8),
-              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,

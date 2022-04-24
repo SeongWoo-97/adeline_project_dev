@@ -1,5 +1,9 @@
+import 'package:adeline_project_dev/model/user/user_provider.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_list.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../constant/constant.dart';
 import '../../../../model/user/character/character_model.dart';
@@ -14,13 +18,15 @@ class AddCharacterProvider extends ChangeNotifier {
   String iconName = iconList[0].iconName!;
   List<String> options = ['일일 콘텐츠', '주간 콘텐츠', '골드 콘텐츠'];
   int selected = 0;
+  String server = "";
+  String job = "";
 
   final key = GlobalKey<FormState>();
   final formKey1 = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
 
-  bool nickNameError = false;
-  bool levelError = false;
+  bool nickNameError = true;
+  bool levelError = true;
   bool chaosError = false;
   bool guardianError = false;
   bool eponaError = false;
@@ -69,5 +75,86 @@ class AddCharacterProvider extends ChangeNotifier {
   void updateWeeklyContent(int index, WeeklyContent weeklyContent) {
     weeklyContents[index] = weeklyContent;
     notifyListeners();
+  }
+
+  void addCharacter(BuildContext context) {
+    UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+    if (!nickNameError && !levelError && !chaosError && !guardianError && !eponaError && job.isNotEmpty && server.isNotEmpty) {
+      userProvider.addCharacter(
+        Character(
+          server: server,
+          nickName: nickNameController.text,
+          level: levelController.text,
+          job: job,
+          jobCode: getJobCode(job),
+        ),
+      );
+      Navigator.pop(context);
+    } else {
+      toast('양식이 올바르지 않습니다.');
+    }
+    print('분류 : $nickNameError, $levelError, $chaosError, $guardianError, $eponaError');
+  }
+
+  String getJobCode(String? job) {
+    switch (job) {
+      case "버서커":
+        return "102";
+      case "디스트로이어":
+        return "103";
+      case "워로드":
+        return "104";
+      case "홀리나이트":
+        return "105";
+      case "아르카나":
+        return "202";
+      case "서머너":
+        return "203";
+      case "바드":
+        return "204";
+      case "소서리스":
+        return "205";
+      case "배틀마스터":
+        return "302";
+      case "인파이터":
+        return "303";
+      case "기공사":
+        return "304";
+      case "창술사":
+        return "305";
+      case "스트라이커":
+        return "312";
+      case "데모닉":
+        return "403";
+      case "블레이드":
+        return "402";
+      case "리퍼":
+        return "404";
+      case "호크아이":
+        return "502"; // 65215124
+      case "데빌헌터":
+        return "503";
+      case "블래스터":
+        return "504";
+      case "스카우터":
+        return "505";
+      case "건슬링어":
+        return "512";
+      case "도화가":
+        return "602";
+    }
+    return "0";
+  }
+
+  void toast(String msg) {
+    Fluttertoast.showToast(
+      msg: msg,
+      gravity: ToastGravity.BOTTOM,
+      fontSize: 16,
+      toastLength: Toast.LENGTH_SHORT,
+      textColor: Colors.white,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.grey,
+    );
   }
 }

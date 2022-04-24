@@ -39,132 +39,118 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
               child: Consumer<UserProvider>(
                 builder: (context, instance, child) {
                   return ExpansionTile(
-                    tilePadding: EdgeInsets.fromLTRB(3, 0, 5, 0),
+                    tilePadding: EdgeInsets.symmetric(vertical: 0,horizontal: 5),
                     expandedCrossAxisAlignment: CrossAxisAlignment.start,
                     expandedAlignment: Alignment.topLeft,
                     textColor: Colors.black,
                     backgroundColor: themeProvider.darkTheme ? Colors.grey[800] : Colors.white,
                     collapsedIconColor: themeProvider.darkTheme ? Colors.white : Colors.grey,
                     iconColor: themeProvider.darkTheme ? Colors.white : Colors.grey,
-                    title: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    leading: Image.asset(
+                      'assets/job/${userProvider.charactersProvider.characters[characterIndex].jobCode}.png',
+                      width: 45,
+                      height: 45,
+                    ),
+                    title: Column(
                       children: [
-                        Column(
+                        Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          mainAxisSize: MainAxisSize.max,
                           children: [
-                            Row(
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 5),
-                                  child: Image.asset(
-                                    'assets/job/${userProvider.charactersProvider.characters[characterIndex].jobCode}.png',
-                                    width: 45,
-                                    height: 45,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 7,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                                  textBaseline: TextBaseline.alphabetic,
                                   children: [
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text(userProvider.charactersProvider.characters[characterIndex].nickName,
-                                            style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16)),
-                                        SizedBox(
-                                          width: 3,
-                                        ),
-                                        Text(
-                                            '${userProvider.charactersProvider.characters[characterIndex].job} Lv.${userProvider.charactersProvider.characters[characterIndex].level} ',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1
-                                                ?.copyWith(fontSize: 13, color: Colors.grey)),
-                                      ],
+                                    Text(userProvider.charactersProvider.characters[characterIndex].nickName,
+                                        style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 15)),
+                                    SizedBox(
+                                      width: 3,
                                     ),
                                     Text(
-                                      '주간 골드 : ${weeklyGold(characterIndex)} G',
-                                      style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                                    ),
-                                    Row(
-                                      children: [
-                                        userProvider.charactersProvider.characters[characterIndex].dailyContents[0].isChecked
-                                            ? Row(
-                                                children: [
-                                                  Image.asset(
-                                                    'assets/daily/Chaos.png',
-                                                    width: 22,
-                                                    height: 22,
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(left: 5, right: 5),
-                                                    child: Container(
-                                                      width: 30,
-                                                      child: Text(
-                                                        '${userProvider.charactersProvider.characters[characterIndex].dailyContents[0].restGauge}',
-                                                        style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-                                            : Container(),
-                                        userProvider.charactersProvider.characters[characterIndex].dailyContents[1].isChecked
-                                            ? Row(
-                                                children: [
-                                                  Image.asset(
-                                                    'assets/daily/Guardian.png',
-                                                    width: 22,
-                                                    height: 22,
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(left: 5, right: 5),
-                                                    child: Container(
-                                                      width: 30,
-                                                      child: Text(
-                                                        '${userProvider.charactersProvider.characters[characterIndex].dailyContents[1].restGauge}',
-                                                        style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-                                            : Container(),
-                                        userProvider.charactersProvider.characters[characterIndex].dailyContents[2].isChecked
-                                            ? Row(
-                                                children: [
-                                                  Image.asset(
-                                                    'assets/daily/Epona.png',
-                                                    width: 22,
-                                                    height: 22,
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(left: 5, right: 5),
-                                                    child: Container(
-                                                      width: 30,
-                                                      child: Text(
-                                                        '${userProvider.charactersProvider.characters[characterIndex].dailyContents[2].restGauge}',
-                                                        style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-                                            : Container(),
-                                      ],
-                                    )
+                                        '${userProvider.charactersProvider.characters[characterIndex].job} Lv.${userProvider.charactersProvider.characters[characterIndex].level} ',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1
+                                            ?.copyWith(fontSize: 12, color: Colors.grey)),
                                   ],
+                                ),
+                                Text(
+                                  '주간 골드 : ${weeklyGold(characterIndex)} G',
+                                  style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 13,height: 1.3),
                                 ),
                               ],
                             ),
                           ],
                         ),
+                      ],
+                    ),
+                    subtitle: Row(
+                      children: [
+                        userProvider.charactersProvider.characters[characterIndex].dailyContents[0].isChecked
+                            ? Row(
+                                children: [
+                                  Image.asset(
+                                    'assets/daily/Chaos.png',
+                                    width: 22,
+                                    height: 22,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 5, right: 5),
+                                    child: Container(
+                                      width: 30,
+                                      child: Text(
+                                        '${userProvider.charactersProvider.characters[characterIndex].dailyContents[0].restGauge}',
+                                        style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Container(),
+                        userProvider.charactersProvider.characters[characterIndex].dailyContents[1].isChecked
+                            ? Row(
+                                children: [
+                                  Image.asset(
+                                    'assets/daily/Guardian.png',
+                                    width: 22,
+                                    height: 22,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 5, right: 5),
+                                    child: Container(
+                                      width: 30,
+                                      child: Text(
+                                        '${userProvider.charactersProvider.characters[characterIndex].dailyContents[1].restGauge}',
+                                        style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Container(),
+                        userProvider.charactersProvider.characters[characterIndex].dailyContents[2].isChecked
+                            ? Row(
+                                children: [
+                                  Image.asset(
+                                    'assets/daily/Epona.png',
+                                    width: 22,
+                                    height: 22,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 5, right: 5),
+                                    child: Container(
+                                      width: 30,
+                                      child: Text(
+                                        '${userProvider.charactersProvider.characters[characterIndex].dailyContents[2].restGauge}',
+                                        style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Container(),
                       ],
                     ),
                     children: [
@@ -205,7 +191,6 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                                 userProvider.charactersProvider.characters[characterIndex].goldContents = List.generate(
                                     constGoldContents.length, (index) => GoldContent.clone(constGoldContents[index]));
                               }
-
                               Navigator.push(
                                   context, MaterialPageRoute(builder: (context) => CharacterSettingsScreen(characterIndex)));
                             },

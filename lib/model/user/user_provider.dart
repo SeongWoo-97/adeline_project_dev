@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 
 import '../../constant/constant.dart';
+import 'character/character_model.dart';
 import 'content/gold_content.dart';
 
 class UserProvider extends ChangeNotifier {
@@ -153,6 +154,11 @@ class UserProvider extends ChangeNotifier {
           charactersProvider.characters[characterIndex].dailyContents[index].saveRestGauge;
       charactersProvider.characters[characterIndex].dailyContents[index].saveRestGauge = 0;
     }
+    notifyListeners();
+  }
+
+  void addCharacter(Character character){
+    charactersProvider.characters.add(character);
     notifyListeners();
   }
 }

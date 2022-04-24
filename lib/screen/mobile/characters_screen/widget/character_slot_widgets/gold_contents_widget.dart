@@ -156,7 +156,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                       Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(5.0),
+                            padding: const EdgeInsets.fromLTRB(5,5,5,0),
                             child:
                                 iconPerType(userProvider.charactersProvider.characters[characterIndex].goldContents[index].type),
                           ),
@@ -304,7 +304,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                             Row(
                               children: [
                                 Padding(
-                                    padding: const EdgeInsets.only(left: 5, bottom: 5, right: 2),
+                                    padding: const EdgeInsets.only(left: 9, bottom: 5, right: 2),
                                     child: Consumer<UserProvider>(
                                       builder: (context, instance, child) {
                                         return Text(

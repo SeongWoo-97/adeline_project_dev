@@ -42,12 +42,12 @@ class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
                     child: Icon(
                       Icons.settings,
                       color: Colors.grey,
-                      size: 25,
+                      size: 24,
                     ),
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ExpeditionSettingScreen()));
                     },
-                  )
+                  ),
                 ],
               ),
             ),

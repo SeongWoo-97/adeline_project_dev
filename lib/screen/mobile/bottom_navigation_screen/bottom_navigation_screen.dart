@@ -40,34 +40,38 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Ti
           ],
         ),
         material: (_, __) => MaterialScaffoldData(
-          bottomNavBar: TabBar(
-            controller: tabController,
-            indicator: BoxDecoration(border: Border(top: BorderSide(width: 3.5, color: Theme.of(context).indicatorColor))),
-            labelStyle: Theme.of(context).textTheme.caption,
-            tabs: [
-              Tab(
-                icon: Icon(Icons.calculate_outlined),
-                child: Container(
+          bottomNavBar: Container(
+            height: 60,
+            child: TabBar(
+              controller: tabController,
+              indicator: BoxDecoration(border: Border(top: BorderSide(width: 3.5, color: Theme.of(context).indicatorColor))),
+              labelStyle: Theme.of(context).textTheme.caption,
+              tabs: [
+                Tab(
+                  icon: Icon(Icons.calculate_outlined),
+                  iconMargin: const EdgeInsets.only(bottom: 2),
                   child: Text('분배금'),
                 ),
-              ),
-              Tab(
-                icon: Icon(Icons.edit_calendar_outlined),
-                text: '숙제 관리',
-              ),
-              // Tab(
-              //   icon: Icon(Icons.home_outlined),
-              //   text: '홈 화면',
-              // ),
-              // Tab(
-              //   icon: Icon(Icons.build_outlined),
-              //   text: '미정',
-              // ),
-              Tab(
-                icon: Icon(Icons.settings_outlined),
-                text: '설정',
-              )
-            ],
+                Tab(
+                  icon: Icon(Icons.edit_calendar_outlined),
+                  iconMargin: const EdgeInsets.only(bottom: 2),
+                  text: '숙제 관리',
+                ),
+                // Tab(
+                //   icon: Icon(Icons.home_outlined),
+                //   text: '홈 화면',
+                // ),
+                // Tab(
+                //   icon: Icon(Icons.build_outlined),
+                //   text: '미정',
+                // ),
+                Tab(
+                  icon: Icon(Icons.settings_outlined),
+                  iconMargin: const EdgeInsets.only(bottom: 2),
+                  text: '설정',
+                )
+              ],
+            ),
           ),
         ),
       ),

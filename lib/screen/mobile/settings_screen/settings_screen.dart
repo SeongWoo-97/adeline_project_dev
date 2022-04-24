@@ -48,7 +48,7 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
                 SettingsTile.navigation(
                   title: Text('1:1 채팅방으로 버그 제보하기', style: Theme.of(context).textTheme.bodyText1),
                   value: Text(
-                    '카카오톡으로 버그제보 및 문의하실 수 있습니다.',
+                    '카카오톡으로 버그제보 및 의견을 말해주세요',
                     style: Theme.of(context).textTheme.caption,
                   ),
                   onPressed: (context) async {
@@ -58,7 +58,7 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
                 SettingsTile.navigation(
                   title: Text('디스코드 방 입장하기', style: Theme.of(context).textTheme.bodyText1),
                   value: Text(
-                    '디스코드로 개발자에게 하고싶은 말을 할 수 있습니다.',
+                    '디스코드로 개발자에게 버그제보및 의견을 말해주세요.',
                     style: Theme.of(context).textTheme.caption,
                   ),
                   onPressed: (context) async {
@@ -119,6 +119,14 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
                   title: Text('캐릭터 숙제 불러오기', style: Theme.of(context).textTheme.bodyText1),
                   value: Text(
                     '서버에 저장한 데이터를 불러와서 적용 시킵니다.',
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                  onPressed: (context) => toast('구현되지 않은 기능입니다.'),
+                ),
+                SettingsTile.navigation(
+                  title: Text('골드 콘텐츠 업데이트 하기', style: Theme.of(context).textTheme.bodyText1),
+                  value: Text(
+                    '골드를 지급하는 새로운 콘텐츠가 본섭에 추가될 시 골드 콘텐츠 목록을 업데이트하는 기능입니다.',
                     style: Theme.of(context).textTheme.caption,
                   ),
                   onPressed: (context) => toast('구현되지 않은 기능입니다.'),
