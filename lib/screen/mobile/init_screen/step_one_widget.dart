@@ -11,7 +11,7 @@ class StepOne extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    InitSettingsController _controller = Provider.of<InitSettingsController>(context);
+    InitSettingsController controller = Provider.of<InitSettingsController>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -20,7 +20,7 @@ class StepOne extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
             child: CupertinoTextField(
               textAlign: TextAlign.center,
-              controller: _controller.textEditingController,
+              controller: controller.textEditingController,
             ),
           ),
           material: (_, child, __) => ConstrainedBox(
@@ -31,7 +31,7 @@ class StepOne extends StatelessWidget {
               padding: const EdgeInsets.only(right: 25, left: 25),
               child: TextField(
                 textAlign: TextAlign.center,
-                controller: _controller.textEditingController,
+                controller: controller.textEditingController,
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.zero,
                     hintText: '닉네임',
@@ -49,14 +49,14 @@ class StepOne extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 10),
-          child: PlatformIconButton(
+          child: IconButton(
             icon: Icon(
               Icons.arrow_forward,
               size: 30,
             ),
             onPressed: () {
               FocusScope.of(context).unfocus();
-              _controller.characterInfo(context, _controller.textEditingController.text);
+              controller.characterInfo(context, controller.textEditingController.text);
             },
           ),
         ),

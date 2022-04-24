@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../constant/constant.dart';
-import '../../../../model/dark_mode/dark_theme_provider.dart';
-import '../../../../model/user/expedition/expedition_provider.dart';
+import '../../../constant/constant.dart';
+import '../../../model/dark_mode/dark_theme_provider.dart';
+import '../../../model/user/expedition/expedition_provider.dart';
 
 enum ExpeditionType { daily, weekly }
 
@@ -32,6 +32,7 @@ class _AddExpeditionContentWidgetState extends State<AddExpeditionContentWidget>
         ),
       ),
       onTap: () async {
+        addExpeditionContentProvider.addController.clear();
         await showDialog(
             context: context,
             builder: (_) {

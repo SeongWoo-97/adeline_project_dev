@@ -70,12 +70,11 @@ class InitSettingsController extends ChangeNotifier {
 
   // 입력한 캐릭터 닉네임,직업,레벨 가져오는 메서드
   Future characterInfo(BuildContext context, String name) async {
+    getCharacterShowDialog(context); // 정보확인 중 로딩창
     nickName = name;
     bool loadWebPageBool = await webScraper.loadWebPage('/Profile/Character/$nickName');
     bool getCharStateCheckBool = !getCharStateCheck(nickName);
     bool textControllerEmptyBool = textEditingController.text.isNotEmpty;
-
-    getCharacterShowDialog(context);
 
     if (loadWebPageBool & getCharStateCheckBool & textControllerEmptyBool) {
       Navigator.pop(context);
@@ -269,6 +268,29 @@ class InitSettingsController extends ChangeNotifier {
     notifyListeners();
   }
 
+  loadingShowDialog(BuildContext context) {
+    showPlatformDialog(
+      context: context,
+      builder: (_) => PlatformAlertDialog(
+        material: (_, __) => MaterialAlertDialogData(
+          title: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              CircularProgressIndicator(),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                child: Text(
+                  '$nickName 정보 확인 중',
+                ),
+              )
+            ],
+          ),
+        ),
+        cupertino: (_, __) => CupertinoAlertDialogData(), // 기존소스 보고 수정하기
+      ),
+    );
+  }
   String getJobCode(String? job) {
     switch (job) {
       case "버서커":

@@ -1,6 +1,6 @@
 import 'package:adeline_project_dev/model/add_content_provider/add_expedition_content_provider.dart';
 import 'package:adeline_project_dev/model/user/expedition/expedition_provider.dart';
-import 'package:adeline_project_dev/screen/mobile/character_setting_screen/widget/add_expedition_content_widget.dart';
+import 'package:adeline_project_dev/screen/mobile/expedition_setting_screen/add_expedition_content_widget.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -154,10 +154,10 @@ class _ExpeditionSettingScreenState extends State<ExpeditionSettingScreen> {
                       ),
                       onTap: () async {
                         addExpeditionContentProvider.addController.text = expeditionProvider.expedition.list[i].name;
-                        print(expeditionProvider.expedition.list[i].type);
                         expeditionProvider.expedition.list[i].type == "일일"
                             ? _expeditionType = ExpeditionType.daily
                             : _expeditionType = ExpeditionType.weekly;
+                        print('내부');
                         await showDialog(
                             context: context,
                             builder: (_) {
