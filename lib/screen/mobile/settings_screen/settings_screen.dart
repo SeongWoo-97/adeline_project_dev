@@ -1,5 +1,6 @@
 import 'package:adeline_project_dev/main.dart';
 import 'package:adeline_project_dev/screen/mobile/init_screen/initSettings_screen.dart';
+import 'package:adeline_project_dev/screen/mobile/update_list_screen/update_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,6 +13,7 @@ import '../../../model/dark_mode/darkThemePreference.dart';
 import '../../../model/dark_mode/dark_theme_provider.dart';
 import '../../../model/user/expedition/expedition_model.dart';
 import '../../../model/user/user.dart';
+import '../sources_screen/sources_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -37,18 +39,13 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
           lightTheme: SettingsThemeData(settingsListBackground: Colors.grey[50]),
           sections: [
             SettingsSection(
+              margin: EdgeInsetsDirectional.all(0),
               tiles: <SettingsTile>[
-                SettingsTile.navigation(
-                  title: Text('업데이트 내역', style: Theme.of(context).textTheme.bodyText1),
-                  value: Text(
-                    '업데이트 기록을 볼 수 있습니다.',
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                ),
+
                 SettingsTile.navigation(
                   title: Text('1:1 채팅방으로 버그 제보하기', style: Theme.of(context).textTheme.bodyText1),
                   value: Text(
-                    '카카오톡으로 버그제보 및 의견을 말해주세요',
+                    '카카오톡으로 버그제보 및 의견을 말해주세요.',
                     style: Theme.of(context).textTheme.caption,
                   ),
                   onPressed: (context) async {
@@ -147,6 +144,22 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
                   initialValue: themeChange.darkTheme, // initialValue 의 반대값이 value 로 넘어감
                   leading: Icon(Icons.dark_mode),
                   title: Text('다크모드', style: Theme.of(context).textTheme.bodyText1),
+                ),
+                SettingsTile.navigation(
+                  title: Text('업데이트 내역', style: Theme.of(context).textTheme.bodyText1),
+                  value: Text(
+                    '업데이트 기록을 볼 수 있습니다.',
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                  onPressed: (context) => Navigator.push(context,MaterialPageRoute(builder: (context) => UpdateListScreen())),
+                ),
+                SettingsTile.navigation(
+                  title: Text('출처', style: Theme.of(context).textTheme.bodyText1),
+                  value: Text(
+                    '앱에서 사용된 이미지의 출처를 적어 놓았습니다.',
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                  onPressed: (context) => Navigator.push(context,MaterialPageRoute(builder: (context) => SourcesScreen())),
                 ),
               ],
             ),

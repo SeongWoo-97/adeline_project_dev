@@ -84,12 +84,12 @@ class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(3.0),
-                      child: Image.asset('${expeditionProvider.expedition.list[i].iconName}', width: 25, height: 25),
+                      child: Image.asset('${expeditionProvider.expedition.list[i].iconName}', width: 23, height: 23),
                     ),
                     SizedBox(
-                      width: 5,
+                      width: 3,
                     ),
-                    Container(width: 100,child: Text('${expeditionProvider.expedition.list[i].name}',overflow: TextOverflow.ellipsis,))
+                    Text('${expeditionProvider.expedition.list[i].name}',style: TextStyle(fontSize: 14),overflow: TextOverflow.ellipsis,)
                   ],
                 ),
                 Row(
