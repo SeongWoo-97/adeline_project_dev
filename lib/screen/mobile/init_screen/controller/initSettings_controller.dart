@@ -35,7 +35,7 @@ class InitSettingsController extends ChangeNotifier {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
     ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context, listen: false);
     List<String> server = servers.keys.toList();
-    userProvider.charactersProvider.characters = servers[server[tag]]!;
+    userProvider.charactersProvider.characters = List.from(servers[server[tag]]!.reversed);
     expeditionProvider.expedition = Expedition();
 
     final characterBox = Hive.box<User>('characters');
@@ -77,7 +77,7 @@ class InitSettingsController extends ChangeNotifier {
       job = webScraper.getElementAttribute('div > main > div > div.profile-character-info > img', 'alt');
       level = webScraper.getElementTitle('div.profile-ingame > div.profile-info > div.level-info2 > div.level-info2__item');
 
-      if (job.isNotEmpty && level.isNotEmpty) {
+      if (job.isNotEmpty && level.isNotEmpty && !getCharStateCheck(nickName)) {
         Navigator.pop(context);
         showPlatformDialog(
           context: context,
@@ -113,10 +113,12 @@ class InitSettingsController extends ChangeNotifier {
             ],
           ),
         );
+      } else {
+        customMsgShowDialog(context, '오류', '존재하지 않는 닉네임입니다.');
       }
 
     } catch(e) {
-      customMsgShowDialog(context, '오류', '로스트아크 서버 점검 또는 존재하지 않는 닉네임입니다.');
+      customMsgShowDialog(context, '오류', '로스트아크 서버 점검 또는 인터넷이 연결되어 있지 않습니다.');
     }
   }
 

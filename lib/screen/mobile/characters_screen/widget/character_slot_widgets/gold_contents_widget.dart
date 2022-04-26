@@ -435,6 +435,9 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                                         },
                                                                       ),
                                                                     ),
+                                                                    SizedBox(
+                                                                      width: 2,
+                                                                    ),
                                                                     Flexible(
                                                                       child: ElevatedButton(
                                                                         child: Text('2명'),
@@ -454,6 +457,9 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                                         },
                                                                       ),
                                                                     ),
+                                                                    SizedBox(
+                                                                      width: 2,
+                                                                    ),
                                                                     Flexible(
                                                                       child: ElevatedButton(
                                                                         child: Text('3명'),
@@ -472,6 +478,9 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                                           }
                                                                         },
                                                                       ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 2,
                                                                     ),
                                                                     Flexible(
                                                                       child: ElevatedButton(
@@ -577,7 +586,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                                 ),
                                                                 Align(
                                                                   alignment: Alignment.bottomRight,
-                                                                  child: Text('합계 : $busCost'),
+                                                                  child: Text('합계 : $busCost G'),
                                                                 )
                                                               ],
                                                             ),
@@ -597,6 +606,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                             userProvider.updateTotalGold();
                                                           }
                                                         }
+                                                        FocusScope.of(context).unfocus();
                                                         Navigator.pop(context);
                                                       },
                                                       child: Text('확인'),
