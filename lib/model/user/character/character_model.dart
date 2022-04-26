@@ -33,7 +33,9 @@ class Character {
   @HiveField(8)
   List<GoldContent> goldContents = [];
 
-  List<String> options = [];
+  int tag = 0;
+
+  List<String> options = ['골드'];
 
   bool expanded = false;
 

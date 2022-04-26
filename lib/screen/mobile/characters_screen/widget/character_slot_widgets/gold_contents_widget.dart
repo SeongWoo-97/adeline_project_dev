@@ -62,6 +62,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                     setState(() {
                       userProvider.charactersProvider.characters[characterIndex].goldContents = defaultGoldContents;
                       userProvider.updateContentBoard();
+                      userProvider.providerSetState();
                     });
                   },
                   child: Text('저장', style: Theme.of(context).textTheme.bodyText2),
@@ -156,7 +157,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                       Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(5,5,5,0),
+                            padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
                             child:
                                 iconPerType(userProvider.charactersProvider.characters[characterIndex].goldContents[index].type),
                           ),
@@ -203,7 +204,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                     .charactersProvider.characters[characterIndex].goldContents[index].getGoldLevelLimit;
                                 int enterLevelLimit = userProvider
                                     .charactersProvider.characters[characterIndex].goldContents[index].enterLevelLimit;
-                                if (!characterAlwaysMaxClear && level > enterLevelLimit && level < getGoldLevelLimit) {
+                                if (!characterAlwaysMaxClear && level >= enterLevelLimit && level < getGoldLevelLimit) {
                                   showPlatformDialog(
                                       context: context,
                                       builder: (BuildContext context) {
@@ -212,11 +213,14 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                             content: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                Text('${userProvider.charactersProvider.characters[characterIndex].goldContents[index].name} (${userProvider.charactersProvider.characters[characterIndex].goldContents[index].difficulty})'),
-                                                SizedBox(height: 10,),
+                                                Text(
+                                                    '${userProvider.charactersProvider.characters[characterIndex].goldContents[index].name} (${userProvider.charactersProvider.characters[characterIndex].goldContents[index].difficulty})'),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
                                                 Container(
                                                   width: 300,
-                                                  height: 90,
+                                                  height: 100,
                                                   child: GridView.builder(
                                                     shrinkWrap: true,
                                                     physics: const NeverScrollableScrollPhysics(),
@@ -247,9 +251,18 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                             child: Column(
                                                               mainAxisSize: MainAxisSize.min,
                                                               children: [
-                                                                Text('${gridIndex + 1}관문'),
                                                                 Text(
-                                                                    '${clearGoldIndex(userProvider.charactersProvider.characters[characterIndex].goldContents[index].goldPerPhase, gridIndex)} G'),
+                                                                  '${gridIndex + 1}관문',
+                                                                  style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                                                      color:
+                                                                          themeProvider.darkTheme ? Colors.white : Colors.black),
+                                                                ),
+                                                                Text(
+                                                                  '${clearGoldIndex(userProvider.charactersProvider.characters[characterIndex].goldContents[index].goldPerPhase, gridIndex)} G',
+                                                                  style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                                                      color:
+                                                                          themeProvider.darkTheme ? Colors.white : Colors.black),
+                                                                ),
                                                               ],
                                                             ),
                                                           ));
@@ -269,17 +282,21 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                       },
                                                     ),
                                                     Text(
-                                                      '이 캐릭터는 항상 최대관문 클리어 설정',
+                                                      '해당 캐릭터는 항상 최대관문 클리어',
                                                       style: TextStyle(fontSize: 14),
                                                     )
                                                   ],
+                                                ),
+                                                Text(
+                                                  '"항상 최대 관문" 옵션을 해제하기 위해서는 \n군단장의 이름을 1초간 터치해 주세요.',
+                                                  style: Theme.of(context).textTheme.caption,
                                                 )
                                               ],
                                             ),
                                           );
                                         });
                                       });
-                                } else if (level > enterLevelLimit && level < getGoldLevelLimit) {
+                                } else if (level >= enterLevelLimit && level < getGoldLevelLimit) {
                                   int totalGold = 0;
                                   userProvider.charactersProvider.characters[characterIndex].goldContents[index].goldPerPhase
                                       .forEach((element) => totalGold += element);
@@ -683,7 +700,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
 
   String clearGoldPerCharacter(Character character, int index) {
     int level = int.parse(character.level);
-    bool getGoldLevelLimit = level <= character.goldContents[index].getGoldLevelLimit; // 골드획득 레벨제한
+    bool getGoldLevelLimit = level < character.goldContents[index].getGoldLevelLimit; // 골드획득 레벨제한
     bool enterGoldLevelLimit = level >= character.goldContents[index].enterLevelLimit;
     bool clearCheck = character.goldContents[index].clearChecked;
     if (getGoldLevelLimit && character.goldContents[index].characterAlwaysMaxClear && enterGoldLevelLimit) {

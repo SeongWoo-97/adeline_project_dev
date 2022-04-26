@@ -70,18 +70,15 @@ class InitSettingsController extends ChangeNotifier {
 
   // 입력한 캐릭터 닉네임,직업,레벨 가져오는 메서드
   Future characterInfo(BuildContext context, String name) async {
-    getCharacterShowDialog(context); // 정보확인 중 로딩창
     nickName = name;
-    bool loadWebPageBool = await webScraper.loadWebPage('/Profile/Character/$nickName');
-    bool getCharStateCheckBool = !getCharStateCheck(nickName);
-    bool textControllerEmptyBool = textEditingController.text.isNotEmpty;
-
-    if (loadWebPageBool & getCharStateCheckBool & textControllerEmptyBool) {
-      Navigator.pop(context);
+    try {
+      getCharacterShowDialog(context); // 정보확인 중 로딩창
+      await webScraper.loadWebPage('/Profile/Character/$nickName');
       job = webScraper.getElementAttribute('div > main > div > div.profile-character-info > img', 'alt');
       level = webScraper.getElementTitle('div.profile-ingame > div.profile-info > div.level-info2 > div.level-info2__item');
 
       if (job.isNotEmpty && level.isNotEmpty) {
+        Navigator.pop(context);
         showPlatformDialog(
           context: context,
           builder: (_) => PlatformAlertDialog(
@@ -117,9 +114,8 @@ class InitSettingsController extends ChangeNotifier {
           ),
         );
       }
-    } else if (!textControllerEmptyBool) {
-      customMsgShowDialog(context, '오류', '닉네임을 입력해 주시길 바랍니다.');
-    } else if (!getCharStateCheckBool) {
+
+    } catch(e) {
       customMsgShowDialog(context, '오류', '로스트아크 서버 점검 또는 존재하지 않는 닉네임입니다.');
     }
   }
@@ -291,6 +287,7 @@ class InitSettingsController extends ChangeNotifier {
       ),
     );
   }
+
   String getJobCode(String? job) {
     switch (job) {
       case "버서커":

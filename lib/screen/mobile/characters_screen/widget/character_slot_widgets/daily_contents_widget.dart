@@ -17,6 +17,7 @@ class DailyContentsWidget extends StatefulWidget {
 
 class _DailyContentsWidgetState extends State<DailyContentsWidget> {
   final box = Hive.box<User>('characters');
+
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -30,14 +31,14 @@ class _DailyContentsWidgetState extends State<DailyContentsWidget> {
             return InkWell(
               child: restGaugeContentTile(userProvider.charactersProvider.characters[characterIndex].dailyContents[index]),
               onTap: () {
-                userProvider.restGaugeContentClearCheck(characterIndex,index);
+                userProvider.restGaugeContentClearCheck(characterIndex, index);
                 box.put('user', User(characters: userProvider.charactersProvider.characters));
               },
             );
           } else if (userProvider.charactersProvider.characters[characterIndex].dailyContents[index].isChecked == true) {
             return InkWell(
               child: Padding(
-                padding: const EdgeInsets.only(left: 3,right: 3),
+                padding: const EdgeInsets.only(left: 3, right: 3),
                 child: Card(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,11 +66,7 @@ class _DailyContentsWidgetState extends State<DailyContentsWidget> {
                         side: BorderSide(color: Colors.grey, width: 1.5),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
                         onChanged: (bool? value) {
-                          setState(() {
-                            userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearChecked =
-                                !userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearChecked;
-                          });
-                          box.put('user', User(characters: userProvider.charactersProvider.characters));
+                          userProvider.dailyContentClearCheck(characterIndex, index, value);
                         },
                       )
                     ],
@@ -77,11 +74,8 @@ class _DailyContentsWidgetState extends State<DailyContentsWidget> {
                 ),
               ),
               onTap: () {
-                setState(() {
-                  userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearChecked =
-                      !userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearChecked;
-                });
-                box.put('user', User(characters: userProvider.charactersProvider.characters));
+                userProvider.dailyContentClearCheck(characterIndex, index,
+                    !userProvider.charactersProvider.characters[characterIndex].dailyContents[index].clearChecked);
               },
             );
           } else {
@@ -95,7 +89,7 @@ class _DailyContentsWidgetState extends State<DailyContentsWidget> {
       return Container();
     } else {
       return Padding(
-        padding: const EdgeInsets.only(left: 3,right: 3),
+        padding: const EdgeInsets.only(left: 3, right: 3),
         child: Card(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

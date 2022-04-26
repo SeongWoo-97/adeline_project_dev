@@ -44,6 +44,7 @@ class _UpdateListScreenState extends State<UpdateListScreen> {
                     Text('- 분배금 계산기 개선'),
                     Text('- 떠돌이상인 로웬 대륙 추가'),
                     Text('- 직업별 직업아이콘 추가'),
+                    Text('- 일일/주간/골드 클리어 아이콘 추가'),
                     Text('- 다크모드 지원'),
                     Text('- 일부 UI 변경'),
                   ],

@@ -61,22 +61,15 @@ class _WeeklyContentsWidgetState extends State<WeeklyContentsWidget> {
                         borderRadius: BorderRadius.circular(3),
                       ),
                       onChanged: (bool? value) {
-                        setState(() {
-                          userProvider.charactersProvider.characters[characterIndex].weeklyContents[index].clearChecked =
-                          !userProvider.charactersProvider.characters[characterIndex].weeklyContents[index].clearChecked;
-                        });
-                        box.put('user', User(characters: userProvider.charactersProvider.characters));
+                        userProvider.weeklyContentClearCheck(characterIndex, index, value);
                       },
                     )
                   ],
                 ),
               ),
               onTap: () {
-                setState(() {
-                  userProvider.charactersProvider.characters[characterIndex].weeklyContents[index].clearChecked =
-                  !userProvider.charactersProvider.characters[characterIndex].weeklyContents[index].clearChecked;
-                });
-                box.put('user', User(characters: userProvider.charactersProvider.characters));
+                userProvider.weeklyContentClearCheck(characterIndex, index,
+                    !userProvider.charactersProvider.characters[characterIndex].weeklyContents[index].clearChecked);
               },
             ),
           );

@@ -22,8 +22,6 @@ class CharacterSlotWidget extends StatefulWidget {
 }
 
 class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
-  int tag = 0;
-
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context);
@@ -47,7 +45,9 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                   bool goldSummaryIcon = false;
                   userProvider.charactersProvider.characters[characterIndex].dailyContents.forEach((element) {
                     if (element.isChecked) {
-                      userProvider.charactersProvider.characters[characterIndex].options.contains('일일') ? null : userProvider.charactersProvider.characters[characterIndex].options.insert(0,'일일');
+                      userProvider.charactersProvider.characters[characterIndex].options.contains('일일')
+                          ? null
+                          : userProvider.charactersProvider.characters[characterIndex].options.insert(0, '일일');
                       dailySummaryIcon = true;
                     }
                     if (element is DailyContent) {
@@ -64,7 +64,9 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                   });
                   userProvider.charactersProvider.characters[characterIndex].weeklyContents.forEach((element) {
                     if (element.isChecked) {
-                      userProvider.charactersProvider.characters[characterIndex].options.contains('주간') ? null : userProvider.charactersProvider.characters[characterIndex].options.add('주간');
+                      userProvider.charactersProvider.characters[characterIndex].options.contains('주간')
+                          ? null
+                          : userProvider.charactersProvider.characters[characterIndex].options.insert(0, '주간');
                       weeklySummaryIcon = true;
                     }
                     if (element.isChecked && !element.clearChecked) {
@@ -74,7 +76,6 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
 
                   userProvider.charactersProvider.characters[characterIndex].goldContents.forEach((element) {
                     if (element.isChecked) {
-                      userProvider.charactersProvider.characters[characterIndex].options.contains('골드') ? null : userProvider.charactersProvider.characters[characterIndex].options.add('골드');
                       goldSummaryIcon = true;
                     }
                     if (element.isChecked && !element.clearChecked) {
@@ -212,20 +213,24 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                                       ? Container(
                                           margin: const EdgeInsets.only(top: 3, right: 5),
                                           decoration: BoxDecoration(
-                                            border: Border.all(color: themeProvider.darkTheme ? Colors.green : Colors.greenAccent),
+                                            border:
+                                                Border.all(color: themeProvider.darkTheme ? Colors.green : Colors.greenAccent),
                                             color: themeProvider.darkTheme ? Colors.green : Colors.greenAccent,
                                             borderRadius: BorderRadius.circular(5),
                                           ),
                                           child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(3, 1, 3, 1),
+                                            padding: const EdgeInsets.fromLTRB(0, 1, 3, 1),
                                             child: Row(
                                               children: [
                                                 dailyNotClear
                                                     ? Container()
-                                                    : Icon(
-                                                        Icons.check,
-                                                        size: 12,
-                                                        color: themeProvider.darkTheme ? Colors.white : Colors.black,
+                                                    : Padding(
+                                                        padding: const EdgeInsets.only(left: 3),
+                                                        child: Icon(
+                                                          Icons.check,
+                                                          size: 12,
+                                                          color: themeProvider.darkTheme ? Colors.white : Colors.black,
+                                                        ),
                                                       ),
                                                 SizedBox(
                                                   width: 3,
@@ -252,15 +257,18 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                                             borderRadius: BorderRadius.circular(5),
                                           ),
                                           child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(3, 1, 3, 1),
+                                            padding: const EdgeInsets.fromLTRB(0, 1, 3, 1),
                                             child: Row(
                                               children: [
                                                 weeklyNotClear
                                                     ? Container()
-                                                    : Icon(
-                                                        Icons.check,
-                                                        size: 12,
-                                                        color: themeProvider.darkTheme ? Colors.white : Colors.black,
+                                                    : Padding(
+                                                        padding: const EdgeInsets.only(left: 3),
+                                                        child: Icon(
+                                                          Icons.check,
+                                                          size: 12,
+                                                          color: themeProvider.darkTheme ? Colors.white : Colors.black,
+                                                        ),
                                                       ),
                                                 SizedBox(
                                                   width: 3,
@@ -287,15 +295,18 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                                             borderRadius: BorderRadius.circular(5),
                                           ),
                                           child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(3, 1, 3, 1),
+                                            padding: const EdgeInsets.fromLTRB(0, 1, 3, 1),
                                             child: Row(
                                               children: [
                                                 goldNotClear
                                                     ? Container()
-                                                    : Icon(
-                                                        Icons.check,
-                                                        size: 12,
-                                                        color: themeProvider.darkTheme ? Colors.white : Colors.black,
+                                                    : Padding(
+                                                        padding: const EdgeInsets.only(left: 3),
+                                                        child: Icon(
+                                                          Icons.check,
+                                                          size: 12,
+                                                          color: themeProvider.darkTheme ? Colors.white : Colors.black,
+                                                        ),
                                                       ),
                                                 SizedBox(
                                                   width: 3,
@@ -324,10 +335,10 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                           children: [
                             ChipsChoice<int>.single(
                               padding: EdgeInsets.only(left: 2),
-                              value: tag,
+                              value: userProvider.charactersProvider.characters[characterIndex].tag,
                               onChanged: (val) {
                                 setState(() {
-                                  tag = val;
+                                  userProvider.charactersProvider.characters[characterIndex].tag = val;
                                 });
                               },
                               choiceItems: C2Choice.listFrom<int, String>(
@@ -340,13 +351,13 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                                 color: Colors.black,
                                 backgroundColor: themeProvider.darkTheme ? Colors.grey : Colors.white,
                                 borderColor: Colors.grey,
-                                borderRadius: BorderRadius.all(Radius.circular(12)),
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
                               ),
                               choiceActiveStyle: C2ChoiceStyle(
                                   color: Colors.black,
                                   backgroundColor: Colors.white,
                                   borderColor: Colors.black,
-                                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                                  borderRadius: BorderRadius.all(Radius.circular(10)),
                                   showCheckmark: false),
                             ),
                             IconButton(
@@ -362,7 +373,10 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                             )
                           ],
                         ),
-                        widgetPerContents(userProvider.charactersProvider.characters[characterIndex].options[tag], characterIndex),
+                        widgetPerContents(
+                            userProvider.charactersProvider.characters[characterIndex]
+                                .options[userProvider.charactersProvider.characters[characterIndex].tag],
+                            characterIndex),
                       ],
                     ),
                   );
@@ -376,7 +390,7 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
   }
 
   Widget widgetPerContents(String tag, int characterIndex) {
-    print('tag : $tag');
+    print('index : $tag');
     switch (tag) {
       case "일일":
         return DailyContentsWidget(characterIndex);
@@ -384,8 +398,10 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
         return WeeklyContentsWidget(characterIndex);
       case "골드":
         return GoldContentsWidget(characterIndex);
+      default:
+        print('default : $tag');
+        return Container();
     }
-    return Container();
   }
 
   String weeklyGold(int characterIndex) {
@@ -398,7 +414,7 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
         if (element.isChecked == true &&
             element.clearChecked == true &&
             (level < element.getGoldLevelLimit) &&
-            (level > element.enterLevelLimit)) {
+            (level >= element.enterLevelLimit)) {
           weeklyGold += element.addGold;
           weeklyGold += element.clearGold;
         }

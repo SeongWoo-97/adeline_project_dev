@@ -106,9 +106,10 @@ class _CharacterReOrderScreenState extends State<CharacterReOrderScreen> {
                                 child: PlatformText('삭제'),
                                 // 캐릭터 순서 페이지로 이동
                                 onPressed: () {
-                                  userProvider.charactersProvider.characters.removeAt(index);
-                                  setState(() {});
-                                  Navigator.pop(context);
+                                  setState(() {
+                                    userProvider.removeCharacter(index);
+                                    Navigator.pop(context);
+                                  });
                                 },
                               ),
                             ],

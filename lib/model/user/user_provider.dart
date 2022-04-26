@@ -39,6 +39,7 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
   void updateTotalGold() {
     totalGold = 0;
     charactersProvider.characters.forEach((character) {
@@ -47,7 +48,7 @@ class UserProvider extends ChangeNotifier {
 
         if (goldContent.isChecked && goldContent.clearChecked) {
           // 클리어 골드 획득 조건
-          if (level < goldContent.getGoldLevelLimit && level > goldContent.enterLevelLimit) {
+          if (level < goldContent.getGoldLevelLimit && level >= goldContent.enterLevelLimit) {
             if (goldContent.characterAlwaysMaxClear) {
               goldContent.goldPerPhase.forEach((element) => totalGold += element);
             } else {
@@ -119,6 +120,7 @@ class UserProvider extends ChangeNotifier {
   }
 
   void providerSetState() {
+    characterBox.put('user', User(characters: charactersProvider.characters));
     notifyListeners();
   }
 
@@ -159,6 +161,11 @@ class UserProvider extends ChangeNotifier {
 
   void addCharacter(Character character){
     charactersProvider.characters.add(character);
+    notifyListeners();
+  }
+
+  void removeCharacter(int index) {
+    charactersProvider.characters.removeAt(index);
     notifyListeners();
   }
 }

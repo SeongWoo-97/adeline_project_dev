@@ -14,6 +14,7 @@ import 'package:adeline_project_dev/screen/mobile/init_date_check_screen/init_da
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +36,7 @@ class _CharactersScreenState extends State<CharactersScreen> with AutomaticKeepA
   List<ExpeditionContent> expeditionList = [];
   late Expedition expedition;
 
-  // DateTime nowDate = DateTime.utc(2022, 4, 25, 10);
+  // DateTime nowDate = DateTime.utc(2022, 4, 27, 10);
   DateTime nowDate = DateTime.now();
 
   // late DateTime nowDate;
@@ -174,6 +175,19 @@ class _CharactersScreenState extends State<CharactersScreen> with AutomaticKeepA
         material: (_, __) => MaterialAppBarData(),
         cupertino: (_, __) => CupertinoNavigationBarData(),
         trailingActions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Fluttertoast.showToast(
+                    msg: "새로고침이 완료 되었습니다.",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    backgroundColor: Colors.grey,
+                    timeInSecForIosWeb: 2,
+                    fontSize: 14.0);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavigationScreen()));
+              },
+              icon: Icon(Icons.refresh_outlined)),
           CustomPopupMenu(
             controller: _customPopupMenuController,
             pressType: PressType.singleClick,
@@ -191,30 +205,6 @@ class _CharactersScreenState extends State<CharactersScreen> with AutomaticKeepA
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        child: Container(
-                          height: 40,
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  child: Text(
-                                    '새로고침',
-                                    style: TextStyle(fontSize: 15, color: Colors.black),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        onTap: () {
-                          _customPopupMenuController.hideMenu();
-                          Navigator.pop(context);
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavigationScreen()));
-                        },
-                      ),
                       GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: () async {
@@ -282,6 +272,35 @@ class _CharactersScreenState extends State<CharactersScreen> with AutomaticKeepA
                         onTap: () async {
                           _customPopupMenuController.hideMenu();
                           Navigator.push(context, MaterialPageRoute(builder: (context) => InitDateCheckScreen()));
+                        },
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        child: Container(
+                          height: 40,
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  child: Text(
+                                    '관문 선택 방법',
+                                    style: TextStyle(fontSize: 15, color: Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        onTap: () async {
+                          _customPopupMenuController.hideMenu();
+                          Fluttertoast.showToast(
+                              msg: "캐릭터의 골드 버튼을 누른 후 콘텐츠의 이름을 1초간 눌러주시면 해제됩니다.",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: Colors.grey,
+                              timeInSecForIosWeb: 2,
+                              fontSize: 14.0);
                         },
                       ),
                     ],
