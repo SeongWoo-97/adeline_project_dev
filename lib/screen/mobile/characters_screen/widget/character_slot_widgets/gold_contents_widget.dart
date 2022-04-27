@@ -418,7 +418,13 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                                   children: [
                                                                     Flexible(
                                                                       child: ElevatedButton(
-                                                                        child: Text('1명'),
+                                                                        child: Text(
+                                                                          '1명',
+                                                                          style: TextStyle(
+                                                                              color: themeProvider.darkTheme
+                                                                                  ? Colors.white
+                                                                                  : Colors.black),
+                                                                        ),
                                                                         onPressed: () {
                                                                           numberOfPersonTextEditingController.text = "1";
                                                                           if (numberOfPersonTextEditingController
@@ -440,7 +446,13 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                                     ),
                                                                     Flexible(
                                                                       child: ElevatedButton(
-                                                                        child: Text('2명'),
+                                                                        child: Text(
+                                                                          '2명',
+                                                                          style: TextStyle(
+                                                                              color: themeProvider.darkTheme
+                                                                                  ? Colors.white
+                                                                                  : Colors.black),
+                                                                        ),
                                                                         onPressed: () {
                                                                           numberOfPersonTextEditingController.text = "2";
                                                                           if (numberOfPersonTextEditingController
@@ -462,7 +474,13 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                                     ),
                                                                     Flexible(
                                                                       child: ElevatedButton(
-                                                                        child: Text('3명'),
+                                                                        child: Text(
+                                                                          '3명',
+                                                                          style: TextStyle(
+                                                                              color: themeProvider.darkTheme
+                                                                                  ? Colors.white
+                                                                                  : Colors.black),
+                                                                        ),
                                                                         onPressed: () {
                                                                           numberOfPersonTextEditingController.text = "3";
                                                                           if (numberOfPersonTextEditingController
@@ -484,7 +502,13 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                                     ),
                                                                     Flexible(
                                                                       child: ElevatedButton(
-                                                                        child: Text('7명'),
+                                                                        child: Text(
+                                                                          '7명',
+                                                                          style: TextStyle(
+                                                                              color: themeProvider.darkTheme
+                                                                                  ? Colors.white
+                                                                                  : Colors.black),
+                                                                        ),
                                                                         onPressed: () {
                                                                           numberOfPersonTextEditingController.text = "7";
                                                                           setState(() {
