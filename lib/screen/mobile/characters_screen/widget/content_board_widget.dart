@@ -1,8 +1,8 @@
-import 'package:adeline_project_dev/model/user/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../model/dark_mode/dark_theme_provider.dart';
+import '../../../../model/user/user_provider.dart';
 
 class ContentBoardWidget extends StatefulWidget {
   const ContentBoardWidget({Key? key}) : super(key: key);

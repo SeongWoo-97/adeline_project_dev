@@ -1,6 +1,4 @@
-import 'package:adeline_project_dev/model/user/user_provider.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_list.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +9,7 @@ import '../../../../model/user/content/daily_content.dart';
 import '../../../../model/user/content/gold_content.dart';
 import '../../../../model/user/content/restGauge_content.dart';
 import '../../../../model/user/content/weekly_content.dart';
+import '../../../../model/user/user_provider.dart';
 
 class AddCharacterProvider extends ChangeNotifier {
   Character character = Character(nickName: '', server: '', jobCode: '');

@@ -1,9 +1,9 @@
-import 'package:adeline_project_dev/screen/mobile/expedition_setting_screen/expedition_setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import '../../../../model/user/expedition/expedition_model.dart';
 import '../../../../model/user/expedition/expedition_provider.dart';
+import '../../expedition_setting_screen/expedition_setting_screen.dart';
 
 class ExpeditionContentWidget extends StatefulWidget {
   const ExpeditionContentWidget({Key? key}) : super(key: key);

@@ -1,5 +1,6 @@
-import 'package:adeline_project_dev/model/user/content/expedition_content.dart';
 import 'package:hive/hive.dart';
+
+import '../content/expedition_content.dart';
 
 part 'expedition_model.g.dart';
 

@@ -14,10 +14,54 @@
       },
       "oauth_client": [
         {
-          "client_id": "429457628851-ceeoqbgcc57fp61kd7t18mq0ggek2bbj.apps.googleusercontent.com",
+          "client_id": "429457628851-8dujcbdui74cj5jk4gobkgv0gm7u19b3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.adeline_project_dev",
+            "certificate_hash": "e1e3e335b33626fb84705ee624aeecef36a6301f"
+          }
+        },
+        {
+          "client_id": "429457628851-8s7739k44d5j5qt3ekfm5rgrbmcd4s6n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEn6BtGH1kCcKY2aHpmFWaf99cLzvd708"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "429457628851-8s7739k44d5j5qt3ekfm5rgrbmcd4s6n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "429457628851-5ubbgfal7t1sp0lt8j9nm5akrpei62r6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.adelineProjectDev"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:429457628851:android:c3d7b0f589e056f6511ac6",
+        "android_client_info": {
+          "package_name": "com.lostark.adeline_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "429457628851-d3ibnhl2gne1jbaehn0lugkt53sdrluq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lostark.adeline_app",
             "certificate_hash": "025641198198a71b1427249fdf1ab66515087684"
           }
         },

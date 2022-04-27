@@ -4,9 +4,7 @@ import 'package:adeline_app/screen/mobile/init_screen/controller/initSettings_co
 import 'package:adeline_app/screen/mobile/init_screen/initSettings_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 

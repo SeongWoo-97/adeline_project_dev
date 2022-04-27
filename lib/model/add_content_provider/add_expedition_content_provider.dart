@@ -1,4 +1,4 @@
-import 'package:adeline_project_dev/model/user/content/expedition_content.dart';
+import '../user/content/expedition_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';

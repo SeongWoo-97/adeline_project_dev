@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.adeline_project_dev">
+    package="com.lostark.adeline_app">
     <queries>
         <!-- If your app opens https URLs -->
         <intent>
@@ -23,9 +23,12 @@
         </intent>
     </queries>
    <application
-        android:label="adeline_project_dev"
+        android:label="로스트아크 아델라인"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+       <meta-data
+           android:name="com.google.android.gms.ads.APPLICATION_ID"
+           android:value="ca-app-pub-2659418845004468~2355914105"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

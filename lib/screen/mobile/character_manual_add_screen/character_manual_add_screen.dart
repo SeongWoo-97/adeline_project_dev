@@ -1,8 +1,7 @@
-import 'package:adeline_project_dev/constant/constant.dart';
-import 'package:adeline_project_dev/screen/mobile/character_manual_add_screen/controller/add_character_provider.dart';
-import 'package:adeline_project_dev/screen/mobile/character_manual_add_screen/widget/daily_content_list.dart';
-import 'package:adeline_project_dev/screen/mobile/character_manual_add_screen/widget/gold_content_list.dart';
-import 'package:adeline_project_dev/screen/mobile/character_manual_add_screen/widget/weekly_content_list.dart';
+
+import 'package:adeline_app/screen/mobile/character_manual_add_screen/widget/daily_content_list.dart';
+import 'package:adeline_app/screen/mobile/character_manual_add_screen/widget/gold_content_list.dart';
+import 'package:adeline_app/screen/mobile/character_manual_add_screen/widget/weekly_content_list.dart';
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +11,9 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
+import '../../../constant/constant.dart';
 import '../../../model/dark_mode/dark_theme_provider.dart';
+import 'controller/add_character_provider.dart';
 
 class CharacterManualAddScreen extends StatefulWidget {
   const CharacterManualAddScreen({Key? key}) : super(key: key);

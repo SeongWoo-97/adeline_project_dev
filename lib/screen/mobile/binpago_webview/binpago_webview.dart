@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -69,14 +68,5 @@ class _BinpagoWebViewState extends State<BinpagoWebView> {
         },
       ),
     );
-  }
-
-  Future<bool> _goBack(BuildContext context) async {
-    if (await _webViewController.canGoBack()) {
-      _webViewController.goBack();
-      return Future.value(false);
-    } else {
-      return Future.value(true);
-    }
   }
 }

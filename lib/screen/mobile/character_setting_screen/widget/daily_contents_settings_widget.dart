@@ -1,6 +1,4 @@
-import 'package:adeline_project_dev/screen/mobile/character_setting_screen/widget/add_content_widget.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
-import 'package:drag_and_drop_lists/drag_handle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,6 +10,7 @@ import '../../../../model/dark_mode/dark_theme_provider.dart';
 import '../../../../model/user/content/daily_content.dart';
 import '../../../../model/user/content/restGauge_content.dart';
 import '../../../../model/user/user_provider.dart';
+import 'add_content_widget.dart';
 
 class DailyContentSettingWidget extends StatefulWidget {
   final int characterIndex;

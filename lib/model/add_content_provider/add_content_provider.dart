@@ -1,13 +1,13 @@
-import 'package:adeline_project_dev/model/user/content/daily_content.dart';
-import 'package:adeline_project_dev/model/user/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../../constant/constant.dart';
+import '../user/content/daily_content.dart';
 import '../user/content/weekly_content.dart';
 import '../user/user.dart';
+import '../user/user_provider.dart';
 
 class AddContentProvider extends ChangeNotifier {
   final characterBox = Hive.box<User>('characters');

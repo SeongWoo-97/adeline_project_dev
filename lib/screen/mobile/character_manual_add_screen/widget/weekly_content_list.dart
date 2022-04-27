@@ -1,5 +1,4 @@
-import 'package:adeline_project_dev/screen/mobile/character_manual_add_screen/controller/add_character_provider.dart';
-import 'package:adeline_project_dev/screen/mobile/character_manual_add_screen/widget/manual_add_icon_widget.dart';
+
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -8,9 +7,10 @@ import 'package:provider/provider.dart';
 
 import '../../../../constant/constant.dart';
 import '../../../../model/dark_mode/dark_theme_provider.dart';
-import '../../../../model/user/content/daily_content.dart';
 import '../../../../model/user/content/restGauge_content.dart';
 import '../../../../model/user/content/weekly_content.dart';
+import '../controller/add_character_provider.dart';
+import 'manual_add_icon_widget.dart';
 
 class WeeklyContentListWidget extends StatefulWidget {
   const WeeklyContentListWidget({Key? key}) : super(key: key);

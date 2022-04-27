@@ -1,6 +1,4 @@
-import 'package:adeline_project_dev/model/add_content_provider/add_expedition_content_provider.dart';
-import 'package:adeline_project_dev/model/user/expedition/expedition_provider.dart';
-import 'package:adeline_project_dev/screen/mobile/expedition_setting_screen/add_expedition_content_widget.dart';
+
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -9,9 +7,12 @@ import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constant/constant.dart';
+import '../../../model/add_content_provider/add_expedition_content_provider.dart';
 import '../../../model/dark_mode/dark_theme_provider.dart';
 import '../../../model/user/content/expedition_content.dart';
 import '../../../model/user/expedition/expedition_model.dart';
+import '../../../model/user/expedition/expedition_provider.dart';
+import 'add_expedition_content_widget.dart';
 
 class ExpeditionSettingScreen extends StatefulWidget {
   const ExpeditionSettingScreen({Key? key}) : super(key: key);

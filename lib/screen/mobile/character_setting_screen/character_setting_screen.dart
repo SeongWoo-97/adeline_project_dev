@@ -1,18 +1,17 @@
-import 'package:adeline_project_dev/model/user/user_provider.dart';
-import 'package:adeline_project_dev/screen/mobile/character_setting_screen/widget/daily_contents_settings_widget.dart';
-import 'package:adeline_project_dev/screen/mobile/character_setting_screen/widget/gold_contents_settings_widget.dart';
-import 'package:adeline_project_dev/screen/mobile/character_setting_screen/widget/weekly_contents_settings_widget.dart';
+
+import 'package:adeline_app/screen/mobile/character_setting_screen/widget/daily_contents_settings_widget.dart';
+import 'package:adeline_app/screen/mobile/character_setting_screen/widget/gold_contents_settings_widget.dart';
+import 'package:adeline_app/screen/mobile/character_setting_screen/widget/weekly_contents_settings_widget.dart';
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
-import 'package:drag_and_drop_lists/drag_and_drop_list.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
-import '../../../constant/constant.dart';
 import '../../../model/dark_mode/dark_theme_provider.dart';
-import '../../../model/user/character/character_model.dart';
+import '../../../model/user/user_provider.dart';
 
 class CharacterSettingsScreen extends StatefulWidget {
   final int characterIndex;

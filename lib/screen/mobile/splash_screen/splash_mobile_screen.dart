@@ -1,8 +1,8 @@
-import 'package:adeline_project_dev/screen/mobile/google_sign_screen/google_sign_mobile_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
+
+import '../google_sign_screen/google_sign_mobile_screen.dart';
 
 class SplashMobileScreen extends StatefulWidget {
   const SplashMobileScreen({Key? key}) : super(key: key);

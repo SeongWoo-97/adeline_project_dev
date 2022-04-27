@@ -1,7 +1,7 @@
-import 'package:adeline_project_dev/model/user/content/gold_content.dart';
-import 'package:flutter/cupertino.dart';
+
 
 import '../model/icon/iconModel.dart';
+import '../model/user/content/gold_content.dart';
 
 List<IconModel> iconList = [
   IconModel('assets/daily/Chaos.png'),

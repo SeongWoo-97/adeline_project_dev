@@ -1,6 +1,4 @@
-import 'package:adeline_project_dev/main.dart';
-import 'package:adeline_project_dev/screen/mobile/init_screen/initSettings_screen.dart';
-import 'package:adeline_project_dev/screen/mobile/update_list_screen/update_list_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,11 +7,12 @@ import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../model/dark_mode/darkThemePreference.dart';
 import '../../../model/dark_mode/dark_theme_provider.dart';
 import '../../../model/user/expedition/expedition_model.dart';
 import '../../../model/user/user.dart';
+import '../init_screen/initSettings_screen.dart';
 import '../sources_screen/sources_screen.dart';
+import '../update_list_screen/update_list_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);

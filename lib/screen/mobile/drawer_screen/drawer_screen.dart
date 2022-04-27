@@ -1,9 +1,9 @@
-import 'package:adeline_project_dev/screen/mobile/binpago_webview/binpago_webview.dart';
-import 'package:adeline_project_dev/screen/mobile/merchant_location_screen/merchant_location_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/dark_mode/dark_theme_provider.dart';
+import '../binpago_webview/binpago_webview.dart';
+import '../merchant_location_screen/merchant_location_screen.dart';
 
 class DrawerScreen extends StatelessWidget {
   @override

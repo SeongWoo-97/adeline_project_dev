@@ -1,8 +1,9 @@
-import 'package:adeline_project_dev/model/user/user_provider.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
+
+import '../../../model/user/user_provider.dart';
 
 class CharacterReOrderScreen extends StatefulWidget {
   const CharacterReOrderScreen({Key? key}) : super(key: key);

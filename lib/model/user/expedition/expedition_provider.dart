@@ -1,8 +1,7 @@
-import 'package:adeline_project_dev/model/user/content/expedition_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
-import 'package:provider/provider.dart';
 
+import '../content/expedition_content.dart';
 import 'expedition_model.dart';
 
 class ExpeditionProvider extends ChangeNotifier {

@@ -1,4 +1,3 @@
-import 'package:adeline_project_dev/model/user/expedition/expedition_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hive/hive.dart';
@@ -6,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:web_scraper/web_scraper.dart';
 import '../../../../model/user/character/character_model.dart';
 import '../../../../model/user/expedition/expedition_model.dart';
+import '../../../../model/user/expedition/expedition_provider.dart';
 import '../../../../model/user/user.dart';
 import '../../../../model/user/user_provider.dart';
 import '../../bottom_navigation_screen/bottom_navigation_screen.dart';
@@ -15,7 +15,7 @@ ValueNotifier<int> getCharacterNum = ValueNotifier<int>(0);
 
 class InitSettingsController extends ChangeNotifier {
   final webScraper = WebScraper('https://lostark.game.onstove.com');
-  TextEditingController textEditingController = TextEditingController(text: "황농노");
+  TextEditingController textEditingController = TextEditingController();
   var nickName;
   var level;
   var job;

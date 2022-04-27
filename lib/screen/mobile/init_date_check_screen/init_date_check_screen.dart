@@ -1,11 +1,11 @@
-import 'package:adeline_project_dev/model/user/user_provider.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/user/expedition/expedition_provider.dart';
+import '../../../model/user/user_provider.dart';
 
 class InitDateCheckScreen extends StatefulWidget {
   const InitDateCheckScreen({Key? key}) : super(key: key);

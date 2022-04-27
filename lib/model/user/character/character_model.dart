@@ -1,8 +1,9 @@
-import 'package:adeline_project_dev/model/user/content/weekly_content.dart';
+
 import 'package:hive/hive.dart';
 
 import '../content/gold_content.dart';
 import '../content/restGauge_content.dart';
+import '../content/weekly_content.dart';
 part 'character_model.g.dart';
 @HiveType(typeId: 2)
 class Character {

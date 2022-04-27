@@ -1,8 +1,8 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:flutter/rendering.dart';
 
@@ -23,6 +23,12 @@ class _MerchantLocationScreenState extends State<MerchantLocationScreen> {
   late int selectedContinent;
   late int? selectedRegion = 1;
   Map<String, int> map = {};
+  BannerAd bannerAd = BannerAd(
+    adUnitId: 'ca-app-pub-2659418845004468/1781199037',
+    size: AdSize.banner,
+    request: AdRequest(),
+    listener: BannerAdListener(),
+  );
   @override
   void dispose() {
     // TODO: implement dispose
@@ -30,6 +36,11 @@ class _MerchantLocationScreenState extends State<MerchantLocationScreen> {
     _suggestionsBoxController.close();
     _cupertinoSuggestionsBoxController.close();
     super.dispose();
+  }
+  @override
+  void initState() {
+    super.initState();
+    bannerAd.load();
 
   }
   @override
@@ -353,6 +364,14 @@ class _MerchantLocationScreenState extends State<MerchantLocationScreen> {
                       ),
                       initialScale: 1.0,
                     ),
+                  ),
+                ),
+                StatefulBuilder(
+                  builder: (context, setState) => Container(
+                    child: AdWidget(ad: bannerAd),
+                    width: bannerAd.size.width.toDouble(),
+                    height: 60.0,
+                    alignment: Alignment.center,
                   ),
                 ),
               ],

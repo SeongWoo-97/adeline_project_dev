@@ -1,8 +1,8 @@
-import 'package:adeline_project_dev/screen/mobile/init_screen/step_two_widget.dart';
+import 'package:adeline_app/screen/mobile/init_screen/step_one_widget.dart';
+import 'package:adeline_app/screen/mobile/init_screen/step_two_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:adeline_project_dev/screen/mobile/init_screen/step_one_widget.dart';
 
 import 'controller/initSettings_controller.dart';
 

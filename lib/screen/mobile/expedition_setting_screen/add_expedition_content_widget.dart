@@ -1,10 +1,10 @@
-import 'package:adeline_project_dev/model/add_content_provider/add_expedition_content_provider.dart';
-import 'package:adeline_project_dev/model/user/expedition/expedition_model.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constant/constant.dart';
+import '../../../model/add_content_provider/add_expedition_content_provider.dart';
 import '../../../model/dark_mode/dark_theme_provider.dart';
 import '../../../model/user/expedition/expedition_provider.dart';
 

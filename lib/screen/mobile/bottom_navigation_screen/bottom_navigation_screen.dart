@@ -1,12 +1,10 @@
-import 'package:adeline_project_dev/screen/blank_screen.dart';
-import 'package:adeline_project_dev/screen/mobile/characters_screen/characters_screen.dart';
-import 'package:adeline_project_dev/screen/mobile/home_screen/home_screen.dart';
-import 'package:adeline_project_dev/screen/mobile/settings_screen/settings_screen.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../Distribution_calu_Screen/distribution_calu_screen.dart';
+import '../characters_screen/characters_screen.dart';
+import '../settings_screen/settings_screen.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen({Key? key}) : super(key: key);

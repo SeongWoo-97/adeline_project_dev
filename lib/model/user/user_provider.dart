@@ -1,10 +1,9 @@
-import 'package:adeline_project_dev/model/user/character/character_provider.dart';
-import 'package:adeline_project_dev/model/user/user.dart';
+import 'package:adeline_app/model/user/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 
-import '../../constant/constant.dart';
 import 'character/character_model.dart';
+import 'character/character_provider.dart';
 import 'content/gold_content.dart';
 
 class UserProvider extends ChangeNotifier {

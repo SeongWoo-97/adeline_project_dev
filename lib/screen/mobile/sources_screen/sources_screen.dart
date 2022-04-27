@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:provider/provider.dart';
 
-import '../../../model/dark_mode/dark_theme_provider.dart';
 
 class SourcesScreen extends StatefulWidget {
   const SourcesScreen({Key? key}) : super(key: key);
@@ -14,7 +12,6 @@ class SourcesScreen extends StatefulWidget {
 class _SourcesScreenState extends State<SourcesScreen> {
   @override
   Widget build(BuildContext context) {
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     return PlatformScaffold(
       appBar: PlatformAppBar(
         title: Text('출처'),
