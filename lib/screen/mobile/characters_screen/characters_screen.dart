@@ -133,7 +133,7 @@ class _CharactersScreenState extends State<CharactersScreen> with AutomaticKeepA
       expedition.list.forEach(
         (expeditionContent) {
           if (expeditionContent.type == "주간") {
-            print('원정대 주간초기화 : ${expeditionContent.name} , ${expeditionContent.clearCheck}');
+            // print('원정대 주간초기화 : ${expeditionContent.name} , ${expeditionContent.clearCheck}');
             expeditionContent.clearCheck = false;
           }
         },

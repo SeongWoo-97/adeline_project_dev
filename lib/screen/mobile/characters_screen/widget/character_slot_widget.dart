@@ -390,7 +390,7 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
   }
 
   Widget widgetPerContents(String tag, int characterIndex) {
-    print('index : $tag');
+    // print('index : $tag');
     switch (tag) {
       case "일일":
         return DailyContentsWidget(characterIndex);
@@ -399,7 +399,7 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
       case "골드":
         return GoldContentsWidget(characterIndex);
       default:
-        print('default : $tag');
+        // print('default : $tag');
         return Container();
     }
   }
