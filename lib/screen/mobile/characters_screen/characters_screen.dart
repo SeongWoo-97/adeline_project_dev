@@ -172,8 +172,6 @@ class _CharactersScreenState extends State<CharactersScreen> with AutomaticKeepA
       ),
       appBar: PlatformAppBar(
         title: Text('숙제 관리'),
-        material: (_, __) => MaterialAppBarData(),
-        cupertino: (_, __) => CupertinoNavigationBarData(),
         trailingActions: [
           IconButton(
               onPressed: () {

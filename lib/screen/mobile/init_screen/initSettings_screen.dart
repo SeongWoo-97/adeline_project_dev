@@ -14,21 +14,21 @@ class InitSettingsScreen extends StatefulWidget {
 }
 
 class _InitSettingsScreenState extends State<InitSettingsScreen> {
-  InitSettingsController controller = InitSettingsController();
+  InitSettingsController initController = InitSettingsController();
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => controller,
+      create: (_) => initController,
       child: Consumer<InitSettingsController>(
         builder: (context, instance, child) {
           return PlatformScaffold(
             appBar: PlatformAppBar(
               title: Text('캐릭터 불러오기'),
               trailingActions: [
-                controller.currentStep == 1
+                initController.currentStep == 1
                     ? TextButton(
-                        onPressed: () => controller.configCompleted(context),
+                        onPressed: () => initController.configCompleted(context),
                         child: Text('완료'),
                       )
                     : Container(),
@@ -40,20 +40,20 @@ class _InitSettingsScreenState extends State<InitSettingsScreen> {
                 elevation: 0,
                 // physics: ScrollPhysics(),
                 physics: ClampingScrollPhysics(),
-                currentStep: controller.currentStep,
-                onStepTapped: (step) => controller.tapped(step),
+                currentStep: initController.currentStep,
+                onStepTapped: (step) => initController.tapped(step),
                 steps: [
                   Step(
                     title: Text('닉네임 입력', style: Theme.of(context).textTheme.bodyText1),
                     content: StepOne(),
-                    isActive: controller.currentStep >= 0,
-                    state: controller.currentStep >= 0 ? StepState.complete : StepState.disabled,
+                    isActive: initController.currentStep >= 0,
+                    state: initController.currentStep >= 0 ? StepState.complete : StepState.disabled,
                   ),
                   Step(
                     title: Text('캐릭터 선택', style: Theme.of(context).textTheme.bodyText1),
                     content: StepTwo(),
-                    isActive: controller.currentStep >= 1,
-                    state: controller.currentStep >= 1 ? StepState.complete : StepState.disabled,
+                    isActive: initController.currentStep >= 1,
+                    state: initController.currentStep >= 1 ? StepState.complete : StepState.disabled,
                   ),
                 ],
                 controlsBuilder: (BuildContext context, ControlsDetails details) {

@@ -13,7 +13,7 @@ class _StepTwoState extends State<StepTwo> {
   @override
   Widget build(BuildContext context) {
     InitSettingsController controller = Provider.of<InitSettingsController>(context);
-    List<String> server = controller.servers.keys.toList();
+    List<String> server = controller.servers.keys.toList(); // 서버 목록 (유저가 가지고있는 캐릭터의 서버)
     return SafeArea(
       child: Column(
         mainAxisSize: MainAxisSize.min,

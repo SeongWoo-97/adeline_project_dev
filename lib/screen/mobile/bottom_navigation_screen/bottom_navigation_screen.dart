@@ -18,8 +18,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Ti
 
   @override
   void initState() {
-    tabController = TabController(initialIndex: 1, vsync: this, length: 3);
     super.initState();
+    tabController = TabController(initialIndex: 1, vsync: this, length: 3);
   }
 
   @override
