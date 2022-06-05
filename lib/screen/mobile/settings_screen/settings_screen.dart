@@ -1,13 +1,12 @@
-
+import 'package:adeline_app/main.dart';
+import 'package:adeline_app/model/dark_mode/dark_theme_provider.dart';
+import 'package:adeline_app/model/uri_launch/launch_url.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
-import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../../../model/dark_mode/dark_theme_provider.dart';
+import '../../../model/toast/toast.dart';
 import '../../../model/user/expedition/expedition_model.dart';
 import '../../../model/user/user.dart';
 import '../init_screen/initSettings_screen.dart';
@@ -28,7 +27,7 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final themeChange = Provider.of<ThemeProvider>(context);
+    print('(${++f} 번째)SettingsScreen.dart');
     return PlatformScaffold(
       appBar: PlatformAppBar(
         title: Text('설정'),
@@ -40,7 +39,6 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
             SettingsSection(
               margin: EdgeInsetsDirectional.all(0),
               tiles: <SettingsTile>[
-
                 SettingsTile.navigation(
                   title: Text('1:1 채팅방으로 버그 제보하기', style: Theme.of(context).textTheme.bodyText1),
                   value: Text(
@@ -48,7 +46,7 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
                     style: Theme.of(context).textTheme.caption,
                   ),
                   onPressed: (context) async {
-                    _launchURL("https://open.kakao.com/o/sTNAkmKd");
+                    LaunchUrl.launchURL("https://open.kakao.com/o/sTNAkmKd");
                   },
                 ),
                 SettingsTile.navigation(
@@ -58,7 +56,7 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
                     style: Theme.of(context).textTheme.caption,
                   ),
                   onPressed: (context) async {
-                    _launchURL("https://discord.gg/w574G4EaAS");
+                    LaunchUrl.launchURL("https://discord.gg/w574G4EaAS");
                   },
                 ),
                 SettingsTile.navigation(
@@ -100,7 +98,6 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
                         );
                       },
                     );
-
                   },
                 ),
                 SettingsTile.navigation(
@@ -109,7 +106,7 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
                     '캐릭터의 정보를 서버에 저장하여 다른 기기에서도 기존 데이터를 불러올 수 있습니다.',
                     style: Theme.of(context).textTheme.caption,
                   ),
-                  onPressed: (context) => toast('구현되지 않은 기능입니다.'),
+                  onPressed: (context) => ToastMessage.toast('구현되지 않은 기능입니다.'),
                 ),
                 SettingsTile.navigation(
                   title: Text('캐릭터 숙제 불러오기', style: Theme.of(context).textTheme.bodyText1),
@@ -117,7 +114,7 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
                     '서버에 저장한 데이터를 불러와서 적용 시킵니다.',
                     style: Theme.of(context).textTheme.caption,
                   ),
-                  onPressed: (context) => toast('구현되지 않은 기능입니다.'),
+                  onPressed: (context) => ToastMessage.toast('구현되지 않은 기능입니다.'),
                 ),
                 SettingsTile.navigation(
                   title: Text('골드 콘텐츠 업데이트 하기', style: Theme.of(context).textTheme.bodyText1),
@@ -125,22 +122,11 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
                     '골드를 지급하는 새로운 콘텐츠가 본섭에 추가될 시 골드 콘텐츠 목록을 업데이트하는 기능입니다.',
                     style: Theme.of(context).textTheme.caption,
                   ),
-                  onPressed: (context) => toast('구현되지 않은 기능입니다.'),
+                  onPressed: (context) => ToastMessage.toast('구현되지 않은 기능입니다.'),
                 ),
                 SettingsTile.switchTile(
-                  onToggle: (value) {
-                    if (themeChange.darkTheme == false) {
-                      setState(() {
-                        themeChange.darkTheme = true;
-                      });
-                    } else {
-                      setState(() {
-                        themeChange.darkTheme = false;
-                      });
-                    }
-                    print('themeChange.darkTheme : ${themeChange.darkTheme}');
-                  },
-                  initialValue: themeChange.darkTheme, // initialValue 의 반대값이 value 로 넘어감
+                  onToggle: (value) => DarkMode.setDarkTheme(value),
+                  initialValue:  Hive.box('themeData').get('darkMode',defaultValue: false), // initialValue 의 반대값이 value 로 넘어감
                   leading: Icon(Icons.dark_mode),
                   title: Text('다크모드', style: Theme.of(context).textTheme.bodyText1),
                 ),
@@ -150,7 +136,7 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
                     '업데이트 기록을 볼 수 있습니다.',
                     style: Theme.of(context).textTheme.caption,
                   ),
-                  onPressed: (context) => Navigator.push(context,MaterialPageRoute(builder: (context) => UpdateListScreen())),
+                  onPressed: (context) => Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateListScreen())),
                 ),
                 SettingsTile.navigation(
                   title: Text('출처', style: Theme.of(context).textTheme.bodyText1),
@@ -158,7 +144,7 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
                     '앱에서 사용된 이미지의 출처를 적어 놓았습니다.',
                     style: Theme.of(context).textTheme.caption,
                   ),
-                  onPressed: (context) => Navigator.push(context,MaterialPageRoute(builder: (context) => SourcesScreen())),
+                  onPressed: (context) => Navigator.push(context, MaterialPageRoute(builder: (context) => SourcesScreen())),
                 ),
               ],
             ),
@@ -167,24 +153,5 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
       ),
     );
   }
-
-  _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url, forceWebView: false, forceSafariVC: false);
-    } else {
-      toast('알 수 없는 오류로 브라우저가 실행되지 않습니다.');
-    }
-  }
-
-  void toast(String msg) {
-    Fluttertoast.showToast(
-      msg: msg,
-      gravity: ToastGravity.BOTTOM,
-      fontSize: 16,
-      toastLength: Toast.LENGTH_SHORT,
-      textColor: Colors.white,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.grey,
-    );
-  }
+  
 }

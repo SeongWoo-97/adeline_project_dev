@@ -88,7 +88,6 @@ class _GoldContentListWidgetState extends State<GoldContentListWidget> {
   }
 
   Widget difficultyText(String name) {
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     if (name.isEmpty) {
       return Container();
     } else {
@@ -97,8 +96,8 @@ class _GoldContentListWidgetState extends State<GoldContentListWidget> {
           return Container(
               margin: EdgeInsets.only(left: 5),
               decoration: BoxDecoration(
-                border: Border.all(color: themeProvider.darkTheme ? Colors.green : Colors.greenAccent),
-                color: themeProvider.darkTheme ? Colors.green : Colors.greenAccent,
+                border: Border.all(color: DarkMode.isDarkMode.value ? Colors.green : Colors.greenAccent),
+                color: DarkMode.isDarkMode.value ? Colors.green : Colors.greenAccent,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(
@@ -112,8 +111,8 @@ class _GoldContentListWidgetState extends State<GoldContentListWidget> {
           return Container(
               margin: EdgeInsets.only(left: 5),
               decoration: BoxDecoration(
-                border: Border.all(color: themeProvider.darkTheme ? Colors.red : Colors.redAccent.shade200),
-                color: themeProvider.darkTheme ? Colors.red : Colors.redAccent.shade200,
+                border: Border.all(color: DarkMode.isDarkMode.value ? Colors.red : Colors.redAccent.shade200),
+                color: DarkMode.isDarkMode.value ? Colors.red : Colors.redAccent.shade200,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(

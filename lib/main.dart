@@ -1,18 +1,19 @@
+import 'package:adeline_app/model/dark_mode/android/android_light_theme_data.dart';
 import 'package:adeline_app/screen/mobile/bottom_navigation_screen/bottom_navigation_screen.dart';
 import 'package:adeline_app/screen/mobile/character_manual_add_screen/controller/add_character_provider.dart';
+import 'package:adeline_app/screen/mobile/home_screen/widget/lostark_notice_controller/event_notice_controller.dart';
+import 'package:adeline_app/screen/mobile/home_screen/widget/lostark_notice_controller/notice_controller.dart';
 import 'package:adeline_app/screen/mobile/init_screen/controller/initSettings_controller.dart';
 import 'package:adeline_app/screen/mobile/init_screen/initSettings_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 
-import 'constant/cupertino/cupertino_text_theme.dart';
 import 'model/add_content_provider/add_content_provider.dart';
 import 'model/add_content_provider/add_expedition_content_provider.dart';
+import 'model/dark_mode/android/android_dark_theme_data.dart';
 import 'model/dark_mode/dark_theme_provider.dart';
-import 'model/dark_mode/style.dart';
 import 'model/user/character/character_model.dart';
 import 'model/user/character/character_provider.dart';
 import 'model/user/content/daily_content.dart';
@@ -27,8 +28,15 @@ import 'model/user/user_provider.dart';
 
 bool userDB = false;
 bool expeditionDB = false;
-bool darkMode = false;
 // 경로 : Directory: '/data/user/0/com.example.adeline_project_dev/app_flutter'
+
+int a = 0;
+int b = 0;
+int c = 0;
+int d = 0;
+int e = 0;
+int f = 0;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
@@ -42,19 +50,10 @@ void main() async {
   Hive.registerAdapter(RestGaugeContentAdapter());
   await Hive.openBox<User>('characters');
   await Hive.openBox<Expedition>('expedition');
+  await Hive.openBox('themeData');
   // 참 : 메인화면 , 거짓 : 초기설정
   Hive.box<User>('characters').get('user') != null ? userDB = true : userDB = false;
   Hive.box<Expedition>('expedition').get('expeditionList') != null ? expeditionDB = true : expeditionDB = false;
-  await Firebase.initializeApp(
-      // options: FirebaseOptions(
-      //     apiKey: "AIzaSyDUEL4tF96lF4h0UVkIBKfK6kYAapOq6Kc", // Firebase 프로젝트 설정 - 웹 API 키
-      //     appId: "1:429457628851:android:6e266711e43b9452511ac6", //google-service.json 에서 mobilesdk_app_id 부분
-      //     messagingSenderId: "429457628851", // 클라우드 메시징 발신자 ID
-      //     projectId: "lostark-adeline"), // Firebase 프로젝트 설정 - 프로젝트 ID
-      );
-
-  // 나중에 기본생성자에 print 넣고 실행되는지 확인하기
-  // 실행되면 MultiProvider 에서 providers 에서 추가하는 ChangeNotifierProvider 이 무엇을 의미하는지 파악해야함.
   runApp(
     MultiProvider(
       providers: [
@@ -64,54 +63,32 @@ void main() async {
         ChangeNotifierProvider(create: (context) => ExpeditionProvider()),
         ChangeNotifierProvider(create: (context) => AddContentProvider()),
         ChangeNotifierProvider(create: (context) => AddExpeditionContentProvider()),
-        ChangeNotifierProvider(create: (context) => ThemeProvider()), // 생성자에서 저장된 값을 불러오면 되지 않을까?
         ChangeNotifierProvider(create: (context) => AddCharacterProvider()),
+        ChangeNotifierProvider(create: (context) => NoticeProvider()),
+        ChangeNotifierProvider(create: (context) => EventNoticeProvider()),
       ],
       child: MyApp(),
     ),
   );
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  ThemeProvider themeChangeProvider = ThemeProvider();
-
-  @override
-  void initState() {
-    super.initState();
-    getCurrentAppTheme();
-  }
-
-  void getCurrentAppTheme() async {
-    themeChangeProvider.darkTheme = await themeChangeProvider.themePreference.getTheme();
-  }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => themeChangeProvider,
-      child: Consumer<ThemeProvider>(
-        builder: (context, instance, child) {
-          return PlatformApp(
-            material: (_, __) => MaterialAppData(
-              theme: ThemeColor.themeData(themeChangeProvider.darkTheme, context),
-              builder: (context, child) => MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1), child: child!),
-            ),
-            cupertino: (_, __) => CupertinoAppData(
-              theme: CupertinoThemeData(
-                textTheme: cupertinoTextTheme,
-              ),
-            ),
-            // home: SplashMobileScreen(),
-            home: userDB && expeditionDB ? BottomNavigationScreen() : InitSettingsScreen(),
-            debugShowCheckedModeBanner: false,
-          );
-        },
-      ),
+    return ValueListenableBuilder(
+      valueListenable: DarkMode.isDarkMode,
+      builder: (context, box, widget) {
+        return PlatformApp(
+          material: (_, __) => MaterialAppData(
+            builder: (context, child) => MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1), child: child!),
+            themeMode: DarkMode.isDarkMode.value ? ThemeMode.dark : ThemeMode.light,
+            theme: androidLightThemeData,
+            darkTheme: androidDarkThemeData,
+          ),
+          cupertino: (_, __) => CupertinoAppData(),
+          home: userDB && expeditionDB ? BottomNavigationScreen() : InitSettingsScreen(),
+        );
+      },
     );
   }
 }

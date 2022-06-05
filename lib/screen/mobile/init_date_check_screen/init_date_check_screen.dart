@@ -89,7 +89,7 @@ class _InitDateCheckScreenState extends State<InitDateCheckScreen> {
                             Padding(
                               padding: const EdgeInsets.only(top: 5, right: 10),
                               child: Image.asset(
-                                'assets/daily/Epona.png',
+                                'assets/daily/Guardian.png',
                                 width: 25,
                                 height: 25,
                               ),
@@ -123,7 +123,7 @@ class _InitDateCheckScreenState extends State<InitDateCheckScreen> {
                             Padding(
                               padding: const EdgeInsets.only(top: 5, right: 10),
                               child: Image.asset(
-                                'assets/daily/Guardian.png',
+                                'assets/daily/Epona.png',
                                 width: 25,
                                 height: 25,
                               ),

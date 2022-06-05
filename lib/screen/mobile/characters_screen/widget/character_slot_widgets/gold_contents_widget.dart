@@ -24,8 +24,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
   TextEditingController addGoldTextEditingController = TextEditingController();
   TextEditingController numberOfPersonTextEditingController = TextEditingController();
   TextEditingController busCostTextEditingController = TextEditingController();
-  List<GoldContent> defaultGoldContents =
-      List.generate(constGoldContents.length, (index) => GoldContent.clone(constGoldContents[index]));
+  List<GoldContent> defaultGoldContents = List.generate(constGoldContents.length, (index) => GoldContent.clone(constGoldContents[index]));
 
   @override
   void initState() {
@@ -35,7 +34,6 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
 
     int characterIndex = widget.characterIndex;
     if (userProvider.charactersProvider.characters[characterIndex].goldContents.length == 0) {
@@ -254,14 +252,12 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                                 Text(
                                                                   '${gridIndex + 1}관문',
                                                                   style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                                                                      color:
-                                                                          themeProvider.darkTheme ? Colors.white : Colors.black),
+                                                                      color: DarkMode.isDarkMode.value ? Colors.white : Colors.black),
                                                                 ),
                                                                 Text(
                                                                   '${clearGoldIndex(userProvider.charactersProvider.characters[characterIndex].goldContents[index].goldPerPhase, gridIndex)} G',
                                                                   style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                                                                      color:
-                                                                          themeProvider.darkTheme ? Colors.white : Colors.black),
+                                                                      color: DarkMode.isDarkMode.value ? Colors.white : Colors.black),
                                                                 ),
                                                               ],
                                                             ),
@@ -296,7 +292,8 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                           );
                                         });
                                       });
-                                } else if (level >= enterLevelLimit && level < getGoldLevelLimit) {
+                                }
+                                else if (level >= enterLevelLimit && level < getGoldLevelLimit) {
                                   int totalGold = 0;
                                   userProvider.charactersProvider.characters[characterIndex].goldContents[index].goldPerPhase
                                       .forEach((element) => totalGold += element);
@@ -333,13 +330,13 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                   padding: const EdgeInsets.only(bottom: 5),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      border: Border.all(color: themeProvider.darkTheme ? Colors.grey[800]! : Colors.white),
+                                      border: Border.all(color: DarkMode.isDarkMode.value ? Colors.grey[800]! : Colors.white),
                                       borderRadius: BorderRadius.circular(100),
                                     ),
                                     child: InkWell(
                                       child: Icon(
                                         Icons.add,
-                                        color: themeProvider.darkTheme ? Colors.indigoAccent : Colors.indigoAccent,
+                                        color: DarkMode.isDarkMode.value ? Colors.indigoAccent : Colors.indigoAccent,
                                         size: 20,
                                       ),
                                       onTap: () {
@@ -421,7 +418,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                                         child: Text(
                                                                           '1명',
                                                                           style: TextStyle(
-                                                                              color: themeProvider.darkTheme
+                                                                              color: DarkMode.isDarkMode.value
                                                                                   ? Colors.white
                                                                                   : Colors.black),
                                                                         ),
@@ -449,7 +446,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                                         child: Text(
                                                                           '2명',
                                                                           style: TextStyle(
-                                                                              color: themeProvider.darkTheme
+                                                                              color: DarkMode.isDarkMode.value
                                                                                   ? Colors.white
                                                                                   : Colors.black),
                                                                         ),
@@ -477,7 +474,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                                         child: Text(
                                                                           '3명',
                                                                           style: TextStyle(
-                                                                              color: themeProvider.darkTheme
+                                                                              color: DarkMode.isDarkMode.value
                                                                                   ? Colors.white
                                                                                   : Colors.black),
                                                                         ),
@@ -505,7 +502,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                                                         child: Text(
                                                                           '7명',
                                                                           style: TextStyle(
-                                                                              color: themeProvider.darkTheme
+                                                                              color: DarkMode.isDarkMode.value
                                                                                   ? Colors.white
                                                                                   : Colors.black),
                                                                         ),
@@ -676,7 +673,6 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
   }
 
   Widget difficultyText(String name) {
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     if (name.isEmpty) {
       return Container();
     } else {
@@ -685,8 +681,8 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
           return Container(
               margin: EdgeInsets.only(left: 5),
               decoration: BoxDecoration(
-                border: Border.all(color: themeProvider.darkTheme ? Colors.green : Colors.greenAccent),
-                color: themeProvider.darkTheme ? Colors.green : Colors.greenAccent,
+                border: Border.all(color: DarkMode.isDarkMode.value ? Colors.green : Colors.greenAccent),
+                color: DarkMode.isDarkMode.value ? Colors.green : Colors.greenAccent,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(
@@ -700,8 +696,8 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
           return Container(
               margin: EdgeInsets.only(left: 5),
               decoration: BoxDecoration(
-                border: Border.all(color: themeProvider.darkTheme ? Colors.red : Colors.redAccent.shade200),
-                color: themeProvider.darkTheme ? Colors.red : Colors.redAccent.shade200,
+                border: Border.all(color: DarkMode.isDarkMode.value ? Colors.red : Colors.redAccent.shade200),
+                color: DarkMode.isDarkMode.value ? Colors.red : Colors.redAccent.shade200,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(

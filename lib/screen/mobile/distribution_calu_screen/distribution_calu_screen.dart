@@ -1,3 +1,4 @@
+import 'package:adeline_app/main.dart';
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +46,8 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    print('(${++c} 번째)distribution_calu_screen.dart');
+
     return PlatformScaffold(
         appBar: PlatformAppBar(
           title: Text('분배금 계산기'),
@@ -71,11 +73,11 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
                       defaultSelected: 4,
                       buttonTextStyle: ButtonTextStyle(
                         textStyle: Theme.of(context).textTheme.bodyText1,
-                        selectedColor: themeProvider.darkTheme ? Colors.white : Colors.black,
-                        unSelectedColor: themeProvider.darkTheme ? Colors.white : Colors.black,
+                        selectedColor: DarkMode.isDarkMode.value ? Colors.white : Colors.black,
+                        unSelectedColor: DarkMode.isDarkMode.value ? Colors.white : Colors.black,
                       ),
                       unSelectedColor: Colors.transparent,
-                      selectedColor: themeProvider.darkTheme ? Colors.white24 : Colors.black26,
+                      selectedColor: DarkMode.isDarkMode.value ? Color(0xFF121212) : Colors.black12,
                       width: MediaQuery.of(context).size.width * 0.453,
                       absoluteZeroSpacing: false,
                       customShape:
@@ -121,11 +123,11 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.zero,
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                          borderSide: BorderSide(color: DarkMode.isDarkMode.value ? Colors.white70 : Colors.grey, width: 0.8),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                          borderSide: BorderSide(color: DarkMode.isDarkMode.value ? Colors.white70 : Colors.grey, width: 0.8),
                           borderRadius: BorderRadius.circular(5),
                         ),
                       ),
@@ -139,11 +141,6 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Card(
-                  elevation: 1,
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.black26, width: 1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
                   child: Column(
                     children: [
                       Padding(
@@ -218,14 +215,17 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
                   ),
                 ),
               ),
-              StatefulBuilder(
-                builder: (context, setState) => Container(
-                  child: AdWidget(ad: bannerAd),
-                  width: bannerAd.size.width.toDouble(),
-                  height: 60.0,
-                  alignment: Alignment.center,
-                ),
-              ),
+              FutureBuilder(
+                future: bannerAd.load(),
+                builder: (context, snapshot) {
+                  return Container(
+                    child: AdWidget(ad: bannerAd),
+                    width: bannerAd.size.width.toDouble(),
+                    height: 60.0,
+                    alignment: Alignment.center,
+                  );
+                },
+              )
             ],
           ),
         ));

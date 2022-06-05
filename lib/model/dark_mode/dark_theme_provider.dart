@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
+import 'package:hive/hive.dart';
 
-import 'darkThemePreference.dart';
 
-class ThemeProvider with ChangeNotifier {
-  ThemePreference themePreference = ThemePreference();
-  bool _darkTheme = false;
+class DarkMode {
+  static ValueNotifier<bool> isDarkMode = ValueNotifier(Hive.box('themeData').get('darkMode',defaultValue: false));
 
-  bool get darkTheme => _darkTheme;
-
-  set darkTheme(bool value) {
-    _darkTheme = value;
-    themePreference.setDarkTheme(value);
-    notifyListeners();
+  static getDarkTheme() {
+    print(isDarkMode.value);
+  }
+  static setDarkTheme(bool value) {
+    isDarkMode.value = value;
+    print(isDarkMode);
+    Hive.box('themeData').put('darkMode', value);
   }
 }

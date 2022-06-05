@@ -85,7 +85,6 @@ class _ExpeditionSettingScreenState extends State<ExpeditionSettingScreen> {
   DragAndDropList dailyDragAndDropList() {
     ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context);
     AddExpeditionContentProvider addExpeditionContentProvider = Provider.of<AddExpeditionContentProvider>(context);
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     expeditionDragAndDrop = DragAndDropList(
       children: List.generate(
         expeditionProvider.expedition.list.length,
@@ -240,10 +239,10 @@ class _ExpeditionSettingScreenState extends State<ExpeditionSettingScreen> {
                                                   borderRadius: BorderRadius.circular(10),
                                                   border: Border.all(
                                                       color: addExpeditionContentProvider.selected == index
-                                                          ? themeProvider.darkTheme
+                                                          ? DarkMode.isDarkMode.value
                                                               ? Colors.grey
                                                               : Colors.grey
-                                                          : themeProvider.darkTheme
+                                                          : DarkMode.isDarkMode.value
                                                               ? Colors.grey[800]!
                                                               : Colors.white,
                                                       width: 1.5),

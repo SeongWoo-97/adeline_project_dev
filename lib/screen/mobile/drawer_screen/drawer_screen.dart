@@ -8,7 +8,6 @@ import '../merchant_location_screen/merchant_location_screen.dart';
 class DrawerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     return SafeArea(
       child: Drawer(
         child: ListView(
@@ -18,7 +17,7 @@ class DrawerScreen extends StatelessWidget {
               margin: const EdgeInsets.fromLTRB(15, 15, 0, 0),
               child: Text(
                 '도구',
-                style: TextStyle(color: themeProvider.darkTheme ? Colors.white70 : Colors.grey),
+                style: TextStyle(color: DarkMode.isDarkMode.value ? Colors.white70 : Colors.grey),
               ),
             ),
             ListTile(
@@ -55,7 +54,7 @@ class DrawerScreen extends StatelessWidget {
             //   margin: const EdgeInsets.fromLTRB(15, 5, 0, 0),
             //   child: Text(
             //     '검색',
-            //     style: TextStyle(color: themeProvider.darkTheme ? Colors.white70 : Colors.grey),
+            //     style: TextStyle(color: DarkMode.isDarkMode.value ? Colors.white70 : Colors.grey),
             //   ),
             // ),
             // ListTile(
@@ -81,7 +80,7 @@ class DrawerScreen extends StatelessWidget {
             //   margin: const EdgeInsets.fromLTRB(15, 5, 0, 0),
             //   child: Text(
             //     '소개',
-            //     style: TextStyle(color: themeProvider.darkTheme ? Colors.white70 : Colors.grey),
+            //     style: TextStyle(color: DarkMode.isDarkMode.value ? Colors.white70 : Colors.grey),
             //   ),
             // ),
             // ListTile(
@@ -115,7 +114,7 @@ class DrawerScreen extends StatelessWidget {
             //   margin: const EdgeInsets.fromLTRB(15, 5, 0, 0),
             //   child: Text(
             //     '정보',
-            //     style: TextStyle(color: themeProvider.darkTheme ? Colors.white70 : Colors.grey),
+            //     style: TextStyle(color: DarkMode.isDarkMode.value ? Colors.white70 : Colors.grey),
             //   ),
             // ),
             // ListTile(

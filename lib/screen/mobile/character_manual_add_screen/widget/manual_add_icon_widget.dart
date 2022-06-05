@@ -18,7 +18,6 @@ class ManualAddIconWidget extends StatefulWidget {
 class _ManualAddIconWidgetState extends State<ManualAddIconWidget> {
   @override
   Widget build(BuildContext context) {
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     AddCharacterProvider addCharacterProvider = Provider.of<AddCharacterProvider>(context);
     return SizedBox(
       height: 25,
@@ -71,10 +70,10 @@ class _ManualAddIconWidgetState extends State<ManualAddIconWidget> {
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(
                                         color: addCharacterProvider.selected == index
-                                            ? themeProvider.darkTheme
+                                            ? DarkMode.isDarkMode.value
                                                 ? Colors.grey
                                                 : Colors.grey
-                                            : themeProvider.darkTheme
+                                            : DarkMode.isDarkMode.value
                                                 ? Colors.grey[800]!
                                                 : Colors.white,
                                         width: 1.5),

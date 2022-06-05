@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -10,8 +9,7 @@ class GoogleSignInMobileScreen extends StatefulWidget {
   const GoogleSignInMobileScreen({Key? key}) : super(key: key);
 
   @override
-  State<GoogleSignInMobileScreen> createState() =>
-      _GoogleSignInMobileScreenState();
+  State<GoogleSignInMobileScreen> createState() => _GoogleSignInMobileScreenState();
 }
 
 class _GoogleSignInMobileScreenState extends State<GoogleSignInMobileScreen> {
@@ -32,10 +30,7 @@ class _GoogleSignInMobileScreenState extends State<GoogleSignInMobileScreen> {
             children: [
               Text(
                 'LOST ARK\nAdeline',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.blue[500]),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Colors.blue[500]),
                 textAlign: TextAlign.center,
               ),
               PlatformWidget(
@@ -43,8 +38,7 @@ class _GoogleSignInMobileScreenState extends State<GoogleSignInMobileScreen> {
                   style: OutlinedButton.styleFrom(
                     backgroundColor: Colors.white,
                     side: BorderSide(color: Colors.grey),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                     elevation: 2,
                   ),
                   onPressed: () async {
@@ -52,10 +46,7 @@ class _GoogleSignInMobileScreenState extends State<GoogleSignInMobileScreen> {
                     try {
                       // await service.signInGoogle();
                       Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => InitSettingsScreen()),
-                          (route) => false);
+                          context, MaterialPageRoute(builder: (context) => InitSettingsScreen()), (route) => false);
                     } catch (e) {
                       if (e is FirebaseAuthException) {
                         print(e.message!);
@@ -75,8 +66,7 @@ class _GoogleSignInMobileScreenState extends State<GoogleSignInMobileScreen> {
                       ),
                       Text(
                         '시작하기',
-                        style: TextStyle(
-                            color: Colors.black54, fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
@@ -85,8 +75,7 @@ class _GoogleSignInMobileScreenState extends State<GoogleSignInMobileScreen> {
                   style: OutlinedButton.styleFrom(
                     backgroundColor: Colors.white,
                     side: BorderSide(color: Colors.grey),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                     elevation: 2,
                   ),
                   onPressed: () async {
@@ -94,10 +83,7 @@ class _GoogleSignInMobileScreenState extends State<GoogleSignInMobileScreen> {
                     try {
                       await service.signInGoogle();
                       Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => InitSettingsScreen()),
-                          (route) => false);
+                          context, MaterialPageRoute(builder: (context) => InitSettingsScreen()), (route) => false);
                     } catch (e) {
                       if (e is FirebaseAuthException) {
                         print(e.message!);
@@ -117,8 +103,7 @@ class _GoogleSignInMobileScreenState extends State<GoogleSignInMobileScreen> {
                       ),
                       Text(
                         '시작하기',
-                        style: TextStyle(
-                            color: Colors.black54, fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),
                       )
                     ],
                   ),

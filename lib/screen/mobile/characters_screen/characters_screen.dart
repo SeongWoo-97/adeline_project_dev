@@ -1,3 +1,4 @@
+import 'package:adeline_app/main.dart';
 import 'package:adeline_app/screen/mobile/characters_screen/widget/character_slot_widget.dart';
 import 'package:adeline_app/screen/mobile/characters_screen/widget/content_board_widget.dart';
 import 'package:adeline_app/screen/mobile/characters_screen/widget/expedition_content_widget.dart';
@@ -36,10 +37,9 @@ class _CharactersScreenState extends State<CharactersScreen> with AutomaticKeepA
   List<ExpeditionContent> expeditionList = [];
   late Expedition expedition;
 
-  // DateTime nowDate = DateTime.utc(2022, 4, 27, 10);
+  // DateTime nowDate = DateTime.utc(2022, 5, 25, 10);
   DateTime nowDate = DateTime.now();
 
-  // late DateTime nowDate;
   @override
   void initState() {
     super.initState();
@@ -145,6 +145,7 @@ class _CharactersScreenState extends State<CharactersScreen> with AutomaticKeepA
         character.goldContents.forEach((goldContent) {
           goldContent.clearChecked = false;
           goldContent.clearGold = 0;
+          goldContent.addGold = 0;
         });
       });
     }
@@ -160,12 +161,12 @@ class _CharactersScreenState extends State<CharactersScreen> with AutomaticKeepA
   Widget build(BuildContext context) {
     super.build(context);
     UserProvider userProvider = Provider.of<UserProvider>(context);
-    ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context);
+    ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context,listen: false);
     userProvider.updateContentBoard();
     userProvider.updateTotalGold();
     expeditionProvider.expedition = expedition;
     userProvider.charactersProvider.characters = characterList;
-
+    print('(${++d} 번째)character_screen.dart');
     return PlatformScaffold(
       material: (_, __) => MaterialScaffoldData(
         drawer: Container(width: 230, child: DrawerScreen()),

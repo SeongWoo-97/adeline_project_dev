@@ -20,7 +20,6 @@ class _AddContentWidgetState extends State<AddContentIconWidget> {
   @override
   Widget build(BuildContext context) {
     AddContentProvider addContentProvider = Provider.of<AddContentProvider>(context);
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     return IconButton(
       icon: Icon(Icons.add, size: 25),
       onPressed: () async {
@@ -69,10 +68,10 @@ class _AddContentWidgetState extends State<AddContentIconWidget> {
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
                                       color: addContentProvider.selected == index
-                                          ? themeProvider.darkTheme
+                                          ? DarkMode.isDarkMode.value
                                               ? Colors.grey
                                               : Colors.grey
-                                          : themeProvider.darkTheme
+                                          : DarkMode.isDarkMode.value
                                               ? Colors.grey[800]!
                                               : Colors.white,
                                       width: 1.5),

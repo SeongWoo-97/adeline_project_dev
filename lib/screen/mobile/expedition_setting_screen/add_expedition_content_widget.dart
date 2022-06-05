@@ -22,7 +22,6 @@ class _AddExpeditionContentWidgetState extends State<AddExpeditionContentWidget>
   Widget build(BuildContext context) {
     AddExpeditionContentProvider addExpeditionContentProvider = Provider.of<AddExpeditionContentProvider>(context, listen: false);
     ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context, listen: false);
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     return InkWell(
       child: Padding(
         padding: const EdgeInsets.only(top: 3, right: 10),
@@ -114,10 +113,10 @@ class _AddExpeditionContentWidgetState extends State<AddExpeditionContentWidget>
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
                                       color: addExpeditionContentProvider.selected == index
-                                          ? themeProvider.darkTheme
+                                          ? DarkMode.isDarkMode.value
                                               ? Colors.grey
                                               : Colors.grey
-                                          : themeProvider.darkTheme
+                                          : DarkMode.isDarkMode.value
                                               ? Colors.grey[800]!
                                               : Colors.white,
                                       width: 1.5),

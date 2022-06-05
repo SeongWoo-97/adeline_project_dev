@@ -14,7 +14,6 @@ class UpdateListScreen extends StatefulWidget {
 class _UpdateListScreenState extends State<UpdateListScreen> {
   @override
   Widget build(BuildContext context) {
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     return PlatformScaffold(
       appBar: PlatformAppBar(
         title: Text('업데이트 내역'),
@@ -25,12 +24,12 @@ class _UpdateListScreenState extends State<UpdateListScreen> {
             title: Text(
               '1.3.0 Ver',
             ),
-            backgroundColor: themeProvider.darkTheme ? Colors.grey[800] : Colors.white,
-            collapsedIconColor: themeProvider.darkTheme ? Colors.white : Colors.grey,
-            iconColor: themeProvider.darkTheme ? Colors.white : Colors.grey,
+            backgroundColor: DarkMode.isDarkMode.value ? Colors.grey[800] : Colors.white,
+            collapsedIconColor: DarkMode.isDarkMode.value ? Colors.white : Colors.grey,
+            iconColor: DarkMode.isDarkMode.value ? Colors.white : Colors.grey,
             expandedAlignment: Alignment.topLeft,
             childrenPadding: const EdgeInsets.only(bottom: 10),
-            textColor: themeProvider.darkTheme ? Colors.white : Colors.black,
+            textColor: DarkMode.isDarkMode.value ? Colors.white : Colors.black,
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 15),
@@ -56,12 +55,12 @@ class _UpdateListScreenState extends State<UpdateListScreen> {
             title: Text(
               '1.2.0 Ver',
             ),
-            backgroundColor: themeProvider.darkTheme ? Colors.grey[800] : Colors.white,
-            collapsedIconColor: themeProvider.darkTheme ? Colors.white : Colors.grey,
-            iconColor: themeProvider.darkTheme ? Colors.white : Colors.grey,
+            backgroundColor: DarkMode.isDarkMode.value ? Colors.grey[800] : Colors.white,
+            collapsedIconColor: DarkMode.isDarkMode.value ? Colors.white : Colors.grey,
+            iconColor: DarkMode.isDarkMode.value ? Colors.white : Colors.grey,
             expandedAlignment: Alignment.topLeft,
             childrenPadding: const EdgeInsets.only(bottom: 10),
-            textColor: themeProvider.darkTheme ? Colors.white : Colors.black,
+            textColor: DarkMode.isDarkMode.value ? Colors.white : Colors.black,
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 15),

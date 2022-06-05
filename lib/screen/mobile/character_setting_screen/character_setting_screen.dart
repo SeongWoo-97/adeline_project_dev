@@ -60,7 +60,6 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
 
     return PlatformScaffold(
       appBar: PlatformAppBar(
@@ -710,7 +709,7 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
               choiceStyle: C2ChoiceStyle(
                 showCheckmark: false,
                 color: Colors.black,
-                backgroundColor: themeProvider.darkTheme ? Colors.grey : Colors.white,
+                backgroundColor: DarkMode.isDarkMode.value ? Colors.grey : Colors.white,
                 borderColor: Colors.grey,
                 borderRadius: BorderRadius.all(Radius.circular(12)),
               ),

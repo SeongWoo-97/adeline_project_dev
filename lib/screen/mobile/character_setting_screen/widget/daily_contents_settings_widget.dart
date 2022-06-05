@@ -90,8 +90,6 @@ class _DailyContentSettingWidgetState extends State<DailyContentSettingWidget> {
 
   DragAndDropList dailyDragAndDropList() {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
-
     dailyDragAndDrop = DragAndDropList(
       children: List.generate(
         userProvider.charactersProvider.characters[widget.characterIndex].dailyContents.length,
@@ -222,10 +220,10 @@ class _DailyContentSettingWidgetState extends State<DailyContentSettingWidget> {
                                                     decoration: BoxDecoration(
                                                       borderRadius: BorderRadius.circular(10),
                                                       border: Border.all(
-                                                          color: _selected == index ? themeProvider.darkTheme
+                                                          color: _selected == index ? DarkMode.isDarkMode.value
                                                               ? Colors.grey
                                                               : Colors.grey
-                                                              : themeProvider.darkTheme
+                                                              : DarkMode.isDarkMode.value
                                                               ? Colors.grey[800]!
                                                               : Colors.white, width: 1.5),
                                                     ),

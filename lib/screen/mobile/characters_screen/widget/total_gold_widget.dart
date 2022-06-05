@@ -10,6 +10,8 @@ class TotalGoldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+    print('TotalGoldWidget.dart');
+
     return Padding(
       padding: const EdgeInsets.only(left: 5, right: 5),
       child: SizedBox(

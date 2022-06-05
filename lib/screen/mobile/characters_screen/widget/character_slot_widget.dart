@@ -24,8 +24,8 @@ class CharacterSlotWidget extends StatefulWidget {
 class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
   @override
   Widget build(BuildContext context) {
+    print('CharacterSlotWidget.dart');
     UserProvider userProvider = Provider.of<UserProvider>(context);
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     return Expanded(
       child: ListView.builder(
         itemCount: userProvider.charactersProvider.characters.length,
@@ -90,14 +90,14 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                       expandedCrossAxisAlignment: CrossAxisAlignment.start,
                       expandedAlignment: Alignment.topLeft,
                       textColor: Colors.black,
-                      backgroundColor: themeProvider.darkTheme ? Colors.grey[800] : Colors.white,
-                      collapsedIconColor: themeProvider.darkTheme ? Colors.white : Colors.grey,
-                      iconColor: themeProvider.darkTheme ? Colors.white : Colors.grey,
+                      backgroundColor: DarkMode.isDarkMode.value ? Color(0xFF212121) : Colors.white,
+                      collapsedIconColor: DarkMode.isDarkMode.value ? Colors.white : Colors.grey,
+                      iconColor: DarkMode.isDarkMode.value ? Colors.white : Colors.grey,
                       leading: Image.asset(
                         'assets/job/${userProvider.charactersProvider.characters[characterIndex].jobCode}.png',
                         width: 45,
                         height: 45,
-                        color: themeProvider.darkTheme ? Colors.white : Colors.black,
+                        color: DarkMode.isDarkMode.value ? Colors.white : Colors.black,
                       ),
                       title: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -214,8 +214,8 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                                           margin: const EdgeInsets.only(top: 3, right: 5),
                                           decoration: BoxDecoration(
                                             border:
-                                                Border.all(color: themeProvider.darkTheme ? Colors.green : Colors.greenAccent),
-                                            color: themeProvider.darkTheme ? Colors.green : Colors.greenAccent,
+                                                Border.all(color: DarkMode.isDarkMode.value ? Colors.green : Colors.greenAccent),
+                                            color: DarkMode.isDarkMode.value ? Colors.green : Colors.greenAccent,
                                             borderRadius: BorderRadius.circular(5),
                                           ),
                                           child: Padding(
@@ -229,7 +229,7 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                                                         child: Icon(
                                                           Icons.check,
                                                           size: 12,
-                                                          color: themeProvider.darkTheme ? Colors.white : Colors.black,
+                                                          color: DarkMode.isDarkMode.value ? Colors.white : Colors.black,
                                                         ),
                                                       ),
                                                 SizedBox(
@@ -252,8 +252,8 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                                           margin: const EdgeInsets.only(top: 3, right: 5),
                                           decoration: BoxDecoration(
                                             border: Border.all(
-                                                color: themeProvider.darkTheme ? Colors.red : Colors.lightBlueAccent[100]!),
-                                            color: themeProvider.darkTheme ? Colors.red : Colors.lightBlueAccent[100],
+                                                color: DarkMode.isDarkMode.value ? Colors.red : Colors.lightBlueAccent[100]!),
+                                            color: DarkMode.isDarkMode.value ? Colors.red : Colors.lightBlueAccent[100],
                                             borderRadius: BorderRadius.circular(5),
                                           ),
                                           child: Padding(
@@ -267,7 +267,7 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                                                         child: Icon(
                                                           Icons.check,
                                                           size: 12,
-                                                          color: themeProvider.darkTheme ? Colors.white : Colors.black,
+                                                          color: DarkMode.isDarkMode.value ? Colors.white : Colors.black,
                                                         ),
                                                       ),
                                                 SizedBox(
@@ -290,8 +290,8 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                                           margin: const EdgeInsets.only(top: 3, right: 5),
                                           decoration: BoxDecoration(
                                             border: Border.all(
-                                                color: themeProvider.darkTheme ? Colors.orange : Colors.orangeAccent[200]!),
-                                            color: themeProvider.darkTheme ? Colors.orange : Colors.orangeAccent[200],
+                                                color: DarkMode.isDarkMode.value ? Colors.orange : Colors.orangeAccent[200]!),
+                                            color: DarkMode.isDarkMode.value ? Colors.orange : Colors.orangeAccent[200],
                                             borderRadius: BorderRadius.circular(5),
                                           ),
                                           child: Padding(
@@ -305,7 +305,7 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                                                         child: Icon(
                                                           Icons.check,
                                                           size: 12,
-                                                          color: themeProvider.darkTheme ? Colors.white : Colors.black,
+                                                          color: DarkMode.isDarkMode.value ? Colors.white : Colors.black,
                                                         ),
                                                       ),
                                                 SizedBox(
@@ -349,7 +349,7 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                               choiceStyle: C2ChoiceStyle(
                                 showCheckmark: false,
                                 color: Colors.black,
-                                backgroundColor: themeProvider.darkTheme ? Colors.grey : Colors.white,
+                                backgroundColor: DarkMode.isDarkMode.value ? Colors.grey : Colors.white,
                                 borderColor: Colors.grey,
                                 borderRadius: BorderRadius.all(Radius.circular(10)),
                               ),
@@ -361,7 +361,7 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                                   showCheckmark: false),
                             ),
                             IconButton(
-                              icon: Icon(Icons.settings, color: themeProvider.darkTheme ? Colors.white : Colors.grey),
+                              icon: Icon(Icons.settings, color: DarkMode.isDarkMode.value ? Colors.white : Colors.grey),
                               onPressed: () {
                                 if (userProvider.charactersProvider.characters[characterIndex].goldContents.length == 0) {
                                   userProvider.charactersProvider.characters[characterIndex].goldContents = List.generate(

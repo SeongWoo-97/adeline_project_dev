@@ -77,7 +77,6 @@ class _WeeklyContentListWidgetState extends State<WeeklyContentListWidget> {
   }
   DragAndDropList weeklyDragAndDropList() {
     AddCharacterProvider addCharacterProvider = Provider.of<AddCharacterProvider>(context);
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     weeklyDragAndDrop = DragAndDropList(
       children: List.generate(
         addCharacterProvider.weeklyContents.length,
@@ -193,10 +192,10 @@ class _WeeklyContentListWidgetState extends State<WeeklyContentListWidget> {
                                                   borderRadius: BorderRadius.circular(10),
                                                   border: Border.all(
                                                       color: _selected == index
-                                                          ? themeProvider.darkTheme
+                                                          ? DarkMode.isDarkMode.value
                                                           ? Colors.grey
                                                           : Colors.grey
-                                                          : themeProvider.darkTheme
+                                                          : DarkMode.isDarkMode.value
                                                           ? Colors.grey[800]!
                                                           : Colors.white,
                                                       width: 1.5),

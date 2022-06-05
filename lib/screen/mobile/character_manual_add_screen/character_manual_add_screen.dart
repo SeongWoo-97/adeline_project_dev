@@ -32,7 +32,6 @@ class _CharacterManualAddScreenState extends State<CharacterManualAddScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     return ChangeNotifierProvider(
       create: (_) => addCharacterProvider,
       child: PlatformScaffold(
@@ -719,7 +718,7 @@ class _CharacterManualAddScreenState extends State<CharacterManualAddScreen> {
               choiceStyle: C2ChoiceStyle(
                 showCheckmark: false,
                 color: Colors.black,
-                backgroundColor: themeProvider.darkTheme ? Colors.grey : Colors.white,
+                backgroundColor: DarkMode.isDarkMode.value ? Colors.grey : Colors.white,
                 borderColor: Colors.grey,
                 borderRadius: BorderRadius.all(Radius.circular(12)),
               ),

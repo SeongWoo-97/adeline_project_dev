@@ -14,8 +14,8 @@ class ContentBoardWidget extends StatefulWidget {
 class _ContentBoardWidgetState extends State<ContentBoardWidget> {
   @override
   Widget build(BuildContext context) {
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+    print('ContentBoardWidget.dart');
     return Container(
       height: 76,
       margin: EdgeInsets.only(left: 3),
@@ -29,21 +29,20 @@ class _ContentBoardWidgetState extends State<ContentBoardWidget> {
           dumpWidget('아브', '군단장', userProvider.abrelshudNormal, userProvider.abrelshudHard, color: Colors.deepPurpleAccent),
           dumpWidget('아르고스', '어비스 레이드', userProvider.argus, 0, color: Colors.blueAccent), // 아르고스는 하드가 없다.
           dumpWidget('오레하', '어비스 던전', userProvider.orehaNormal, userProvider.orehaHard,
-              color: themeProvider.darkTheme ? Colors.green : Colors.brown),
+              color: DarkMode.isDarkMode.value ? Colors.green : Colors.brown),
         ],
       ),
     );
   }
 
   Widget dumpWidget(String name, String type, int normal, int hard, {Color color = Colors.grey}) {
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     if (type == "어비스 레이드") {
       return Padding(
         padding: const EdgeInsets.only(top: 5, left: 2, right: 2),
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
-            side: BorderSide(color: themeProvider.darkTheme ? Colors.grey : color, width: 1),
+            side: BorderSide(color: DarkMode.isDarkMode.value ? Colors.grey : color, width: 1),
           ),
           child: Column(
             children: [
@@ -76,7 +75,7 @@ class _ContentBoardWidgetState extends State<ContentBoardWidget> {
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
-          side: BorderSide(color: themeProvider.darkTheme ? Colors.grey : color, width: 1),
+          side: BorderSide(color: DarkMode.isDarkMode.value ? Colors.grey : color, width: 1),
         ),
         child: Column(
           children: [

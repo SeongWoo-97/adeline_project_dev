@@ -76,7 +76,6 @@ class InitSettingsController extends ChangeNotifier {
       await webScraper.loadWebPage('/Profile/Character/$nickName');
       job = webScraper.getElementAttribute('div > main > div > div.profile-character-info > img', 'alt');
       level = webScraper.getElementTitle('div.profile-ingame > div.profile-info > div.level-info2 > div.level-info2__item');
-
       if (job.isNotEmpty && level.isNotEmpty && !getCharStateCheck(nickName)) {
         Navigator.pop(context);
         showPlatformDialog(
@@ -117,8 +116,9 @@ class InitSettingsController extends ChangeNotifier {
         customMsgShowDialog(context, '오류', '존재하지 않는 닉네임입니다.');
       }
 
-    } catch(e) {
+    } on WebScraperException catch(e){
       customMsgShowDialog(context, '오류', '로스트아크 서버 점검 또는 인터넷이 연결되어 있지 않습니다.');
+      print(e.errorMessage());
     }
   }
 

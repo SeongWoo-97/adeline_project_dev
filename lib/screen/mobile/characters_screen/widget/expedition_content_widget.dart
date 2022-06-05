@@ -15,9 +15,10 @@ class ExpeditionContentWidget extends StatefulWidget {
 class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
   List<Widget> list = [];
   final expeditionBox = Hive.box<Expedition>('expedition');
-
   @override
   Widget build(BuildContext context) {
+
+    print('ExpeditionContentWidget.dart');
     return Padding(
       padding: const EdgeInsets.only(left: 5, right: 5),
       child: Card(
