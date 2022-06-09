@@ -1,15 +1,16 @@
-import 'package:adeline_app/main.dart';
 import 'package:adeline_app/model/dark_mode/dark_theme_provider.dart';
 import 'package:adeline_app/model/uri_launch/launch_url.dart';
+import 'package:adeline_app/screen/mobile/bottom_navigation_screen/bottom_navigation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 import '../../../model/toast/toast.dart';
 import '../../../model/user/expedition/expedition_model.dart';
 import '../../../model/user/user.dart';
-import '../init_screen/initSettings_screen.dart';
+import '../characters_slot_screen/init_screen/initSettings_screen.dart';
 import '../sources_screen/sources_screen.dart';
 import '../update_list_screen/update_list_screen.dart';
 
@@ -27,7 +28,6 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    print('(${++f} 번째)SettingsScreen.dart');
     return PlatformScaffold(
       appBar: PlatformAppBar(
         title: Text('설정'),
@@ -91,7 +91,8 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
                                 expeditionBox.delete('expeditionList');
 
                                 Navigator.pushAndRemoveUntil(
-                                    context, MaterialPageRoute(builder: (context) => InitSettingsScreen()), (route) => false);
+                                    context, MaterialPageRoute(builder: (context) => BottomNavigationScreen()), (route) => false);
+                                ToastMessage.toast('캐릭터 초기화 완료!');
                               },
                             ),
                           ],

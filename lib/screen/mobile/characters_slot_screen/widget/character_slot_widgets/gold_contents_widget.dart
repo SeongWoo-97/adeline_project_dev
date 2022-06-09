@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -322,7 +323,7 @@ class _GoldContentsWidgetState extends State<GoldContentsWidget> {
                                     child: Consumer<UserProvider>(
                                       builder: (context, instance, child) {
                                         return Text(
-                                            "추가 골드 : ${instance.charactersProvider.characters[characterIndex].goldContents[index].addGold} G",
+                                            "추가 골드 : ${NumberFormat('###,###,###,###').format(instance.charactersProvider.characters[characterIndex].goldContents[index].addGold)} G",
                                             style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14));
                                       },
                                     )),

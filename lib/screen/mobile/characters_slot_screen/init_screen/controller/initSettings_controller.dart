@@ -3,12 +3,12 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 import 'package:web_scraper/web_scraper.dart';
-import '../../../../model/user/character/character_model.dart';
-import '../../../../model/user/expedition/expedition_model.dart';
-import '../../../../model/user/expedition/expedition_provider.dart';
-import '../../../../model/user/user.dart';
-import '../../../../model/user/user_provider.dart';
-import '../../bottom_navigation_screen/bottom_navigation_screen.dart';
+import '../../../../../model/user/character/character_model.dart';
+import '../../../../../model/user/expedition/expedition_model.dart';
+import '../../../../../model/user/expedition/expedition_provider.dart';
+import '../../../../../model/user/user.dart';
+import '../../../../../model/user/user_provider.dart';
+import '../../../bottom_navigation_screen/bottom_navigation_screen.dart';
 
 ValueNotifier<String> getCharacterNickName = ValueNotifier<String>('');
 ValueNotifier<int> getCharacterNum = ValueNotifier<int>(0);

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../../service/firebase_service.dart';
-import '../init_screen/initSettings_screen.dart';
+import '../characters_slot_screen/init_screen/initSettings_screen.dart';
+
 
 class GoogleSignInMobileScreen extends StatefulWidget {
   const GoogleSignInMobileScreen({Key? key}) : super(key: key);

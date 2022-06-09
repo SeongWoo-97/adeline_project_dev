@@ -21,7 +21,7 @@ class _LostArkNoticeWidgetState extends State<LostArkNoticeWidget> {
       margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
-        side: BorderSide(color: Colors.grey, width: .5),
+        side: BorderSide(color: DarkMode.isDarkMode.value ? Colors.grey : Colors.black, width: .5),
       ),
       child: Row(
         children: [
@@ -29,41 +29,44 @@ class _LostArkNoticeWidgetState extends State<LostArkNoticeWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Consumer<NoticeProvider>(
-                builder: (context, instance, child) {
-                  return ChipsChoice<int>.single(
-                    padding: EdgeInsets.only(left: 5),
-                    value: instance.tag,
-                    onChanged: (val) => instance.noticeOnChanged(val),
-                    choiceItems: C2Choice.listFrom<int, String>(
-                      source: instance.options,
-                      value: (i, v) => i,
-                      label: (i, v) => v,
-                    ),
-                    choiceStyle: C2ChoiceStyle(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      labelPadding: const EdgeInsets.all(0),
-                      margin: const EdgeInsets.all(0),
-                      showCheckmark: false,
-                      color: DarkMode.isDarkMode.value ? Colors.white70 : Colors.black,
-                      backgroundColor: DarkMode.isDarkMode.value ? Color(0xFF212121) : Colors.white,
-                      borderColor: DarkMode.isDarkMode.value ? Color(0xFF212121) : Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
+              SizedBox(
+                height: 40,
+                child: Consumer<NoticeProvider>(
+                  builder: (context, instance, child) {
+                    return ChipsChoice<int>.single(
+                      padding: EdgeInsets.only(left: 5),
+                      value: instance.tag,
+                      onChanged: (val) => instance.noticeOnChanged(val),
+                      choiceItems: C2Choice.listFrom<int, String>(
+                        source: instance.options,
+                        value: (i, v) => i,
+                        label: (i, v) => v,
                       ),
-                    ),
-                    choiceActiveStyle: C2ChoiceStyle(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      labelPadding: const EdgeInsets.all(0),
-                      margin: const EdgeInsets.all(0),
-                      color: DarkMode.isDarkMode.value ? Colors.white : Colors.black,
-                      backgroundColor: DarkMode.isDarkMode.value ? Color(0xFF212121) : Colors.white,
-                      borderColor: DarkMode.isDarkMode.value ? Color(0xFF212121) : Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      showCheckmark: false,
-                    ),
-                  );
-                },
+                      choiceStyle: C2ChoiceStyle(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        labelPadding: const EdgeInsets.all(0),
+                        margin: const EdgeInsets.all(0),
+                        showCheckmark: false,
+                        color: DarkMode.isDarkMode.value ? Colors.white70 : Colors.black,
+                        backgroundColor: DarkMode.isDarkMode.value ? Color(0xFF212121) : Colors.white,
+                        borderColor: DarkMode.isDarkMode.value ? Color(0xFF212121) : Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                      choiceActiveStyle: C2ChoiceStyle(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        labelPadding: const EdgeInsets.all(0),
+                        margin: const EdgeInsets.all(0),
+                        color: DarkMode.isDarkMode.value ? Colors.white : Colors.black,
+                        backgroundColor: DarkMode.isDarkMode.value ? Color(0xFF212121) : Colors.white,
+                        borderColor: DarkMode.isDarkMode.value ? Color(0xFF212121) : Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        showCheckmark: false,
+                      ),
+                    );
+                  },
+                ),
               ),
               Consumer<NoticeProvider>(
                 builder: (context, instance, child) {
@@ -96,7 +99,7 @@ class _LostArkNoticeWidgetState extends State<LostArkNoticeWidget> {
                                     noticeProvider.notices[index].category == "공지") {
                                   return InkWell(
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(15, 0, 5, 10),
+                                      padding: const EdgeInsets.fromLTRB(15, 3, 5, 7),
                                       child: Container(
                                         child: Text(
                                           "[${noticeProvider.notices[index].category}] ${noticeProvider.notices[index].title}",
@@ -113,7 +116,7 @@ class _LostArkNoticeWidgetState extends State<LostArkNoticeWidget> {
                                     noticeProvider.notices[index].category == "점검") {
                                   return InkWell(
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(15, 0, 5, 10),
+                                      padding: const EdgeInsets.fromLTRB(15, 3, 5, 7),
                                       child: Container(
                                         child: Text(
                                           "[${noticeProvider.notices[index].category}] ${noticeProvider.notices[index].title}",
@@ -129,7 +132,7 @@ class _LostArkNoticeWidgetState extends State<LostArkNoticeWidget> {
                                 } else if (noticeProvider.options[noticeProvider.tag] == "전체") {
                                   return InkWell(
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(15, 0, 5, 10),
+                                      padding: const EdgeInsets.fromLTRB(15, 3, 5, 7),
                                       child: Container(
                                         child: Text(
                                           "[${noticeProvider.notices[index].category}] ${noticeProvider.notices[index].title}",
@@ -203,8 +206,8 @@ class _LostArkNoticeWidgetState extends State<LostArkNoticeWidget> {
                     child: PageViewDotIndicator(
                       currentItem: instance.currentIndex,
                       count: instance.dotCount,
-                      unselectedColor: Colors.grey[700]!,
-                      selectedColor: Colors.white,
+                      unselectedColor: DarkMode.isDarkMode.value ? Colors.grey[700]! : Colors.grey,
+                      selectedColor: DarkMode.isDarkMode.value ? Colors.white : Colors.black87,
                       size: Size(8, 8),
                       unselectedSize: Size(8, 8),
                     ),

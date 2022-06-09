@@ -1,5 +1,5 @@
-import 'package:adeline_app/screen/mobile/init_screen/step_one_widget.dart';
-import 'package:adeline_app/screen/mobile/init_screen/step_two_widget.dart';
+import 'package:adeline_app/screen/mobile/characters_slot_screen/init_screen/step_one_widget.dart';
+import 'package:adeline_app/screen/mobile/characters_slot_screen/init_screen/step_two_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';

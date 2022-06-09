@@ -1,8 +1,4 @@
-import 'package:adeline_app/main.dart';
-import 'package:adeline_app/screen/mobile/characters_screen/widget/character_slot_widget.dart';
-import 'package:adeline_app/screen/mobile/characters_screen/widget/content_board_widget.dart';
-import 'package:adeline_app/screen/mobile/characters_screen/widget/expedition_content_widget.dart';
-import 'package:adeline_app/screen/mobile/characters_screen/widget/total_gold_widget.dart';
+import 'package:adeline_app/screen/mobile/characters_slot_screen/widget/content_board_widget.dart';
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -21,17 +17,20 @@ import '../../../model/user/user_provider.dart';
 import '../bottom_navigation_screen/bottom_navigation_screen.dart';
 import '../character_manual_add_screen/character_manual_add_screen.dart';
 import '../character_reorder_screen/character_reorder_screen.dart';
+import '../characters_slot_screen/widget/character_slot_widget.dart';
+import '../characters_slot_screen/widget/expedition_content_widget.dart';
+import '../characters_slot_screen/widget/total_gold_widget.dart';
 import '../drawer_screen/drawer_screen.dart';
 import '../init_date_check_screen/init_date_check_screen.dart';
 
-class CharactersScreen extends StatefulWidget {
-  const CharactersScreen({Key? key}) : super(key: key);
+class CharactersSlotScreen extends StatefulWidget {
+  const CharactersSlotScreen({Key? key}) : super(key: key);
 
   @override
-  State<CharactersScreen> createState() => _CharactersScreenState();
+  State<CharactersSlotScreen> createState() => _CharactersSlotScreenState();
 }
 
-class _CharactersScreenState extends State<CharactersScreen> with AutomaticKeepAliveClientMixin {
+class _CharactersSlotScreenState extends State<CharactersSlotScreen> with AutomaticKeepAliveClientMixin {
   CustomPopupMenuController _customPopupMenuController = CustomPopupMenuController();
   List<Character> characterList = [];
   List<ExpeditionContent> expeditionList = [];
@@ -166,7 +165,6 @@ class _CharactersScreenState extends State<CharactersScreen> with AutomaticKeepA
     userProvider.updateTotalGold();
     expeditionProvider.expedition = expedition;
     userProvider.charactersProvider.characters = characterList;
-    print('(${++d} 번째)character_screen.dart');
     return PlatformScaffold(
       material: (_, __) => MaterialScaffoldData(
         drawer: Container(width: 230, child: DrawerScreen()),

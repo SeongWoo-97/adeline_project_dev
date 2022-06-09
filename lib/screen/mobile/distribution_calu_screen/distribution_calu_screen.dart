@@ -46,7 +46,6 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    print('(${++c} 번째)distribution_calu_screen.dart');
 
     return PlatformScaffold(
         appBar: PlatformAppBar(

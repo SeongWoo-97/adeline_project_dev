@@ -1,10 +1,9 @@
 import 'package:adeline_app/model/dark_mode/android/android_light_theme_data.dart';
 import 'package:adeline_app/screen/mobile/bottom_navigation_screen/bottom_navigation_screen.dart';
 import 'package:adeline_app/screen/mobile/character_manual_add_screen/controller/add_character_provider.dart';
+import 'package:adeline_app/screen/mobile/characters_slot_screen/init_screen/controller/initSettings_controller.dart';
 import 'package:adeline_app/screen/mobile/home_screen/widget/lostark_notice_controller/event_notice_controller.dart';
 import 'package:adeline_app/screen/mobile/home_screen/widget/lostark_notice_controller/notice_controller.dart';
-import 'package:adeline_app/screen/mobile/init_screen/controller/initSettings_controller.dart';
-import 'package:adeline_app/screen/mobile/init_screen/initSettings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -26,16 +25,8 @@ import 'model/user/expedition/expedition_provider.dart';
 import 'model/user/user.dart';
 import 'model/user/user_provider.dart';
 
-bool userDB = false;
-bool expeditionDB = false;
-// 경로 : Directory: '/data/user/0/com.example.adeline_project_dev/app_flutter'
 
-int a = 0;
-int b = 0;
-int c = 0;
-int d = 0;
-int e = 0;
-int f = 0;
+// 경로 : Directory: '/data/user/0/com.example.adeline_project_dev/app_flutter'
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,12 +39,9 @@ void main() async {
   Hive.registerAdapter(ExpeditionAdapter());
   Hive.registerAdapter(ExpeditionContentAdapter());
   Hive.registerAdapter(RestGaugeContentAdapter());
+  await Hive.openBox('themeData');
   await Hive.openBox<User>('characters');
   await Hive.openBox<Expedition>('expedition');
-  await Hive.openBox('themeData');
-  // 참 : 메인화면 , 거짓 : 초기설정
-  Hive.box<User>('characters').get('user') != null ? userDB = true : userDB = false;
-  Hive.box<Expedition>('expedition').get('expeditionList') != null ? expeditionDB = true : expeditionDB = false;
   runApp(
     MultiProvider(
       providers: [
@@ -86,7 +74,7 @@ class MyApp extends StatelessWidget {
             darkTheme: androidDarkThemeData,
           ),
           cupertino: (_, __) => CupertinoAppData(),
-          home: userDB && expeditionDB ? BottomNavigationScreen() : InitSettingsScreen(),
+          home: BottomNavigationScreen(),
         );
       },
     );

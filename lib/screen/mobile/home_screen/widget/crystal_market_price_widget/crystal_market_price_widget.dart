@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
+import '../../../../../model/dark_mode/dark_theme_provider.dart';
+
 class CrystalMarketPriceWidget extends StatelessWidget {
   final AsyncMemoizer _memoizer = AsyncMemoizer();
 
@@ -22,7 +24,7 @@ class CrystalMarketPriceWidget extends StatelessWidget {
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6),
-                      side: BorderSide(color: Colors.grey, width: .5),
+                      side: BorderSide(color: DarkMode.isDarkMode.value ? Colors.grey : Colors.black, width: .5),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(5, 7, 10, 7),
@@ -50,7 +52,7 @@ class CrystalMarketPriceWidget extends StatelessWidget {
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6),
-                      side: BorderSide(color: Colors.grey, width: .5),
+                      side: BorderSide(color: DarkMode.isDarkMode.value ? Colors.grey : Colors.black, width: .5),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(5, 7, 10, 7),
@@ -83,7 +85,7 @@ class CrystalMarketPriceWidget extends StatelessWidget {
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6),
-                      side: BorderSide(color: Colors.grey, width: .5),
+                      side: BorderSide(color: DarkMode.isDarkMode.value ? Colors.grey : Colors.black, width: .5),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(5, 7, 10, 7),
@@ -111,7 +113,7 @@ class CrystalMarketPriceWidget extends StatelessWidget {
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6),
-                      side: BorderSide(color: Colors.grey, width: .5),
+                      side: BorderSide(color: DarkMode.isDarkMode.value ? Colors.grey : Colors.black, width: .5),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(5, 7, 10, 7),

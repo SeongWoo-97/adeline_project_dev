@@ -1,3 +1,4 @@
+import 'package:adeline_app/screen/mobile/home_screen/widget/character_search_bar.dart';
 import 'package:adeline_app/screen/mobile/home_screen/widget/crystal_market_price_widget/crystal_market_price_widget.dart';
 import 'package:adeline_app/screen/mobile/home_screen/widget/lostark_notice_widget.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMixin {
-  TextEditingController charSearchController = TextEditingController();
 
   @override
   bool get wantKeepAlive => true;
@@ -40,27 +40,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(5, 10, 5, 5),
-            child: Container(
-              height: 40,
-              child: TextFormField(
-                controller: charSearchController,
-                showCursor: true,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.search,
-                    size: 27,
-                    color: Colors.grey,
-                  ),
-                  prefixIconColor: Colors.red,
-                  hintText: '캐릭터 검색',
-                  focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-                ),
-                cursorColor: Colors.grey,
-              ),
-            ),
-          ),
+          CharacterSearchBar(),
           CrystalMarketPriceWidget(),
           LostArkNoticeWidget(),
         ],
