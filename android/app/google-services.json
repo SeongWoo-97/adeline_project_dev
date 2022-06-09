@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "939556178498",
+    "project_id": "lostark-adeline-app",
+    "storage_bucket": "lostark-adeline-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939556178498:android:f4bbdb358629c9b1adfbdb",
+        "android_client_info": {
+          "package_name": "com.lostark.adeline_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "939556178498-225tt9592p8o4srdimogr4lcbqt4mhsk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkiBnCd0J6j8_nxl1Z4p6gNmFT9WDJ9AU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "939556178498-225tt9592p8o4srdimogr4lcbqt4mhsk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
