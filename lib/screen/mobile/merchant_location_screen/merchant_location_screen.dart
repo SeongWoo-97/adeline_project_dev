@@ -101,14 +101,7 @@ class _MerchantLocationScreenState extends State<MerchantLocationScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: DropdownSearch<String>(
                             validator: (v) => v == null ? "required field" : null,
-                            dropdownSearchDecoration: InputDecoration(
-                              label: Text('대륙 선택'),
-                              contentPadding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                            mode: Mode.MENU,
                             selectedItem: '',
-                            showSelectedItems: true,
                             items: merchantMapOfMap.keys.toList(),
                             onChanged: (value) {
                               setState(() {
@@ -116,26 +109,6 @@ class _MerchantLocationScreenState extends State<MerchantLocationScreen> {
                                 map.addAll(merchantMapOfMap[value]!);
                               });
                               // print(map);
-                            },
-                            positionCallback: (popupButtonObject, overlay) {
-                              final decorationBox = _findBorderBox(popupButtonObject);
-
-                              double translateOffset = 0;
-                              if (decorationBox != null) {
-                                translateOffset = decorationBox.size.height - popupButtonObject.size.height;
-                              }
-
-                              final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
-                              return RelativeRect.fromSize(
-                                Rect.fromPoints(
-                                  popupButtonObject
-                                      .localToGlobal(popupButtonObject.size.bottomLeft(Offset.zero), ancestor: overlay)
-                                      .translate(0, translateOffset),
-                                  popupButtonObject.localToGlobal(popupButtonObject.size.bottomRight(Offset.zero),
-                                      ancestor: overlay),
-                                ),
-                                Size(overlay.size.width, overlay.size.height),
-                              );
                             },
                           ),
                         ),
@@ -145,39 +118,12 @@ class _MerchantLocationScreenState extends State<MerchantLocationScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: DropdownSearch<String>(
                             validator: (v) => v == null ? "required field" : null,
-                            dropdownSearchDecoration: InputDecoration(
-                              labelText: "지역 선택",
-                              contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                            mode: Mode.MENU,
-                            showSelectedItems: true,
                             items: map.keys.toList(),
                             selectedItem: selectedItem,
                             onChanged: (value) {
                               setState(() {
                                 selectedRegion = map[value];
                               });
-                            },
-                            positionCallback: (popupButtonObject, overlay) {
-                              final decorationBox = _findBorderBox(popupButtonObject);
-
-                              double translateOffset = 0;
-                              if (decorationBox != null) {
-                                translateOffset = decorationBox.size.height - popupButtonObject.size.height;
-                              }
-
-                              final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
-                              return RelativeRect.fromSize(
-                                Rect.fromPoints(
-                                  popupButtonObject
-                                      .localToGlobal(popupButtonObject.size.bottomLeft(Offset.zero), ancestor: overlay)
-                                      .translate(0, translateOffset),
-                                  popupButtonObject.localToGlobal(popupButtonObject.size.bottomRight(Offset.zero),
-                                      ancestor: overlay),
-                                ),
-                                Size(overlay.size.width, overlay.size.height),
-                              );
                             },
                           ),
                         ),
@@ -214,46 +160,47 @@ class _MerchantLocationScreenState extends State<MerchantLocationScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Row(
-                  children: [
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TypeAheadField(
-                          getImmediateSuggestions: true,
-                          textFieldConfiguration: TextFieldConfiguration(
-                            controller: _typeAheadController,
-                            decoration: InputDecoration(
-                              label: Text('맵 이름 검색'),
-                              icon: Icon(Icons.search),
-                            ),
-                          ),
-                          suggestionsCallback: (String pattern) {
-                            return StateService.getSuggestions(pattern);
-                          },
-                          onSuggestionSelected: (String suggestion) {
-                            _typeAheadController.text = suggestion;
-                            setState(() {
-                              selectedRegion = merchantMap[suggestion];
-                            });
-                          },
-                          suggestionsBoxController: _suggestionsBoxController,
-                          itemBuilder: (BuildContext context, String suggestion) {
-                            return Padding(
-                              padding: EdgeInsets.all(4.0),
-                              child: ListTile(title: Text(suggestion)),
-                            );
-                          },
-                          noItemsFoundBuilder: (BuildContext context) => Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Text("검색 결과가 존재하지 않습니다."),
-                          ),
-                          minCharsForSuggestions: 1,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                // 패키지 업데이트로 인한 코드 수정 필요
+                // Row(
+                //   children: [
+                //     Flexible(
+                //       child: Padding(
+                //         padding: const EdgeInsets.all(8.0),
+                //         child: TypeAheadField(
+                //           getImmediateSuggestions: true,
+                //           textFieldConfiguration: TextFieldConfiguration(
+                //             controller: _typeAheadController,
+                //             decoration: InputDecoration(
+                //               label: Text('맵 이름 검색'),
+                //               icon: Icon(Icons.search),
+                //             ),
+                //           ),
+                //           suggestionsCallback: (String pattern) {
+                //             return StateService.getSuggestions(pattern);
+                //           },
+                //           onSuggestionSelected: (String suggestion) {
+                //             _typeAheadController.text = suggestion;
+                //             setState(() {
+                //               selectedRegion = merchantMap[suggestion];
+                //             });
+                //           },
+                //           suggestionsBoxController: _suggestionsBoxController,
+                //           itemBuilder: (BuildContext context, String suggestion) {
+                //             return Padding(
+                //               padding: EdgeInsets.all(4.0),
+                //               child: ListTile(title: Text(suggestion)),
+                //             );
+                //           },
+                //           noItemsFoundBuilder: (BuildContext context) => Padding(
+                //             padding: const EdgeInsets.all(5.0),
+                //             child: Text("검색 결과가 존재하지 않습니다."),
+                //           ),
+                //           minCharsForSuggestions: 1,
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 Row(
                   children: [
                     Flexible(
@@ -261,14 +208,8 @@ class _MerchantLocationScreenState extends State<MerchantLocationScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: DropdownSearch<String>(
                           validator: (v) => v == null ? "required field" : null,
-                          dropdownSearchDecoration: InputDecoration(
-                            label: Text('대륙 선택'),
-                            contentPadding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          mode: Mode.MENU,
+
                           selectedItem: '',
-                          showSelectedItems: true,
                           items: merchantMapOfMap.keys.toList(),
                           onChanged: (value) {
                             setState(() {
@@ -276,26 +217,6 @@ class _MerchantLocationScreenState extends State<MerchantLocationScreen> {
                               map.addAll(merchantMapOfMap[value]!);
                             });
                           },
-                          positionCallback: (popupButtonObject, overlay) {
-                            final decorationBox = _findBorderBox(popupButtonObject);
-
-                            double translateOffset = 0;
-                            if (decorationBox != null) {
-                              translateOffset = decorationBox.size.height - popupButtonObject.size.height;
-                            }
-
-                            final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
-                            return RelativeRect.fromSize(
-                              Rect.fromPoints(
-                                popupButtonObject
-                                    .localToGlobal(popupButtonObject.size.bottomLeft(Offset.zero), ancestor: overlay)
-                                    .translate(0, translateOffset),
-                                popupButtonObject.localToGlobal(popupButtonObject.size.bottomRight(Offset.zero),
-                                    ancestor: overlay),
-                              ),
-                              Size(overlay.size.width, overlay.size.height),
-                            );
-                          },
                         ),
                       ),
                     ),
@@ -304,20 +225,7 @@ class _MerchantLocationScreenState extends State<MerchantLocationScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: DropdownSearch<String>(
                           validator: (v) => v == null ? "required field" : null,
-                          dropdownSearchDecoration: InputDecoration(
-                            labelText: "지역 선택",
-                            contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          mode: Mode.MENU,
-                          emptyBuilder: (context, searchEntry) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "대륙을 선택해 주세요.",
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                          ),
-                          showSelectedItems: true,
+
                           items: map.keys.toList(),
                           selectedItem: selectedItem,
                           onChanged: (value) {
@@ -325,26 +233,7 @@ class _MerchantLocationScreenState extends State<MerchantLocationScreen> {
                               selectedRegion = map[value];
                             });
                           },
-                          positionCallback: (popupButtonObject, overlay) {
-                            final decorationBox = _findBorderBox(popupButtonObject);
 
-                            double translateOffset = 0;
-                            if (decorationBox != null) {
-                              translateOffset = decorationBox.size.height - popupButtonObject.size.height;
-                            }
-
-                            final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
-                            return RelativeRect.fromSize(
-                              Rect.fromPoints(
-                                popupButtonObject
-                                    .localToGlobal(popupButtonObject.size.bottomLeft(Offset.zero), ancestor: overlay)
-                                    .translate(0, translateOffset),
-                                popupButtonObject.localToGlobal(popupButtonObject.size.bottomRight(Offset.zero),
-                                    ancestor: overlay),
-                              ),
-                              Size(overlay.size.width, overlay.size.height),
-                            );
-                          },
                         ),
                       ),
                     ),

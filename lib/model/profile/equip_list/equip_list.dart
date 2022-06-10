@@ -9,16 +9,23 @@ class EquipList {
   ArmorEquip? gloves;
   ArmorEquip? shoulder;
 
-  EquipList({this.weapon, this.head, this.top, this.bottom, this.gloves, this.shoulder});
+  EquipList({
+    this.weapon,
+    this.head,
+    this.top,
+    this.bottom,
+    this.gloves,
+    this.shoulder,
+  });
 
   factory EquipList.fromJson(Map<String, dynamic> json) {
     return EquipList(
-      weapon: Weapon.fromJson(json['weapon']),
-      head: ArmorEquip.fromJson(json['head']),
-      top: ArmorEquip.fromJson(json['top']),
-      bottom: ArmorEquip.fromJson(json['bottom']),
-      gloves: ArmorEquip.fromJson(json['gloves']),
-      shoulder: ArmorEquip.fromJson(json['shoulder']),
+      weapon: json['weapon'] != null ? Weapon.fromJson(json['weapon']) : null,
+      head: json['head'] != null ? ArmorEquip.fromJson(json['head']) : null,
+      top: json['top'] != null ? ArmorEquip.fromJson(json['top']) : null,
+      bottom: json['bottom'] != null ? ArmorEquip.fromJson(json['bottom']) : null,
+      gloves: json['gloves'] != null ? ArmorEquip.fromJson(json['gloves']) : null,
+      shoulder: json['shoulder'] != null ? ArmorEquip.fromJson(json['shoulder']) : null,
     );
   }
 }

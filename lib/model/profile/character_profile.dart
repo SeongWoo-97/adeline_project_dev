@@ -13,7 +13,7 @@ import 'package:flutter/cupertino.dart';
 
 class CharacterProfile extends ChangeNotifier{
   String? result;
-  Info info;
+  Info? info;
   AttackBasic? attackBasic;
   AbilityBattle? abilityBattle;
   AbilityEngraveList? abilityEngraveList;
@@ -27,7 +27,7 @@ class CharacterProfile extends ChangeNotifier{
 
   CharacterProfile({
     this.result,
-    required this.info,
+    this.info,
     this.attackBasic,
     this.abilityBattle,
     this.abilityEngraveList,

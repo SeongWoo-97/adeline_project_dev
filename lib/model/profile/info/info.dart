@@ -1,3 +1,4 @@
+import 'package:adeline_app/model/profile/card/card.dart';
 import 'package:adeline_app/model/profile/info/fief/fief.dart';
 import 'package:adeline_app/model/profile/info/special_equip/special_equip.dart';
 
@@ -13,6 +14,7 @@ class Info {
   Fief fief;
   SpecialEquip? special;
 
+
   Info({
     required this.nickName,
     required this.server,
@@ -22,7 +24,7 @@ class Info {
     required this.guild,
     required this.pvp,
     required this.badge,
-    required this.fief
+    required this.fief,
   });
 
   factory Info.fromJson(Map<String, dynamic> json) {

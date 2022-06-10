@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../../model/dark_mode/dark_theme_provider.dart';
 import '../binpago_webview/binpago_webview.dart';

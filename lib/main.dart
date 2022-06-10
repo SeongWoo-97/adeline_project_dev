@@ -1,6 +1,7 @@
 import 'package:adeline_app/model/dark_mode/android/android_light_theme_data.dart';
 import 'package:adeline_app/screen/mobile/bottom_navigation_screen/bottom_navigation_screen.dart';
 import 'package:adeline_app/screen/mobile/character_manual_add_screen/controller/add_character_provider.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/controller/menu_bar_controller.dart';
 import 'package:adeline_app/screen/mobile/characters_slot_screen/init_screen/controller/initSettings_controller.dart';
 import 'package:adeline_app/screen/mobile/home_screen/widget/lostark_notice_controller/event_notice_controller.dart';
 import 'package:adeline_app/screen/mobile/home_screen/widget/lostark_notice_controller/notice_controller.dart';
@@ -13,6 +14,8 @@ import 'model/add_content_provider/add_content_provider.dart';
 import 'model/add_content_provider/add_expedition_content_provider.dart';
 import 'model/dark_mode/android/android_dark_theme_data.dart';
 import 'model/dark_mode/dark_theme_provider.dart';
+import 'model/profile/character_profile.dart';
+import 'model/profile/character_profile_provider.dart';
 import 'model/user/character/character_model.dart';
 import 'model/user/character/character_provider.dart';
 import 'model/user/content/daily_content.dart';
@@ -54,6 +57,9 @@ void main() async {
         ChangeNotifierProvider(create: (context) => AddCharacterProvider()),
         ChangeNotifierProvider(create: (context) => NoticeProvider()),
         ChangeNotifierProvider(create: (context) => EventNoticeProvider()),
+        ChangeNotifierProvider(create: (context) => CharacterProfileProvider(profile: CharacterProfile())),
+        ChangeNotifierProvider(create: (context) => MenuBarController()),
+
       ],
       child: MyApp(),
     ),

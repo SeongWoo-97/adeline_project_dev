@@ -1,4 +1,3 @@
-
 import 'package:adeline_app/screen/mobile/character_manual_add_screen/widget/daily_content_list.dart';
 import 'package:adeline_app/screen/mobile/character_manual_add_screen/widget/gold_content_list.dart';
 import 'package:adeline_app/screen/mobile/character_manual_add_screen/widget/weekly_content_list.dart';
@@ -56,49 +55,17 @@ class _CharacterManualAddScreenState extends State<CharacterManualAddScreen> {
                     padding: const EdgeInsets.fromLTRB(8,5,6,5),
                     child: DropdownSearch<String>(
                       validator: (v) => v== null ? "required field" : null,
-                      dropdownSearchDecoration: InputDecoration(
-                        constraints: BoxConstraints(maxHeight: 45),
-                        label: Text('서버 선택'),
-                        contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(5),
-                        ),
-                      ),
-                      mode: Mode.DIALOG,
                       selectedItem: '',
-                      showSelectedItems: true,
                       items: serverList,
-                      dropdownSearchTextAlign: TextAlign.center,
                       onChanged: (value) {
                         addCharacterProvider.server = value!;
                         print(addCharacterProvider.server);
                       },
-                      emptyBuilder: (context, searchEntry) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "서버를 선택해 주세요.",
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
+                      popupProps: PopupProps.menu(
+                        showSelectedItems: true,
+                        disabledItemFn: (String s) => s.startsWith('I'),
                       ),
-                      positionCallback: (popupButtonObject, overlay) {
-                        final decorationBox = _findBorderBox(popupButtonObject);
 
-                        double translateOffset = 0;
-                        if (decorationBox != null) {
-                          translateOffset = decorationBox.size.height - popupButtonObject.size.height;
-                        }
-
-                        final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
-                        return RelativeRect.fromSize(
-                          Rect.fromPoints(
-                            popupButtonObject
-                                .localToGlobal(popupButtonObject.size.bottomLeft(Offset.zero), ancestor: overlay)
-                                .translate(0, translateOffset),
-                            popupButtonObject.localToGlobal(popupButtonObject.size.bottomRight(Offset.zero),
-                                ancestor: overlay),
-                          ),
-                          Size(overlay.size.width, overlay.size.height),
-                        );
-                      },
                     ),
                   ),
                 ),
@@ -107,46 +74,17 @@ class _CharacterManualAddScreenState extends State<CharacterManualAddScreen> {
                     padding: const EdgeInsets.fromLTRB(6,5,8,5),
                     child: DropdownSearch<String>(
                       validator: (v) => v== null ? "required field" : null,
-                      dropdownSearchDecoration: InputDecoration(
-                        label: Text('직업 선택'),
-                        contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
-                      ),
-                      mode: Mode.DIALOG,
                       selectedItem: '',
-                      showSelectedItems: true,
                       items: jobList,
                       onChanged: (value) {
                         addCharacterProvider.job = value!;
                         print(addCharacterProvider.job);
                       },
-                      emptyBuilder: (context, searchEntry) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "직업을 선택해 주세요.",
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
+                      popupProps: PopupProps.menu(
+                        showSelectedItems: true,
+                        disabledItemFn: (String s) => s.startsWith('I'),
                       ),
-                      positionCallback: (popupButtonObject, overlay) {
-                        final decorationBox = _findBorderBox(popupButtonObject);
 
-                        double translateOffset = 0;
-                        if (decorationBox != null) {
-                          translateOffset = decorationBox.size.height - popupButtonObject.size.height;
-                        }
-
-                        final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
-                        return RelativeRect.fromSize(
-                          Rect.fromPoints(
-                            popupButtonObject
-                                .localToGlobal(popupButtonObject.size.bottomLeft(Offset.zero), ancestor: overlay)
-                                .translate(0, translateOffset),
-                            popupButtonObject.localToGlobal(popupButtonObject.size.bottomRight(Offset.zero),
-                                ancestor: overlay),
-                          ),
-                          Size(overlay.size.width, overlay.size.height),
-                        );
-                      },
                     ),
                   ),
                 )
