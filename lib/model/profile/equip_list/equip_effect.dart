@@ -1,13 +1,25 @@
-class EquipEffect {
-  var basicEffect;
-  var plusEffect;
+class ArmorEffect {
+  List<String> basicEffect;
+  List<String> plusEffect;
 
-  EquipEffect({this.basicEffect, this.plusEffect});
+  ArmorEffect({required this.basicEffect, required this.plusEffect});
 
-  factory EquipEffect.fromJson(Map<String, dynamic> json) {
-    return EquipEffect(
-      basicEffect: json['basic_effect'] as List,
-      plusEffect: json['plus_effect'] as List,
+  factory ArmorEffect.fromJson(Map<String, dynamic> json) {
+    List<String> basic = [];
+    List<String> plus = [];
+    if (json['basic_effect'] != null) {
+      json['basic_effect'].forEach((v) {
+        basic.add(v);
+      });
+    }
+    if (json['plus_effect'] != null) {
+      json['plus_effect'].forEach((v) {
+        plus.add(v);
+      });
+    }
+    return ArmorEffect(
+      basicEffect: basic,
+      plusEffect: plus,
     );
   }
 }

@@ -7,9 +7,9 @@ class EquipTripod {
 
   factory EquipTripod.fromJson(Map<String, dynamic> json) {
     return EquipTripod(
-      tripod1: json['tripod1'],
-      tripod2: json['tripod2'],
-      tripod3: json['tripod3'],
+      tripod1: json['tripod1'] != null ? json['tripod1'] : null,
+      tripod2: json['tripod2'] != null ? json['tripod2'] : null,
+      tripod3: json['tripod3'] != null ? json['tripod3'] : null,
     );
   }
 }

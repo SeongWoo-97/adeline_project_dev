@@ -4,6 +4,7 @@ import 'package:adeline_app/model/profile/info/special_equip/special_equip.dart'
 
 class Info {
   String nickName;
+  String job;
   String server;
   String expeditionLevel;
   String battleLevel;
@@ -17,6 +18,7 @@ class Info {
 
   Info({
     required this.nickName,
+    required this.job,
     required this.server,
     required this.expeditionLevel,
     required this.battleLevel,
@@ -30,6 +32,7 @@ class Info {
   factory Info.fromJson(Map<String, dynamic> json) {
     return Info(
       nickName: json['nickName'],
+      job: json['job'],
       server: json['server'],
       expeditionLevel: json['expeditionLevel'],
       battleLevel: json['battleLevel'],

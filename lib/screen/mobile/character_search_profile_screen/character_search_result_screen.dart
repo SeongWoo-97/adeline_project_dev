@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:adeline_app/model/profile/accessory_list/accessory/accessory.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/ability_stone_widget.dart';
-import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/accessory_widget.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/item_slot/accessory/accessory_widget.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/equip_engrave_widget.dart';
-import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/equip_widget.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/item_slot/armor/equip_armor_widget.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/item_slot/weapon/equip_weapon_widget.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/menu_bar.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/profile_info.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class _CharacterSearchResultScreenState extends State<CharacterSearchResultScree
                         Row(
                           children: [
                             EquipWidget(),
-                            EquipWidget(),
+                            AccessoryWidget(),
                           ],
                         ),
                         Row(
@@ -76,10 +77,9 @@ class _CharacterSearchResultScreenState extends State<CharacterSearchResultScree
   fetchCharacterProfile(BuildContext context) async {
     return this.memoizer.runOnce(() async {
       try {
-        http.Response response = await http.get(Uri.parse('http://132.226.22.9:3380/lobox/duggy2'));
+        http.Response response = await http.get(Uri.parse('http://132.226.22.9:3380/lobox/duggy3'));
         Map<String, dynamic> json = jsonDecode(response.body);
-        CharacterProfileProvider characterProfileProvider =
-            Provider.of<CharacterProfileProvider>(context, listen: false);
+        CharacterProfileProvider characterProfileProvider = Provider.of<CharacterProfileProvider>(context, listen: false);
         characterProfileProvider.profile = CharacterProfile.fromJson(json);
         return characterProfileProvider;
       } catch (e) {

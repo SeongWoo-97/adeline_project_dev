@@ -22,8 +22,8 @@ class Weapon {
       itemTitle: EquipItemTitle.fromJson(json['item_title']),
       effect: WeaponEffect.fromJson(json['effect']),
       tripod: EquipTripod.fromJson(json['tripod']),
-      setLevel: json['set_level'],
-      setEffect: json['set_effect'],
+      setLevel: json['set_level'] != null ? json['set_level'] : null,
+      setEffect: json['set_effect'] != null ? json['set_effect'] : null,
     );
   }
 }

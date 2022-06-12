@@ -11,7 +11,7 @@ import 'package:adeline_app/model/profile/gem/gem.dart';
 import 'package:adeline_app/model/profile/info/info.dart';
 import 'package:flutter/cupertino.dart';
 
-class CharacterProfile extends ChangeNotifier{
+class CharacterProfile extends ChangeNotifier {
   String? result;
   Info? info;
   AttackBasic? attackBasic;
@@ -48,27 +48,25 @@ class CharacterProfile extends ChangeNotifier{
         gem.add(Gem.fromJson(v));
       });
     }
-    if (json['equip_engrave'] != null) {
-      equipEngrave = <EquipEngrave>[];
-      json['equip_engrave'].forEach((v) {
-        equipEngrave.add(EquipEngrave.fromJson(v));
-      });
-    }
+    // if (json['equip_engrave'] != null) {
+    //   equipEngrave = <EquipEngrave>[];
+    //   json['equip_engrave'].forEach((v) {
+    //     equipEngrave.add(EquipEngrave.fromJson(v));
+    //   });
+    // }
     return CharacterProfile(
       result: json['result'],
-      info: Info.fromJson(json['info']),
-      attackBasic: AttackBasic.fromJson(json['attack_basic']),
-      abilityBattle: AbilityBattle.fromJson(json['ability_battle']),
-      abilityTendecy: AbilityTendecy.fromJson(json['ability_tendecy']),
-      abilityEngraveList: AbilityEngraveList.fromJson(json['ability_engrave_list']),
-      card: Card.fromJson(json['card']),
-      equipList: EquipList.fromJson(json['equip_list']),
-      accessoryList: AccessoryList.fromJson(json['accessory_list']),
+      info: json['info'] != null ? Info.fromJson(json['info']) : null,
+      attackBasic: json['attack_basic'] != null ? AttackBasic.fromJson(json['attack_basic']) : null,
+      abilityBattle: json['ability_battle'] != null ? AbilityBattle.fromJson(json['ability_battle']) : null,
+      abilityTendecy: json['ability_tendecy'] != null ? AbilityTendecy.fromJson(json['ability_tendecy']) : null,
+      abilityEngraveList: json['ability_engrave_list'] != null ? AbilityEngraveList.fromJson(json['ability_engrave_list']) : null,
+      card: json['card'] != null ? Card.fromJson(json['card']) : null,
+      equipList: json['equip_list'] != null ? EquipList.fromJson(json['equip_list']) : null,
+      accessoryList: json['accessory_list'] != null ? AccessoryList.fromJson(json['accessory_list']) : null,
       gem: gem,
-      abilityStone: AbilityStone.fromJson(json['ability_stone']),
-      equipEngrave: equipEngrave,
+      // abilityStone: json['ability_stone'] != null ? AbilityStone.fromJson(json['ability_stone']) : null,
+      // equipEngrave: equipEngrave,
     );
   }
 }
-
-

@@ -6,8 +6,8 @@ class AccEngrave {
 
   factory AccEngrave.fromJson(Map<String, dynamic> json) {
     return AccEngrave(
-      name: json['name'],
-      point: json['point'],
+      name: json['name'] != null ? json['name'] : null,
+      point: json['point'] != null ? json['point'] : null,
     );
   }
 }

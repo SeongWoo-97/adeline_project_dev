@@ -7,11 +7,12 @@ class ArmorEquip {
   String? upgrade;
   int? grade;
   EquipItemTitle? itemTitle;
-  EquipEffect? effect;
+  ArmorEffect? effect;
   EquipTripod? tripod;
   String? setLevel;
+  String? setEffect;
 
-  ArmorEquip({this.itemName, this.upgrade, this.grade, this.itemTitle, this.effect, this.tripod, this.setLevel});
+  ArmorEquip({this.itemName, this.upgrade, this.grade, this.itemTitle, this.effect, this.tripod, this.setLevel, this.setEffect});
 
   factory ArmorEquip.fromJson(Map<String, dynamic> json) {
     return ArmorEquip(
@@ -19,9 +20,10 @@ class ArmorEquip {
       upgrade: json['upgrade'],
       grade: json['grade'],
       itemTitle: EquipItemTitle.fromJson(json['item_title']),
-      effect: EquipEffect.fromJson(json['effect']),
+      effect: ArmorEffect.fromJson(json['effect']),
       tripod: EquipTripod.fromJson(json['tripod']),
-      setLevel: json['set_level'],
+      setLevel: json['set_level'] != null ? json['set_level'] : null,
+      setEffect: json['set_effect'] != null ? json['set_effect'] : null,
     );
   }
 }

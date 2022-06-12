@@ -20,10 +20,10 @@ class Accessory {
       });
     }
     return Accessory(
-      itemName: json['item_name'],
-      grade: json['grade'],
-      itemTitle: AccItemTitle.fromJson(json['item_title']),
-      effect: AccEffect.fromJson(json['effect']),
+      itemName: json['item_name'] != null ? json['item_name'] : null,
+      grade: json['grade'] != null ? json['grade'] : null ,
+      itemTitle: json['item_title'] != null ? AccItemTitle.fromJson(json['item_title']) : null,
+      effect: json['effect'] != null ? AccEffect.fromJson(json['effect']) : null,
       engrave: engrave,
     );
   }

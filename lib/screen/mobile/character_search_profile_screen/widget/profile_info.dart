@@ -36,7 +36,7 @@ class ProfileInfoWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('클  래  스  : 소서리스'),
+                        Text('클  래  스  : ${profile.info?.job}'),
                         Text('원  정  대  : ${profile.info?.expeditionLevel}'),
                         Text('장착 레벨 : ${profile.info?.achieveItemLevel.replaceFirst("Lv.", "")}'),
                         Text('달성 레벨 : ${profile.info?.achieveItemLevel.replaceFirst("Lv.", "")}'),

@@ -6,14 +6,25 @@ class Bracelet {
   BraItemTitle? itemTitle;
   List<String>? effect;
 
-  Bracelet({this.name, this.grade, this.itemTitle, this.effect});
+  Bracelet({
+    this.name,
+    this.grade,
+    this.itemTitle,
+    this.effect,
+  });
 
   factory Bracelet.fromJson(Map<String, dynamic> json) {
+    List<String> effects = [];
+    if (json['effect'] != null) {
+      json['effect'].forEach((v) {
+        effects.add(v);
+      });
+    }
     return Bracelet(
-      name: json['name'],
-      grade: json['grade'],
-      itemTitle: BraItemTitle.fromJson(json['item_title']),
-      effect: json['effect'].cast<String>(),
+      name: json['name'] != null ? json['name'] : null,
+      grade: json['grade'] != null ? json['grade'] : null,
+      itemTitle: json['item_title'] != null ? BraItemTitle.fromJson(json['item_title']) : null,
+      effect: effects,
     );
   }
 }
