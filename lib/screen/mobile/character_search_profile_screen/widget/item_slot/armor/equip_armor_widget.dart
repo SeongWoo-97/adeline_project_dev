@@ -1,4 +1,5 @@
 import 'package:adeline_app/model/profile/equip_list/armor_equip/armor_equip.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/controller/slot_Color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -41,8 +42,8 @@ List<Widget> armorSlotWidget(BuildContext context, List<ArmorEquip?> armorEquips
   List<Widget> list = [];
   for (int i = 0; i < armorEquips.length; i++) {
     if (armorEquips[i] != null) {
-      List<Color> bgColors = gradeColors(armorEquips[i]!.grade);
-      Color nameColor = itemNameColor(armorEquips[i]!.grade);
+      List<Color> bgColors = slotColor.gradeColors(armorEquips[i]!.grade);
+      Color nameColor = slotColor.itemNameColor(armorEquips[i]!.grade);
       List<String?> tripods = [armorEquips[i]!.tripod!.tripod1, armorEquips[i]!.tripod!.tripod2, armorEquips[i]!.tripod!.tripod3];
       list.add(Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 7),
@@ -51,8 +52,8 @@ List<Widget> armorSlotWidget(BuildContext context, List<ArmorEquip?> armorEquips
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: 40,
-                height: 40,
+                width: 44,
+                height: 44,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
@@ -60,11 +61,11 @@ List<Widget> armorSlotWidget(BuildContext context, List<ArmorEquip?> armorEquips
                   ),
                 ),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.transparent),
+                  borderRadius: BorderRadius.circular(5),
                   gradient: LinearGradient(
-                    end: Alignment.topLeft,
-                    begin: Alignment.bottomRight,
+                    end: Alignment.bottomRight,
+                    begin: Alignment.topLeft,
                     colors: bgColors,
                   ),
                 ),
@@ -100,7 +101,7 @@ List<Widget> armorSlotWidget(BuildContext context, List<ArmorEquip?> armorEquips
                           "${armorEquips[i]!.itemTitle!.quality}",
                           style: Theme.of(context).textTheme.caption?.copyWith(fontSize: 10, fontWeight: FontWeight.bold),
                         ),
-                        progressColor: qualityColor(armorEquips[i]!.itemTitle!.quality),
+                        progressColor: slotColor.qualityColor(armorEquips[i]!.itemTitle!.quality),
                       ),
                     ],
                   ),
@@ -205,7 +206,7 @@ List<Widget> armorSlotWidget(BuildContext context, List<ArmorEquip?> armorEquips
                                                         .caption
                                                         ?.copyWith(fontSize: 10, fontWeight: FontWeight.bold),
                                                   ),
-                                                  progressColor: qualityColor(armorEquips[i]!.itemTitle!.quality),
+                                                  progressColor: slotColor.qualityColor(armorEquips[i]!.itemTitle!.quality),
                                                 ),
                                               ],
                                             ),
@@ -390,99 +391,4 @@ List<Widget> armorSlotWidget(BuildContext context, List<ArmorEquip?> armorEquips
   }
   list.add(WeaponWidget());
   return list;
-}
-
-List<Color> gradeColors(int? grade) {
-  List<Color> list = [];
-  if (grade != null) {
-    switch (grade) {
-      case 1:
-        list.add(Colors.white);
-        break;
-      case 2: // 희귀
-        list.add(Color.fromRGBO(17, 31, 44, .7));
-        list.add(Color.fromRGBO(17, 61, 93, 1));
-        break;
-      case 3: // 영웅
-        list.add(Color.fromRGBO(72, 13, 93, .8));
-        list.add(Color.fromRGBO(38, 19, 49, 1));
-        break;
-      case 4: // 전설
-        list.add(Color.fromRGBO(158, 95, 4, .9));
-        list.add(Color.fromRGBO(54, 32, 3, .85));
-        break;
-      case 5: // 유물
-        list.add(Color.fromRGBO(162, 64, 6, 1));
-        list.add(Color.fromRGBO(52, 26, 9, 1));
-        break;
-      case 6: // 고대
-        list.add(Color.fromRGBO(61, 51, 37, .6));
-        list.add(Color.fromRGBO(220, 201, 153, 1));
-        break;
-      case 7: // 에스더
-        list.add(Color.fromRGBO(12, 46, 44, .6));
-        list.add(Color.fromRGBO(47, 171, 168, 1));
-        break;
-      default:
-        list.add(Colors.white);
-        break;
-    }
-  }
-  return list;
-}
-
-Color itemNameColor(int? grade) {
-  Color color = Colors.grey;
-  if (grade != null) {
-    switch (grade) {
-      case 1: // 고급
-        break;
-      case 2: // 희귀
-        color = Color(0xFF00B0FA);
-        break;
-      case 3: // 영웅
-        color = Color(0xFFce43fc);
-        break;
-      case 4: // 전설
-        color = Color(0xFFF99200);
-        break;
-      case 5: // 유물
-        color = Color(0xFFFA5D00);
-        break;
-      case 6: // 고대
-        color = Color(0xFFE3C7A1);
-        break;
-      case 7: // 에스더
-        color = Color(0xFF3CF2E6);
-        break;
-      default:
-        break;
-    }
-  }
-  return color;
-}
-
-Color qualityColor(int? quality) {
-  Color color = Colors.greenAccent;
-  if (quality != null) {
-    if (quality >= 0 && quality <= 9) {
-      color = Color.fromRGBO(255, 96, 0, 1);
-    }
-    if (quality >= 10 && quality <= 29) {
-      color = Color.fromRGBO(255, 210, 0, 1);
-    }
-    if (quality >= 30 && quality <= 69) {
-      color = Color.fromRGBO(145, 254, 2, 1);
-    }
-    if (quality >= 70 && quality <= 89) {
-      color = Color.fromRGBO(0, 181, 255, 1);
-    }
-    if (quality >= 90 && quality <= 99) {
-      color = Color.fromRGBO(206, 67, 252, 1);
-    }
-    if (quality == 100) {
-      color = Color.fromRGBO(254, 150, 0, 1);
-    }
-  }
-  return color;
 }

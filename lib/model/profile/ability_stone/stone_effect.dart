@@ -16,8 +16,8 @@ class StoneEffect{
       });
     }
     return StoneEffect(
-      basicEffect: json['basic_effect'],
-      plusEffect: json['plus_effect'],
+      basicEffect: json['basic_effect'] != null ? json['basic_effect'] : null,
+      plusEffect: json['plus_effect'] != null ? json['plus_effect'] : null,
       engraveEffect: engraveEffect,
     );
   }

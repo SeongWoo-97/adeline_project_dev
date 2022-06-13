@@ -9,11 +9,11 @@ class EquipEngrave {
 
   factory EquipEngrave.fromJson(Map<String, dynamic> json) {
     return EquipEngrave(
-      name: json['name'],
-      point: json['point'],
-      imgUrl: json['img_url'],
-      des: json['des'],
-      levelDes: json['level_des'],
+      name: json['name'] != null ? json['name'] : null,
+      point: json['point'] != null ? json['point'] : null,
+      imgUrl: json['img_url'] != null ? json['img_url'] : null,
+      des: json['des'] != null ? json['des'] : null,
+      levelDes: json['level_des'] != null ? json['level_des'] : null,
     );
   }
 }

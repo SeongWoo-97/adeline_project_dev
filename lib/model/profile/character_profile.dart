@@ -48,12 +48,11 @@ class CharacterProfile extends ChangeNotifier {
         gem.add(Gem.fromJson(v));
       });
     }
-    // if (json['equip_engrave'] != null) {
-    //   equipEngrave = <EquipEngrave>[];
-    //   json['equip_engrave'].forEach((v) {
-    //     equipEngrave.add(EquipEngrave.fromJson(v));
-    //   });
-    // }
+    if (json['equip_engrave'].length != 0) {
+      json['equip_engrave'].forEach((v) {
+        equipEngrave.add(EquipEngrave.fromJson(v));
+      });
+    }
     return CharacterProfile(
       result: json['result'],
       info: json['info'] != null ? Info.fromJson(json['info']) : null,
@@ -65,8 +64,8 @@ class CharacterProfile extends ChangeNotifier {
       equipList: json['equip_list'] != null ? EquipList.fromJson(json['equip_list']) : null,
       accessoryList: json['accessory_list'] != null ? AccessoryList.fromJson(json['accessory_list']) : null,
       gem: gem,
-      // abilityStone: json['ability_stone'] != null ? AbilityStone.fromJson(json['ability_stone']) : null,
-      // equipEngrave: equipEngrave,
+      abilityStone: json['ability_stone'].length != 0 ? AbilityStone.fromJson(json['ability_stone']) : null,
+      equipEngrave: equipEngrave,
     );
   }
 }

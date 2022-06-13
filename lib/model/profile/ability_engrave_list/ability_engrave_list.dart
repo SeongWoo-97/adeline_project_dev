@@ -5,9 +5,21 @@ class AbilityEngraveList {
   AbilityEngraveList({this.engraveName, this.engraveDes});
 
   factory AbilityEngraveList.fromJson(Map<String, dynamic> json) {
+    List<String> engraveName = [];
+    List<String> engraveDes = [];
+    if (json['engrave_name'].length != 0) {
+      json['engrave_name'].forEach((v) {
+        engraveName.add(v);
+      });
+    }
+    if (json['engrave_des'].length != 0) {
+      json['engrave_des'].forEach((v) {
+        engraveDes.add(v);
+      });
+    }
     return AbilityEngraveList(
-      engraveName: json['engrave_name'].cast<String>(),
-      engraveDes: json['engrave_des'].cast<String>(),
+      engraveName: json['engrave_name'].length != 0 ? engraveName : null,
+      engraveDes: json['engrave_des'].length != 0 ? engraveDes : null,
     );
   }
 }

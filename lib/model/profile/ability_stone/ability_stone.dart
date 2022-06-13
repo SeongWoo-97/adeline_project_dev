@@ -11,8 +11,8 @@ class AbilityStone {
 
   factory AbilityStone.fromJson(Map<String, dynamic> json) {
     return AbilityStone(
-      name: json['name'],
-      grade: json['grade'],
+      name: json['name'] != null ? json['name'] : null,
+      grade: json['grade'] != null ? json['grade'] : null,
       itemTitle: StoneItemTitle.fromJson(json['item_title']),
       effect: StoneEffect.fromJson(json['effect']),
     );

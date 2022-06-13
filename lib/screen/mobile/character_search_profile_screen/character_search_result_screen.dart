@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:adeline_app/model/profile/accessory_list/accessory/accessory.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/ability_stone_widget.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/engrave_list.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/gem/gemSlotWidget.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/item_slot/accessory/accessory_widget.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/equip_engrave_widget.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/item_slot/armor/equip_armor_widget.dart';
@@ -32,52 +34,54 @@ class _CharacterSearchResultScreenState extends State<CharacterSearchResultScree
   Widget build(BuildContext context) {
     return PlatformScaffold(
         appBar: PlatformAppBar(title: Text('캐릭터 정보')),
-        body: FutureBuilder(
-          future: fetchCharacterProfile(context),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.hasError) {
-              return Center(child: Text('에러가 발생하였습니다. 개발자에게 문의 바랍니다.'));
-            } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasData && snapshot.data != null) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ProfileInfoWidget(),
-                  Card(
-                    margin: const EdgeInsets.fromLTRB(5, 5, 5, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        MenuBarWidget(),
-                        Row(
-                          children: [
-                            EquipWidget(),
-                            AccessoryWidget(),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            EquipEngraveWidget(),
-                            AbilityStoneWidget(),
-                          ],
-                        )
-                      ],
+        body: SingleChildScrollView(
+          child: FutureBuilder(
+            future: fetchCharacterProfile(context),
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.hasError) {
+                return Center(child: Text('에러가 발생하였습니다. 개발자에게 문의 바랍니다.'));
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasData && snapshot.data != null) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ProfileInfoWidget(),
+                    Card(
+                      margin: const EdgeInsets.fromLTRB(5, 5, 5, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          MenuBarWidget(),
+                          Row(
+                            children: [
+                              EquipWidget(),
+                              AccessoryWidget(),
+                            ],
+                          ),
+                          GemSlotWidget(),
+                          AbilityStoneWidget(),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              );
-            }
-            return Center(child: CircularProgressIndicator());
-          },
+                    Card(
+                      margin: const EdgeInsets.fromLTRB(5, 5, 5, 0),
+                      child: EngraveEffectWidget(),
+                    )
+                  ],
+                );
+              }
+              return Center(child: CircularProgressIndicator());
+            },
+          ),
         ));
   }
 
   fetchCharacterProfile(BuildContext context) async {
     return this.memoizer.runOnce(() async {
       try {
-        http.Response response = await http.get(Uri.parse('http://132.226.22.9:3380/lobox/duggy3'));
+        http.Response response = await http.get(Uri.parse('http://132.226.22.9:3380/lobox/성우웅'));
         Map<String, dynamic> json = jsonDecode(response.body);
         CharacterProfileProvider characterProfileProvider = Provider.of<CharacterProfileProvider>(context, listen: false);
         characterProfileProvider.profile = CharacterProfile.fromJson(json);

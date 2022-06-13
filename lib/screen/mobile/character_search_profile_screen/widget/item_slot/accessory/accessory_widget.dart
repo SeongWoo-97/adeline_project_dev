@@ -52,8 +52,8 @@ List<Widget> accessorySlotWidget(BuildContext context, List<Accessory?> accessor
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: 40,
-                  height: 40,
+                  width: 44,
+                  height: 44,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.network(
@@ -61,8 +61,8 @@ List<Widget> accessorySlotWidget(BuildContext context, List<Accessory?> accessor
                     ),
                   ),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(5),
                     gradient: LinearGradient(
                       end: Alignment.topLeft,
                       begin: Alignment.bottomRight,
@@ -318,8 +318,8 @@ List<Widget> accessorySlotWidget(BuildContext context, List<Accessory?> accessor
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: 40,
-                height: 40,
+                width: 44,
+                height: 44,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
@@ -409,8 +409,8 @@ List<Color> gradeColors(int? grade) {
         list.add(Color.fromRGBO(52, 26, 9, 1));
         break;
       case 6: // 고대
-        list.add(Color.fromRGBO(61, 51, 37, .6));
         list.add(Color.fromRGBO(220, 201, 153, 1));
+        list.add(Color.fromRGBO(61, 51, 37, 1));
         break;
       case 7: // 에스더
         list.add(Color.fromRGBO(12, 46, 44, .6));
