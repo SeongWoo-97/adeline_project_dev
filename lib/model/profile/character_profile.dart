@@ -5,10 +5,12 @@ import 'package:adeline_app/model/profile/ability_tendecy/ability_tendecy.dart';
 import 'package:adeline_app/model/profile/accessory_list/accessory_list.dart';
 import 'package:adeline_app/model/profile/attack_basic/attack_basic.dart';
 import 'package:adeline_app/model/profile/card/card.dart';
+import 'package:adeline_app/model/profile/collection/collectivePoint.dart';
 import 'package:adeline_app/model/profile/equip_engrave/equip_engrave.dart';
 import 'package:adeline_app/model/profile/equip_list/equip_list.dart';
 import 'package:adeline_app/model/profile/gem/gem.dart';
 import 'package:adeline_app/model/profile/info/info.dart';
+import 'package:adeline_app/model/profile/skill/skill.dart';
 import 'package:flutter/cupertino.dart';
 
 class CharacterProfile extends ChangeNotifier {
@@ -18,12 +20,14 @@ class CharacterProfile extends ChangeNotifier {
   AbilityBattle? abilityBattle;
   AbilityEngraveList? abilityEngraveList;
   AbilityTendecy? abilityTendecy;
-  Card? card;
+  AbilityStone? abilityStone;
   EquipList? equipList;
   AccessoryList? accessoryList;
+  CardModel? card;
   List<Gem>? gem;
-  AbilityStone? abilityStone;
   List<EquipEngrave>? equipEngrave;
+  List<Skill>? skillList;
+  CollectivePoint? collectivePoint;
 
   CharacterProfile({
     this.result,
@@ -38,11 +42,14 @@ class CharacterProfile extends ChangeNotifier {
     this.gem,
     this.abilityStone,
     this.equipEngrave,
+    this.skillList,
+    this.collectivePoint,
   });
 
   factory CharacterProfile.fromJson(Map<String, dynamic> json) {
     List<Gem> gem = [];
     List<EquipEngrave> equipEngrave = [];
+    List<Skill> skillList = [];
     if (json['gem'] != null) {
       json['gem'].forEach((v) {
         gem.add(Gem.fromJson(v));
@@ -53,6 +60,11 @@ class CharacterProfile extends ChangeNotifier {
         equipEngrave.add(EquipEngrave.fromJson(v));
       });
     }
+    if (json['skill_list'].length != 0) {
+      json['skill_list'].forEach((v) {
+        skillList.add(Skill.fromJson(v));
+      });
+    }
     return CharacterProfile(
       result: json['result'],
       info: json['info'] != null ? Info.fromJson(json['info']) : null,
@@ -60,12 +72,14 @@ class CharacterProfile extends ChangeNotifier {
       abilityBattle: json['ability_battle'] != null ? AbilityBattle.fromJson(json['ability_battle']) : null,
       abilityTendecy: json['ability_tendecy'] != null ? AbilityTendecy.fromJson(json['ability_tendecy']) : null,
       abilityEngraveList: json['ability_engrave_list'] != null ? AbilityEngraveList.fromJson(json['ability_engrave_list']) : null,
-      card: json['card'] != null ? Card.fromJson(json['card']) : null,
+      card: json['card'] != null ? CardModel.fromJson(json['card']) : null,
       equipList: json['equip_list'] != null ? EquipList.fromJson(json['equip_list']) : null,
       accessoryList: json['accessory_list'] != null ? AccessoryList.fromJson(json['accessory_list']) : null,
       gem: gem,
       abilityStone: json['ability_stone'].length != 0 ? AbilityStone.fromJson(json['ability_stone']) : null,
       equipEngrave: equipEngrave,
+      skillList: skillList,
+      collectivePoint: json['collective_point'] != null ? CollectivePoint.fromJson(json['collective_point']) : null,
     );
   }
 }

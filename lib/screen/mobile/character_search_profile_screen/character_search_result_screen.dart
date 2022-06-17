@@ -1,19 +1,18 @@
 import 'dart:convert';
-import 'package:adeline_app/model/profile/accessory_list/accessory/accessory.dart';
-import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/ability_stone_widget.dart';
-import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/engrave_list.dart';
-import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/gem/gemSlotWidget.dart';
-import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/item_slot/accessory/accessory_widget.dart';
-import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/equip_engrave_widget.dart';
-import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/item_slot/armor/equip_armor_widget.dart';
-import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/item_slot/weapon/equip_weapon_widget.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/controller/menu_bar_controller.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/avatar_screen.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/card/card_screen.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/collection_screen.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/equip_screen.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/menu_bar.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/profile_info.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/skill/skill_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:async/async.dart';
 import 'package:provider/provider.dart';
+import 'package:expandable_page_view/expandable_page_view.dart';
 
 import '../../../model/profile/character_profile.dart';
 import '../../../model/profile/character_profile_provider.dart';
@@ -29,65 +28,70 @@ class CharacterSearchResultScreen extends StatefulWidget {
 
 class _CharacterSearchResultScreenState extends State<CharacterSearchResultScreen> {
   final AsyncMemoizer memoizer = AsyncMemoizer();
+  PageController controller = PageController();
+  int _currentIndex = 0;
+
+  void onPageChanged(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    MenuBarController menuBarController = Provider.of<MenuBarController>(context, listen: false);
     return PlatformScaffold(
         appBar: PlatformAppBar(title: Text('캐릭터 정보')),
-        body: SingleChildScrollView(
-          child: FutureBuilder(
-            future: fetchCharacterProfile(context),
-            builder: (context, AsyncSnapshot snapshot) {
-              if (snapshot.hasError) {
-                return Center(child: Text('에러가 발생하였습니다. 개발자에게 문의 바랍니다.'));
-              } else if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasData && snapshot.data != null) {
-                return Column(
+        body: FutureBuilder(
+          future: fetchCharacterProfile(context),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.hasError) {
+              return Center(child: Text('에러가 발생하였습니다. 개발자에게 문의 바랍니다.'));
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasData && snapshot.data != null) {
+              return SingleChildScrollView(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     ProfileInfoWidget(),
                     Card(
-                      margin: const EdgeInsets.fromLTRB(5, 5, 5, 0),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           MenuBarWidget(),
-                          Row(
+                          ExpandablePageView(
+                            controller: menuBarController.pageController,
+                            onPageChanged: (value) => menuBarController.menuOnChanged(value),
                             children: [
-                              EquipWidget(),
-                              AccessoryWidget(),
+                              EquipScreen(),
+                              SkillScreen(),
+                              CollectionScreen(),
+                              AvatarScreen(),
                             ],
                           ),
-                          GemSlotWidget(),
-                          AbilityStoneWidget(),
                         ],
                       ),
-                    ),
-                    Card(
-                      margin: const EdgeInsets.fromLTRB(5, 5, 5, 0),
-                      child: EngraveEffectWidget(),
                     )
                   ],
-                );
-              }
-              return Center(child: CircularProgressIndicator());
-            },
-          ),
+                ),
+              );
+            }
+            return Center(child: CircularProgressIndicator());
+          },
         ));
   }
-
   fetchCharacterProfile(BuildContext context) async {
     return this.memoizer.runOnce(() async {
       try {
-        http.Response response = await http.get(Uri.parse('http://132.226.22.9:3380/lobox/성우웅'));
+        http.Response response = await http.get(Uri.parse('http://132.226.22.9:3380/lobox/duggy2'));
         Map<String, dynamic> json = jsonDecode(response.body);
         CharacterProfileProvider characterProfileProvider = Provider.of<CharacterProfileProvider>(context, listen: false);
         characterProfileProvider.profile = CharacterProfile.fromJson(json);
         return characterProfileProvider;
       } catch (e) {
-        print(e);
+        print('에러 : $e');
       }
     });
   }

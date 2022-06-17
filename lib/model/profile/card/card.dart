@@ -1,4 +1,4 @@
-class Card {
+class CardModel {
   List<String>? cardName;
   List<String>? cardImgUrl;
   List<String>? cardCount;
@@ -6,10 +6,10 @@ class Card {
   List<String>? cardEffectTitle;
   List<String>? cardEffectDes;
 
-  Card({this.cardName, this.cardImgUrl, this.cardCount, this.cardMax, this.cardEffectTitle, this.cardEffectDes});
+  CardModel({this.cardName, this.cardImgUrl, this.cardCount, this.cardMax, this.cardEffectTitle, this.cardEffectDes});
 
-  factory Card.fromJson(Map<String, dynamic> json) {
-    return Card(
+  factory CardModel.fromJson(Map<String, dynamic> json) {
+    return CardModel(
       cardName: json['card_name'].cast<String>(),
       cardImgUrl: json['card_img_url'].cast<String>(),
       cardCount: json['card_count'].cast<String>(),

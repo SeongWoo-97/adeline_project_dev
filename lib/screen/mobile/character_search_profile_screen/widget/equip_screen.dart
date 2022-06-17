@@ -1,0 +1,49 @@
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/ability_info.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/ability_stone_widget.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/card/card_screen.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/engrave_list.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/gem/gemSlotWidget.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/item_slot/accessory/accessory_widget.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/item_slot/armor/equip_armor_widget.dart';
+
+import 'package:flutter/material.dart';
+
+
+class EquipScreen extends StatefulWidget {
+  const EquipScreen({Key? key}) : super(key: key);
+
+  @override
+  State<EquipScreen> createState() => _EquipScreenState();
+}
+
+class _EquipScreenState extends State<EquipScreen> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          children: [
+            EquipWidget(),
+            AccessoryWidget(),
+          ],
+        ),
+        GemSlotWidget(),
+        AbilityStoneWidget(),
+        Divider(indent: 10,endIndent: 10,),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AbilityInfoWidget(),
+            EngraveEffectWidget(),
+          ],
+        ),
+        CardWidget(),
+      ],
+    );
+  }
+}

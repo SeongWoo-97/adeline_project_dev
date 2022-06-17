@@ -24,6 +24,7 @@ class GemSlotWidget extends StatelessWidget {
         gems.add(
           Flexible(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text('Lv.${gem.title!.replaceAll(RegExp(r'[^0-9]'), '')}', style: Theme.of(context).textTheme.caption),
                 Container(
@@ -52,6 +53,7 @@ class GemSlotWidget extends StatelessWidget {
       });
     }
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: gems,
     );
   }

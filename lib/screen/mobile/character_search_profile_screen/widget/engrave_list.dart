@@ -1,8 +1,4 @@
-import 'package:adeline_app/model/profile/ability_stone/ability_stone.dart';
-import 'package:adeline_app/screen/mobile/character_search_profile_screen/controller/slot_Color.dart';
-import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/equip_engrave_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:adeline_app/model/profile/character_profile_provider.dart';
 
@@ -21,25 +17,32 @@ class EngraveEffectWidget extends StatelessWidget {
         margin: EdgeInsets.all(5),
         child: Row(
           children: [
-            ClipOval(
-              child: Image.asset('assets/engrave/${path}.png'),
+            Padding(
+              padding: const EdgeInsets.only(left: 5, right: 5),
+              child: ClipOval(
+                child: Image.asset('assets/engrave/${path}.png'),
+              ),
             ),
             Text('${profileProvider.profile.abilityEngraveList!.engraveName![i]}')
           ],
         ),
       ));
     }
-    return Container(
-      child: Column(
-        children: list,
+    return Flexible(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              '각인 효과',
+              style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Color(0xFFA9D0F5)),
+            ),
+            Column(mainAxisSize: MainAxisSize.min, children: list),
+          ],
+        ),
       ),
     );
   }
-}
-
-class TempEngrave {
-  String name = "";
-  String des = "";
-
-  TempEngrave(this.name, this.des);
 }

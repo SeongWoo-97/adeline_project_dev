@@ -46,7 +46,6 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
     return PlatformScaffold(
         appBar: PlatformAppBar(
           title: Text('분배금 계산기'),
@@ -71,7 +70,6 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
                       elevation: 0,
                       defaultSelected: 4,
                       buttonTextStyle: ButtonTextStyle(
-                        textStyle: Theme.of(context).textTheme.bodyText1,
                         selectedColor: DarkMode.isDarkMode.value ? Colors.white : Colors.black,
                         unSelectedColor: DarkMode.isDarkMode.value ? Colors.white : Colors.black,
                       ),

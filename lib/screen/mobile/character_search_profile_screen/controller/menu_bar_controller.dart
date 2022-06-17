@@ -2,7 +2,17 @@ import 'package:flutter/cupertino.dart';
 
 class MenuBarController extends ChangeNotifier {
   int tag = 0;
-  List<String> options = ['장비', '스킬', '수집', '아바타'];
+  PageController pageController = PageController();
+
+  void menuOnChanged(int value) {
+    tag = value;
+    notifyListeners();
+  }
+}
+
+class CollectionMenuBarController extends ChangeNotifier {
+  int tag = 0;
+  PageController pageController = PageController();
 
   void menuOnChanged(int value) {
     tag = value;

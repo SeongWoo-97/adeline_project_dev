@@ -82,10 +82,7 @@ List<Widget> armorSlotWidget(BuildContext context, List<ArmorEquip?> armorEquips
                           alignment: Alignment.topLeft,
                           child: Text(
                             armorEquips[i]!.itemName.toString(),
-                            style: Theme.of(context).textTheme.caption?.copyWith(
-                                  height: 1.2,
-                                  color: nameColor,
-                                ),
+                            style: Theme.of(context).textTheme.caption?.copyWith(height: 1.2, color: nameColor),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),

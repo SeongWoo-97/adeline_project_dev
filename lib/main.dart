@@ -59,7 +59,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => EventNoticeProvider()),
         ChangeNotifierProvider(create: (context) => CharacterProfileProvider(profile: CharacterProfile())),
         ChangeNotifierProvider(create: (context) => MenuBarController()),
-
+        ChangeNotifierProvider(create: (context) => CollectionMenuBarController()),
       ],
       child: MyApp(),
     ),

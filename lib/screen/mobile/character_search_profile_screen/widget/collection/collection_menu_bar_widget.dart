@@ -1,32 +1,36 @@
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/controller/menu_bar_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'collection/collection_menu_bar_widget.dart';
 
-class MenuBarWidget extends StatefulWidget {
-  const MenuBarWidget({Key? key}) : super(key: key);
+class CollectionMenuBarWidget extends StatefulWidget {
+  const CollectionMenuBarWidget({Key? key}) : super(key: key);
 
   @override
-  State<MenuBarWidget> createState() => _MenuBarWidgetState();
+  State<CollectionMenuBarWidget> createState() => _CollectionMenuBarWidgetState();
 }
 
-class _MenuBarWidgetState extends State<MenuBarWidget> {
+class _CollectionMenuBarWidgetState extends State<CollectionMenuBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Flexible(
           child: Container(
-            height: 45,
-            child: Consumer<MenuBarController>(
+            height: 25,
+            child: Consumer<CollectionMenuBarController>(
               builder: (context, instance, child) {
+                print('리로드해야될텐데?');
                 List<ElevatedButton> buttons = [];
-                MenuBarController controller = Provider.of<MenuBarController>(context, listen: false);
+                CollectionMenuBarController controller = Provider.of<CollectionMenuBarController>(context, listen: false);
                 List<CollectionButton> options = [
-                  CollectionButton(0, '장비'),
-                  CollectionButton(1, '스킬'),
-                  CollectionButton(2, '수집'),
-                  CollectionButton(3, '아바타')
+                  CollectionButton(0, '섬의 마음'),
+                  CollectionButton(1, '오르페우스의 별'),
+                  CollectionButton(2, '거인의 심장'),
+                  CollectionButton(3, '위대한 미술품'),
+                  CollectionButton(4, '모코코 씨앗'),
+                  CollectionButton(5, '항해 모험물'),
+                  CollectionButton(6, '이그네아의 징표'),
+                  CollectionButton(7, '세계수의 잎'),
                 ];
                 options.forEach((element) {
                   buttons.add(
@@ -36,8 +40,8 @@ class _MenuBarWidgetState extends State<MenuBarWidget> {
                           side: BorderSide(color: Colors.transparent),
                           onPrimary: element.index == controller.tag ? Theme.of(context).focusColor : Colors.grey,
                           textStyle: element.index == controller.tag
-                              ? Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold)
-                              : Theme.of(context).textTheme.bodyText1?.copyWith(),
+                              ? Theme.of(context).textTheme.bodyText2?.copyWith(fontWeight: FontWeight.bold)
+                              : Theme.of(context).textTheme.bodyText2?.copyWith(),
                           splashFactory: NoSplash.splashFactory),
                       onPressed: () {
                         controller.pageController.jumpToPage(element.index);
@@ -58,4 +62,11 @@ class _MenuBarWidgetState extends State<MenuBarWidget> {
       ],
     );
   }
+}
+
+class CollectionButton {
+  int index;
+  String name;
+
+  CollectionButton(this.index, this.name);
 }
