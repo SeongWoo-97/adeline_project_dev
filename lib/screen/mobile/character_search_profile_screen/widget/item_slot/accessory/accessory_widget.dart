@@ -328,15 +328,7 @@ List<Widget> accessorySlotWidget(BuildContext context, List<Accessory?> accessor
                 ),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(8),
-                  gradient: LinearGradient(
-                    end: Alignment.topLeft,
-                    begin: Alignment.bottomRight,
-                    colors: [
-                      Color.fromRGBO(61, 51, 37, .6),
-                      Color.fromRGBO(220, 201, 153, 1),
-                    ],
-                  ),
+                  borderRadius: BorderRadius.circular(5),
                 ),
               ),
               Flexible(

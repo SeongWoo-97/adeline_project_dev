@@ -101,6 +101,9 @@ flutter:
     - assets/job/
     - assets/engrave/
     - assets/collectionImage/
+    - assets/card/
+    - assets/emptySlot/avatar/not_over/
+    - assets/emptySlot/avatar/over/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

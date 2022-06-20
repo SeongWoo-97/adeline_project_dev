@@ -95,4 +95,35 @@ class slotColor {
     }
     return color;
   }
+  static Color cardNameColor(int? grade) {
+    Color color = Colors.white;
+    if (grade != null) {
+      switch (grade) {
+        case 1: // 고급
+          color = Color(0xFFFFFFFF);
+          break;
+        case 2: // 희귀
+          color = Color(0xFF8DF901);
+          break;
+        case 3: // 영웅
+          color = Color(0xFF00B0FA);
+          break;
+        case 4: // 전설
+          color = Color(0xFFce43fc);
+          break;
+        case 5: // 유물
+          color = Color(0xFFF99200);
+          break;
+        case 6: // 고대
+          color = Color(0xFFE3C7A1);
+          break;
+        case 7: // 에스더
+          color = Color(0xFF3CF2E6);
+          break;
+        default:
+          break;
+      }
+    }
+    return color;
+  }
 }

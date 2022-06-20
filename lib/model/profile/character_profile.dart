@@ -4,6 +4,7 @@ import 'package:adeline_app/model/profile/ability_stone/ability_stone.dart';
 import 'package:adeline_app/model/profile/ability_tendecy/ability_tendecy.dart';
 import 'package:adeline_app/model/profile/accessory_list/accessory_list.dart';
 import 'package:adeline_app/model/profile/attack_basic/attack_basic.dart';
+import 'package:adeline_app/model/profile/avatar_list/avatar_list.dart';
 import 'package:adeline_app/model/profile/card/card.dart';
 import 'package:adeline_app/model/profile/collection/collectivePoint.dart';
 import 'package:adeline_app/model/profile/equip_engrave/equip_engrave.dart';
@@ -22,6 +23,7 @@ class CharacterProfile extends ChangeNotifier {
   AbilityTendecy? abilityTendecy;
   AbilityStone? abilityStone;
   EquipList? equipList;
+  AvatarList? avatarList;
   AccessoryList? accessoryList;
   CardModel? card;
   List<Gem>? gem;
@@ -29,22 +31,22 @@ class CharacterProfile extends ChangeNotifier {
   List<Skill>? skillList;
   CollectivePoint? collectivePoint;
 
-  CharacterProfile({
-    this.result,
-    this.info,
-    this.attackBasic,
-    this.abilityBattle,
-    this.abilityEngraveList,
-    this.abilityTendecy,
-    this.card,
-    this.equipList,
-    this.accessoryList,
-    this.gem,
-    this.abilityStone,
-    this.equipEngrave,
-    this.skillList,
-    this.collectivePoint,
-  });
+  CharacterProfile(
+      {this.result,
+      this.info,
+      this.attackBasic,
+      this.abilityBattle,
+      this.abilityEngraveList,
+      this.abilityTendecy,
+      this.card,
+      this.equipList,
+      this.accessoryList,
+      this.gem,
+      this.abilityStone,
+      this.equipEngrave,
+      this.skillList,
+      this.collectivePoint,
+      this.avatarList});
 
   factory CharacterProfile.fromJson(Map<String, dynamic> json) {
     List<Gem> gem = [];
@@ -80,6 +82,7 @@ class CharacterProfile extends ChangeNotifier {
       equipEngrave: equipEngrave,
       skillList: skillList,
       collectivePoint: json['collective_point'] != null ? CollectivePoint.fromJson(json['collective_point']) : null,
+      avatarList: json['avatar'] != null ? AvatarList.fromJson(json['avatar']) : null,
     );
   }
 }

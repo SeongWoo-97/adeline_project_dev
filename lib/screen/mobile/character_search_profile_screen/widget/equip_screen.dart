@@ -1,6 +1,7 @@
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/ability_info.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/ability_stone_widget.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/card/card_screen.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/card/card_set_effect_widget.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/engrave_list.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/gem/gemSlotWidget.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/item_slot/accessory/accessory_widget.dart';
@@ -34,7 +35,6 @@ class _EquipScreenState extends State<EquipScreen> with AutomaticKeepAliveClient
         ),
         GemSlotWidget(),
         AbilityStoneWidget(),
-        Divider(indent: 10,endIndent: 10,),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -42,7 +42,12 @@ class _EquipScreenState extends State<EquipScreen> with AutomaticKeepAliveClient
             EngraveEffectWidget(),
           ],
         ),
-        CardWidget(),
+        Column(
+          children: [
+            CardSetEffectWidget(),
+            CardWidget(),
+          ],
+        )
       ],
     );
   }

@@ -19,7 +19,6 @@ class _CollectionMenuBarWidgetState extends State<CollectionMenuBarWidget> {
             height: 25,
             child: Consumer<CollectionMenuBarController>(
               builder: (context, instance, child) {
-                print('리로드해야될텐데?');
                 List<ElevatedButton> buttons = [];
                 CollectionMenuBarController controller = Provider.of<CollectionMenuBarController>(context, listen: false);
                 List<CollectionButton> options = [

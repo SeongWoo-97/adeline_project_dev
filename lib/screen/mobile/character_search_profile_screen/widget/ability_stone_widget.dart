@@ -247,12 +247,16 @@ class AbilityStoneWidget extends StatelessWidget {
             ),
             Divider(endIndent: 10, indent: 5),
             EquipEngraveWidget(),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Divider(endIndent: 10, indent: 5, height: 1),
+            ),
           ],
         ),
       );
     }
     return Padding(
-      padding: const EdgeInsets.fromLTRB(5, 5, 0, 10),
+      padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
       child: Column(
         children: [
           Row(
@@ -266,21 +270,25 @@ class AbilityStoneWidget extends StatelessWidget {
                     'https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot12.png',
                   ),
                 ),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(5),
+                ),
               ),
               Flexible(
                 child: Container(
-                  padding: EdgeInsets.only(left: 5),
+                  padding: const EdgeInsets.only(left: 5),
                   height: 44,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(
-                        '장착된 아이템 없음',
-                        style: Theme.of(context).textTheme.caption?.copyWith(
-                              height: 1.2,
-                            ),
-                        overflow: TextOverflow.ellipsis,
+                      Padding(
+                        padding: const EdgeInsets.only(top: 3),
+                        child: Text(
+                          '장착된 아이템 없음',
+                          style: Theme.of(context).textTheme.caption?.copyWith(),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ],
                   ),
@@ -288,9 +296,9 @@ class AbilityStoneWidget extends StatelessWidget {
               )
             ],
           ),
-          Divider(
-            endIndent: 10,
-            indent: 5,
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Divider(endIndent: 10, indent: 5, height: 1),
           ),
           EquipEngraveWidget(),
         ],

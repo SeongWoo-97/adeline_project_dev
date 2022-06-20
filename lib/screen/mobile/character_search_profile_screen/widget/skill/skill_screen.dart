@@ -27,7 +27,7 @@ class SkillScreen extends StatelessWidget {
       list.add(Card(
         margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 5, 0, 0),
+          padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

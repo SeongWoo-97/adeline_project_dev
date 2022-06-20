@@ -203,8 +203,8 @@ class BraceletWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 40,
-              height: 40,
+              width: 44,
+              height: 44,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(
@@ -213,15 +213,7 @@ class BraceletWidget extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8),
-                gradient: LinearGradient(
-                  end: Alignment.topLeft,
-                  begin: Alignment.bottomRight,
-                  colors: [
-                    Color.fromRGBO(61, 51, 37, .6),
-                    Color.fromRGBO(220, 201, 153, 1),
-                  ],
-                ),
+                borderRadius: BorderRadius.circular(5),
               ),
             ),
             Flexible(

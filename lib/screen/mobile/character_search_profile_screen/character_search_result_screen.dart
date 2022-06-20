@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/controller/menu_bar_controller.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/avatar_screen.dart';
-import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/card/card_screen.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/collection_screen.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/equip_screen.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/menu_bar.dart';
@@ -29,13 +28,6 @@ class CharacterSearchResultScreen extends StatefulWidget {
 class _CharacterSearchResultScreenState extends State<CharacterSearchResultScreen> {
   final AsyncMemoizer memoizer = AsyncMemoizer();
   PageController controller = PageController();
-  int _currentIndex = 0;
-
-  void onPageChanged(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,42 +42,45 @@ class _CharacterSearchResultScreenState extends State<CharacterSearchResultScree
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasData && snapshot.data != null) {
-              return SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ProfileInfoWidget(),
-                    Card(
-                      child: Column(
-                        children: [
-                          MenuBarWidget(),
-                          ExpandablePageView(
-                            controller: menuBarController.pageController,
-                            onPageChanged: (value) => menuBarController.menuOnChanged(value),
-                            children: [
-                              EquipScreen(),
-                              SkillScreen(),
-                              CollectionScreen(),
-                              AvatarScreen(),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+              return ScrollConfiguration(
+                behavior: CustomScroll(),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ProfileInfoWidget(),
+                      Card(
+                        child: Column(
+                          children: [
+                            MenuBarWidget(),
+                            ExpandablePageView(
+                              controller: menuBarController.pageController,
+                              onPageChanged: (value) => menuBarController.menuOnChanged(value),
+                              children: [
+                                EquipScreen(),
+                                SkillScreen(),
+                                CollectionScreen(),
+                                AvatarScreen(),
+                              ],
+                            ),
+                          ],
+                        )
+                      )
+                    ],
+                  )
                 ),
               );
             }
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator(),);
           },
         ));
   }
   fetchCharacterProfile(BuildContext context) async {
     return this.memoizer.runOnce(() async {
       try {
-        http.Response response = await http.get(Uri.parse('http://132.226.22.9:3380/lobox/duggy2'));
+        http.Response response = await http.get(Uri.parse('http://132.226.22.9:3380/lobox/성우웅'));
         Map<String, dynamic> json = jsonDecode(response.body);
         CharacterProfileProvider characterProfileProvider = Provider.of<CharacterProfileProvider>(context, listen: false);
         characterProfileProvider.profile = CharacterProfile.fromJson(json);
@@ -94,5 +89,12 @@ class _CharacterSearchResultScreenState extends State<CharacterSearchResultScree
         print('에러 : $e');
       }
     });
+  }
+}
+class CustomScroll extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
   }
 }

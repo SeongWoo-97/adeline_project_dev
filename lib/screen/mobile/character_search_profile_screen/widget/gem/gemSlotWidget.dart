@@ -31,11 +31,7 @@ class GemSlotWidget extends StatelessWidget {
                   width: 30,
                   height: 30,
                   margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                  child: ClipOval(
-                    child: Image.network(
-                      'https://cdn-lostark.game.onstove.com/' + gem.imgUrl.toString(),
-                    ),
-                  ),
+                  child: ClipOval(child: Image.network('https://cdn-lostark.game.onstove.com/' + gem.imgUrl.toString())),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.transparent),
                     borderRadius: BorderRadius.circular(5),

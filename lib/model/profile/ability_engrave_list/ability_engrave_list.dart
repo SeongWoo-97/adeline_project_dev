@@ -18,8 +18,8 @@ class AbilityEngraveList {
       });
     }
     return AbilityEngraveList(
-      engraveName: json['engrave_name'].length != 0 ? engraveName : null,
-      engraveDes: json['engrave_des'].length != 0 ? engraveDes : null,
+      engraveName: json['engrave_name'].length != 0 ? engraveName : [],
+      engraveDes: json['engrave_des'].length != 0 ? engraveDes : [],
     );
   }
 }
