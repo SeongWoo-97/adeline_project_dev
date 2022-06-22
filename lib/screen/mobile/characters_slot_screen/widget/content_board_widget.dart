@@ -15,10 +15,9 @@ class _ContentBoardWidgetState extends State<ContentBoardWidget> {
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
-    print('ContentBoardWidget.dart');
     return Container(
       height: 76,
-      margin: EdgeInsets.only(left: 3),
+      margin: EdgeInsets.only(left: 0),
       child: ListView(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,

@@ -24,14 +24,13 @@ class CharacterSlotWidget extends StatefulWidget {
 class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
   @override
   Widget build(BuildContext context) {
-    print('CharacterSlotWidget.dart');
     UserProvider userProvider = Provider.of<UserProvider>(context);
     return Expanded(
       child: ListView.builder(
         itemCount: userProvider.charactersProvider.characters.length,
         itemBuilder: (context, characterIndex) {
           return Padding(
-            padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+            padding: const EdgeInsets.fromLTRB(5, 3, 5, 5),
             child: Card(
               clipBehavior: Clip.antiAlias,
               margin: EdgeInsets.zero,
@@ -43,6 +42,17 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                   bool dailySummaryIcon = false;
                   bool weeklySummaryIcon = false;
                   bool goldSummaryIcon = false;
+                  userProvider.charactersProvider.characters[characterIndex].weeklyContents.forEach((element) {
+                    if (element.isChecked) {
+                      userProvider.charactersProvider.characters[characterIndex].options.contains('주간')
+                          ? null
+                          : userProvider.charactersProvider.characters[characterIndex].options.insert(0, '주간');
+                      weeklySummaryIcon = true;
+                    }
+                    if (element.isChecked && !element.clearChecked) {
+                      weeklyNotClear = true;
+                    }
+                  });
                   userProvider.charactersProvider.characters[characterIndex].dailyContents.forEach((element) {
                     if (element.isChecked) {
                       userProvider.charactersProvider.characters[characterIndex].options.contains('일일')
@@ -62,18 +72,6 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                       }
                     }
                   });
-                  userProvider.charactersProvider.characters[characterIndex].weeklyContents.forEach((element) {
-                    if (element.isChecked) {
-                      userProvider.charactersProvider.characters[characterIndex].options.contains('주간')
-                          ? null
-                          : userProvider.charactersProvider.characters[characterIndex].options.insert(0, '주간');
-                      weeklySummaryIcon = true;
-                    }
-                    if (element.isChecked && !element.clearChecked) {
-                      weeklyNotClear = true;
-                    }
-                  });
-
                   userProvider.charactersProvider.characters[characterIndex].goldContents.forEach((element) {
                     if (element.isChecked) {
                       goldSummaryIcon = true;
@@ -410,10 +408,13 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
 
     userProvider.charactersProvider.characters[characterIndex].goldContents.forEach(
       (element) {
-        if (element.isChecked == true && element.clearChecked == true && (level < element.getGoldLevelLimit) && (level >= element.enterLevelLimit)) {
+        if (element.isChecked == true &&
+            element.clearChecked == true &&
+            (level < element.getGoldLevelLimit) &&
+            (level >= element.enterLevelLimit)) {
           weeklyGold += element.addGold;
           weeklyGold += element.clearGold;
-        } else if(element.isChecked && element.clearChecked && element.clearGold >= 0){
+        } else if (element.isChecked && element.clearChecked && element.clearGold >= 0) {
           weeklyGold += element.addGold;
         }
       },

@@ -142,7 +142,7 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
                 SettingsTile.navigation(
                   title: Text('출처', style: Theme.of(context).textTheme.bodyText1),
                   value: Text(
-                    '앱에서 사용된 이미지의 출처를 적어 놓았습니다.',
+                    '앱에서 사용된 이미지와 API 출처를 적어 놓았습니다.',
                     style: Theme.of(context).textTheme.caption,
                   ),
                   onPressed: (context) => Navigator.push(context, MaterialPageRoute(builder: (context) => SourcesScreen())),

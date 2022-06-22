@@ -38,6 +38,7 @@ class _CharactersSlotScreenState extends State<CharactersSlotScreen> with Automa
 
   // DateTime nowDate = DateTime.utc(2022, 5, 25, 10);
   DateTime nowDate = DateTime.now();
+  DateTime init6AmTime = DateTime.utc(DateTime.now().year, DateTime.now().month, DateTime.now().day, 6);
 
   @override
   void initState() {
@@ -109,8 +110,10 @@ class _CharactersSlotScreenState extends State<CharactersSlotScreen> with Automa
       },
     ); // 휴식게이지 로직
     // 원정대 일일 콘텐츠 초기화 로직
-    if (expedition.recentInitDateTime.day != nowDate.day && nowDate.hour >= 6) {
-      expedition.recentInitDateTime = nowDate;
+
+    // print('nowDate.isAfter(init6AmTime) : ${nowDate.isAfter(init6AmTime)}');
+    if (expedition.recentInitDateTime.isAfter(init6AmTime) == false && nowDate.isAfter(init6AmTime) == false) {
+      expedition.recentInitDateTime = DateTime.now().toUtc().add(Duration(hours: 9));
       expedition.list.forEach(
         (expeditionContent) {
           if (expeditionContent.type == "일일") {
@@ -132,7 +135,6 @@ class _CharactersSlotScreenState extends State<CharactersSlotScreen> with Automa
       expedition.list.forEach(
         (expeditionContent) {
           if (expeditionContent.type == "주간") {
-            // print('원정대 주간초기화 : ${expeditionContent.name} , ${expeditionContent.clearCheck}');
             expeditionContent.clearCheck = false;
           }
         },
@@ -148,7 +150,6 @@ class _CharactersSlotScreenState extends State<CharactersSlotScreen> with Automa
         });
       });
     }
-
     Hive.box<User>('characters').put('user', User(characters: characterList));
     Hive.box<Expedition>('expedition').put('expeditionList', expedition);
   }
@@ -160,15 +161,12 @@ class _CharactersSlotScreenState extends State<CharactersSlotScreen> with Automa
   Widget build(BuildContext context) {
     super.build(context);
     UserProvider userProvider = Provider.of<UserProvider>(context);
-    ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context,listen: false);
+    ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context, listen: false);
     userProvider.updateContentBoard();
     userProvider.updateTotalGold();
     expeditionProvider.expedition = expedition;
     userProvider.charactersProvider.characters = characterList;
     return PlatformScaffold(
-      material: (_, __) => MaterialScaffoldData(
-        drawer: Container(width: 230, child: DrawerScreen()),
-      ),
       appBar: PlatformAppBar(
         title: Text('숙제 관리'),
         trailingActions: [
@@ -182,7 +180,12 @@ class _CharactersSlotScreenState extends State<CharactersSlotScreen> with Automa
                     backgroundColor: Colors.grey,
                     timeInSecForIosWeb: 2,
                     fontSize: 14.0);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavigationScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BottomNavigationScreen(
+                              index: 1,
+                            )));
               },
               icon: Icon(Icons.refresh_outlined)),
           CustomPopupMenu(
@@ -202,6 +205,94 @@ class _CharactersSlotScreenState extends State<CharactersSlotScreen> with Automa
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () async {
+                          _customPopupMenuController.hideMenu();
+                          showPlatformDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('안내'),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [Text('수동 초기화를 진행하시겠습니까?\n단, 휴식콘텐츠는 초기화가 되지 않습니다.')],
+                                  ),
+                                  actions: [
+                                    PlatformDialogAction(
+                                      child: Text('네'),
+                                      onPressed: () {
+                                        if (expedition.nextWednesday.weekday == 3) {
+                                          expedition.nextWednesday = nowDate.add(Duration(days: 7));
+                                        } else {
+                                          while (expedition.nextWednesday.weekday != 3) {
+                                            expedition.nextWednesday = nowDate.add(Duration(days: 1));
+                                          }
+                                        }
+                                        expedition.list.forEach(
+                                          (expeditionContent) {
+                                            if (expeditionContent.type == "일일") {
+                                              expeditionContent.clearCheck = false;
+                                            }
+                                            if (expeditionContent.type == "주간") {
+                                              expeditionContent.clearCheck = false;
+                                            }
+                                          },
+                                        );
+                                        characterList.forEach((character) {
+                                          character.weeklyContents.forEach((weeklyContent) {
+                                            weeklyContent.clearChecked = false;
+                                          });
+                                          character.goldContents.forEach((goldContent) {
+                                            goldContent.clearChecked = false;
+                                            goldContent.clearGold = 0;
+                                            goldContent.addGold = 0;
+                                          });
+                                        });
+                                        Hive.box<User>('characters').put('user', User(characters: characterList));
+                                        Hive.box<Expedition>('expedition').put('expeditionList', expedition);
+                                        print('변경된 초기화 날짜 : ${expedition.nextWednesday}');
+                                        Navigator.pop(context);
+                                        Fluttertoast.showToast(
+                                            msg: "새로고침이 완료 되었습니다.",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            backgroundColor: Colors.grey,
+                                            timeInSecForIosWeb: 2,
+                                            fontSize: 14.0);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => BottomNavigationScreen(
+                                                      index: 1,
+                                                    )));
+                                      },
+                                    ),
+                                    PlatformDialogAction(
+                                      child: Text('아니요'),
+                                      onPressed: (){},
+                                    ),
+                                  ],
+                                );
+                              });
+                        },
+                        child: Container(
+                          height: 40,
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  child: Text(
+                                    '수동 초기화',
+                                    style: TextStyle(fontSize: 15, color: Colors.black),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                       GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: () async {

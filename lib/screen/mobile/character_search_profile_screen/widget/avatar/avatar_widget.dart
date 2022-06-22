@@ -191,10 +191,9 @@ class AvatarWidget extends StatelessWidget {
                                         ),
                                         Flexible(
                                           child: Container(
-                                            width: double.maxFinite,
-                                            child: Text(avatars[i]!.avatarEffect!.basicEffect!,
-                                                style: Theme.of(context).textTheme.caption)
-                                          ),
+                                              width: double.maxFinite,
+                                              child: Text(avatars[i]!.avatarEffect!.basicEffect!,
+                                                  style: Theme.of(context).textTheme.caption)),
                                         ),
                                         // 추가효과
                                         Padding(
@@ -202,27 +201,30 @@ class AvatarWidget extends StatelessWidget {
                                           child: Align(
                                             alignment: Alignment.centerLeft,
                                             child: Text(
-                                              '추가 효과',
+                                              '성향',
                                               style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                                     color: Color(0xFFA9D0F5),
                                                   ),
                                             ),
                                           ),
                                         ),
-                                        Flexible(
-                                          child: Container(
-                                            width: double.maxFinite,
-                                            child: ListView.builder(
-                                                itemCount: avatars[i]!.avatarEffect!.plusEffect?.length,
-                                                shrinkWrap: true,
-                                                physics: NeverScrollableScrollPhysics(),
-                                                itemBuilder: (context, index) {
-                                                  print('효과 : ${avatars[i]!.avatarEffect!.plusEffect![index]}');
-                                                  return Text(avatars[i]!.avatarEffect!.plusEffect![index],
-                                                      style: Theme.of(context).textTheme.caption);
-                                                }),
-                                          ),
-                                        ),
+                                        avatars[i]!.avatarEffect!.plusEffect != null
+                                            ? Flexible(
+                                                child: Container(
+                                                  width: double.maxFinite,
+                                                  child: ListView.builder(
+                                                    itemCount: avatars[i]!.avatarEffect!.plusEffect?.length,
+                                                    shrinkWrap: true,
+                                                    physics: NeverScrollableScrollPhysics(),
+                                                    itemBuilder: (context, index) {
+                                                      print('${avatars[i]!.name} ${avatars[i]!.avatarEffect!.plusEffect![index]}');
+                                                      return Text(avatars[i]!.avatarEffect!.plusEffect![index],
+                                                          style: Theme.of(context).textTheme.caption);
+                                                    },
+                                                  ),
+                                                ),
+                                              )
+                                            : Container()
                                       ],
                                     ),
                                   ),

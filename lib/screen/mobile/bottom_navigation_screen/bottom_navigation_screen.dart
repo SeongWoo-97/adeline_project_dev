@@ -8,8 +8,8 @@ import '../home_screen/home_screen.dart';
 import '../settings_screen/settings_screen.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
-  const BottomNavigationScreen({Key? key}) : super(key: key);
-
+  final int? index;
+  BottomNavigationScreen({this.index});
   @override
   State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
 }
@@ -20,7 +20,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Ti
   @override
   void initState() {
     super.initState();
-    tabController = TabController(initialIndex: 2, vsync: this, length: 4);
+    tabController = TabController(initialIndex: widget.index ?? 2, vsync: this, length: 4);
   }
 
   @override

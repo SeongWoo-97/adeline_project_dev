@@ -72,87 +72,98 @@ class _LostArkNoticeWidgetState extends State<LostArkNoticeWidget> {
                 builder: (context, instance, child) {
                   return Container(
                     height: 130,
-                    width: MediaQuery.of(context).size.width - 20,
+                    width: MediaQuery.of(context).size.width - 10,
                     child: FutureBuilder(
                       future: noticeProvider.fetchLostArkNotice(),
-                      builder: (context,snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: CircularProgressIndicator(
-                              color: DarkMode.isDarkMode.value ? Colors.grey : Colors.blue,
-                            ),
-                          );
-                        } else if (snapshot.connectionState == ConnectionState.done) {
-                          return RawScrollbar(
-                            thumbVisibility: true,
-                            controller: noticeProvider.scrollController,
-                            radius: Radius.circular(20),
-                            thumbColor: DarkMode.isDarkMode.value ? Colors.grey : Colors.grey,
-                            thickness: 4,
-                            child: ListView.builder(
-                              itemCount: noticeProvider.notices.length,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData == true) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: CircularProgressIndicator(
+                                color: DarkMode.isDarkMode.value ? Colors.grey : Colors.blue,
+                              ),
+                            );
+                          } else if (snapshot.connectionState == ConnectionState.done) {
+                            return RawScrollbar(
+                              thumbVisibility: true,
                               controller: noticeProvider.scrollController,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                if (noticeProvider.options[noticeProvider.tag] == "공지" &&
-                                    noticeProvider.notices[index].category == "공지") {
-                                  return InkWell(
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(15, 3, 5, 7),
-                                      child: Container(
-                                        child: Text(
-                                          "[${noticeProvider.notices[index].category}] ${noticeProvider.notices[index].title}",
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 15),
+                              radius: Radius.circular(20),
+                              crossAxisMargin: 5,
+                              thumbColor: DarkMode.isDarkMode.value ? Colors.grey : Colors.grey,
+                              thickness: 5,
+                              child: ListView.builder(
+                                itemCount: noticeProvider.notices.length,
+                                controller: noticeProvider.scrollController,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  if (noticeProvider.options[noticeProvider.tag] == "공지" &&
+                                      noticeProvider.notices[index].category == "공지") {
+                                    return InkWell(
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(15, 3, 5, 7),
+                                        child: Container(
+                                          child: Text(
+                                            "[${noticeProvider.notices[index].category}] ${noticeProvider.notices[index].title}",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 15),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    onTap: () {
-                                      LaunchUrl.launchURL("https://lostark.game.onstove.com" + noticeProvider.notices[index].url);
-                                    },
-                                  );
-                                } else if (noticeProvider.options[noticeProvider.tag] == "점검" &&
-                                    noticeProvider.notices[index].category == "점검") {
-                                  return InkWell(
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(15, 3, 5, 7),
-                                      child: Container(
-                                        child: Text(
-                                          "[${noticeProvider.notices[index].category}] ${noticeProvider.notices[index].title}",
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 15),
+                                      onTap: () {
+                                        LaunchUrl.launchURL(
+                                            "https://lostark.game.onstove.com" + noticeProvider.notices[index].url);
+                                      },
+                                    );
+                                  } else if (noticeProvider.options[noticeProvider.tag] == "점검" &&
+                                      noticeProvider.notices[index].category == "점검") {
+                                    return InkWell(
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(15, 3, 5, 7),
+                                        child: Container(
+                                          child: Text(
+                                            "[${noticeProvider.notices[index].category}] ${noticeProvider.notices[index].title}",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 15),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    onTap: () {
-                                      LaunchUrl.launchURL("https://lostark.game.onstove.com" + noticeProvider.notices[index].url);
-                                    },
-                                  );
-                                } else if (noticeProvider.options[noticeProvider.tag] == "전체") {
-                                  return InkWell(
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(15, 3, 5, 7),
-                                      child: Container(
-                                        child: Text(
-                                          "[${noticeProvider.notices[index].category}] ${noticeProvider.notices[index].title}",
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 15),
+                                      onTap: () {
+                                        LaunchUrl.launchURL(
+                                            "https://lostark.game.onstove.com" + noticeProvider.notices[index].url);
+                                      },
+                                    );
+                                  } else if (noticeProvider.options[noticeProvider.tag] == "전체") {
+                                    return InkWell(
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(15, 3, 5, 7),
+                                        child: Container(
+                                          child: Text(
+                                            "[${noticeProvider.notices[index].category}] ${noticeProvider.notices[index].title}",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 15),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    onTap: () {
-                                      LaunchUrl.launchURL("https://lostark.game.onstove.com" + noticeProvider.notices[index].url);
-                                    },
-                                  );
-                                }
-                                return Container();
-                              },
-                            ),
-                          );
-                        } else {
-                          return Text('로스트아크 서버가 점검중입니다.');
+                                      onTap: () {
+                                        LaunchUrl.launchURL(
+                                            "https://lostark.game.onstove.com" + noticeProvider.notices[index].url);
+                                      },
+                                    );
+                                  }
+                                  return Container();
+                                },
+                              ),
+                            );
+                          }
                         }
+                        return Center(child: Text('로스트아크 서버가 점검중입니다.'));
+                        // return FittedBox(
+                        //   fit: BoxFit.scaleDown,
+                        //   child: CircularProgressIndicator(
+                        //     color: DarkMode.isDarkMode.value ? Colors.grey : Colors.blue,
+                        //   ),
+                        // );
                       },
                     ),
                   );
@@ -164,37 +175,45 @@ class _LostArkNoticeWidgetState extends State<LostArkNoticeWidget> {
                 child: FutureBuilder(
                   future: eventNoticeProvider.fetchLostArkEventNotice(),
                   builder: (context, AsyncSnapshot snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: CircularProgressIndicator(
-                          color: DarkMode.isDarkMode.value ? Colors.grey : Colors.blue,
-                        ),
-                      );
-                    } else if (snapshot.connectionState == ConnectionState.done) {
-                      if(snapshot.data?.length == 0) {
-                        return Center(child: Text('로스트아크 서버가 점검중입니다.'));
+                    if (snapshot.hasData == true) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: CircularProgressIndicator(
+                            color: DarkMode.isDarkMode.value ? Colors.grey : Colors.blue,
+                          ),
+                        );
+                      } else if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.data?.length == 0) {
+                          return Center(child: Text(''));
+                        }
+                        return Padding(
+                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
+                          child: PageView.builder(
+                            controller: eventNoticeProvider.pageController,
+                            itemCount: snapshot.data?.length,
+                            itemBuilder: (context, index) {
+                              if (snapshot.hasData) {
+                                return snapshot.data![index];
+                              } else {
+                                return Container(
+                                  child: Text(''),
+                                );
+                              }
+                            },
+                            onPageChanged: (value) {
+                              eventNoticeProvider.onPageChange(value);
+                            },
+                          ),
+                        );
                       }
-                      return Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
-                        child: PageView.builder(
-                          controller: eventNoticeProvider.pageController,
-                          itemCount: snapshot.data?.length,
-                          itemBuilder: (context, index) {
-                            if(snapshot.hasData) {
-                              return snapshot.data![index];
-                            } else {
-                              return Container(child: Text('비어있음'),);
-                            }
-                          },
-                          onPageChanged: (value) {
-                            eventNoticeProvider.onPageChange(value);
-                          },
-                        ),
-                      );
-                    } else {
-                      return Text('로스트아크 서버가 점검중입니다.');
                     }
+                    return FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: CircularProgressIndicator(
+                        color: DarkMode.isDarkMode.value ? Colors.grey : Colors.blue,
+                      ),
+                    );
                   },
                 ),
               ),
@@ -205,7 +224,7 @@ class _LostArkNoticeWidgetState extends State<LostArkNoticeWidget> {
                     width: MediaQuery.of(context).size.width - 10,
                     child: PageViewDotIndicator(
                       currentItem: instance.currentIndex,
-                      count: instance.dotCount,
+                      count: instance.dotCount == 0 ? 1 : instance.dotCount,
                       unselectedColor: DarkMode.isDarkMode.value ? Colors.grey[700]! : Colors.grey,
                       selectedColor: DarkMode.isDarkMode.value ? Colors.white : Colors.black87,
                       size: Size(8, 8),

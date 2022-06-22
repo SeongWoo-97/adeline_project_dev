@@ -3,7 +3,6 @@ import 'package:adeline_app/model/profile/character_profile.dart';
 import 'package:adeline_app/model/profile/character_profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:adeline_app/screen/mobile/character_search_profile_screen/controller/slot_Color.dart';
 
 class CardSetEffectWidget extends StatelessWidget {
   const CardSetEffectWidget({Key? key}) : super(key: key);
@@ -21,7 +20,7 @@ class CardSetEffectWidget extends StatelessWidget {
           GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2, //1 개의 행에 보여줄 item 개수
-              childAspectRatio: 4 / 1, //item 의 가로 1, 세로 2 의 비율
+              childAspectRatio: 4 / 1.4, //item 의 가로 1, 세로 2 의 비율
               mainAxisSpacing: 0, //수평 Padding
               crossAxisSpacing: 0, //수직 Padding
             ),

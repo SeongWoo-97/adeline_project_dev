@@ -22,6 +22,36 @@ class _UpdateListScreenState extends State<UpdateListScreen> {
         children: [
           ExpansionTile(
             title: Text(
+              '1.4.0 Ver',
+            ),
+            backgroundColor: DarkMode.isDarkMode.value ? Colors.grey[800] : Colors.white,
+            collapsedIconColor: DarkMode.isDarkMode.value ? Colors.white : Colors.grey,
+            iconColor: DarkMode.isDarkMode.value ? Colors.white : Colors.grey,
+            expandedAlignment: Alignment.topLeft,
+            childrenPadding: const EdgeInsets.only(bottom: 10),
+            textColor: DarkMode.isDarkMode.value ? Colors.white : Colors.black,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('- 홈 화면 추가'),
+                    Text('- 첫 실행시 "캐릭터 설정 화면" 에서 "홈 화면"으로 변경'),
+                    Text('- 로스트아크 공지사항 및 이벤트 불러오기 기능 추가'),
+                    Text('- 크리스탈 가격 추가'),
+                    Text('- 로박스 공지사항 추가'),
+                    Text('- 캐릭터 검색 기능 추가'),
+                    Text('- 숙제관리 "수동 초기화" 추가'),
+                    Text('- 원정대 콘텐츠 축소/확장할 수 있도록 UI 수정'),
+                    Text('- 캐릭터 슬롯에 일일/주간 버튼 순서 버그 수정'),
+                  ],
+                ),
+              )
+            ],
+          ),
+          ExpansionTile(
+            title: Text(
               '1.3.0 Ver',
             ),
             backgroundColor: DarkMode.isDarkMode.value ? Colors.grey[800] : Colors.white,

@@ -49,14 +49,14 @@ class AvatarEffect {
     //     basic.add(v);
     //   });
     // }
-    if (json['plus_effect'] != 0) {
+    if (json['plus_effect'] != null) {
       json['plus_effect'].forEach((v) {
         plus.add(v.trim());
       });
     }
     return AvatarEffect(
       basicEffect: json['basic_effect'],
-      plusEffect: plus,
+      plusEffect: json['plus_effect'] != null ? plus : null,
     );
   }
 }

@@ -13,18 +13,21 @@ class NoticeProvider extends ChangeNotifier {
 
   fetchLostArkNotice() async {
     return this._memoizer.runOnce(() async {
-      final webScraper = WebScraper('https://lostark.game.onstove.com');
-      if (await webScraper.loadWebPage('/News/Notice/List')) {
-        List<dynamic> linkList = webScraper.getElementAttribute('div.list.list--default > ul > li > a', 'href');
-        List<dynamic> titleList =
-            webScraper.getElementTitle('div.list.list--default > ul > li > a > div.list__subject > span.list__title');
-        List<dynamic> categoryList =
-            webScraper.getElementTitle('div.list.list--default > ul > li > a > div.list__category > span');
+      try {
+        final webScraper = WebScraper('https://lostark.game.onstove.com');
+        if (await webScraper.loadWebPage('/News/Notice/List')) {
+          List<dynamic> linkList = webScraper.getElementAttribute('div.list.list--default > ul > li > a', 'href');
+          List<dynamic> titleList =
+              webScraper.getElementTitle('div.list.list--default > ul > li > a > div.list__subject > span.list__title');
+          List<dynamic> categoryList =
+              webScraper.getElementTitle('div.list.list--default > ul > li > a > div.list__category > span');
 
-        return notices = List.generate(
-            titleList.length - 4, (index) => LostArkNotice(titleList[index + 4], categoryList[index + 4], linkList[index + 4]));
-      }
-      return notices;
+          return notices = List.generate(
+              titleList.length - 4, (index) => LostArkNotice(titleList[index + 4], categoryList[index + 4], linkList[index + 4]));
+        }
+        return notices;
+      } on WebScraperException {
+      } catch (e) {}
     });
   }
 

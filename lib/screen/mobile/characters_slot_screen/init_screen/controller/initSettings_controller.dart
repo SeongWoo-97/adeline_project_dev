@@ -57,7 +57,7 @@ class InitSettingsController extends ChangeNotifier {
     characterBox.put('user', User(characters: userProvider.charactersProvider.characters));
     expeditionBox.put('expeditionList', expeditionProvider.expedition);
     Navigator.pop(context);
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => BottomNavigationScreen()), (route) => false);
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => BottomNavigationScreen(index: 1,)), (route) => false);
   }
 
   // 캐릭터 유무확인 메서드

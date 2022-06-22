@@ -200,7 +200,7 @@ class AvatarOverWidget extends StatelessWidget {
                                           child: Align(
                                             alignment: Alignment.centerLeft,
                                             child: Text(
-                                              '추가 효과',
+                                              '성향',
                                               style: Theme.of(context).textTheme.bodyText2?.copyWith(
                                                 color: Color(0xFFA9D0F5),
                                               ),

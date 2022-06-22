@@ -28,9 +28,6 @@ import 'model/user/expedition/expedition_provider.dart';
 import 'model/user/user.dart';
 import 'model/user/user_provider.dart';
 
-
-// 경로 : Directory: '/data/user/0/com.example.adeline_project_dev/app_flutter'
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
