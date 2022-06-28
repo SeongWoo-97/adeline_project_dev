@@ -24,7 +24,7 @@
         </intent>
     </queries>
    <application
-        android:label="로스트아크 아델라인"
+        android:label="로박스"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
        <meta-data

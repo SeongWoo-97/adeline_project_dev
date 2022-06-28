@@ -25,41 +25,9 @@ class _InitSettingsScreenState extends State<InitSettingsScreen> {
           return PlatformScaffold(
             appBar: PlatformAppBar(
               title: Text('캐릭터 불러오기'),
-              trailingActions: [
-                initController.currentStep == 1
-                    ? TextButton(
-                        onPressed: () => initController.configCompleted(context),
-                        child: Text('완료'),
-                      )
-                    : Container(),
-              ],
             ),
             body: SafeArea(
-              child: Stepper(
-                type: StepperType.horizontal,
-                elevation: 0,
-                // physics: ScrollPhysics(),
-                physics: ClampingScrollPhysics(),
-                currentStep: initController.currentStep,
-                onStepTapped: (step) => initController.tapped(step),
-                steps: [
-                  Step(
-                    title: Text('닉네임 입력', style: Theme.of(context).textTheme.bodyText1),
-                    content: StepOne(),
-                    isActive: initController.currentStep >= 0,
-                    state: initController.currentStep >= 0 ? StepState.complete : StepState.disabled,
-                  ),
-                  Step(
-                    title: Text('캐릭터 선택', style: Theme.of(context).textTheme.bodyText1),
-                    content: StepTwo(),
-                    isActive: initController.currentStep >= 1,
-                    state: initController.currentStep >= 1 ? StepState.complete : StepState.disabled,
-                  ),
-                ],
-                controlsBuilder: (BuildContext context, ControlsDetails details) {
-                  return Container();
-                },
-              ),
+              child: StepOne(),
             ),
           );
         },

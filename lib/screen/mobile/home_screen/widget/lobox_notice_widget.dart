@@ -1,14 +1,15 @@
 import 'package:adeline_app/model/dark_mode/dark_theme_provider.dart';
-import 'package:adeline_app/model/notice/lobox_notice.dart';
+import 'package:adeline_app/screen/mobile/home_screen/widget/notice_controller/notice_controller.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+
 
 class LoboxNoticeWidget extends StatelessWidget {
   const LoboxNoticeWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    NoticeProvider noticeProvider = Provider.of<NoticeProvider>(context,listen: false);
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
       child: Theme(
@@ -17,7 +18,7 @@ class LoboxNoticeWidget extends StatelessWidget {
           horizontalTitleGap: 5,
           dense: true,
           child: FutureBuilder(
-            future: fetchLoboxNotice(),
+            future: noticeProvider.fetchLoboxNotice(),
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.hasData == true) {
                 if (snapshot.connectionState == ConnectionState.done) {
@@ -53,14 +54,5 @@ class LoboxNoticeWidget extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<dynamic> fetchLoboxNotice() async {
-    try {
-      http.Response response = await http.get(Uri.parse('http://132.226.22.9:3381/notice'));
-      Map<String, dynamic> json = jsonDecode(response.body);
-      LoboxNotice notice = LoboxNotice.fromJson(json);
-      return notice;
-    } catch (e) {}
   }
 }

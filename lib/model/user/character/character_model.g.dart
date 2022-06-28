@@ -17,7 +17,6 @@ class CharacterAdapter extends TypeAdapter<Character> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Character(
-      server: fields[1] as String,
       nickName: fields[0] as String,
       level: fields[4] as dynamic,
       job: fields[5] as dynamic,

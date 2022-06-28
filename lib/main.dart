@@ -1,10 +1,12 @@
+import 'package:adeline_app/screen/mobile/home_screen/widget/notice_controller/event_notice_controller.dart';
+import 'package:adeline_app/screen/mobile/home_screen/widget/notice_controller/notice_controller.dart';
+import 'package:adeline_app/screen/responsive/rwd_main.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:adeline_app/model/dark_mode/android/android_light_theme_data.dart';
 import 'package:adeline_app/screen/mobile/bottom_navigation_screen/bottom_navigation_screen.dart';
 import 'package:adeline_app/screen/mobile/character_manual_add_screen/controller/add_character_provider.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/controller/menu_bar_controller.dart';
 import 'package:adeline_app/screen/mobile/characters_slot_screen/init_screen/controller/initSettings_controller.dart';
-import 'package:adeline_app/screen/mobile/home_screen/widget/lostark_notice_controller/event_notice_controller.dart';
-import 'package:adeline_app/screen/mobile/home_screen/widget/lostark_notice_controller/notice_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -77,7 +79,7 @@ class MyApp extends StatelessWidget {
             darkTheme: androidDarkThemeData,
           ),
           cupertino: (_, __) => CupertinoAppData(),
-          home: BottomNavigationScreen(),
+          home: kIsWeb ? RwdMainScreen(): BottomNavigationScreen(),
         );
       },
     );

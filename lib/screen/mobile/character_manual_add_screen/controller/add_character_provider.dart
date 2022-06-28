@@ -12,7 +12,7 @@ import '../../../../model/user/content/weekly_content.dart';
 import '../../../../model/user/user_provider.dart';
 
 class AddCharacterProvider extends ChangeNotifier {
-  Character character = Character(nickName: '', server: '', jobCode: '');
+  Character character = Character(nickName: '', jobCode: '');
   int tag = 0;
   String iconName = iconList[0].iconName!;
   List<String> options = ['일일 콘텐츠', '주간 콘텐츠', '골드 콘텐츠'];
@@ -82,7 +82,6 @@ class AddCharacterProvider extends ChangeNotifier {
     if (!nickNameError && !levelError && !chaosError && !guardianError && !eponaError && job.isNotEmpty && server.isNotEmpty) {
       userProvider.addCharacter(
         Character(
-          server: server,
           nickName: nickNameController.text,
           level: levelController.text,
           job: job,

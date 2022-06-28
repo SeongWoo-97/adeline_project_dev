@@ -9,7 +9,7 @@ class ToastMessage {
       fontSize: 16,
       toastLength: Toast.LENGTH_SHORT,
       textColor: Colors.white,
-      timeInSecForIosWeb: 1,
+      timeInSecForIosWeb: 3,
       backgroundColor: Colors.grey,
     );
   }

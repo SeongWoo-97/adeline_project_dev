@@ -10,7 +10,7 @@ class Character {
   @HiveField(0)
   String nickName;
   @HiveField(1)
-  String server;
+  String? server;
   @HiveField(2)
   String groupName = "";
   @HiveField(3)
@@ -40,6 +40,6 @@ class Character {
 
   bool expanded = false;
 
-  Character({required this.server, required this.nickName, this.level, this.job, required this.jobCode});
+  Character({required this.nickName, this.level, this.job, required this.jobCode});
 
 }

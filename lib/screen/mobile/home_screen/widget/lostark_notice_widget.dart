@@ -1,10 +1,10 @@
 import 'package:adeline_app/model/uri_launch/launch_url.dart';
-import 'package:adeline_app/screen/mobile/home_screen/widget/lostark_notice_controller/notice_controller.dart';
+import 'package:adeline_app/screen/mobile/home_screen/widget/notice_controller/event_notice_controller.dart';
+import 'package:adeline_app/screen/mobile/home_screen/widget/notice_controller/notice_controller.dart';
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../model/dark_mode/dark_theme_provider.dart';
-import 'lostark_notice_controller/event_notice_controller.dart';
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 
 class LostArkNoticeWidget extends StatefulWidget {
@@ -111,8 +111,7 @@ class _LostArkNoticeWidgetState extends State<LostArkNoticeWidget> {
                                         ),
                                       ),
                                       onTap: () {
-                                        LaunchUrl.launchURL(
-                                            "https://lostark.game.onstove.com" + noticeProvider.notices[index].url);
+                                        LaunchUrl.launchURL(noticeProvider.notices[index].url);
                                       },
                                     );
                                   } else if (noticeProvider.options[noticeProvider.tag] == "점검" &&
@@ -129,8 +128,7 @@ class _LostArkNoticeWidgetState extends State<LostArkNoticeWidget> {
                                         ),
                                       ),
                                       onTap: () {
-                                        LaunchUrl.launchURL(
-                                            "https://lostark.game.onstove.com" + noticeProvider.notices[index].url);
+                                        LaunchUrl.launchURL(noticeProvider.notices[index].url);
                                       },
                                     );
                                   } else if (noticeProvider.options[noticeProvider.tag] == "전체") {
@@ -146,8 +144,7 @@ class _LostArkNoticeWidgetState extends State<LostArkNoticeWidget> {
                                         ),
                                       ),
                                       onTap: () {
-                                        LaunchUrl.launchURL(
-                                            "https://lostark.game.onstove.com" + noticeProvider.notices[index].url);
+                                        LaunchUrl.launchURL(noticeProvider.notices[index].url);
                                       },
                                     );
                                   }
