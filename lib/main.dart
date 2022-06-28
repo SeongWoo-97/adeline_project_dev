@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
             darkTheme: androidDarkThemeData,
           ),
           cupertino: (_, __) => CupertinoAppData(),
-          home: kIsWeb ? RwdMainScreen(): BottomNavigationScreen(),
+          home: kIsWeb ? RwdMainScreen(): RwdMainScreen(),
         );
       },
     );
