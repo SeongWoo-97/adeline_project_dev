@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 ThemeData rwdDarkThemeData = ThemeData(
   // primarySwatch: MaterialColor(primary, swatch) : MaterialColor(),
   primaryColor: Colors.grey[900],
-  scaffoldBackgroundColor: Color(0xFF212121),
+  scaffoldBackgroundColor: Color(0xFF282828),
   backgroundColor: Colors.black,
   indicatorColor: Colors.cyanAccent,
   unselectedWidgetColor: Colors.white,

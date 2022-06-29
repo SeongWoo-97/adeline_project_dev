@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 class RwdDrawerWidget extends StatelessWidget {
   const RwdDrawerWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    TextStyle? subMenuStyle = Theme.of(context).textTheme.bodyText2?.copyWith(color: Colors.grey,fontSize: 12.5.sp);
-    TextStyle? menuStyle = Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 12.5.sp);
+    TextStyle? subMenuStyle = Theme.of(context).textTheme.bodyText2;
+    TextStyle? menuStyle = Theme.of(context).textTheme.bodyText1;
 
     return SafeArea(
       child: Drawer(
-        width: 46.sp,
+        width: 220,
         child: ListView(
           padding: const EdgeInsets.all(0),
           children: [

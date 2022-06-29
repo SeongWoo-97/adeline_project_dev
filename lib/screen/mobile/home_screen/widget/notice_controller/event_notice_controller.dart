@@ -102,6 +102,13 @@ class EventNoticeProvider extends ChangeNotifier {
     });
   }
 
+  Future<List<LostArkEventNotice>> fetchRwdLostArkEventNotice() async {
+    http.Response response = await http.get(Uri.parse('http://132.226.22.9:3381/lobox/event'));
+    List<dynamic> json = jsonDecode(response.body);
+    List<LostArkEventNotice> list = [];
+    json.forEach((element) => list.add(LostArkEventNotice.fromJson(element)));
+    return list;
+  }
   void onPageChange(int value) {
     currentIndex = value;
     notifyListeners();

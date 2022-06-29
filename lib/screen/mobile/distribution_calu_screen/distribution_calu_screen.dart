@@ -1,15 +1,11 @@
-import 'package:adeline_app/main.dart';
+import 'package:adeline_app/model/dark_mode/dark_theme_provider.dart';
+import 'package:adeline_app/model/toast/toast.dart';
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
-
-import '../../../model/dark_mode/dark_theme_provider.dart';
 
 class DistributionCaluScreen extends StatefulWidget {
   const DistributionCaluScreen({Key? key}) : super(key: key);
@@ -62,7 +58,7 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
                       buttonValues: [4, 8],
                       radioButtonValue: (values) {
                         setState(() {
-                          toast('$values인 선택');
+                          ToastMessage.toast('$values인 선택');
                           bidPrice(itemPriceController.text, int.parse(values.toString()));
                           memberNum = int.parse(values.toString());
                         });
@@ -226,18 +222,6 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
             ],
           ),
         ));
-  }
-
-  void toast(String msg) {
-    Fluttertoast.showToast(
-      msg: msg,
-      gravity: ToastGravity.CENTER,
-      fontSize: 16,
-      toastLength: Toast.LENGTH_SHORT,
-      textColor: Colors.white,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.grey,
-    );
   }
 
   void bidPrice(String price, int memberNum) {

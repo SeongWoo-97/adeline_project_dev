@@ -70,7 +70,7 @@ dependencies:
   image_gallery_saver: ^1.7.1
   share_plus: ^4.0.9
   permission_handler: ^10.0.0
-  responsive_sizer: ^3.0.8
+  responsive_builder: ^0.4.2
 dev_dependencies:
   hive_generator: ^1.1.2
   build_runner: ^2.1.8
