@@ -49,9 +49,6 @@ class CardModel {
         }
       });
     }
-    print('cardCount : ${cardCount}');
-    print('cardMax : ${cardMax}');
-    print('cardGrade : ${cardGrade}');
     return CardModel(
       cardName: json['card_name'].cast<String>(),
       cardImgUrl: json['card_img_url'].cast<String>(),

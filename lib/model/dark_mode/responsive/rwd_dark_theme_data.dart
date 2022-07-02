@@ -19,6 +19,7 @@ ThemeData rwdDarkThemeData = ThemeData(
       borderRadius: BorderRadius.circular(8),
       side: BorderSide(color: Colors.white70, width: 0.8),
     ),
+    margin: const EdgeInsets.all(0)
   ),
   canvasColor: Color(0xFF212121),
   brightness: Brightness.dark,
@@ -29,7 +30,7 @@ ThemeData rwdDarkThemeData = ThemeData(
     iconTheme: IconThemeData(color: Colors.white),
     toolbarHeight: 45,
     titleTextStyle: TextStyle(
-      fontFamily: 'NotoSansKR',
+      fontFamily: 'NanumGothic',
       fontWeight: FontWeight.bold,
       fontSize: 16,
       color: Colors.white,
@@ -42,8 +43,8 @@ ThemeData rwdDarkThemeData = ThemeData(
   textTheme: TextTheme(
     headline1: TextStyle(fontSize: 18, color: Colors.white, fontFamily: 'NanumGothic', fontWeight: FontWeight.bold),
     bodyText1: TextStyle(fontSize: 18, color: Colors.white, fontFamily: 'NanumGothic', fontWeight: FontWeight.w400),
-    bodyText2: TextStyle(fontSize: 16, color: Colors.white, fontFamily: 'NanumGothic'),
-    caption: TextStyle(fontSize: 14, color: Colors.white, fontFamily: 'NanumGothic'),
+    bodyText2: TextStyle(fontSize: 16, color: Colors.white, fontFamily: 'NanumGothic', fontWeight: FontWeight.w400),
+    caption: TextStyle(fontSize: 14, color: Colors.white, fontFamily: 'NanumGothic', fontWeight: FontWeight.w400),
   ),
   listTileTheme: ListTileThemeData(),
   elevatedButtonTheme: ElevatedButtonThemeData(
@@ -52,7 +53,7 @@ ThemeData rwdDarkThemeData = ThemeData(
       textStyle: TextStyle(
         fontSize: 14,
         color: Colors.white,
-        fontFamily: 'NotoSansKR',
+        fontFamily: 'NanumGothic',
       ),
       elevation: 0,
       side: BorderSide(width: 1, color: Colors.grey),

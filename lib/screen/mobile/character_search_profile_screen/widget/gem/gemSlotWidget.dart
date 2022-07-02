@@ -50,6 +50,7 @@ class GemSlotWidget extends StatelessWidget {
     }
     return Row(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: gems,
     );
   }

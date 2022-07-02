@@ -217,7 +217,6 @@ class AvatarWidget extends StatelessWidget {
                                                     shrinkWrap: true,
                                                     physics: NeverScrollableScrollPhysics(),
                                                     itemBuilder: (context, index) {
-                                                      print('${avatars[i]!.name} ${avatars[i]!.avatarEffect!.plusEffect![index]}');
                                                       return Text(avatars[i]!.avatarEffect!.plusEffect![index],
                                                           style: Theme.of(context).textTheme.caption);
                                                     },

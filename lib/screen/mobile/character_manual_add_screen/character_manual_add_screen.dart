@@ -61,11 +61,6 @@ class _CharacterManualAddScreenState extends State<CharacterManualAddScreen> {
                         addCharacterProvider.server = value!;
                         print(addCharacterProvider.server);
                       },
-                      popupProps: PopupProps.menu(
-                        showSelectedItems: true,
-                        disabledItemFn: (String s) => s.startsWith('I'),
-                      ),
-
                     ),
                   ),
                 ),
@@ -80,11 +75,6 @@ class _CharacterManualAddScreenState extends State<CharacterManualAddScreen> {
                         addCharacterProvider.job = value!;
                         print(addCharacterProvider.job);
                       },
-                      popupProps: PopupProps.menu(
-                        showSelectedItems: true,
-                        disabledItemFn: (String s) => s.startsWith('I'),
-                      ),
-
                     ),
                   ),
                 )

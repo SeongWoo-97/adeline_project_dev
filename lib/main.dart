@@ -1,3 +1,4 @@
+import 'package:adeline_app/providers/fetch_character_profile.dart';
 import 'package:adeline_app/screen/mobile/home_screen/widget/notice_controller/event_notice_controller.dart';
 import 'package:adeline_app/screen/mobile/home_screen/widget/notice_controller/notice_controller.dart';
 import 'package:adeline_app/screen/responsive/rwd_main.dart';
@@ -11,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
-
 import 'model/add_content_provider/add_content_provider.dart';
 import 'model/add_content_provider/add_expedition_content_provider.dart';
 import 'model/dark_mode/android/android_dark_theme_data.dart';
@@ -59,6 +59,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => CharacterProfileProvider(profile: CharacterProfile())),
         ChangeNotifierProvider(create: (context) => MenuBarController()),
         ChangeNotifierProvider(create: (context) => CollectionMenuBarController()),
+        ChangeNotifierProvider(create: (context) => ProfileController())
       ],
       child: MyApp(),
     ),

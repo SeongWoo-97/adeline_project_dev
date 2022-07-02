@@ -20,7 +20,7 @@ class ProfileInfoWidget extends StatelessWidget {
               textBaseline: TextBaseline.alphabetic,
               children: [
                 Text(
-                  'Lv.60 ${profile.info?.nickName}',
+                  'Lv.${profile.info?.battleLevel} ${profile.info?.nickName}',
                   style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 18),
                 ),
                 Text(' (${profile.info?.server})',

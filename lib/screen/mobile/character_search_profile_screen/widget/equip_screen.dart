@@ -6,6 +6,7 @@ import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/gem/gemSlotWidget.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/item_slot/accessory/accessory_widget.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/item_slot/armor/equip_armor_widget.dart';
+import 'package:adeline_app/screen/mobile/character_search_profile_screen/widget/total_collection_widget.dart';
 
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,7 @@ class _EquipScreenState extends State<EquipScreen> with AutomaticKeepAliveClient
     super.build(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Row(
           children: [
@@ -35,6 +37,7 @@ class _EquipScreenState extends State<EquipScreen> with AutomaticKeepAliveClient
         ),
         GemSlotWidget(),
         AbilityStoneWidget(),
+        TotalCollectionPerWidget(),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -43,6 +46,7 @@ class _EquipScreenState extends State<EquipScreen> with AutomaticKeepAliveClient
           ],
         ),
         Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             CardSetEffectWidget(),
             CardWidget(),

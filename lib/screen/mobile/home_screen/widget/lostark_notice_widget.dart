@@ -86,7 +86,7 @@ class _LostArkNoticeWidgetState extends State<LostArkNoticeWidget> {
                             );
                           } else if (snapshot.connectionState == ConnectionState.done) {
                             return RawScrollbar(
-                              thumbVisibility: true,
+                              isAlwaysShown: true,
                               controller: noticeProvider.scrollController,
                               radius: Radius.circular(20),
                               crossAxisMargin: 5,

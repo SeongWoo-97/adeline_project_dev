@@ -23,12 +23,14 @@ class AccessoryWidget extends StatelessWidget {
       profile.accessoryList?.ring1,
       profile.accessoryList?.ring2,
     ];
+    Size size = MediaQuery.of(context).size;
     return Flexible(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(5, 0, 0, 5),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: accessorySlotWidget(context, accessoryList),
+          children:
+              size.width >= 800 ? resAccessorySlotWidget(context, accessoryList) : accessorySlotWidget(context, accessoryList),
         ),
       ),
     );
@@ -40,7 +42,7 @@ List<Widget> accessorySlotWidget(BuildContext context, List<Accessory?> accessor
   CharacterProfile profile = profileProvider.profile;
   List<Widget> list = [];
 
-  if(accessoryList.length != 0) {
+  if (accessoryList.length != 0) {
     for (int i = 0; i < accessoryList.length; i++) {
       if (accessoryList[i]!.itemName != null) {
         List<Color> bgColors = gradeColors(accessoryList[i]!.grade);
@@ -83,9 +85,9 @@ List<Widget> accessorySlotWidget(BuildContext context, List<Accessory?> accessor
                             child: Text(
                               accessoryList[i]!.itemName.toString(),
                               style: Theme.of(context).textTheme.caption?.copyWith(
-                                height: 1.2,
-                                color: nameColor,
-                              ),
+                                    height: 1.2,
+                                    color: nameColor,
+                                  ),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
@@ -172,9 +174,9 @@ List<Widget> accessorySlotWidget(BuildContext context, List<Accessory?> accessor
                                                     child: Text(
                                                       accessoryList[i]!.itemTitle!.parts.toString(),
                                                       style: Theme.of(context).textTheme.caption?.copyWith(
-                                                        height: 1.2,
-                                                        color: nameColor,
-                                                      ),
+                                                            height: 1.2,
+                                                            color: nameColor,
+                                                          ),
                                                       overflow: TextOverflow.ellipsis,
                                                     ),
                                                   ),
@@ -186,8 +188,8 @@ List<Widget> accessorySlotWidget(BuildContext context, List<Accessory?> accessor
                                                     child: Text(
                                                       accessoryList[i]!.itemTitle!.tier.toString(),
                                                       style: Theme.of(context).textTheme.caption?.copyWith(
-                                                        height: 1.2,
-                                                      ),
+                                                            height: 1.2,
+                                                          ),
                                                       overflow: TextOverflow.ellipsis,
                                                     ),
                                                   ),
@@ -221,15 +223,18 @@ List<Widget> accessorySlotWidget(BuildContext context, List<Accessory?> accessor
                                       child: Text(
                                         '기본 효과',
                                         style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                                          color: Color(0xFFA9D0F5),
-                                        ),
+                                              color: Color(0xFFA9D0F5),
+                                            ),
                                       ),
                                     ),
                                   ),
                                   Container(
                                     child: Html(
                                       data: accessoryList[i]!.effect?.basicEffect,
-                                      style: {'html': Style(fontSize: FontSize(12),margin: EdgeInsets.all(0),padding: EdgeInsets.all(0))},
+                                      style: {
+                                        'html':
+                                            Style(fontSize: FontSize(12), margin: EdgeInsets.all(0), padding: EdgeInsets.all(0))
+                                      },
                                     ),
                                   ),
                                   Padding(
@@ -239,8 +244,8 @@ List<Widget> accessorySlotWidget(BuildContext context, List<Accessory?> accessor
                                       child: Text(
                                         '추가 효과',
                                         style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                                          color: Color(0xFFA9D0F5),
-                                        ),
+                                              color: Color(0xFFA9D0F5),
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -268,8 +273,8 @@ List<Widget> accessorySlotWidget(BuildContext context, List<Accessory?> accessor
                                       child: Text(
                                         '각인 효과',
                                         style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                                          color: Color(0xFFA9D0F5),
-                                        ),
+                                              color: Color(0xFFA9D0F5),
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -289,7 +294,8 @@ List<Widget> accessorySlotWidget(BuildContext context, List<Accessory?> accessor
                                                   Text('[', style: Theme.of(context).textTheme.caption),
                                                   Text('$name',
                                                       style: Theme.of(context).textTheme.caption?.copyWith(
-                                                          color: name.indexOf('감소') != -1 ? Color(0xFFFE2E2E) : Color(0xFFFFFFAC))),
+                                                          color:
+                                                              name.indexOf('감소') != -1 ? Color(0xFFFE2E2E) : Color(0xFFFFFFAC))),
                                                   Text('] +${accessoryList[i]!.engrave![index].point}',
                                                       style: Theme.of(context).textTheme.caption),
                                                 ],
@@ -344,8 +350,355 @@ List<Widget> accessorySlotWidget(BuildContext context, List<Accessory?> accessor
                           child: Text(
                             '장착된 아이템 없음',
                             style: Theme.of(context).textTheme.caption?.copyWith(
-                              height: 1.2,
+                                  height: 1.2,
+                                ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                      LinearPercentIndicator(
+                        padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                        animation: false,
+                        lineHeight: 16.0,
+                        animationDuration: 1500,
+                        backgroundColor: Colors.grey,
+                        percent: 0,
+                        center: Text(
+                          "0",
+                          style: Theme.of(context).textTheme.caption?.copyWith(fontSize: 10, fontWeight: FontWeight.bold),
+                        ),
+                        progressColor: Colors.amber,
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ));
+      }
+    }
+    list.add(BraceletWidget());
+  }
+  return list;
+}
+
+List<Widget> resAccessorySlotWidget(BuildContext context, List<Accessory?> accessoryList) {
+  CharacterProfileProvider profileProvider = Provider.of<CharacterProfileProvider>(context, listen: false);
+  CharacterProfile profile = profileProvider.profile;
+  List<Widget> list = [];
+
+  if (accessoryList.length != 0) {
+    for (int i = 0; i < accessoryList.length; i++) {
+      if (accessoryList[i]!.itemName != null) {
+        List<Color> bgColors = gradeColors(accessoryList[i]!.grade);
+        Color nameColor = itemNameColor(accessoryList[i]!.grade);
+        list.add(Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 7),
+          child: InkWell(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 44,
+                  height: 44,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      'https://cdn-lostark.game.onstove.com/' + accessoryList[i]!.itemTitle!.imgUrl.toString(),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(5),
+                    gradient: LinearGradient(
+                      end: Alignment.bottomRight,
+                      begin: Alignment.topLeft,
+                      colors: bgColors,
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: Container(
+                    height: 40,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              accessoryList[i]!.itemName.toString(),
+                              style: Theme.of(context).textTheme.caption?.copyWith(
+                                    height: 1.2,
+                                    color: nameColor,
+                                  ),
+                              overflow: TextOverflow.ellipsis,
                             ),
+                          ),
+                        ),
+                        LinearPercentIndicator(
+                          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                          animation: true,
+                          lineHeight: 16.0,
+                          animationDuration: 1500,
+                          backgroundColor: Colors.grey,
+                          percent: int.parse(accessoryList[i]!.itemTitle!.quality.toString()) * 0.01,
+                          center: Text(
+                            "${accessoryList[i]!.itemTitle!.quality}",
+                            style: Theme.of(context).textTheme.caption?.copyWith(fontSize: 12),
+                          ),
+                          progressColor: qualityColor(accessoryList[i]!.itemTitle!.quality),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+            onTap: () {
+              showPlatformDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    contentPadding: const EdgeInsets.fromLTRB(10, 20, 10, 5),
+                    content: SingleChildScrollView(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // 아이템 이름
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Center(
+                                child: Text(
+                                  accessoryList[i]!.itemName.toString(),
+                                  style: Theme.of(context).textTheme.bodyText1?.copyWith(color: nameColor),
+                                ),
+                              ),
+                            ),
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 8, bottom: 10),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            width: 55,
+                                            height: 55,
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(8),
+                                              child: Image.network(
+                                                'https://cdn-lostark.game.onstove.com/' +
+                                                    accessoryList[i]!.itemTitle!.imgUrl.toString(),
+                                              ),
+                                            ),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(color: Colors.grey),
+                                              borderRadius: BorderRadius.circular(8),
+                                              gradient: LinearGradient(
+                                                end: Alignment.topLeft,
+                                                begin: Alignment.bottomRight,
+                                                colors: bgColors,
+                                              ),
+                                            ),
+                                          ),
+                                          Flexible(
+                                            child: Container(
+                                              height: 50,
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 5),
+                                                    child: Align(
+                                                      alignment: Alignment.topLeft,
+                                                      child: Text(
+                                                        accessoryList[i]!.itemTitle!.parts.toString(),
+                                                        style: Theme.of(context).textTheme.caption?.copyWith(
+                                                              height: 1.2,
+                                                              color: nameColor,
+                                                            ),
+                                                        overflow: TextOverflow.ellipsis,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 5),
+                                                    child: Align(
+                                                      alignment: Alignment.topLeft,
+                                                      child: Text(
+                                                        accessoryList[i]!.itemTitle!.tier.toString(),
+                                                        style: Theme.of(context).textTheme.caption?.copyWith(
+                                                              height: 1.2,
+                                                            ),
+                                                        overflow: TextOverflow.ellipsis,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  LinearPercentIndicator(
+                                                    padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                                    animation: false,
+                                                    lineHeight: 16.0,
+                                                    backgroundColor: Colors.grey,
+                                                    percent: int.parse(accessoryList[i]!.itemTitle!.quality.toString()) * 0.01,
+                                                    center: Text(
+                                                      "${accessoryList[i]!.itemTitle!.quality}",
+                                                      style: Theme.of(context).textTheme.caption?.copyWith(fontSize: 12),
+                                                    ),
+                                                    progressColor: qualityColor(accessoryList[i]!.itemTitle!.quality),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    // 기본효과, 추가효과, 각인효과
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8, top: 5),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          '기본 효과',
+                                          style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Color(0xFFA9D0F5)),
+                                        ),
+                                      ),
+                                    ),
+                                    Html(
+                                      data: accessoryList[i]!.effect?.basicEffect,
+                                      style: {
+                                        '*': Style(fontSize: FontSize(14),fontFamily: 'NanumGothic',fontWeight: FontWeight.w400),
+                                      },
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8, top: 5, bottom: 5),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          '추가 효과',
+                                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                                color: Color(0xFFA9D0F5),
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                    // 특성
+                                    Flexible(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 8, bottom: 5),
+                                        child: Container(
+                                          width: double.maxFinite,
+                                          child: ListView.builder(
+                                            itemCount: accessoryList[i]!.effect!.plusEffect?.split('<BR>').length,
+                                            shrinkWrap: true,
+                                            physics: NeverScrollableScrollPhysics(),
+                                            itemBuilder: (context, index) {
+                                              return Text('${accessoryList[i]!.effect!.plusEffect?.split('<BR>')[index]}',
+                                                  style: Theme.of(context).textTheme.caption);
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8, top: 5, bottom: 5),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          '각인 효과',
+                                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                                color: Color(0xFFA9D0F5),
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                    // 각인효과
+                                    Flexible(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 8, bottom: 5),
+                                        child: Container(
+                                          width: double.maxFinite,
+                                          child: ListView.builder(
+                                              itemCount: accessoryList[i]?.engrave?.length,
+                                              shrinkWrap: true,
+                                              physics: NeverScrollableScrollPhysics(),
+                                              itemBuilder: (context, index) {
+                                                String name = accessoryList[i]!.engrave![index].name.toString().trim();
+                                                return Row(
+                                                  children: [
+                                                    Text('[', style: Theme.of(context).textTheme.caption),
+                                                    Text('$name',
+                                                        style: Theme.of(context).textTheme.caption?.copyWith(
+                                                            color: name.indexOf('감소') != -1
+                                                                ? Color(0xFFFE2E2E)
+                                                                : Color(0xFFFFFFAC))),
+                                                    Text('] +${accessoryList[i]!.engrave![index].point}',
+                                                        style: Theme.of(context).textTheme.caption),
+                                                  ],
+                                                );
+                                              }),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
+          ),
+        ));
+      } else {
+        list.add(Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 7),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    'https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot${i + 7}.png',
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              Flexible(
+                child: Container(
+                  height: 40,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            '장착된 아이템 없음',
+                            style: Theme.of(context).textTheme.caption?.copyWith(
+                                  height: 1.2,
+                                ),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),

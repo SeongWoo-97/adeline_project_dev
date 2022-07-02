@@ -28,7 +28,6 @@ class EngraveEffectWidget extends StatelessWidget {
         ),
       ));
     }
-    print('list 길이: ${list.length}');
     return Flexible(
       child: Padding(
         padding: const EdgeInsets.only(left: 5),

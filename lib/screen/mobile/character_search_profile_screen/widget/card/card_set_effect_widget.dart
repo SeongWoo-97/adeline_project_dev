@@ -12,6 +12,8 @@ class CardSetEffectWidget extends StatelessWidget {
     CharacterProfileProvider profileProvider = Provider.of<CharacterProfileProvider>(context, listen: false);
     CharacterProfile profile = profileProvider.profile;
     CardModel? card = profile.card;
+    Size size = MediaQuery.of(context).size;
+    // print('${Theme.of(context).textTheme.caption?.fontFamily}');
     if(card?.cardEffectTitle?.length != 0) {
       return ExpansionTile(
         title: Text('장착 중인 카드 효과',style: Theme.of(context).textTheme.bodyText1,),
@@ -20,7 +22,7 @@ class CardSetEffectWidget extends StatelessWidget {
           GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2, //1 개의 행에 보여줄 item 개수
-              childAspectRatio: 4 / 1.4, //item 의 가로 1, 세로 2 의 비율
+              childAspectRatio: size.width >= 1000 ? 4 / 1 : 4 / 1.4, //item 의 가로 1, 세로 2 의 비율
               mainAxisSpacing: 0, //수평 Padding
               crossAxisSpacing: 0, //수직 Padding
             ),
@@ -44,6 +46,6 @@ class CardSetEffectWidget extends StatelessWidget {
         ],
       );
     }
-    return SizedBox(height: 10,);
+    return SizedBox(height: 10);
   }
 }

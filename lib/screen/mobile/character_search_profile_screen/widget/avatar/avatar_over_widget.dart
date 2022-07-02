@@ -215,7 +215,6 @@ class AvatarOverWidget extends StatelessWidget {
                                                 shrinkWrap: true,
                                                 physics: NeverScrollableScrollPhysics(),
                                                 itemBuilder: (context, index) {
-                                                  print('효과 : ${avatars[i]!.avatarEffect!.plusEffect![index]}');
                                                   return Text(avatars[i]!.avatarEffect!.plusEffect![index],
                                                       style: Theme.of(context).textTheme.caption);
                                                 }),

@@ -22,29 +22,34 @@ class _MenuBarWidgetState extends State<MenuBarWidget> {
               builder: (context, instance, child) {
                 List<ElevatedButton> buttons = [];
                 MenuBarController controller = Provider.of<MenuBarController>(context, listen: false);
-                List<CollectionButton> options = [
-                  CollectionButton(0, '장비'),
-                  CollectionButton(1, '스킬'),
-                  CollectionButton(2, '수집'),
-                  CollectionButton(3, '아바타')
-                ];
+                Size size = MediaQuery.of(context).size;
+                List<CollectionButton> options = size.width >= 800
+                    ? [
+                        CollectionButton(0, '장비'),
+                        CollectionButton(1, '수집'),
+                        CollectionButton(2, '아바타'),
+                      ]
+                    : [
+                        CollectionButton(0, '장비'),
+                        CollectionButton(1, '스킬'),
+                        CollectionButton(2, '수집'),
+                        CollectionButton(3, '아바타'),
+                      ];
                 options.forEach((element) {
-                  buttons.add(
-                    ElevatedButton(
-                      child: Text('${element.name}'),
-                      style: ElevatedButton.styleFrom(
-                          side: BorderSide(color: Colors.transparent),
-                          onPrimary: element.index == controller.tag ? Theme.of(context).focusColor : Colors.grey,
-                          textStyle: element.index == controller.tag
-                              ? Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold)
-                              : Theme.of(context).textTheme.bodyText1?.copyWith(),
-                          splashFactory: NoSplash.splashFactory),
-                      onPressed: () {
-                        controller.pageController.jumpToPage(element.index);
-                        controller.menuOnChanged(element.index);
-                      },
-                    ),
-                  );
+                  buttons.add(ElevatedButton(
+                    child: Text('${element.name}'),
+                    style: ElevatedButton.styleFrom(
+                        side: BorderSide(color: Colors.transparent),
+                        onPrimary: element.index == controller.tag ? Theme.of(context).focusColor : Colors.grey,
+                        textStyle: element.index == controller.tag
+                            ? Theme.of(context).textTheme.bodyText1?.copyWith(fontWeight: FontWeight.bold)
+                            : Theme.of(context).textTheme.bodyText1?.copyWith(),
+                        splashFactory: NoSplash.splashFactory),
+                    onPressed: () {
+                      controller.pageController.jumpToPage(element.index);
+                      controller.menuOnChanged(element.index);
+                    },
+                  ));
                 });
                 return ListView(
                   scrollDirection: Axis.horizontal,

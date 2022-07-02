@@ -47,7 +47,6 @@ class EquipEngraveWidget extends StatelessWidget {
       equipEngraves.add(Container());
       equipEngraves.add(Container());
     }
-    print('equipEngraves.length : ${equipEngraves.length}');
     return Padding(
       padding: const EdgeInsets.fromLTRB(1, 0, 1, 0),
       child: Row(children: equipEngraves),

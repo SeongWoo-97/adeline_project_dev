@@ -19,7 +19,6 @@ class CollectionMococoScreen extends StatelessWidget {
     List<Mococo> notClear = [];
     mococo?.list?.forEach((element) {
       if (element.max == element.count) {
-        print(element.name);
         clear.add(element);
       } else {
         notClear.add(element);

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:adeline_app/model/character_list/character_list.dart';
 import 'package:adeline_app/model/notice/event_notice.dart';
 import 'package:adeline_app/screen/mobile/custom_scroll.dart';
 import 'package:adeline_app/screen/mobile/home_screen/widget/character_search_bar.dart';
@@ -48,28 +47,6 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
         title: Text('HOME'),
         material: (_, __) => MaterialAppBarData(),
         cupertino: (_, __) => CupertinoNavigationBarData(),
-        trailingActions: [
-          TextButton(
-            child: Text('테스트 버튼'),
-            onPressed: () async {
-              try {
-                http.Response response = await http.get(Uri.parse('http://132.226.22.9:3381/lobox/event'));
-                List<dynamic> json = jsonDecode(response.body);
-                List<LostArkEventNotice> list = [];
-                json.forEach((element) {
-                  list.add(LostArkEventNotice.fromJson(element));
-                });
-                list.forEach((element) {
-                  print(element.title);
-                });
-              } on TimeoutException {
-                ToastMessage.toast('접속 시간이 초과 되었습니다.');
-              } catch (e) {
-                print('오류(HomeScreen) : ${e}');
-              }
-            },
-          ),
-        ],
       ),
       material: (_, __) => MaterialScaffoldData(
         drawer: Container(
