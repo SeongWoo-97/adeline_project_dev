@@ -102,13 +102,36 @@ class EventNoticeProvider extends ChangeNotifier {
     });
   }
 
-  Future<List<LostArkEventNotice>> fetchRwdLostArkEventNotice() async {
+  Future<List<Widget>> fetchRwdLostArkEventNotice() async {
     http.Response response = await http.get(Uri.parse('http://132.226.22.9:3381/lobox/event'));
     List<dynamic> json = jsonDecode(response.body);
     List<LostArkEventNotice> list = [];
+    List<Widget> eventWidgetList = [];
+    // 이벤트 인스턴스 생성
     json.forEach((element) => list.add(LostArkEventNotice.fromJson(element)));
-    return list;
+    // 생성한 인스턴스로 위젯 생성
+    list.forEach((element) {
+      eventWidgetList.add(InkWell(
+        child: Container(
+          height: 95,
+          padding: const EdgeInsets.only(right: 10,bottom: 5),
+          decoration: BoxDecoration(
+            border: Border.all(color: Color(0xFF212121)),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(7),
+            child: Image.network(element.thumbImage,fit: BoxFit.contain,),
+          ),
+        ),
+        onTap: () {
+          LaunchUrl.launchURL(element.url);
+        },
+      ));
+    });
+    return eventWidgetList;
   }
+
   void onPageChange(int value) {
     currentIndex = value;
     notifyListeners();

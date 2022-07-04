@@ -17,6 +17,7 @@ class RwdHomeScreen extends StatefulWidget {
 }
 
 class _RwdBottomNavigationScreenState extends State<RwdHomeScreen> {
+  DateTime now = DateTime.now();
   Set<PointerDeviceKind> get dragDevices => {
         PointerDeviceKind.touch,
         PointerDeviceKind.mouse,
@@ -78,7 +79,7 @@ class _RwdBottomNavigationScreenState extends State<RwdHomeScreen> {
                               Flexible(
                                 flex: 3,
                                 child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                                  padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
                                   child: Column(
                                     children: [
                                       RwdDistributionCaluWidget(),
@@ -118,21 +119,24 @@ class _RwdBottomNavigationScreenState extends State<RwdHomeScreen> {
                   children: [
                     // 캐릭터 검색바
                     Align(alignment: Alignment.center, child: RwdCharacterSearchBarWidget()),
+                    // 공지사항, 크리스탈, 이벤트
                     RwdCrystalAndNoticePrice(),
                     IntrinsicHeight(
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Flexible(
-                              child: Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 15, 15),
-                            child: RwdDistributionCaluWidget(),
-                          )),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 0, 15, 15),
+                              child: RwdDistributionCaluWidget(),
+                            ),
+                          ),
                           Flexible(
-                              child: Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 10, 15),
-                            child: RwdCouponWidget(),
-                          )),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 10, 15),
+                              child: RwdCouponWidget(),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -140,6 +144,7 @@ class _RwdBottomNavigationScreenState extends State<RwdHomeScreen> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
+                          SizedBox(width: 10),
                           RwdAdventureIslandWidget(),
                           SizedBox(width: 10),
                           Padding(

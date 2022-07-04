@@ -1,3 +1,4 @@
+import 'package:adeline_app/model/crystal_price/crystal_price.dart';
 import 'package:adeline_app/model/notice/event_notice.dart';
 import 'package:adeline_app/model/uri_launch/launch_url.dart';
 import 'package:adeline_app/screen/mobile/home_screen/widget/notice_controller/event_notice_controller.dart';
@@ -15,8 +16,9 @@ class RwdCrystalAndNoticePrice extends StatefulWidget {
 }
 
 class _RwdCrystalAndNoticePriceState extends State<RwdCrystalAndNoticePrice> {
-  Future<List<LostArkEventNotice>>? fetchRwdLostArkEventNotice;
+  Future<List<Widget>>? fetchRwdLostArkEventNotice;
   Future? fetchLostArkNotice;
+  Future<CrystalPrice>? crystalPrice;
   TextStyle? bodyText;
 
   @override
@@ -29,6 +31,7 @@ class _RwdCrystalAndNoticePriceState extends State<RwdCrystalAndNoticePrice> {
 
     fetchRwdLostArkEventNotice = eventNoticeProvider.fetchRwdLostArkEventNotice();
     fetchLostArkNotice = noticeProvider.fetchLostArkNotice();
+    crystalPrice = noticeProvider.fetchCrystalMarketPrice();
   }
 
   @override
@@ -40,42 +43,88 @@ class _RwdCrystalAndNoticePriceState extends State<RwdCrystalAndNoticePrice> {
         mainAxisSize: MainAxisSize.min,
         children: [
           // 크리스탈 가격
-          Row(
-            children: [
-              Flexible(
-                child: Card(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 7, 10, 7),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('크리스탈 구매 ', style: bodyText),
-                        Text('${NumberFormat('###,###').format(int.parse('2406'))} G', style: bodyText),
-                      ],
+          FutureBuilder(
+            future: crystalPrice,
+            builder: (BuildContext context, AsyncSnapshot<CrystalPrice> snapshot) {
+              if (snapshot.hasData == true) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Row(
+                    children: [
+                      Flexible(
+                        child: Card(
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 7, 10, 7),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('크리스탈 구매 ', style: bodyText),
+                                Text('${NumberFormat('###,###').format(int.parse('${snapshot.data?.buy}'))} G', style: bodyText),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Flexible(
+                        child: Card(
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 7, 10, 7),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('크리스탈 판매 ', style: bodyText),
+                                Text('${NumberFormat('###,###').format(int.parse('${snapshot.data?.sell}'))} G', style: bodyText),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              }
+              return Row(
+                children: [
+                  Flexible(
+                    child: Card(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 7, 10, 7),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('크리스탈 구매 ', style: bodyText),
+                            Text('0 G', style: bodyText),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Flexible(
-                child: Card(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 7, 10, 7),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('크리스탈 판매 ', style: bodyText),
-                        Text('${NumberFormat('###,###').format(int.parse('2415'))} G', style: bodyText),
-                      ],
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Flexible(
+                    child: Card(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 7, 10, 7),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('크리스탈 판매 ', style: bodyText),
+                            Text('0 G', style: bodyText),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ],
+                ],
+              );
+            },
           ),
           // 공지사항
           Card(
@@ -131,7 +180,6 @@ class _RwdCrystalAndNoticePriceState extends State<RwdCrystalAndNoticePrice> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData == true) {
                             if (snapshot.connectionState == ConnectionState.waiting) {
-                              print('스냅샵');
                               return FittedBox(
                                 fit: BoxFit.scaleDown,
                                 child: CircularProgressIndicator(
@@ -224,10 +272,9 @@ class _RwdCrystalAndNoticePriceState extends State<RwdCrystalAndNoticePrice> {
                 ),
                 SizedBox(height: 10),
                 Container(
-                  height: 100,
                   child: FutureBuilder(
                     future: fetchRwdLostArkEventNotice,
-                    builder: (context, AsyncSnapshot<List<LostArkEventNotice>> snapshot) {
+                    builder: (context, AsyncSnapshot<List<Widget>> snapshot) {
                       if (snapshot.hasData == true) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
                           return FittedBox(
@@ -242,35 +289,8 @@ class _RwdCrystalAndNoticePriceState extends State<RwdCrystalAndNoticePrice> {
                           }
                           return Padding(
                             padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
-                            child: GridView.builder(
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              // controller: con,
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 5,
-                                mainAxisExtent: 100,
-                                childAspectRatio: 1 / 2,
-                                crossAxisSpacing: 0,
-                                mainAxisSpacing: 0,
-                              ),
-                              itemCount: snapshot.data?.length,
-                              itemBuilder: (context, index) {
-                                return InkWell(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Color(0xFF212121)),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(7),
-                                      child: Image.network(snapshot.data![index].thumbImage),
-                                    ),
-                                  ),
-                                  onTap: () {
-                                    LaunchUrl.launchURL(snapshot.data![index].url);
-                                  },
-                                );
-                              },
+                            child: Wrap(
+                              children: snapshot.data!,
                             ),
                           );
                         }

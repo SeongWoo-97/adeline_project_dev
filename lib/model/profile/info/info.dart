@@ -12,35 +12,38 @@ class Info {
   String guild;
   String pvp;
   String badge;
+  String useSkillPoint;
+  String haveSkillPoint;
   Fief fief;
   SpecialEquip? special;
 
-
-  Info({
-    required this.nickName,
-    required this.job,
-    required this.server,
-    required this.expeditionLevel,
-    required this.battleLevel,
-    required this.achieveItemLevel,
-    required this.guild,
-    required this.pvp,
-    required this.badge,
-    required this.fief,
-  });
+  Info(
+      {required this.nickName,
+      required this.job,
+      required this.server,
+      required this.expeditionLevel,
+      required this.battleLevel,
+      required this.achieveItemLevel,
+      required this.guild,
+      required this.pvp,
+      required this.badge,
+      required this.fief,
+      required this.haveSkillPoint,
+      required this.useSkillPoint});
 
   factory Info.fromJson(Map<String, dynamic> json) {
     return Info(
-      nickName: json['nickName'],
-      job: json['job'],
-      server: json['server'],
-      expeditionLevel: json['expeditionLevel'],
-      battleLevel: json['battleLevel'],
-      achieveItemLevel: json['achieveItemLevel'],
-      guild: json['guild'],
-      pvp: json['pvp'],
-      badge: json['badge'],
-      fief: Fief.fromJson(json['fief'])
-    );
+        nickName: json['nickName'],
+        job: json['job'],
+        server: json['server'],
+        expeditionLevel: json['expeditionLevel'],
+        battleLevel: json['battleLevel'],
+        achieveItemLevel: json['achieveItemLevel'],
+        guild: json['guild'],
+        pvp: json['pvp'],
+        badge: json['badge'],
+        useSkillPoint: json['use_skill_point'],
+        haveSkillPoint: json['have_skill_point'],
+        fief: Fief.fromJson(json['fief']));
   }
 }

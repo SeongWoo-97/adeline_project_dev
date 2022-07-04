@@ -89,7 +89,7 @@ class CollectionNormalScreen extends StatelessWidget {
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return ListTile(
-                            title: Text('${get[index]}'),
+                            title: Text('${get[index]}', style: Theme.of(context).textTheme.bodyText2),
                             trailing: Text(
                               '획득',
                               style: Theme.of(context).textTheme.caption?.copyWith(color: Colors.amberAccent),
@@ -112,7 +112,10 @@ class CollectionNormalScreen extends StatelessWidget {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [Text('미획득 목록'), Text('${(max - count).toInt()} / ${island?.max}')],
+                        children: [
+                          Text('미획득 목록'),
+                          Text('${(max - count).toInt()} / ${island?.max}'),
+                        ],
                       ),
                       ListView.separated(
                         physics: NeverScrollableScrollPhysics(),
@@ -120,7 +123,7 @@ class CollectionNormalScreen extends StatelessWidget {
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return ListTile(
-                            title: Text('${notGet[index]}'),
+                            title: Text('${notGet[index]}', style: Theme.of(context).textTheme.bodyText2),
                             trailing: Text(
                               '미획득',
                               style: Theme.of(context).textTheme.caption?.copyWith(color: Colors.deepOrangeAccent),

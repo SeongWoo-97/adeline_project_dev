@@ -33,7 +33,7 @@ class StepOne extends StatelessWidget {
                   controller: controller.textEditingController,
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.zero,
-                      hintText: '본인 닉네임',
+                      hintText: '대표 닉네임',
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey, width: 0.5),
                         borderRadius: BorderRadius.circular(5),

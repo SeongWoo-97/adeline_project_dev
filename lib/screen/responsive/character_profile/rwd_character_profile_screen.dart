@@ -41,13 +41,16 @@ class _RwdCharacterProfileScreenState extends State<RwdCharacterProfileScreen> {
   @override
   Widget build(BuildContext context) {
     MenuBarController menuBarController = Provider.of<MenuBarController>(context, listen: false);
+    CharacterProfileProvider characterProfileProvider = Provider.of<CharacterProfileProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text('캐릭터 정보'),
         actions: [
-          TextButton(onPressed: (){
-            print('width : ${MediaQuery.of(context).size.width}');
-          }, child: Text('width 출력'))
+          TextButton(
+              onPressed: () {
+                print('width : ${MediaQuery.of(context).size.width}');
+              },
+              child: Text('width 출력'))
         ],
       ),
       body: FutureBuilder(
@@ -88,7 +91,24 @@ class _RwdCharacterProfileScreenState extends State<RwdCharacterProfileScreen> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Flexible(child: EquipScreen()),
-                                          Flexible(child: SkillScreen()),
+                                          Flexible(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.fromLTRB(10,0,0,5),
+                                                  child: Align(
+                                                    alignment: Alignment.topLeft,
+                                                    child: Text(
+                                                      ' 사용 스킬 포인트 ${characterProfileProvider.profile.info?.useSkillPoint} / 보유 스킬 포인트 ${characterProfileProvider.profile.info?.haveSkillPoint}',
+                                                      style: Theme.of(context).textTheme.bodyText2,
+                                                    ),
+                                                  ),
+                                                ),
+                                                SkillScreen(),
+                                              ],
+                                            ),
+                                          ),
                                         ],
                                       ),
                                       CollectionScreen(),
@@ -109,33 +129,33 @@ class _RwdCharacterProfileScreenState extends State<RwdCharacterProfileScreen> {
                     behavior: CustomScroll(),
                     child: SingleChildScrollView(
                       child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ProfileInfoWidget(),
-                        Card(
-                          child: Column(
-                            children: [
-                              MenuBarWidget(),
-                              ExpandablePageView(
-                                controller: menuBarController.pageController,
-                                onPageChanged: (value) => menuBarController.menuOnChanged(value),
-                                children: [
-                                  EquipScreen(),
-                                  SkillScreen(),
-                                  CollectionScreen(),
-                                  AvatarScreen(),
-                                ],
-                              ),
-                            ],
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ProfileInfoWidget(),
+                          Card(
+                            child: Column(
+                              children: [
+                                MenuBarWidget(),
+                                ExpandablePageView(
+                                  controller: menuBarController.pageController,
+                                  onPageChanged: (value) => menuBarController.menuOnChanged(value),
+                                  children: [
+                                    EquipScreen(),
+                                    SkillScreen(),
+                                    CollectionScreen(),
+                                    AvatarScreen(),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-
-                  ),);
-              }
+                  );
+                }
               }),
             );
           }

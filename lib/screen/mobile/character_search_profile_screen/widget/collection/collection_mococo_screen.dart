@@ -89,7 +89,10 @@ class CollectionMococoScreen extends StatelessWidget {
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return ListTile(
-                            title: Text('${clear[index].name}'),
+                            title: Text(
+                              '${clear[index].name}',
+                              style: Theme.of(context).textTheme.bodyText2,
+                            ),
                             trailing: Text(
                               '${clear[index].count} / ${clear[index].max}',
                               style: Theme.of(context).textTheme.caption?.copyWith(color: Colors.amberAccent),
@@ -120,7 +123,7 @@ class CollectionMococoScreen extends StatelessWidget {
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return ListTile(
-                            title: Text('${notClear[index].name}'),
+                            title: Text('${notClear[index].name}',style: Theme.of(context).textTheme.bodyText2),
                             trailing: Text(
                               '${notClear[index].count} / ${notClear[index].max}',
                               style: Theme.of(context).textTheme.caption?.copyWith(color: Colors.amberAccent),

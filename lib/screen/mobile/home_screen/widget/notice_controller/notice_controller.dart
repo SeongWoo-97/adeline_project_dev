@@ -1,13 +1,18 @@
 import 'dart:convert';
+import 'package:adeline_app/model/crystal_price/crystal_price.dart';
+import 'package:adeline_app/model/notice/adventure_island.dart';
 import 'package:adeline_app/model/notice/lobox_notice.dart';
 import 'package:adeline_app/model/notice/notice.dart';
 import 'package:async/async.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:http/http.dart' as http;
 
 class NoticeProvider extends ChangeNotifier {
   final AsyncMemoizer _memoizer1 = AsyncMemoizer();
   final AsyncMemoizer _memoizer2 = AsyncMemoizer();
+  final AsyncMemoizer<CrystalPrice> _memoizer3 = AsyncMemoizer();
+  final AsyncMemoizer _memoizer4 = AsyncMemoizer();
 
   ScrollController scrollController = ScrollController();
   List<LostArkNotice> notices = [];
@@ -36,6 +41,25 @@ class NoticeProvider extends ChangeNotifier {
         return notice;
       } catch (e) {}
     });
+  }
+
+  Future<CrystalPrice> fetchCrystalMarketPrice() async {
+    http.Response response = await http.get(Uri.parse('http://152.70.248.4:5000/crystal/'));
+    Map<String, dynamic> json = jsonDecode(response.body);
+    CrystalPrice crystalPrice = CrystalPrice.fromJson(json);
+    print('fetchCrystalMarketPrice: 크리스탈 가격 : ${crystalPrice.sell}, ${crystalPrice.buy}');
+    return crystalPrice;
+  }
+
+  Future<AdventureIsland?> fetchAdventureIsland() async {
+    try {
+      http.Response response = await http.get(Uri.parse('http://152.70.248.4:5000/adventureisland/'));
+      Map<String, dynamic> json = jsonDecode(utf8.decode(response.bodyBytes));
+      print(json);
+      AdventureIsland adventureIsland = AdventureIsland.fromJson(json);
+      return adventureIsland;
+    } catch (e) {}
+    return null;
   }
 
   void noticeOnChanged(int value) {

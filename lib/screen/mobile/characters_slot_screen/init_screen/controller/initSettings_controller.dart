@@ -60,7 +60,7 @@ class InitSettingsController extends ChangeNotifier {
         material: (_, __) => MaterialAlertDialogData(
           content: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [Text('${nickName.toString().toUpperCase()}가 맞나요??', style: Theme.of(context).textTheme.bodyText1)],
+            children: [Text('${nickName.toString().toUpperCase()}가 맞습니까?', style: Theme.of(context).textTheme.bodyText1)],
           ),
           contentPadding: const EdgeInsets.fromLTRB(12.0, 24.0, 12.0, 0.0),
         ),

@@ -17,7 +17,7 @@ class _RwdMainScreenState extends State<RwdMainScreen> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveSizer(
-      builder: (context, orientation,screenType) {
+      builder: (context, orientation, screenType) {
         return MaterialApp(
           theme: rwdDarkThemeData,
           scrollBehavior: MyCustomScrollBehavior(),

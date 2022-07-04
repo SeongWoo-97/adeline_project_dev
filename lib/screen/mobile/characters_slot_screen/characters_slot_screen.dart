@@ -226,7 +226,8 @@ class _CharactersSlotScreenState extends State<CharactersSlotScreen> with Automa
                                           expedition.nextWednesday = nowDate.add(Duration(days: 7));
                                         } else {
                                           while (expedition.nextWednesday.weekday != 3) {
-                                            expedition.nextWednesday = nowDate.add(Duration(days: 1));
+                                            expedition.nextWednesday = expedition.nextWednesday.add(Duration(days: 1));
+                                            print('${expedition.nextWednesday} ${expedition.nextWednesday.weekday}');
                                           }
                                         }
                                         expedition.list.forEach(
@@ -270,7 +271,7 @@ class _CharactersSlotScreenState extends State<CharactersSlotScreen> with Automa
                                     ),
                                     PlatformDialogAction(
                                       child: Text('아니요'),
-                                      onPressed: (){},
+                                      onPressed: () => Navigator.pop(context),
                                     ),
                                   ],
                                 );
