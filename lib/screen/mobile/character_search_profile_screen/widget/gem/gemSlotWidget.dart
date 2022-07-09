@@ -1,4 +1,3 @@
-import 'package:adeline_app/model/profile/ability_stone/ability_stone.dart';
 import 'package:adeline_app/model/profile/gem/gem.dart';
 import 'package:adeline_app/screen/mobile/character_search_profile_screen/controller/slot_Color.dart';
 import 'package:flutter/material.dart';

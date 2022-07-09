@@ -1,4 +1,3 @@
-
 import 'package:adeline_app/screen/mobile/character_setting_screen/widget/daily_contents_settings_widget.dart';
 import 'package:adeline_app/screen/mobile/character_setting_screen/widget/gold_contents_settings_widget.dart';
 import 'package:adeline_app/screen/mobile/character_setting_screen/widget/weekly_contents_settings_widget.dart';
@@ -25,7 +24,7 @@ class CharacterSettingsScreen extends StatefulWidget {
 class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
   int tag = 0;
 
-  List<String> options = ['일일 콘텐츠', '주간 콘텐츠', '골드 콘텐츠'];
+  List<String> options = ['일일 콘텐츠', '주간 콘텐츠', '레이드 콘텐츠'];
 
   final formKey1 = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
@@ -49,12 +48,9 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
     nickNameController.text = userProvider.charactersProvider.characters[widget.characterIndex].nickName;
     levelController.text = userProvider.charactersProvider.characters[widget.characterIndex].level;
-    chaosGaugeController.text =
-        userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0].restGauge.toString();
-    guardianGaugeController.text =
-        userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1].restGauge.toString();
-    eponaGaugeController.text =
-        userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2].restGauge.toString();
+    chaosGaugeController.text = userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0].restGauge.toString();
+    guardianGaugeController.text = userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1].restGauge.toString();
+    eponaGaugeController.text = userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2].restGauge.toString();
   }
 
   @override
@@ -66,8 +62,8 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
         title: Text('캐릭터 설정'),
         trailingActions: [
           TextButton(
+            child: Text('저장', style: Theme.of(context).textTheme.bodyText2),
             onPressed: () async {
-              userProvider.updateContentBoard();
               if (nickNameError == true) {
                 toast('닉네임이 잘못 설정되었습니다.');
                 await Future.delayed(Duration(seconds: 1, milliseconds: 500));
@@ -80,21 +76,13 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                 toast('휴식 게이지 값이 잘못되었습니다.');
                 await Future.delayed(Duration(seconds: 1, milliseconds: 500));
               }
-              if (nickNameError == false &&
-                  levelError == false &&
-                  chaosError == false &&
-                  guardianError == false &&
-                  eponaError == false) {
+              if (nickNameError == false && levelError == false && chaosError == false && guardianError == false && eponaError == false) {
                 formKey1.currentState?.save();
                 formKey2.currentState?.save();
-                userProvider.providerSetState();
+                userProvider.notifyListeners();
                 Navigator.pop(context);
               }
             },
-            child: Text(
-              '저장',
-              style: Theme.of(context).textTheme.bodyText2,
-            ),
           )
         ],
       ),
@@ -257,7 +245,7 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(10, 0, 5, 0),
-                                      child: Image.asset('assets/daily/Chaos.png', width: 25, height: 25),
+                                      child: Image.asset('assets/daily/0.png', width: 25, height: 25),
                                     ),
                                     Expanded(
                                       child: Padding(
@@ -275,8 +263,8 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                               ),
                                             ),
                                             onSaved: (value) {
-                                              userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0]
-                                                  .restGauge = int.parse(value.toString());
+                                              userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0].restGauge =
+                                                  int.parse(value.toString());
                                             },
                                             onChanged: (value) {
                                               setState(() {
@@ -305,19 +293,17 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                                 decoration: InputDecoration(
                                                   contentPadding: EdgeInsets.zero,
                                                   enabledBorder: OutlineInputBorder(
-                                                    borderSide:
-                                                        BorderSide(color: chaosError ? Colors.red : Colors.grey, width: 0.5),
+                                                    borderSide: BorderSide(color: chaosError ? Colors.red : Colors.grey, width: 0.5),
                                                     borderRadius: BorderRadius.circular(5),
                                                   ),
                                                   focusedBorder: OutlineInputBorder(
-                                                    borderSide:
-                                                        BorderSide(color: chaosError ? Colors.red : Colors.grey, width: 0.5),
+                                                    borderSide: BorderSide(color: chaosError ? Colors.red : Colors.grey, width: 0.5),
                                                     borderRadius: BorderRadius.circular(5),
                                                   ),
                                                 ),
                                                 onSaved: (value) {
-                                                  userProvider.charactersProvider.characters[widget.characterIndex]
-                                                      .dailyContents[0].restGauge = int.parse(value.toString());
+                                                  userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0]
+                                                      .restGauge = int.parse(value.toString());
                                                 },
                                                 onChanged: (value) {
                                                   setState(() {
@@ -355,11 +341,10 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                           height: 25,
                                         ),
                                         onTap: () {
-                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0]
-                                                  .clearNum >
+                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0].clearNum >
                                               0) {
-                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0]
-                                                .clearNum -= 1;
+                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0].clearNum -=
+                                                1;
                                             setState(() {});
                                           } else {
                                             toast('최소 클리어 횟수는 0입니다.');
@@ -377,12 +362,11 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                           height: 25,
                                         ),
                                         onTap: () {
-                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0]
-                                                  .clearNum <
-                                              userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0]
-                                                  .maxClearNum) {
-                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0]
-                                                .clearNum += 1;
+                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0].clearNum <
+                                              userProvider
+                                                  .charactersProvider.characters[widget.characterIndex].dailyContents[0].maxClearNum) {
+                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[0].clearNum +=
+                                                1;
                                             setState(() {});
                                           } else {
                                             toast('최대 클리어 횟수를 초과할 수 없습니다.');
@@ -404,7 +388,7 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(10, 0, 5, 0),
-                                      child: Image.asset('assets/daily/Guardian.png', width: 25, height: 25),
+                                      child: Image.asset('assets/daily/1.png', width: 25, height: 25),
                                     ),
                                     Expanded(
                                       child: Padding(
@@ -422,8 +406,8 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                               ),
                                             ),
                                             onSaved: (value) {
-                                              userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1]
-                                                  .restGauge = int.parse(value.toString());
+                                              userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1].restGauge =
+                                                  int.parse(value.toString());
                                             },
                                             onChanged: (value) {
                                               setState(() {
@@ -452,19 +436,17 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                                 decoration: InputDecoration(
                                                   contentPadding: EdgeInsets.zero,
                                                   enabledBorder: OutlineInputBorder(
-                                                    borderSide:
-                                                        BorderSide(color: guardianError ? Colors.red : Colors.grey, width: 0.5),
+                                                    borderSide: BorderSide(color: guardianError ? Colors.red : Colors.grey, width: 0.5),
                                                     borderRadius: BorderRadius.circular(5),
                                                   ),
                                                   focusedBorder: OutlineInputBorder(
-                                                    borderSide:
-                                                        BorderSide(color: guardianError ? Colors.red : Colors.grey, width: 0.5),
+                                                    borderSide: BorderSide(color: guardianError ? Colors.red : Colors.grey, width: 0.5),
                                                     borderRadius: BorderRadius.circular(5),
                                                   ),
                                                 ),
                                                 onSaved: (value) {
-                                                  userProvider.charactersProvider.characters[widget.characterIndex]
-                                                      .dailyContents[1].restGauge = int.parse(value.toString());
+                                                  userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1]
+                                                      .restGauge = int.parse(value.toString());
                                                 },
                                                 onChanged: (value) {
                                                   setState(() {
@@ -502,11 +484,10 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                           height: 25,
                                         ),
                                         onTap: () {
-                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1]
-                                                  .clearNum >
+                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1].clearNum >
                                               0) {
-                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1]
-                                                .clearNum -= 1;
+                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1].clearNum -=
+                                                1;
                                             setState(() {});
                                           } else {
                                             toast('최소 클리어 횟수는 0입니다.');
@@ -524,12 +505,11 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                           height: 25,
                                         ),
                                         onTap: () {
-                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1]
-                                                  .clearNum <
-                                              userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1]
-                                                  .maxClearNum) {
-                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1]
-                                                .clearNum += 1;
+                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1].clearNum <
+                                              userProvider
+                                                  .charactersProvider.characters[widget.characterIndex].dailyContents[1].maxClearNum) {
+                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[1].clearNum +=
+                                                1;
                                             setState(() {});
                                           } else {
                                             toast('최대 클리어 횟수를 초과할 수 없습니다.');
@@ -551,7 +531,7 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(10, 0, 5, 0),
-                                      child: Image.asset('assets/daily/Epona.png', width: 25, height: 25),
+                                      child: Image.asset('assets/daily/2.png', width: 25, height: 25),
                                     ),
                                     Expanded(
                                       child: Padding(
@@ -569,8 +549,8 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                               ),
                                             ),
                                             onSaved: (value) {
-                                              userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2]
-                                                  .restGauge = int.parse(value.toString());
+                                              userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2].restGauge =
+                                                  int.parse(value.toString());
                                             },
                                             onChanged: (value) {
                                               setState(() {
@@ -599,19 +579,17 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                                 decoration: InputDecoration(
                                                   contentPadding: EdgeInsets.zero,
                                                   enabledBorder: OutlineInputBorder(
-                                                    borderSide:
-                                                        BorderSide(color: eponaError ? Colors.red : Colors.grey, width: 0.5),
+                                                    borderSide: BorderSide(color: eponaError ? Colors.red : Colors.grey, width: 0.5),
                                                     borderRadius: BorderRadius.circular(5),
                                                   ),
                                                   focusedBorder: OutlineInputBorder(
-                                                    borderSide:
-                                                        BorderSide(color: eponaError ? Colors.red : Colors.grey, width: 0.5),
+                                                    borderSide: BorderSide(color: eponaError ? Colors.red : Colors.grey, width: 0.5),
                                                     borderRadius: BorderRadius.circular(5),
                                                   ),
                                                 ),
                                                 onSaved: (value) {
-                                                  userProvider.charactersProvider.characters[widget.characterIndex]
-                                                      .dailyContents[2].restGauge = int.parse(value.toString());
+                                                  userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2]
+                                                      .restGauge = int.parse(value.toString());
                                                 },
                                                 onChanged: (value) {
                                                   setState(() {
@@ -649,8 +627,10 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                           height: 25,
                                         ),
                                         onTap: () {
-                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2].clearNum > 0) {
-                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2].clearNum -= 1;
+                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2].clearNum >
+                                              0) {
+                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2].clearNum -=
+                                                1;
                                             setState(() {});
                                           } else {
                                             toast('최소 클리어 횟수는 0입니다.');
@@ -668,12 +648,11 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
                                           height: 25,
                                         ),
                                         onTap: () {
-                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2]
-                                                  .clearNum <
-                                              userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2]
-                                                  .maxClearNum) {
-                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2]
-                                                .clearNum += 1;
+                                          if (userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2].clearNum <
+                                              userProvider
+                                                  .charactersProvider.characters[widget.characterIndex].dailyContents[2].maxClearNum) {
+                                            userProvider.charactersProvider.characters[widget.characterIndex].dailyContents[2].clearNum +=
+                                                1;
                                             setState(() {});
                                           } else {
                                             toast('최대 클리어 횟수를 초과할 수 없습니다.');
@@ -733,7 +712,7 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
         return DailyContentSettingWidget(characterIndex);
       case "주간 콘텐츠":
         return WeeklyContentSettingWidget(characterIndex);
-      case "골드 콘텐츠":
+      case "레이드 콘텐츠":
         return GoldContentSettingWidget(characterIndex);
     }
     return Container();

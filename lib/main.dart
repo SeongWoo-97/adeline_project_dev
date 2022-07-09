@@ -1,3 +1,4 @@
+import 'package:adeline_app/model/user/content/raid_content.dart';
 import 'package:adeline_app/providers/fetch_character_profile.dart';
 import 'package:adeline_app/screen/mobile/home_screen/widget/notice_controller/event_notice_controller.dart';
 import 'package:adeline_app/screen/mobile/home_screen/widget/notice_controller/notice_controller.dart';
@@ -22,7 +23,6 @@ import 'model/user/character/character_model.dart';
 import 'model/user/character/character_provider.dart';
 import 'model/user/content/daily_content.dart';
 import 'model/user/content/expedition_content.dart';
-import 'model/user/content/gold_content.dart';
 import 'model/user/content/restGauge_content.dart';
 import 'model/user/content/weekly_content.dart';
 import 'model/user/expedition/expedition_model.dart';
@@ -37,11 +37,14 @@ void main() async {
   Hive.registerAdapter(CharacterAdapter());
   Hive.registerAdapter(DailyContentAdapter());
   Hive.registerAdapter(WeeklyContentAdapter());
-  Hive.registerAdapter(GoldContentAdapter());
+  Hive.registerAdapter(RaidContentAdapter());
   Hive.registerAdapter(ExpeditionAdapter());
   Hive.registerAdapter(ExpeditionContentAdapter());
   Hive.registerAdapter(RestGaugeContentAdapter());
+  Hive.registerAdapter(CheckHistoryAdapter());
   await Hive.openBox('themeData');
+  await Hive.openBox('expeditionIsExpand');
+  await Hive.openBox('firstScreen');
   await Hive.openBox<User>('characters');
   await Hive.openBox<Expedition>('expedition');
   runApp(

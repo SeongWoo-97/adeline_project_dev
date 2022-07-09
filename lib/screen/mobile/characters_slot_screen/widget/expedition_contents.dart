@@ -16,7 +16,12 @@ class ExpeditionContentWidget extends StatefulWidget {
 class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
   List<Widget> list = [];
   final expeditionBox = Hive.box<Expedition>('expedition');
-
+  bool isExpanded = false;
+  @override
+  void initState() {
+    super.initState();
+    isExpanded = Hive.box('expeditionIsExpand').get('isExpanded',defaultValue: false);
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,6 +37,7 @@ class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
           horizontalTitleGap: 10,
           dense: true,
           child: ExpansionTile(
+            initiallyExpanded: isExpanded,
             tilePadding: EdgeInsets.symmetric(vertical: 0, horizontal: 5),
             expandedCrossAxisAlignment: CrossAxisAlignment.start,
             expandedAlignment: Alignment.topLeft,
@@ -98,41 +104,43 @@ class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Image.asset('${expeditionProvider.expedition.list[i].iconName}', width: 23, height: 23),
-                    ),
-                    SizedBox(
-                      width: 3,
-                    ),
-                    Text(
-                      '${expeditionProvider.expedition.list[i].name}',
-                      style: TextStyle(fontSize: 14),
-                      overflow: TextOverflow.ellipsis,
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    Checkbox(
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        value: expeditionProvider.expedition.list[i].clearCheck,
-                        checkColor: Color.fromRGBO(119, 210, 112, 1),
-                        activeColor: Colors.transparent,
-                        side: BorderSide(color: Colors.grey, width: 1.5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                Flexible(
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: Image.asset('${expeditionProvider.expedition.list[i].iconName}', width: 23, height: 23),
+                      ),
+                      SizedBox(
+                        width: 3,
+                      ),
+                      Flexible(
+                        child: Container(
+                          child: Text(
+                            '${expeditionProvider.expedition.list[i].name}',
+                            style: TextStyle(fontSize: 14),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                        onChanged: (bool? value) {
-                          setState(() {
-                            expeditionProvider.expedition.list[i].clearCheck = value!;
-                            expeditionBox.put('expeditionList', expeditionProvider.expedition);
-                          });
-                        })
-                  ],
-                )
+                      )
+                    ],
+                  ),
+                ),
+                Checkbox(
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    value: expeditionProvider.expedition.list[i].clearCheck,
+                    checkColor: Color.fromRGBO(119, 210, 112, 1),
+                    activeColor: Colors.transparent,
+                    side: BorderSide(color: Colors.grey, width: 1.5),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    onChanged: (bool? value) {
+                      setState(() {
+                        expeditionProvider.expedition.list[i].clearCheck = value!;
+                        expeditionBox.put('expeditionList', expeditionProvider.expedition);
+                      });
+                    })
               ],
             ),
           ),

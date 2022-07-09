@@ -71,7 +71,7 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
                       ),
                       unSelectedColor: Colors.transparent,
                       selectedColor: DarkMode.isDarkMode.value ? Color(0xFF121212) : Colors.black12,
-                      width: MediaQuery.of(context).size.width * 0.453,
+                      width: MediaQuery.of(context).size.width * 0.45,
                       absoluteZeroSpacing: false,
                       customShape:
                           RoundedRectangleBorder(borderRadius: BorderRadius.circular(8), side: BorderSide(color: Colors.grey)),

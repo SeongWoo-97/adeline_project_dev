@@ -1,5 +1,5 @@
-import 'package:adeline_app/screen/mobile/characters_slot_screen/widget/content_board_widget.dart';
-import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
+import 'package:adeline_app/screen/mobile/characters_slot_screen/widget/content_board.dart';
+import 'package:adeline_app/screen/mobile/characters_slot_screen/widget/pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -15,13 +15,9 @@ import '../../../model/user/expedition/expedition_provider.dart';
 import '../../../model/user/user.dart';
 import '../../../model/user/user_provider.dart';
 import '../bottom_navigation_screen/bottom_navigation_screen.dart';
-import '../character_manual_add_screen/character_manual_add_screen.dart';
-import '../character_reorder_screen/character_reorder_screen.dart';
-import '../characters_slot_screen/widget/character_slot_widget.dart';
-import '../characters_slot_screen/widget/expedition_content_widget.dart';
-import '../characters_slot_screen/widget/total_gold_widget.dart';
-import '../drawer_screen/drawer_screen.dart';
-import '../init_date_check_screen/init_date_check_screen.dart';
+import '../characters_slot_screen/widget/character_slot_list.dart';
+import '../characters_slot_screen/widget/expedition_contents.dart';
+import '../characters_slot_screen/widget/total_gold.dart';
 
 class CharactersSlotScreen extends StatefulWidget {
   const CharactersSlotScreen({Key? key}) : super(key: key);
@@ -31,7 +27,6 @@ class CharactersSlotScreen extends StatefulWidget {
 }
 
 class _CharactersSlotScreenState extends State<CharactersSlotScreen> with AutomaticKeepAliveClientMixin {
-  CustomPopupMenuController _customPopupMenuController = CustomPopupMenuController();
   List<Character> characterList = [];
   List<ExpeditionContent> expeditionList = [];
   late Expedition expedition;
@@ -143,10 +138,10 @@ class _CharactersSlotScreenState extends State<CharactersSlotScreen> with Automa
         character.weeklyContents.forEach((weeklyContent) {
           weeklyContent.clearChecked = false;
         });
-        character.goldContents.forEach((goldContent) {
-          goldContent.clearChecked = false;
-          goldContent.clearGold = 0;
-          goldContent.addGold = 0;
+        character.raidContents.forEach((raidContents) {
+          raidContents.clearChecked = false;
+          raidContents.clearGold = 0;
+          raidContents.addGold = 0;
         });
       });
     }
@@ -162,8 +157,6 @@ class _CharactersSlotScreenState extends State<CharactersSlotScreen> with Automa
     super.build(context);
     UserProvider userProvider = Provider.of<UserProvider>(context);
     ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context, listen: false);
-    userProvider.updateContentBoard();
-    userProvider.updateTotalGold();
     expeditionProvider.expedition = expedition;
     userProvider.charactersProvider.characters = characterList;
     return PlatformScaffold(
@@ -171,233 +164,25 @@ class _CharactersSlotScreenState extends State<CharactersSlotScreen> with Automa
         title: Text('숙제 관리'),
         trailingActions: [
           IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-                Fluttertoast.showToast(
-                    msg: "새로고침이 완료 되었습니다.",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    backgroundColor: Colors.grey,
-                    timeInSecForIosWeb: 2,
-                    fontSize: 14.0);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BottomNavigationScreen(
-                              index: 1,
-                            )));
-              },
-              icon: Icon(Icons.refresh_outlined)),
-          CustomPopupMenu(
-            controller: _customPopupMenuController,
-            pressType: PressType.singleClick,
-            verticalMargin: -10,
-            horizontalMargin: 0,
-            child: Container(
-              child: Icon(Icons.more_vert_outlined),
-              padding: EdgeInsets.only(right: 10),
-            ),
-            menuBuilder: () => ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Container(
-                color: Colors.white,
-                child: IntrinsicWidth(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onTap: () async {
-                          _customPopupMenuController.hideMenu();
-                          showPlatformDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Text('안내'),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [Text('수동 초기화를 진행하시겠습니까?\n단, 휴식콘텐츠는 초기화가 되지 않습니다.')],
-                                  ),
-                                  actions: [
-                                    PlatformDialogAction(
-                                      child: Text('네'),
-                                      onPressed: () {
-                                        if (expedition.nextWednesday.weekday == 3) {
-                                          expedition.nextWednesday = nowDate.add(Duration(days: 7));
-                                        } else {
-                                          while (expedition.nextWednesday.weekday != 3) {
-                                            expedition.nextWednesday = expedition.nextWednesday.add(Duration(days: 1));
-                                            print('${expedition.nextWednesday} ${expedition.nextWednesday.weekday}');
-                                          }
-                                        }
-                                        expedition.list.forEach(
-                                          (expeditionContent) {
-                                            if (expeditionContent.type == "일일") {
-                                              expeditionContent.clearCheck = false;
-                                            }
-                                            if (expeditionContent.type == "주간") {
-                                              expeditionContent.clearCheck = false;
-                                            }
-                                          },
-                                        );
-                                        characterList.forEach((character) {
-                                          character.weeklyContents.forEach((weeklyContent) {
-                                            weeklyContent.clearChecked = false;
-                                          });
-                                          character.goldContents.forEach((goldContent) {
-                                            goldContent.clearChecked = false;
-                                            goldContent.clearGold = 0;
-                                            goldContent.addGold = 0;
-                                          });
-                                        });
-                                        Hive.box<User>('characters').put('user', User(characters: characterList));
-                                        Hive.box<Expedition>('expedition').put('expeditionList', expedition);
-                                        print('변경된 초기화 날짜 : ${expedition.nextWednesday}');
-                                        Navigator.pop(context);
-                                        Fluttertoast.showToast(
-                                            msg: "새로고침이 완료 되었습니다.",
-                                            toastLength: Toast.LENGTH_SHORT,
-                                            gravity: ToastGravity.BOTTOM,
-                                            backgroundColor: Colors.grey,
-                                            timeInSecForIosWeb: 2,
-                                            fontSize: 14.0);
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => BottomNavigationScreen(
-                                                      index: 1,
-                                                    )));
-                                      },
-                                    ),
-                                    PlatformDialogAction(
-                                      child: Text('아니요'),
-                                      onPressed: () => Navigator.pop(context),
-                                    ),
-                                  ],
-                                );
-                              });
-                        },
-                        child: Container(
-                          height: 40,
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  child: Text(
-                                    '수동 초기화',
-                                    style: TextStyle(fontSize: 15, color: Colors.black),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onTap: () async {
-                          _customPopupMenuController.hideMenu();
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterManualAddScreen()));
-                        },
-                        child: Container(
-                          height: 40,
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  child: Text(
-                                    '캐릭터 수동 추가',
-                                    style: TextStyle(fontSize: 15, color: Colors.black),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        child: Container(
-                          height: 40,
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  child: Text(
-                                    '캐릭터 순서 및 삭제',
-                                    style: TextStyle(fontSize: 15, color: Colors.black),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        onTap: () async {
-                          _customPopupMenuController.hideMenu();
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterReOrderScreen()));
-                        },
-                      ),
-                      GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        child: Container(
-                          height: 40,
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  child: Text(
-                                    '초기화 날짜 확인',
-                                    style: TextStyle(fontSize: 15, color: Colors.black),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        onTap: () async {
-                          _customPopupMenuController.hideMenu();
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => InitDateCheckScreen()));
-                        },
-                      ),
-                      GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        child: Container(
-                          height: 40,
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  child: Text(
-                                    '관문 선택 방법',
-                                    style: TextStyle(fontSize: 15, color: Colors.black),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        onTap: () async {
-                          _customPopupMenuController.hideMenu();
-                          Fluttertoast.showToast(
-                              msg: "캐릭터의 골드 버튼을 누른 후 콘텐츠의 이름을 1초간 눌러주시면 해제됩니다.",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              backgroundColor: Colors.grey,
-                              timeInSecForIosWeb: 2,
-                              fontSize: 14.0);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          )
+            onPressed: () {
+              Navigator.pop(context);
+              Fluttertoast.showToast(
+                  msg: "새로고침이 완료 되었습니다.",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  backgroundColor: Colors.grey,
+                  timeInSecForIosWeb: 2,
+                  fontSize: 14.0);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BottomNavigationScreen(
+                            index: 1,
+                          )));
+            },
+            icon: Icon(Icons.refresh_outlined),
+          ),
+          PopupMenuWidget(),
         ],
       ),
       body: Column(

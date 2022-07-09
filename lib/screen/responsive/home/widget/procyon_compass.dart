@@ -107,6 +107,8 @@ class ProcyonCompassWidget extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                       SizedBox(height: 10),
+                      Image.asset('assets/procyon_compass/chaos_gate.png', width: 45, height: 45),
+                      SizedBox(height: 10),
                       Image.asset('assets/procyon_compass/ghost_ship.png', width: 45, height: 45),
                     ],
                   ),

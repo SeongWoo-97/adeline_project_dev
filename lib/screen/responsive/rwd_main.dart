@@ -1,8 +1,7 @@
 import 'dart:ui';
-
+import 'package:flutter/material.dart';
 import 'package:adeline_app/model/dark_mode/responsive/rwd_dark_theme_data.dart';
 import 'package:adeline_app/screen/responsive/home/screen/home_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 

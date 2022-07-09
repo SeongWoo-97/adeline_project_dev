@@ -151,9 +151,12 @@ class SkillScreen extends StatelessWidget {
                                         ),
                                       ),
                                       SizedBox(width: 5),
-                                      Text(
-                                        '${gems[index].title}',
-                                        style: Theme.of(context).textTheme.bodyText2?.copyWith(color: gemNameColor),
+                                      Flexible(
+                                        child: Text(
+                                          '${gems[index].title}',
+                                          style: Theme.of(context).textTheme.bodyText2?.copyWith(color: gemNameColor),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                     ],
                                   ),

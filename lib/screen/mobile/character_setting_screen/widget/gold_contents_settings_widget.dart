@@ -1,10 +1,11 @@
+import 'package:adeline_app/constant/constant.dart';
+import 'package:adeline_app/model/user/content/raid_content.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../constant/constant.dart';
+
 import '../../../../model/dark_mode/dark_theme_provider.dart';
-import '../../../../model/user/character/character_model.dart';
-import '../../../../model/user/content/gold_content.dart';
+
 import '../../../../model/user/user_provider.dart';
 
 class GoldContentSettingWidget extends StatefulWidget {
@@ -17,7 +18,7 @@ class GoldContentSettingWidget extends StatefulWidget {
 }
 
 class _GoldContentSettingWidgetState extends State<GoldContentSettingWidget> {
-  List<GoldContent> defaultGoldContents = List.generate(constGoldContents.length, (index) => GoldContent.clone(constGoldContents[index]));
+  List<RaidContent> defaultRaidContents = List.generate(constRaidContents.length, (index) => RaidContent.clone(constRaidContents[index]));
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class _GoldContentSettingWidgetState extends State<GoldContentSettingWidget> {
       children: [
         ListView.builder(
           shrinkWrap: true,
-          itemCount: userProvider.charactersProvider.characters[widget.characterIndex].goldContents.length,
+          itemCount: userProvider.charactersProvider.characters[widget.characterIndex].raidContents.length,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             return Card(
@@ -47,39 +48,29 @@ class _GoldContentSettingWidgetState extends State<GoldContentSettingWidget> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: iconPerType(
-                                userProvider.charactersProvider.characters[widget.characterIndex].goldContents[index].type),
+                                userProvider.charactersProvider.characters[widget.characterIndex].raidContents[index].type),
                           ),
                           Text(
-                            '${userProvider.charactersProvider.characters[widget.characterIndex].goldContents[index].name}',
+                            '${userProvider.charactersProvider.characters[widget.characterIndex].raidContents[index].name}',
                             style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 16),
                           ),
                           difficultyText(userProvider
-                              .charactersProvider.characters[widget.characterIndex].goldContents[index].difficulty
+                              .charactersProvider.characters[widget.characterIndex].raidContents[index].difficulty
                               .toString()),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5),
-                            child: Text(
-                                '${clearGoldTotal(userProvider.charactersProvider.characters[widget.characterIndex].goldContents[index].goldPerPhase)} Gold',
-                                style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 15)),
-                          ),
-                          SizedBox(
-                            height: 25,
-                            child: Checkbox(
-                              value:
-                                  userProvider.charactersProvider.characters[widget.characterIndex].goldContents[index].isChecked,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  userProvider.charactersProvider.characters[widget.characterIndex].goldContents[index]
-                                      .isChecked = value!;
-                                });
-                              },
-                            ),
-                          )
-                        ],
+                      SizedBox(
+                        height: 25,
+                        child: Checkbox(
+                          value:
+                              userProvider.charactersProvider.characters[widget.characterIndex].raidContents[index].isChecked,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              userProvider.charactersProvider.characters[widget.characterIndex].raidContents[index]
+                                  .isChecked = value!;
+                            });
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -158,33 +149,5 @@ class _GoldContentSettingWidgetState extends State<GoldContentSettingWidget> {
       clearGold += list[i];
     }
     return clearGold;
-  }
-
-  String clearGoldPerCharacter(Character character, int index) {
-    int level = int.parse(character.level);
-    bool getGoldLevelLimit = level <= character.goldContents[index].getGoldLevelLimit; // 골드획득 레벨제한
-    bool enterGoldLevelLimit = level >= character.goldContents[index].enterLevelLimit;
-    bool clearCheck = character.goldContents[index].clearChecked;
-    print(getGoldLevelLimit);
-    if (getGoldLevelLimit && character.goldContents[index].characterAlwaysMaxClear && enterGoldLevelLimit) {
-      int total = 0;
-      character.goldContents[index].goldPerPhase.forEach((element) {
-        total += element;
-      });
-      return total.toString() + " Gold";
-    }
-    if (getGoldLevelLimit &&
-        character.goldContents[index].characterAlwaysMaxClear == false &&
-        enterGoldLevelLimit &&
-        clearCheck) {
-      return "${character.goldContents[index].clearGold} Gold";
-    }
-    if (getGoldLevelLimit && character.goldContents[index].characterAlwaysMaxClear == false && enterGoldLevelLimit) {
-      return "관문 선택";
-    }
-    if (level < character.goldContents[index].enterLevelLimit) {
-      return "입장레벨 제한";
-    }
-    return "골드획득 불가";
   }
 }

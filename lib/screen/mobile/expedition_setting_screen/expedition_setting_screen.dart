@@ -1,4 +1,3 @@
-
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -41,42 +40,64 @@ class _ExpeditionSettingScreenState extends State<ExpeditionSettingScreen> {
       ),
       cupertino: (_, __) => CupertinoPageScaffoldData(),
       material: (_, __) => MaterialScaffoldData(
-        body: DragAndDropLists(
-          children: [dailyDragAndDropList()],
-          onItemReorder: _onItemReorder,
-          onListReorder: _onListReorder,
-          listPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-          itemDecorationWhileDragging: BoxDecoration(
-            color: Colors.transparent,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 3,
-                offset: Offset(0, 0), // changes position of shadow
-              ),
-            ],
-          ),
-          listInnerDecoration: BoxDecoration(
-            color: Colors.transparent, // background 색
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-          ),
-          lastItemTargetHeight: 8,
-          addLastItemTargetHeightToTop: true,
-          lastListTargetSize: 40,
-          listDragHandle: DragHandle(
-            verticalAlignment: DragHandleVerticalAlignment.top,
-            child: Container(),
-          ),
-          itemDragHandle: DragHandle(
-            child: Padding(
-              padding: EdgeInsets.only(right: 15),
-              child: Icon(
-                Icons.menu,
-                color: Colors.grey,
+        body: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              height: 40,
+              child: Row(
+                children: [
+                  Checkbox(
+                      value: Hive.box('expeditionIsExpand').get('isExpanded', defaultValue: false),
+                      onChanged: (value) {
+                        setState(() {
+                          Hive.box('expeditionIsExpand').put('isExpanded', value);
+                        });
+                      }),
+                  Text('원정대콘텐츠 항상 펼치기')
+                ],
               ),
             ),
-          ),
+            Expanded(
+              child: DragAndDropLists(
+                children: [dailyDragAndDropList()],
+                onItemReorder: _onItemReorder,
+                onListReorder: _onListReorder,
+                listPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                itemDecorationWhileDragging: BoxDecoration(
+                  color: Colors.transparent,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 3,
+                      offset: Offset(0, 0), // changes position of shadow
+                    ),
+                  ],
+                ),
+                listInnerDecoration: BoxDecoration(
+                  color: Colors.transparent, // background 색
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                ),
+                lastItemTargetHeight: 8,
+                addLastItemTargetHeightToTop: true,
+                lastListTargetSize: 40,
+                listDragHandle: DragHandle(
+                  verticalAlignment: DragHandleVerticalAlignment.top,
+                  child: Container(),
+                ),
+                itemDragHandle: DragHandle(
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 15),
+                    child: Icon(
+                      Icons.menu,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -22,10 +22,11 @@ class CharacterAdapter extends TypeAdapter<Character> {
       job: fields[5] as dynamic,
       jobCode: fields[3] as String,
     )
+      ..server = fields[1] as String?
       ..groupName = fields[2] as String
       ..dailyContents = (fields[6] as List).cast<dynamic>()
       ..weeklyContents = (fields[7] as List).cast<WeeklyContent>()
-      ..goldContents = (fields[8] as List).cast<GoldContent>();
+      ..raidContents = (fields[8] as List).cast<RaidContent>();
   }
 
   @override
@@ -49,7 +50,7 @@ class CharacterAdapter extends TypeAdapter<Character> {
       ..writeByte(7)
       ..write(obj.weeklyContents)
       ..writeByte(8)
-      ..write(obj.goldContents);
+      ..write(obj.raidContents);
   }
 
   @override

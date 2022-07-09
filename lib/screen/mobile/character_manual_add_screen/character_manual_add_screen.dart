@@ -229,7 +229,7 @@ class _CharacterManualAddScreenState extends State<CharacterManualAddScreen> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(10, 0, 5, 0),
-                                      child: Image.asset('assets/daily/Chaos.png', width: 25, height: 25),
+                                      child: Image.asset('assets/daily/0.png', width: 25, height: 25),
                                     ),
                                     Expanded(
                                       child: Padding(
@@ -366,7 +366,7 @@ class _CharacterManualAddScreenState extends State<CharacterManualAddScreen> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(10, 0, 5, 0),
-                                      child: Image.asset('assets/daily/Guardian.png', width: 25, height: 25),
+                                      child: Image.asset('assets/daily/1.png', width: 25, height: 25),
                                     ),
                                     Expanded(
                                       child: Padding(
@@ -505,7 +505,7 @@ class _CharacterManualAddScreenState extends State<CharacterManualAddScreen> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(10, 0, 5, 0),
-                                      child: Image.asset('assets/daily/Epona.png', width: 25, height: 25),
+                                      child: Image.asset('assets/daily/2.png', width: 25, height: 25),
                                     ),
                                     Expanded(
                                       child: Padding(

@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../../constant/constant.dart';
 import '../../../../model/user/character/character_model.dart';
 import '../../../../model/user/content/daily_content.dart';
-import '../../../../model/user/content/gold_content.dart';
+import '../../../../model/user/content/raid_content.dart';
 import '../../../../model/user/content/restGauge_content.dart';
 import '../../../../model/user/content/weekly_content.dart';
 import '../../../../model/user/user_provider.dart';
@@ -41,9 +41,9 @@ class AddCharacterProvider extends ChangeNotifier {
   DragAndDropList weeklyDragAndDrop = DragAndDropList(children: []);
 
   List<dynamic> dailyContents = [
-    RestGaugeContent('카오스 던전', 'assets/daily/Chaos.png', 2, false),
-    RestGaugeContent('가디언 토벌', 'assets/daily/Guardian.png', 2, false),
-    RestGaugeContent('에포나 의뢰', 'assets/daily/Epona.png', 3, false),
+    RestGaugeContent('카오스 던전', 'assets/daily/0.png', 2, false),
+    RestGaugeContent('가디언 토벌', 'assets/daily/1.png', 2, false),
+    RestGaugeContent('에포나 의뢰', 'assets/daily/2.png', 3, false),
   ];
 
   List<WeeklyContent> weeklyContents = [
@@ -52,8 +52,8 @@ class AddCharacterProvider extends ChangeNotifier {
     WeeklyContent('카양겔', 'assets/week/AbyssDungeon.png', false),
   ];
 
-  List<GoldContent> goldContents =
-      List.generate(constGoldContents.length, (index) => GoldContent.clone(constGoldContents[index]));
+  List<RaidContent> raidContents =
+      List.generate(constRaidContents.length, (index) => RaidContent.clone(constRaidContents[index]));
 
   void addContent(BuildContext context, String contentType, String name) {
     switch (contentType) {

@@ -56,19 +56,11 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
-    signingConfigs {
-        release {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
-        }
-    }
     buildTypes {
         release {
-            signingConfig signingConfigs.release
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // TODO: release 빌드 버전을 위한 서명 구성을 추가하세요.
+            // 현재는 `flutter run --release`가 디버그용 키로 서명되어 동작합니다.
+            signingConfig signingConfigs.debug
         }
     }
 }

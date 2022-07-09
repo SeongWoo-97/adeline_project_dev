@@ -150,7 +150,6 @@ class _CharacterReOrderScreenState extends State<CharacterReOrderScreen> {
 
       var movedItem2 = userProvider.charactersProvider.characters.removeAt(oldItemIndex);
       userProvider.charactersProvider.characters.insert(newItemIndex, movedItem2);
-      userProvider.providerSetState();
     });
   }
 

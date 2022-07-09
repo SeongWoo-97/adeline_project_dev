@@ -226,6 +226,8 @@ class InitSettingsController extends ChangeNotifier {
         return "512";
       case "도화가":
         return "602";
+      case "기상술사":
+        return "603";
     }
     return "0";
   }
