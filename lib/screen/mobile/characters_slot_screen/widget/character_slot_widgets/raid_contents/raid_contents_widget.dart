@@ -690,11 +690,9 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
                   onPressed: () {
                     if (_goldType == AddGoldType.normal) {
                       userProvider.updateAddGold(widget.characterIndex, index, int.parse(addGoldTextEditingController.text));
-                      userProvider.updateTotalGold();
                     } else {
                       if (numberOfPersonTextEditingController.text.isNotEmpty && busCostTextEditingController.text.isNotEmpty) {
                         userProvider.updateAddGold(widget.characterIndex, index, busCost);
-                        userProvider.updateTotalGold();
                       }
                     }
                     FocusScope.of(context).unfocus();

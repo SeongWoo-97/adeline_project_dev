@@ -25,13 +25,17 @@ class TotalGoldWidget extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyText2,
               ),
             ),
-            Row(
-              children: [
-                Text(
-                  '${NumberFormat('###,###,###,###').format(userProvider.totalGold).replaceAll(' ', '')} G ',
-                  style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
-                ),
-              ],
+            Consumer<UserProvider>(
+              builder: (context, instance, child) {
+                return Row(
+                  children: [
+                    Text(
+                      '${NumberFormat('###,###,###,###').format(userProvider.updateTotalGold()).replaceAll(' ', '')} G ',
+                      style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
+                    ),
+                  ],
+                );
+              },
             )
           ],
         ),

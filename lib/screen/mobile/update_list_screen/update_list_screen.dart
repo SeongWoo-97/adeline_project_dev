@@ -22,6 +22,47 @@ class _UpdateListScreenState extends State<UpdateListScreen> {
         children: [
           ExpansionTile(
             title: Text(
+              '1.5.0 Ver',
+            ),
+            backgroundColor: DarkMode.isDarkMode.value ? Colors.grey[800] : Colors.white,
+            collapsedIconColor: DarkMode.isDarkMode.value ? Colors.white : Colors.grey,
+            iconColor: DarkMode.isDarkMode.value ? Colors.white : Colors.grey,
+            expandedAlignment: Alignment.topLeft,
+            childrenPadding: const EdgeInsets.only(bottom: 10),
+            textColor: DarkMode.isDarkMode.value ? Colors.white : Colors.black,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('안내',style: Theme.of(context).textTheme.bodyText1,),
+                    Text('- 골드 콘텐츠 개선으로 인한 기존 DB를 사용불가'),
+                    Text('- 앱 아이콘 변경'),
+                    Text('- 앱 이름 변경 (변경 전 : 아델라인, 변경 후: 로박스)'),
+                    Text('- 캐릭터 현황판에 표시되는 콘텐츠를 각 캐릭터마다 클리어 기준 수치를 선택할 수 있습니다.'),
+                    Text('개선',style: Theme.of(context).textTheme.bodyText1,),
+                    Text('- 골드 콘텐츠에 각 난이도 별로 체크 할 수 있도록 개선'),
+                    Text('- 콘텐츠 현황판 개선'),
+                    Text('- 캐릭터 검색 카드 UI 수정'),
+                    Text('추가',style: Theme.of(context).textTheme.bodyText1,),
+                    Text('- 홈 화면에 프로키온 나침반, 모험섬 위젯 추가'),
+                    Text('- 캐릭터검색에 수집형콘텐츠 행 추가'),
+                    Text('- 일일/주간 기본 콘텐츠 추가'),
+                    Text('- 커스텀 콘텐츠에 사용되는 아이콘 추가'),
+                    Text('- [아델] 원정대콘텐츠 항상펼치기/항상접기 기능 추가'),
+                    Text('- [아델] 첫 화면설정 기능을 추가'),
+                    Text('버그',style: Theme.of(context).textTheme.bodyText1,),
+                    Text('- 이벤트를 전체 불러오지 못하는 현상 수정'),
+                    Text('- [패검객] 수동초기화시 프리징 현상 수정'),
+
+                  ],
+                ),
+              )
+            ],
+          ),
+          ExpansionTile(
+            title: Text(
               '1.4.0 Ver',
             ),
             backgroundColor: DarkMode.isDarkMode.value ? Colors.grey[800] : Colors.white,

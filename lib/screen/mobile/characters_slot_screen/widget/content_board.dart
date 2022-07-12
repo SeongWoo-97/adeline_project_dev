@@ -14,31 +14,31 @@ class _ContentBoardWidgetState extends State<ContentBoardWidget> {
   List<Widget> contentTileList = [];
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    contentTileList = contentTileWidget(context);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    if (contentTileList.length != 0) {
-      return Container(
-        height: 55,
-        margin: const EdgeInsets.only(left: 2, top: 2),
-        alignment: Alignment.centerLeft,
-        child: ListView(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          children: contentTileWidget(context),
-        ),
-      );
-    }
-    return Container(
-      margin: const EdgeInsets.only(top: 5, bottom: 5),
-      child: Text(
-        '주간 레이드를 모두 완료하였습니다!',
-        style: Theme.of(context).textTheme.headline1,
-      ),
+    return Consumer<UserProvider>(
+      builder: (context,instance,child) {
+        contentTileList = [];
+        contentTileList = contentTileWidget(context);
+        if (contentTileList.length != 0) {
+          return Container(
+            height: 55,
+            margin: const EdgeInsets.only(left: 2, top: 2),
+            alignment: Alignment.centerLeft,
+            child: ListView(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              children: contentTileWidget(context),
+            ),
+          );
+        }
+        return Container(
+          margin: const EdgeInsets.only(top: 5, bottom: 5),
+          child: Text(
+            '주간 레이드를 모두 완료하였습니다!',
+            style: Theme.of(context).textTheme.headline1,
+          ),
+        );
+      },
     );
   }
 
@@ -141,6 +141,7 @@ class _ContentBoardWidgetState extends State<ContentBoardWidget> {
         ));
       }
     });
+
     return list;
   }
 }

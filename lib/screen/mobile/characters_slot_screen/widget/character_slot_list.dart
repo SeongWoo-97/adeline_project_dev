@@ -70,7 +70,7 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                                       style: Theme.of(context).textTheme.caption?.copyWith(color: Colors.grey)),
                                 ],
                               ),
-                              Text('주간 골드 : ${weeklyGold(character)} G', style: Theme.of(context).textTheme.caption),
+                              Text('주간 골드 : ${userProvider.weeklyGold(characterIndex)} G', style: Theme.of(context).textTheme.caption),
                               // 카던, 가디언, 에포나 숙제 3종 휴식게이지
                               Row(children: restGaugeNumberWidget(context, characterIndex, character)),
                               SizedBox(height: 2),

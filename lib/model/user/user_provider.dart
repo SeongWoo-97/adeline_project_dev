@@ -6,6 +6,7 @@ import 'package:adeline_app/screen/mobile/bottom_navigation_screen/bottom_naviga
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'character/character_model.dart';
 import 'character/character_provider.dart';
@@ -16,17 +17,14 @@ class UserProvider extends ChangeNotifier {
 
   final characterBox = Hive.box<User>('characters');
 
-  int totalGold = 0;
+  ValueNotifier<int> totalGold = ValueNotifier<int>(0);
 
   UserProvider({required this.charactersProvider});
 
   @override
   void notifyListeners() {
     super.notifyListeners();
-    updateTotalGold();
-    print('notifyListeners : 저장완료');
     characterBox.put('user', User(characters: charactersProvider.characters));
-    // todo updateTotalGold() 삭제, 원정대 콘텐츠도 작성할지 고민
   }
 
   // 골드 콘텐츠 추가골드
@@ -76,9 +74,44 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  String weeklyGold(int characterIndex) {
+    int clearGold = 0;
+    int bonusGold = 0;
+    // 한 캐릭터의 주간 골드
+    charactersProvider.characters[characterIndex].raidContents.forEach((raidContent) {
+      for (int i = 0; i < raidContent.clearList.length; i++) {
+        if (raidContent.clearList[i].check) {
+          clearGold += int.parse(raidContent.reward[raidContent.clearList[i].difficulty]!['클리어골드'][i].toString());
+          if (raidContent.bonusList[i].check) {
+            bonusGold += int.parse(raidContent.reward[raidContent.bonusList[i].difficulty]!['더보기골드'][i].toString());
+          }
+        }
+      }
+      clearGold += raidContent.addGold;
+    });
+    charactersProvider.characters[characterIndex].totalGold = clearGold - bonusGold;
+    return NumberFormat('###,###,###,###').format(clearGold - bonusGold);
+  }
+
   // 전체 획득 골드
-  void updateTotalGold() {
-    totalGold = 0;
+  int updateTotalGold() {
+    totalGold = ValueNotifier<int>(0);
+    charactersProvider.characters.forEach((character) {
+      character.raidContents.forEach((raidContent) {
+        int clearGold = 0;
+        int bonusGold = 0;
+        for (int i = 0; i < raidContent.clearList.length; i++) {
+          if (raidContent.clearList[i].check) {
+            clearGold += int.parse(raidContent.reward[raidContent.clearList[i].difficulty]!['클리어골드'][i].toString());
+            if (raidContent.bonusList[i].check) {
+              bonusGold += int.parse(raidContent.reward[raidContent.bonusList[i].difficulty]!['더보기골드'][i].toString());
+            }
+          }
+        }
+        totalGold.value += clearGold + (raidContent.addGold) - bonusGold;
+      });
+    });
+    return totalGold.value;
   }
 
   // 일일 콘텐츠 클리어 체크

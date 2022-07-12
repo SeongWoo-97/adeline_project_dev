@@ -1,5 +1,5 @@
 import 'package:adeline_app/screen/mobile/character_setting_screen/widget/daily_contents_settings_widget.dart';
-import 'package:adeline_app/screen/mobile/character_setting_screen/widget/gold_contents_settings_widget.dart';
+import 'package:adeline_app/screen/mobile/character_setting_screen/widget/raid_contents_settings_widget.dart';
 import 'package:adeline_app/screen/mobile/character_setting_screen/widget/weekly_contents_settings_widget.dart';
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 
@@ -713,7 +713,7 @@ class _CharacterSettingsScreenState extends State<CharacterSettingsScreen> {
       case "주간 콘텐츠":
         return WeeklyContentSettingWidget(characterIndex);
       case "레이드 콘텐츠":
-        return GoldContentSettingWidget(characterIndex);
+        return RaidContentSettingWidget(characterIndex);
     }
     return Container();
   }

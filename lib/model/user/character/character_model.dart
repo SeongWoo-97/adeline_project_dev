@@ -38,6 +38,8 @@ class Character {
   @HiveField(8)
   List<RaidContent> raidContents = [];
 
+  int totalGold = 0;
+
   int tag = 0;
 
   List<String> options = ['레이드'];
