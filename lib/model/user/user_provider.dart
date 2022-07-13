@@ -1,5 +1,6 @@
 import 'package:adeline_app/model/user/content/daily_content.dart';
 import 'package:adeline_app/model/user/content/raid_content.dart';
+import 'package:adeline_app/model/user/content/restGauge_content.dart';
 import 'package:adeline_app/model/user/expedition/expedition_provider.dart';
 import 'package:adeline_app/model/user/user.dart';
 import 'package:adeline_app/screen/mobile/bottom_navigation_screen/bottom_navigation_screen.dart';
@@ -167,7 +168,7 @@ class UserProvider extends ChangeNotifier {
   void manualReset(BuildContext context) {
     DateTime nowDate = DateTime.now();
     Expedition expedition = Provider.of<ExpeditionProvider>(context, listen: false).expedition;
-    expedition.nextWednesday = nowDate;
+    expedition.nextWednesday = nowDate; // 현재시간으로 선언 후 현재시간 기준 가까운 수요일을 찾기 위해서
     List<Character> characterList = charactersProvider.characters;
 
     if (expedition.nextWednesday.weekday == 3) {
@@ -192,14 +193,23 @@ class UserProvider extends ChangeNotifier {
         if (dailyContent is DailyContent) {
           dailyContent.clearChecked = false;
         }
+        if (dailyContent is RestGaugeContent) {
+          dailyContent.clearNum = 0;
+          dailyContent.restGauge = 0;
+          dailyContent.saveRestGauge = 0;
+          dailyContent.lateRevision = DateTime.utc(nowDate.year, nowDate.month, nowDate.day, 6);
+          dailyContent.saveLateRevision = DateTime.utc(nowDate.year, nowDate.month, nowDate.day, 6);
+        }
       });
       character.weeklyContents.forEach((weeklyContent) {
         weeklyContent.clearChecked = false;
       });
-      character.raidContents.forEach((raidContents) {
-        raidContents.clearChecked = false;
-        raidContents.clearGold = 0;
-        raidContents.addGold = 0;
+      character.raidContents.forEach((raidContent) {
+        raidContent.clearList =
+            List.generate(raidContent.totalPhase, (index) => CheckHistory(difficulty: raidContent.difficulty.first, check: false));
+        raidContent.bonusList =
+            List.generate(raidContent.totalPhase, (index) => CheckHistory(difficulty: raidContent.difficulty.first, check: false));
+        raidContent.addGold = 0;
       });
     });
     Hive.box<User>('characters').put('user', User(characters: characterList));

@@ -150,8 +150,8 @@ final List<RaidContent> constRaidContents = [
     difficulty: ['일반'],
     reward: {
       '일반': {
-        '클리어골드': [700,400,500],
-        '더보기골드': [0,0,500],
+        '클리어골드': [700, 400, 500],
+        '더보기골드': [0, 0, 500],
         '입장레벨제한': 9999,
         '골드획득레벨제한': 1475,
       },
@@ -167,7 +167,7 @@ final List<RaidContent> constRaidContents = [
     clearGold: 0,
     clearCheckStandardPhase: 1,
     totalPhase: 1,
-    difficulty: ['노말','하드'],
+    difficulty: ['노말', '하드'],
     reward: {
       '노말': {
         '클리어골드': [500],
@@ -193,7 +193,7 @@ final List<RaidContent> constRaidContents = [
     clearGold: 0,
     clearCheckStandardPhase: 1,
     totalPhase: 1,
-    difficulty: ['노말','하드'],
+    difficulty: ['노말', '하드'],
     reward: {
       '노말': {
         '클리어골드': [600],
@@ -219,7 +219,7 @@ final List<RaidContent> constRaidContents = [
     clearGold: 0,
     clearCheckStandardPhase: 1,
     totalPhase: 1,
-    difficulty: ['노말','하드1','하드2','하드3'],
+    difficulty: ['노말', '하드1', '하드2', '하드3'],
     reward: {
       '노말': {
         '클리어골드': [0],
@@ -257,7 +257,7 @@ final List<RaidContent> constRaidContents = [
     clearGold: 0,
     clearCheckStandardPhase: 1,
     totalPhase: 1,
-    difficulty: ['노말','하드1','하드2','하드3'],
+    difficulty: ['노말', '하드1', '하드2', '하드3'],
     reward: {
       '노말': {
         '클리어골드': [0],
@@ -381,6 +381,10 @@ Map<String, Map<String, int>> merchantMapOfMap = {
     '어금니의 강': 60,
     '웅크린 늑대의 땅': 61,
   },
+  '엘가시아': {
+    '헤스테라 정원': 62,
+    '필레니소스 산': 63,
+  },
 };
 Map<String, int> merchantMap = {
   '로그힐': 1,
@@ -444,6 +448,8 @@ Map<String, int> merchantMap = {
   '벨리온 유적지': 59,
   '어금니의 강': 60,
   '웅크린 늑대의 땅': 61,
+  '헤스테라 정원': 62,
+  '필레니소스 산': 63,
 };
 
 List<String> serverList = [
@@ -480,4 +486,5 @@ List<String> jobList = [
   "스카우터",
   "건슬링어",
   "도화가",
+  "기상술사",
 ];

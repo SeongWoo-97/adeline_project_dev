@@ -63,10 +63,8 @@ class _InitDateCheckScreenState extends State<InitDateCheckScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(DateFormat('yyyy-MM-dd HH:mm:ss')
-                                    .format(userProvider.charactersProvider.characters[index].dailyContents[0].lateRevision)),
-                                Text(DateFormat('yyyy-MM-dd HH:mm:ss')
-                                    .format(userProvider.charactersProvider.characters[index].dailyContents[0].saveLateRevision)),
+                                Text(DateFormat('yyyy-MM-dd HH:mm:ss').format(userProvider.charactersProvider.characters[index].dailyContents[0].lateRevision)),
+                                Text(DateFormat('yyyy-MM-dd HH:mm:ss').format(userProvider.charactersProvider.characters[index].dailyContents[0].saveLateRevision)),
                                 Row(
                                   children: [
                                     Text(userProvider.charactersProvider.characters[index].dailyContents[0].restGauge.toString()),

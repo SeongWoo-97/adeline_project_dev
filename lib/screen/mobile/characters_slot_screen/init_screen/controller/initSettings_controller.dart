@@ -87,7 +87,7 @@ class InitSettingsController extends ChangeNotifier {
           await http.get(Uri.parse('http://132.226.22.9:3381/lobox/characters/$name')).timeout(Duration(seconds: 7));
       Map<String,dynamic> json = jsonDecode(response.body);
       CharacterList characterList = CharacterList.fromJson(json);
-      if(characterList.result != "fail") {
+      if(characterList.result != "fail" && characterList.list?.length != 0) {
         characterList.list?.forEach((element) {
           print('${element.name} ${element.level} ${element.job}');
           Character character = Character(

@@ -31,11 +31,11 @@ class ProfileController extends ChangeNotifier {
       await errorAlertDialog(context, '서버 점검', '서버점검으로 인해 캐릭터 정보검색을 사용하실수 없습니다.');
       Navigator.pop(context);
     } on TimeoutException {
-      ToastMessage.toast('접속 시간이 초과되어 재접속을 시도합니다.');
-      await fetchCharacterProfile(context, nickName);
+      ToastMessage.toast('접속 시간이 초과되었습니다.');
+      Navigator.pop(context);
     } catch (e) {
       print('에러 : $e');
-      await errorAlertDialog(context, '오류', '네트워크 또는 서버가 불안정하여 접속을 할 수가 없습니다. 반복되는 접속 오류는 개발자에게 문의해 주시길 바랍니다.');
+      await errorAlertDialog(context, '오류', '인터넷 또는 서버가 불안정하여 접속을 할 수가 없습니다. 반복되는 접속 오류는 개발자에게 문의해 주시길 바랍니다.');
       Navigator.pop(context);
     }
   }

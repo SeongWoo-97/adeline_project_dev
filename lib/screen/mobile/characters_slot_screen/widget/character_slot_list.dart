@@ -1,6 +1,7 @@
 import 'package:adeline_app/constant/constant.dart';
 import 'package:adeline_app/model/user/character/character_model.dart';
 import 'package:adeline_app/model/user/content/raid_content.dart';
+import 'package:adeline_app/screen/mobile/home_screen/widget/admob_widget.dart';
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -125,6 +126,7 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                           ],
                         ),
                         widgetPerContents(character.options[character.tag], characterIndex),
+                        Align(alignment: Alignment.center,child: AdmobWidget()),
                       ],
                     ),
                   );
