@@ -49,9 +49,9 @@ class _CharactersSlotScreenState extends State<CharactersSlotScreen> with Automa
   @override
   void initState() {
     super.initState();
-    characterList = Hive.box<User>('characters').get('user')!.characters;
-    expeditionList = Hive.box<Expedition>('expedition').get('expeditionList')!.list;
-    expedition = Hive.box<Expedition>('expedition').get('expeditionList')!;
+    characterList = Hive.box<User>('characters2').get('user')!.characters;
+    expeditionList = Hive.box<Expedition>('expedition2').get('expeditionList')!.list;
+    expedition = Hive.box<Expedition>('expedition2').get('expeditionList')!;
     init6AmTime = DateTime.utc(nowDate.year, nowDate.month, nowDate.day, 6);
 
     if (nowDate.hour < 6) {
@@ -186,8 +186,8 @@ class _CharactersSlotScreenState extends State<CharactersSlotScreen> with Automa
         });
       });
     }
-    Hive.box<User>('characters').put('user', User(characters: characterList));
-    Hive.box<Expedition>('expedition').put('expeditionList', expedition);
+    Hive.box<User>('characters2').put('user', User(characters: characterList));
+    Hive.box<Expedition>('expedition2').put('expeditionList', expedition);
   }
 
   @override

@@ -16,7 +16,7 @@ import 'expedition/expedition_model.dart';
 class UserProvider extends ChangeNotifier {
   CharacterProvider charactersProvider;
 
-  final characterBox = Hive.box<User>('characters');
+  final characterBox = Hive.box<User>('characters2');
 
   ValueNotifier<int> totalGold = ValueNotifier<int>(0);
 
@@ -212,8 +212,8 @@ class UserProvider extends ChangeNotifier {
         raidContent.addGold = 0;
       });
     });
-    Hive.box<User>('characters').put('user', User(characters: characterList));
-    Hive.box<Expedition>('expedition').put('expeditionList', expedition);
+    Hive.box<User>('characters2').put('user', User(characters: characterList));
+    Hive.box<Expedition>('expedition2').put('expeditionList', expedition);
     Navigator.pop(context);
     Fluttertoast.showToast(
         msg: "새로고침이 완료 되었습니다.",

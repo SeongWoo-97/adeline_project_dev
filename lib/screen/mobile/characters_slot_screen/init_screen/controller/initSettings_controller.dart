@@ -28,8 +28,8 @@ class InitSettingsController extends ChangeNotifier {
     userProvider.charactersProvider.characters = characters;
     expeditionProvider.expedition = Expedition();
 
-    final characterBox = Hive.box<User>('characters');
-    final expeditionBox = Hive.box<Expedition>('expedition');
+    final characterBox = Hive.box<User>('characters2');
+    final expeditionBox = Hive.box<Expedition>('expedition2');
 
     DateTime now = DateTime.now();
     DateTime nowDate = DateTime.utc(now.year, now.month, now.day, 6);

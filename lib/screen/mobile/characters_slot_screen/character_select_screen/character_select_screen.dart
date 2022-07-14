@@ -19,8 +19,8 @@ class _CharacterSelectScreenState extends State<CharacterSelectScreen> {
   @override
   void initState() {
     super.initState();
-    bool isCharExist = Hive.box<User>('characters').isNotEmpty;
-    bool isExpeditionExist = Hive.box<Expedition>('expedition').isNotEmpty;
+    bool isCharExist = Hive.box<User>('characters2').isNotEmpty;
+    bool isExpeditionExist = Hive.box<Expedition>('expedition2').isNotEmpty;
 
     isCharExist && isExpeditionExist ? isExist = true : isExist = false;
   }

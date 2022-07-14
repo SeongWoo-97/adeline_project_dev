@@ -6,7 +6,7 @@ import 'expedition_model.dart';
 
 class ExpeditionProvider extends ChangeNotifier {
   Expedition expedition = Expedition();
-  final expeditionBox = Hive.box<Expedition>('expedition');
+  final expeditionBox = Hive.box<Expedition>('expedition2');
 
   void updateExpeditionContent(int index, ExpeditionContent expeditionContent) {
     expedition.list[index] = expeditionContent;

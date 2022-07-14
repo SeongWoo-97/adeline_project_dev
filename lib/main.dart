@@ -3,6 +3,8 @@ import 'package:adeline_app/providers/fetch_character_profile.dart';
 import 'package:adeline_app/screen/mobile/home_screen/widget/notice_controller/event_notice_controller.dart';
 import 'package:adeline_app/screen/mobile/home_screen/widget/notice_controller/notice_controller.dart';
 import 'package:adeline_app/screen/responsive/rwd_main.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:adeline_app/model/dark_mode/android/android_light_theme_data.dart';
 import 'package:adeline_app/screen/mobile/bottom_navigation_screen/bottom_navigation_screen.dart';
@@ -30,8 +32,10 @@ import 'model/user/expedition/expedition_provider.dart';
 import 'model/user/user.dart';
 import 'model/user/user_provider.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(CharacterAdapter());
@@ -45,8 +49,8 @@ void main() async {
   await Hive.openBox('themeData');
   await Hive.openBox('expeditionIsExpand');
   await Hive.openBox('firstScreen');
-  await Hive.openBox<User>('characters');
-  await Hive.openBox<Expedition>('expedition');
+  await Hive.openBox<User>('characters2');
+  await Hive.openBox<Expedition>('expedition2');
   runApp(
     MultiProvider(
       providers: [
@@ -70,6 +74,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -81,6 +87,7 @@ class MyApp extends StatelessWidget {
             themeMode: DarkMode.isDarkMode.value ? ThemeMode.dark : ThemeMode.light,
             theme: androidLightThemeData,
             darkTheme: androidDarkThemeData,
+            navigatorObservers: <NavigatorObserver>[observer],
           ),
           cupertino: (_, __) => CupertinoAppData(),
           home: kIsWeb ? RwdMainScreen(): BottomNavigationScreen(),

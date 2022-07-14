@@ -15,7 +15,7 @@ class AddCharacterProvider extends ChangeNotifier {
   Character character = Character(nickName: '', jobCode: '');
   int tag = 0;
   String iconName = iconList[0].iconName!;
-  List<String> options = ['일일 콘텐츠', '주간 콘텐츠', '골드 콘텐츠'];
+  List<String> options = ['일일 콘텐츠', '주간 콘텐츠', '레이드 콘텐츠'];
   int selected = 0;
   String server = "";
   String job = "";
@@ -141,6 +141,8 @@ class AddCharacterProvider extends ChangeNotifier {
         return "512";
       case "도화가":
         return "602";
+      case "기상술사":
+        return "603";
     }
     return "0";
   }

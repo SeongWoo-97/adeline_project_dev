@@ -19,7 +19,7 @@ class _CharacterReOrderScreenState extends State<CharacterReOrderScreen> {
   Widget build(BuildContext context) {
     return PlatformScaffold(
       appBar: PlatformAppBar(
-        title: Text('캐릭터 순서 및 변경'),
+        title: Text('캐릭터 순서 변경 및 삭제'),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 5, right: 5),
@@ -150,6 +150,7 @@ class _CharacterReOrderScreenState extends State<CharacterReOrderScreen> {
 
       var movedItem2 = userProvider.charactersProvider.characters.removeAt(oldItemIndex);
       userProvider.charactersProvider.characters.insert(newItemIndex, movedItem2);
+      userProvider.notifyListeners();
     });
   }
 

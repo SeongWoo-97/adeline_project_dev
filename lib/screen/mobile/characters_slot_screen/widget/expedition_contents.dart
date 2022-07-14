@@ -15,7 +15,7 @@ class ExpeditionContentWidget extends StatefulWidget {
 
 class _ExpeditionContentWidgetState extends State<ExpeditionContentWidget> {
   List<Widget> list = [];
-  final expeditionBox = Hive.box<Expedition>('expedition');
+  final expeditionBox = Hive.box<Expedition>('expedition2');
   bool isExpanded = false;
   @override
   void initState() {

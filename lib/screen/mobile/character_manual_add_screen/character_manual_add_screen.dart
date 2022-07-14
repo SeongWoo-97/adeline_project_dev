@@ -670,7 +670,7 @@ class _CharacterManualAddScreenState extends State<CharacterManualAddScreen> {
         return DailyContentListWidget();
       case "주간 콘텐츠":
         return WeeklyContentListWidget();
-      case "골드 콘텐츠":
+      case "레이드 콘텐츠":
         return GoldContentListWidget();
     }
     return Container();

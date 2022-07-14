@@ -3,14 +3,12 @@ import 'package:adeline_app/model/uri_launch/launch_url.dart';
 import 'package:adeline_app/screen/mobile/bottom_navigation_screen/bottom_navigation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 import '../../../model/toast/toast.dart';
 import '../../../model/user/expedition/expedition_model.dart';
 import '../../../model/user/user.dart';
-import '../characters_slot_screen/init_screen/initSettings_screen.dart';
 import '../sources_screen/sources_screen.dart';
 import '../update_list_screen/update_list_screen.dart';
 
@@ -85,8 +83,8 @@ class _SettingsScreenState extends State<SettingsScreen> with AutomaticKeepAlive
                               child: PlatformText('초기화'),
                               // 캐릭터 순서 페이지로 이동
                               onPressed: () {
-                                final characterBox = Hive.box<User>('characters');
-                                final expeditionBox = Hive.box<Expedition>('expedition');
+                                final characterBox = Hive.box<User>('characters2');
+                                final expeditionBox = Hive.box<Expedition>('expedition2');
                                 characterBox.delete('user');
                                 expeditionBox.delete('expeditionList');
 

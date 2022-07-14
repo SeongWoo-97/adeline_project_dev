@@ -9,7 +9,7 @@ import '../user/expedition/expedition_model.dart';
 import '../user/expedition/expedition_provider.dart';
 
 class AddExpeditionContentProvider extends ChangeNotifier {
-  final expeditionBox = Hive.box<Expedition>('expedition');
+  final expeditionBox = Hive.box<Expedition>('expedition2');
   TextEditingController addController = TextEditingController();
   var key = GlobalKey<FormState>();
   int selected = 0;

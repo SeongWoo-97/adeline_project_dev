@@ -13,7 +13,7 @@ class WeeklyContentsWidget extends StatefulWidget {
 }
 
 class _WeeklyContentsWidgetState extends State<WeeklyContentsWidget> {
-  final box = Hive.box<User>('characters');
+  final box = Hive.box<User>('characters2');
 
   @override
   Widget build(BuildContext context) {

@@ -16,7 +16,7 @@ class DailyContentsWidget extends StatefulWidget {
 }
 
 class _DailyContentsWidgetState extends State<DailyContentsWidget> {
-  final box = Hive.box<User>('characters');
+  final box = Hive.box<User>('characters2');
 
   @override
   Widget build(BuildContext context) {

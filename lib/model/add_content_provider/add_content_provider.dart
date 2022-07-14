@@ -10,7 +10,7 @@ import '../user/user.dart';
 import '../user/user_provider.dart';
 
 class AddContentProvider extends ChangeNotifier {
-  final characterBox = Hive.box<User>('characters');
+  final characterBox = Hive.box<User>('characters2');
   TextEditingController addController = TextEditingController();
   var key = GlobalKey<FormState>();
   int selected = 0;

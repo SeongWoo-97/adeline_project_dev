@@ -22,7 +22,7 @@ class ExpeditionSettingScreen extends StatefulWidget {
 
 class _ExpeditionSettingScreenState extends State<ExpeditionSettingScreen> {
   DragAndDropList expeditionDragAndDrop = DragAndDropList(children: []);
-  final expeditionBox = Hive.box<Expedition>('expedition');
+  final expeditionBox = Hive.box<Expedition>('expedition2');
   ExpeditionType _expeditionType = ExpeditionType.daily;
 
   @override
