@@ -1,4 +1,3 @@
-import 'package:adeline_app/model/profile/card/card.dart';
 import 'package:adeline_app/model/profile/info/fief/fief.dart';
 import 'package:adeline_app/model/profile/info/special_equip/special_equip.dart';
 

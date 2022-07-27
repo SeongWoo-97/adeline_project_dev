@@ -1,22 +1,19 @@
+import 'package:adeline_app/firebase_options.dart';
 import 'package:adeline_app/model/user/content/raid_content.dart';
-import 'package:adeline_app/providers/fetch_character_profile.dart';
-import 'package:adeline_app/screen/mobile/home_screen/widget/notice_controller/event_notice_controller.dart';
-import 'package:adeline_app/screen/mobile/home_screen/widget/notice_controller/notice_controller.dart';
-import 'package:adeline_app/screen/responsive/rwd_main.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:adeline_app/model/dark_mode/android/android_light_theme_data.dart';
-import 'package:adeline_app/screen/mobile/bottom_navigation_screen/bottom_navigation_screen.dart';
-import 'package:adeline_app/screen/mobile/character_manual_add_screen/controller/add_character_provider.dart';
-import 'package:adeline_app/screen/mobile/character_search_profile_screen/controller/menu_bar_controller.dart';
-import 'package:adeline_app/screen/mobile/characters_slot_screen/init_screen/controller/initSettings_controller.dart';
+import 'package:adeline_app/screen/character_search/controller/profile_controller.dart';
+import 'package:adeline_app/screen/character_search/controller/menu_bar_controller.dart';
+import 'package:adeline_app/screen/home_work/character_manual_add_screen/controller/add_character_provider.dart';
+import 'package:adeline_app/screen/home_work/init_settings/controller/initSettings_controller.dart';
+import 'package:adeline_app/screen/main/controller/event_notice_controller.dart';
+import 'package:adeline_app/screen/main/controller/notice_controller.dart';
+import 'package:adeline_app/screen/main/main_layout.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
+
 import 'model/add_content_provider/add_content_provider.dart';
 import 'model/add_content_provider/add_expedition_content_provider.dart';
-import 'model/dark_mode/android/android_dark_theme_data.dart';
-import 'model/dark_mode/dark_theme_provider.dart';
 import 'model/profile/character_profile.dart';
 import 'model/profile/character_profile_provider.dart';
 import 'model/user/character/character_model.dart';
@@ -30,8 +27,12 @@ import 'model/user/expedition/expedition_provider.dart';
 import 'model/user/user.dart';
 import 'model/user/user_provider.dart';
 
+String hiveUserName = "characters2";
+String hiveExpeditionName = "expedition2";
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(CharacterAdapter());
@@ -45,8 +46,8 @@ void main() async {
   await Hive.openBox('themeData');
   await Hive.openBox('expeditionIsExpand');
   await Hive.openBox('firstScreen');
-  await Hive.openBox<User>('characters');
-  await Hive.openBox<Expedition>('expedition');
+  await Hive.openBox<User>(hiveUserName);
+  await Hive.openBox<Expedition>(hiveExpeditionName);
   runApp(
     MultiProvider(
       providers: [
@@ -64,28 +65,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => CollectionMenuBarController()),
         ChangeNotifierProvider(create: (context) => ProfileController())
       ],
-      child: MyApp(),
+      child: MainLayout(),
     ),
   );
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: DarkMode.isDarkMode,
-      builder: (context, box, widget) {
-        return PlatformApp(
-          material: (_, __) => MaterialAppData(
-            builder: (context, child) => MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1), child: child!),
-            themeMode: DarkMode.isDarkMode.value ? ThemeMode.dark : ThemeMode.light,
-            theme: androidLightThemeData,
-            darkTheme: androidDarkThemeData,
-          ),
-          cupertino: (_, __) => CupertinoAppData(),
-          home: kIsWeb ? RwdMainScreen(): BottomNavigationScreen(),
-        );
-      },
-    );
-  }
 }

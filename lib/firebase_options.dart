@@ -23,10 +23,23 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.windows:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.linux:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for linux - '
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
       default:
@@ -37,30 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCa2MQ9Dg-hSvN9jB7w3dkbCOV-ijo86N8',
-    appId: '1:939556178498:web:3b6d9bc0480b64baadfbdb',
-    messagingSenderId: '939556178498',
-    projectId: 'lostark-adeline-app',
-    authDomain: 'lostark-adeline-app.firebaseapp.com',
-    storageBucket: 'lostark-adeline-app.appspot.com',
-    measurementId: 'G-GYKLB6HRF2',
+    apiKey: 'AIzaSyDjGcfYTCQACB6H6Kk5wkWYlSO1Ep_OceU',
+    appId: '1:933193905508:web:2c7f771fa81458f1d17671',
+    messagingSenderId: '933193905508',
+    projectId: 'lobox-5bb45',
+    authDomain: 'lobox-5bb45.firebaseapp.com',
+    storageBucket: 'lobox-5bb45.appspot.com',
+    measurementId: 'G-6C3LXWQZ88',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDkiBnCd0J6j8_nxl1Z4p6gNmFT9WDJ9AU',
-    appId: '1:939556178498:android:f4bbdb358629c9b1adfbdb',
-    messagingSenderId: '939556178498',
-    projectId: 'lostark-adeline-app',
-    storageBucket: 'lostark-adeline-app.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB1OUaJmzcghUdwVxUEp1MR4pVa_dPp668',
-    appId: '1:939556178498:ios:3d5d13db3ad0155eadfbdb',
-    messagingSenderId: '939556178498',
-    projectId: 'lostark-adeline-app',
-    storageBucket: 'lostark-adeline-app.appspot.com',
-    iosClientId: '939556178498-89opa3dr4jese5cfbakpisc14rfvc59r.apps.googleusercontent.com',
-    iosBundleId: 'com.example.adelineProjectDev',
+    apiKey: 'AIzaSyBDkpz121bmkD6B-gM33KiMGPnhJlaVe-c',
+    appId: '1:933193905508:android:db6a524c4721021bd17671',
+    messagingSenderId: '933193905508',
+    projectId: 'lobox-5bb45',
+    storageBucket: 'lobox-5bb45.appspot.com',
   );
 }

@@ -1,3 +1,4 @@
+import 'package:adeline_app/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 
@@ -6,7 +7,7 @@ import 'expedition_model.dart';
 
 class ExpeditionProvider extends ChangeNotifier {
   Expedition expedition = Expedition();
-  final expeditionBox = Hive.box<Expedition>('expedition');
+  final expeditionBox = Hive.box<Expedition>(hiveExpeditionName);
 
   void updateExpeditionContent(int index, ExpeditionContent expeditionContent) {
     expedition.list[index] = expeditionContent;

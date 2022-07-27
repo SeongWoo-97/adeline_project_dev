@@ -1,3 +1,4 @@
+import 'package:adeline_app/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -10,7 +11,7 @@ import '../user/user.dart';
 import '../user/user_provider.dart';
 
 class AddContentProvider extends ChangeNotifier {
-  final characterBox = Hive.box<User>('characters');
+  final characterBox = Hive.box<User>(hiveUserName);
   TextEditingController addController = TextEditingController();
   var key = GlobalKey<FormState>();
   int selected = 0;

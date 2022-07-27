@@ -1,14 +1,16 @@
+import 'package:adeline_app/main.dart';
 import 'package:adeline_app/model/user/content/daily_content.dart';
 import 'package:adeline_app/model/user/content/raid_content.dart';
 import 'package:adeline_app/model/user/content/restGauge_content.dart';
 import 'package:adeline_app/model/user/expedition/expedition_provider.dart';
 import 'package:adeline_app/model/user/user.dart';
-import 'package:adeline_app/screen/mobile/bottom_navigation_screen/bottom_navigation_screen.dart';
+import 'package:adeline_app/screen/main/mobile/mobile_main.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
 import 'character/character_model.dart';
 import 'character/character_provider.dart';
 import 'expedition/expedition_model.dart';
@@ -16,7 +18,7 @@ import 'expedition/expedition_model.dart';
 class UserProvider extends ChangeNotifier {
   CharacterProvider charactersProvider;
 
-  final characterBox = Hive.box<User>('characters');
+  final characterBox = Hive.box<User>(hiveUserName);
 
   ValueNotifier<int> totalGold = ValueNotifier<int>(0);
 
@@ -212,8 +214,8 @@ class UserProvider extends ChangeNotifier {
         raidContent.addGold = 0;
       });
     });
-    Hive.box<User>('characters').put('user', User(characters: characterList));
-    Hive.box<Expedition>('expedition').put('expeditionList', expedition);
+    Hive.box<User>(hiveUserName).put('user', User(characters: characterList));
+    Hive.box<Expedition>(hiveExpeditionName).put('expeditionList', expedition);
     Navigator.pop(context);
     Fluttertoast.showToast(
         msg: "새로고침이 완료 되었습니다.",
@@ -225,7 +227,7 @@ class UserProvider extends ChangeNotifier {
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-            builder: (context) => BottomNavigationScreen(
+            builder: (context) => MobileMainScreen(
                   index: 1,
                 )),
         (route) => false);

@@ -1,4 +1,5 @@
 import 'package:adeline_app/model/profile/equip_list/weapon/weapon.dart';
+
 import 'armor_equip/armor_equip.dart';
 
 class EquipList {

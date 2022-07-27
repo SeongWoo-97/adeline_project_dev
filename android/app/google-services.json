@@ -1,38 +1,39 @@
 {
   "project_info": {
-    "project_number": "939556178498",
-    "project_id": "lostark-adeline-app",
-    "storage_bucket": "lostark-adeline-app.appspot.com"
+    "project_number": "933193905508",
+    "project_id": "lobox-5bb45",
+    "storage_bucket": "lobox-5bb45.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:939556178498:android:f4bbdb358629c9b1adfbdb",
+        "mobilesdk_app_id": "1:933193905508:android:db6a524c4721021bd17671",
         "android_client_info": {
           "package_name": "com.lostark.adeline_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "939556178498-225tt9592p8o4srdimogr4lcbqt4mhsk.apps.googleusercontent.com",
+          "client_id": "933193905508-4b6bufm022cuc7t4f2riqf8cfb64pu1h.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDkiBnCd0J6j8_nxl1Z4p6gNmFT9WDJ9AU"
+          "current_key": "AIzaSyBDkpz121bmkD6B-gM33KiMGPnhJlaVe-c"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "939556178498-225tt9592p8o4srdimogr4lcbqt4mhsk.apps.googleusercontent.com",
+              "client_id": "933193905508-4b6bufm022cuc7t4f2riqf8cfb64pu1h.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-2659418845004468~2355914105"
     }
   ],
   "configuration_version": "1"

@@ -1,11 +1,12 @@
-
 import 'package:adeline_app/model/user/content/daily_content.dart';
 import 'package:hive/hive.dart';
 
 import '../content/raid_content.dart';
 import '../content/restGauge_content.dart';
 import '../content/weekly_content.dart';
+
 part 'character_model.g.dart';
+
 @HiveType(typeId: 2)
 class Character {
   @HiveField(0)
@@ -33,7 +34,6 @@ class Character {
     WeeklyContent('주간 길드 퀘스트', 'assets/etc/주간길드.png', true),
     WeeklyContent('실마엘 혈석 교환', 'assets/etc/GuildCoin.png', true),
     WeeklyContent('토벌전', 'assets/etc/SubjugationBattle.png', true),
-
   ];
   @HiveField(8)
   List<RaidContent> raidContents = [];
@@ -47,5 +47,4 @@ class Character {
   bool expanded = false;
 
   Character({required this.nickName, this.level, this.job, required this.jobCode});
-
 }

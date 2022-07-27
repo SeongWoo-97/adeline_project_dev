@@ -1,4 +1,3 @@
-import 'package:adeline_app/model/toast/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LaunchUrl {

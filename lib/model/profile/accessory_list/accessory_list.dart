@@ -1,4 +1,5 @@
 import 'package:adeline_app/model/profile/accessory_list/bracelet/bracelet.dart';
+
 import 'accessory/accessory.dart';
 
 class AccessoryList {
