@@ -1,6 +1,6 @@
 import 'package:adeline_app/model/user/user_provider.dart';
-import 'package:adeline_app/screen/home_work/character_manual_add_screen/character_manual_add_screen.dart';
-import 'package:adeline_app/screen/home_work/character_reorder_screen/character_reorder_screen.dart';
+import 'package:adeline_app/screen/home_work/character_manual_add_screen/character_manual_add_layout.dart';
+import 'package:adeline_app/screen/home_work/character_reorder_screen/character_reorder_layout.dart';
 import 'package:adeline_app/screen/home_work/characters_slot/widget/character_slot_list.dart';
 import 'package:adeline_app/screen/home_work/characters_slot/widget/content_board.dart';
 import 'package:adeline_app/screen/home_work/characters_slot/widget/expedition_contents.dart';
@@ -86,7 +86,16 @@ class _MobileCharactersSlotScreenState extends State<MobileCharactersSlotScreen>
                                   actions: [
                                     PlatformDialogAction(
                                       child: Text('네'),
-                                      onPressed: () => userProvider.manualReset(context),
+                                      onPressed: () {
+                                        userProvider.manualReset(context);
+                                        Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => MobileMainScreen(
+                                                      index: 1,
+                                                    )),
+                                            (route) => false);
+                                      },
                                     ),
                                     PlatformDialogAction(
                                       child: Text('아니요'),
@@ -115,10 +124,6 @@ class _MobileCharactersSlotScreenState extends State<MobileCharactersSlotScreen>
                       ),
                       GestureDetector(
                         behavior: HitTestBehavior.translucent,
-                        onTap: () async {
-                          _customPopupMenuController.hideMenu();
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterManualAddScreen()));
-                        },
                         child: Container(
                           height: 40,
                           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -135,6 +140,10 @@ class _MobileCharactersSlotScreenState extends State<MobileCharactersSlotScreen>
                             ],
                           ),
                         ),
+                        onTap: () async {
+                          _customPopupMenuController.hideMenu();
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterManualAddLayout()));
+                        },
                       ),
                       GestureDetector(
                         behavior: HitTestBehavior.translucent,
@@ -156,7 +165,7 @@ class _MobileCharactersSlotScreenState extends State<MobileCharactersSlotScreen>
                         ),
                         onTap: () async {
                           _customPopupMenuController.hideMenu();
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterReOrderScreen()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterReOrderLayout()));
                         },
                       ),
                       GestureDetector(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../model/dark_mode/dark_theme_provider.dart';
-
 import '../controller/add_character_provider.dart';
 
 class RaidContentListWidget extends StatefulWidget {
@@ -69,12 +68,14 @@ class _RaidContentListWidgetState extends State<RaidContentListWidget> {
     switch (type) {
       case "군단장":
         return Image.asset("assets/week/Crops.png", width: 25, height: 25);
-      case "어비스 던전":
+      case "오레하":
+        return Image.asset("assets/week/AbyssDungeon.png", width: 25, height: 25);
+      case "카양겔":
         return Image.asset("assets/week/AbyssDungeon.png", width: 25, height: 25);
       case "어비스 레이드":
         return Image.asset("assets/week/AbyssRaid.png", width: 25, height: 25);
     }
-    return Image.asset("assets/week/Crops.png", width: 25, height: 25);
+    return Image.asset("assets/week/AbyssRaid.png", width: 25, height: 25);
   }
 
   Widget difficultyText(String name) {
@@ -115,21 +116,5 @@ class _RaidContentListWidgetState extends State<RaidContentListWidget> {
       }
     }
     return Container();
-  }
-
-  int clearGoldTotal(List<int> list) {
-    int clearGold = 0;
-    list.forEach((element) {
-      clearGold += element;
-    });
-    return clearGold;
-  }
-
-  int clearGoldIndex(List<int> list, int index) {
-    int clearGold = 0;
-    for (int i = 0; i <= index; i++) {
-      clearGold += list[i];
-    }
-    return clearGold;
   }
 }

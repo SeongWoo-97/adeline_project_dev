@@ -1,8 +1,5 @@
 import 'package:adeline_app/model/toast/toast.dart';
 import 'package:adeline_app/model/user/user_provider.dart';
-import 'package:adeline_app/screen/home_work/character_setting_screen/mobile/widget/daily_contents_settings_widget.dart';
-import 'package:adeline_app/screen/home_work/character_setting_screen/mobile/widget/raid_contents_settings_widget.dart';
-import 'package:adeline_app/screen/home_work/character_setting_screen/mobile/widget/weekly_contents_settings_widget.dart';
 import 'package:adeline_app/screen/home_work/character_setting_screen/tablet_desktop/widget/not_mobile_daily_contents_settings_widget.dart';
 import 'package:adeline_app/screen/home_work/character_setting_screen/tablet_desktop/widget/not_mobile_raid_contents_settings_widget.dart';
 import 'package:adeline_app/screen/home_work/character_setting_screen/tablet_desktop/widget/not_mobile_weekly_contents_settings_widget.dart';
@@ -118,7 +115,7 @@ class _NotMobileCharacterSettingsScreenState extends State<NotMobileCharacterSet
                           ),
                           onChanged: (value) {
                             setState(() {
-                              if (value.isEmpty || value.length >= 12) {
+                              if (value.isEmpty || value.length > 12) {
                                 nickNameError = true;
                               } else {
                                 nickNameError = false;

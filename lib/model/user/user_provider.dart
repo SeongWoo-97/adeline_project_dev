@@ -4,7 +4,6 @@ import 'package:adeline_app/model/user/content/raid_content.dart';
 import 'package:adeline_app/model/user/content/restGauge_content.dart';
 import 'package:adeline_app/model/user/expedition/expedition_provider.dart';
 import 'package:adeline_app/model/user/user.dart';
-import 'package:adeline_app/screen/main/mobile/mobile_main.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
@@ -17,8 +16,10 @@ import 'expedition/expedition_model.dart';
 
 class UserProvider extends ChangeNotifier {
   CharacterProvider charactersProvider;
+  int selectedIndex = 0;
 
   final characterBox = Hive.box<User>(hiveUserName);
+  final expeditionBox = Hive.box<Expedition>(hiveExpeditionName);
 
   ValueNotifier<int> totalGold = ValueNotifier<int>(0);
 
@@ -30,13 +31,13 @@ class UserProvider extends ChangeNotifier {
     characterBox.put('user', User(characters: charactersProvider.characters));
   }
 
-  // 골드 콘텐츠 추가골드
+  // 레이드 콘텐츠 추가골드
   void updateAddGold(int characterIndex, int index, int gold) {
     charactersProvider.characters[characterIndex].raidContents[index].addGold = gold;
     notifyListeners();
   }
 
-  // 골드 콘텐츠 클리어 체크
+  // 레이드 콘텐츠 클리어 체크
   void goldContentsClearCheck(int characterIndex, int index, bool? value) {
     charactersProvider.characters[characterIndex].raidContents[index].clearChecked = value!;
     characterBox.put('user', User(characters: charactersProvider.characters));
@@ -84,7 +85,9 @@ class UserProvider extends ChangeNotifier {
     charactersProvider.characters[characterIndex].raidContents.forEach((raidContent) {
       for (int i = 0; i < raidContent.clearList.length; i++) {
         if (raidContent.clearList[i].check) {
-          clearGold += int.parse(raidContent.reward[raidContent.clearList[i].difficulty]!['클리어골드'][i].toString());
+          if(expeditionBox.get('expeditionList')!.possibleGoldCharacters.contains(charactersProvider.characters[characterIndex].nickName)){
+            clearGold += int.parse(raidContent.reward[raidContent.clearList[i].difficulty]!['클리어골드'][i].toString());
+          }
           if (raidContent.bonusList[i].check) {
             bonusGold += int.parse(raidContent.reward[raidContent.bonusList[i].difficulty]!['더보기골드'][i].toString());
           }
@@ -105,7 +108,9 @@ class UserProvider extends ChangeNotifier {
         int bonusGold = 0;
         for (int i = 0; i < raidContent.clearList.length; i++) {
           if (raidContent.clearList[i].check) {
-            clearGold += int.parse(raidContent.reward[raidContent.clearList[i].difficulty]!['클리어골드'][i].toString());
+            if(expeditionBox.get('expeditionList')!.possibleGoldCharacters.contains(character.nickName)){
+              clearGold += int.parse(raidContent.reward[raidContent.clearList[i].difficulty]!['클리어골드'][i].toString());
+            }
             if (raidContent.bonusList[i].check) {
               bonusGold += int.parse(raidContent.reward[raidContent.bonusList[i].difficulty]!['더보기골드'][i].toString());
             }
@@ -224,12 +229,5 @@ class UserProvider extends ChangeNotifier {
         backgroundColor: Colors.grey,
         timeInSecForIosWeb: 2,
         fontSize: 14.0);
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (context) => MobileMainScreen(
-                  index: 1,
-                )),
-        (route) => false);
   }
 }

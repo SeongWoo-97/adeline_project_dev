@@ -17,7 +17,7 @@ ThemeData rwdDarkThemeData = ThemeData(
     elevation: 0,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(8),
-      side: BorderSide(color: Colors.white70, width: 0.8),
+      side: BorderSide(color: Colors.white70, width: 1),
     ),
     margin: const EdgeInsets.all(0)
   ),

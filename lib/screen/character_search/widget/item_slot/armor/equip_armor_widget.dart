@@ -38,14 +38,11 @@ class EquipWidget extends StatelessWidget {
 }
 
 List<Widget> armorSlotWidget(BuildContext context, List<ArmorEquip?> armorEquips) {
-  CharacterProfileProvider profileProvider = Provider.of<CharacterProfileProvider>(context, listen: false);
-  CharacterProfile profile = profileProvider.profile;
   List<Widget> list = [];
   for (int i = 0; i < armorEquips.length; i++) {
     if (armorEquips[i] != null) {
       List<Color> bgColors = slotColor.gradeColors(armorEquips[i]!.grade);
       Color nameColor = slotColor.itemNameColor(armorEquips[i]!.grade);
-      List<String?> tripods = [armorEquips[i]!.tripod!.tripod1, armorEquips[i]!.tripod!.tripod2, armorEquips[i]!.tripod!.tripod3];
       list.add(Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 7),
         child: InkWell(
@@ -263,32 +260,32 @@ List<Widget> armorSlotWidget(BuildContext context, List<ArmorEquip?> armorEquips
                                             }),
                                       ),
                                     ),
-                                    // 트라이포드 효과
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 5),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          '트라이포드 효과',
-                                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                                                color: Color(0xFFA9D0F5),
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                    Flexible(
-                                      child: Container(
-                                        width: double.maxFinite,
-                                        child: ListView.builder(
-                                            itemCount: tripods.length,
-                                            shrinkWrap: true,
-                                            physics: NeverScrollableScrollPhysics(),
-                                            itemBuilder: (context, index) {
-                                              return Text(tripods[index]!.replaceAll('[${profile.info!.job}]', '').trim(),
-                                                  style: Theme.of(context).textTheme.caption);
-                                            }),
-                                      ),
-                                    ),
+                                    // // 트라이포드 효과
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(top: 5),
+                                    //   child: Align(
+                                    //     alignment: Alignment.centerLeft,
+                                    //     child: Text(
+                                    //       '트라이포드 효과',
+                                    //       style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                    //             color: Color(0xFFA9D0F5),
+                                    //           ),
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    // Flexible(
+                                    //   child: Container(
+                                    //     width: double.maxFinite,
+                                    //     child: ListView.builder(
+                                    //         itemCount: tripods.length,
+                                    //         shrinkWrap: true,
+                                    //         physics: NeverScrollableScrollPhysics(),
+                                    //         itemBuilder: (context, index) {
+                                    //           return Text(tripods[index]!.replaceAll('[${profile.info!.job}]', '').trim(),
+                                    //               style: Theme.of(context).textTheme.caption);
+                                    //         }),
+                                    //   ),
+                                    // ),
                                     // 세트 효과
                                     Padding(
                                       padding: const EdgeInsets.only(top: 5),
@@ -384,15 +381,12 @@ List<Widget> armorSlotWidget(BuildContext context, List<ArmorEquip?> armorEquips
 }
 
 List<Widget> resArmorSlotWidget(BuildContext context, List<ArmorEquip?> armorEquips) {
-  CharacterProfileProvider profileProvider = Provider.of<CharacterProfileProvider>(context, listen: false);
-  CharacterProfile profile = profileProvider.profile;
 
   List<Widget> list = [];
   for (int i = 0; i < armorEquips.length; i++) {
     if (armorEquips[i] != null) {
       List<Color> bgColors = slotColor.gradeColors(armorEquips[i]!.grade);
       Color nameColor = slotColor.itemNameColor(armorEquips[i]!.grade);
-      List<String?> tripods = [armorEquips[i]!.tripod!.tripod1, armorEquips[i]!.tripod!.tripod2, armorEquips[i]!.tripod!.tripod3];
       list.add(Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 7),
         child: InkWell(
@@ -604,31 +598,6 @@ List<Widget> resArmorSlotWidget(BuildContext context, List<ArmorEquip?> armorEqu
                                             }),
                                       ),
                                     ),
-                                    // 트라이포드 효과
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 5, bottom: 5),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          '트라이포드 효과',
-                                          style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Color(0xFFA9D0F5)),
-                                        ),
-                                      ),
-                                    ),
-                                    Flexible(
-                                      child: Container(
-                                        width: double.maxFinite,
-                                        child: ListView.builder(
-                                            itemCount: tripods.length,
-                                            shrinkWrap: true,
-                                            physics: NeverScrollableScrollPhysics(),
-                                            itemBuilder: (context, index) {
-                                              return Text(tripods[index]!.replaceAll('[${profile.info!.job}]', '').trim(),
-                                                  style: Theme.of(context).textTheme.caption);
-                                            }),
-                                      ),
-                                    ),
-                                    // 세트 효과
                                     Padding(
                                       padding: const EdgeInsets.only(top: 5, bottom: 5),
                                       child: Align(

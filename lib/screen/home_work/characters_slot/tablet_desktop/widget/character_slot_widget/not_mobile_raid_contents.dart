@@ -1,9 +1,11 @@
+import 'package:adeline_app/main.dart';
+import 'package:adeline_app/model/user/expedition/expedition_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../../constant/constant.dart';
 import '../../../../../../model/user/character/character_model.dart';
 import '../../../../../../model/user/content/raid_content.dart';
 import '../../../../../../model/user/user_provider.dart';
@@ -12,7 +14,7 @@ class NotMobileRaidContentsWidget extends StatefulWidget {
   final int characterIndex;
   final defaultRaidContents;
 
-  const NotMobileRaidContentsWidget(this.characterIndex,this.defaultRaidContents);
+  const NotMobileRaidContentsWidget(this.characterIndex, this.defaultRaidContents);
 
   @override
   State<NotMobileRaidContentsWidget> createState() => _NotMobileRaidContentsWidgetState();
@@ -24,6 +26,7 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
   TextEditingController addGoldTextEditingController = TextEditingController();
   TextEditingController numberOfPersonTextEditingController = TextEditingController();
   TextEditingController busCostTextEditingController = TextEditingController();
+  final expeditionBox = Hive.box<Expedition>(hiveExpeditionName);
   List<RaidContent> defaultRaidContents = [];
 
   @override
@@ -91,10 +94,8 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
                             child: Container(
                               child: Text(
                                 '${defaultRaidContents[index].name}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText2
-                                    ?.copyWith(color: difficultyText(defaultRaidContents[index].name), overflow: TextOverflow.ellipsis),
+                                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                    color: difficultyText(defaultRaidContents[index].name), overflow: TextOverflow.ellipsis),
                               ),
                             ),
                           ),
@@ -137,6 +138,9 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
             padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
             child: InkWell(
               child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    side: BorderSide(color: totalClearCheck(raidContents[index]) ? Colors.green : Colors.grey)),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Padding(
@@ -151,11 +155,12 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
                               children: [
                                 iconPerType(raidContents[index].type),
                                 SizedBox(width: 2),
-                                Text('${raidContents[index].name}', style: Theme.of(context).textTheme.bodyText2?.copyWith(height: 1)),
+                                Text('${raidContents[index].name}',
+                                    style: Theme.of(context).textTheme.bodyText2?.copyWith(height: 1)),
                               ],
                             ),
                             Text(
-                              'Gold ${NumberFormat('###,###,###,###').format(clearGoldIndex(raidContents[index]))} G',
+                              'Gold ${NumberFormat('###,###,###,###').format(clearGoldIndex(raidContents[index], character.nickName))} G',
                               style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 14),
                             )
                           ],
@@ -187,7 +192,9 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
                     builder: (BuildContext context) {
                       return StatefulBuilder(builder: (context, setState) {
                         List<Widget> list = [];
-                        for (int difficultyIndex = 0; difficultyIndex < raidContents[index].difficulty.length; difficultyIndex++) {
+                        for (int difficultyIndex = 0;
+                            difficultyIndex < raidContents[index].difficulty.length;
+                            difficultyIndex++) {
                           String difficulty = raidContents[index].difficulty[difficultyIndex];
                           // 첫번째 인스턴스는 왼쪽 구분행을 포함하여 반환 (구분행 - 전체, 1관문, 2관문 같은 것)
                           if (difficultyIndex == 0) {
@@ -230,7 +237,8 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
                                                 // 클리어 전체 버튼
                                                 if (phaseIndex == 0) {
                                                   bool isTotalCheck = true;
-                                                  userProvider.charactersProvider.characters[characterIndex].raidContents[index].clearList
+                                                  userProvider
+                                                      .charactersProvider.characters[characterIndex].raidContents[index].clearList
                                                       .forEach((element) {
                                                     if (!(element.check) || element.difficulty != difficulty) {
                                                       isTotalCheck = false;
@@ -256,9 +264,10 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
                                                   );
                                                 } else {
                                                   bool isChecked = false;
-                                                  List<CheckHistory?> list = userProvider
-                                                      .charactersProvider.characters[characterIndex].raidContents[index].clearList;
-                                                  if (list[phaseIndex - 1]!.check && list[phaseIndex - 1]!.difficulty == difficulty) {
+                                                  List<CheckHistory?> list = userProvider.charactersProvider
+                                                      .characters[characterIndex].raidContents[index].clearList;
+                                                  if (list[phaseIndex - 1]!.check &&
+                                                      list[phaseIndex - 1]!.difficulty == difficulty) {
                                                     isChecked = true;
                                                   }
                                                   return Row(
@@ -302,7 +311,8 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
                                                 bool isBonusCheck = false;
                                                 if (phaseIndex == 0) {
                                                   bool isBonusCheck = true;
-                                                  userProvider.charactersProvider.characters[characterIndex].raidContents[index].bonusList
+                                                  userProvider
+                                                      .charactersProvider.characters[characterIndex].raidContents[index].bonusList
                                                       .forEach((element) {
                                                     if (!(element.check) || element.difficulty != difficulty) {
                                                       isBonusCheck = false;
@@ -321,9 +331,10 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
                                                         }),
                                                   );
                                                 } else {
-                                                  List<CheckHistory?> list = userProvider
-                                                      .charactersProvider.characters[characterIndex].raidContents[index].bonusList;
-                                                  if (list[phaseIndex - 1]!.check && list[phaseIndex - 1]!.difficulty == difficulty) {
+                                                  List<CheckHistory?> list = userProvider.charactersProvider
+                                                      .characters[characterIndex].raidContents[index].bonusList;
+                                                  if (list[phaseIndex - 1]!.check &&
+                                                      list[phaseIndex - 1]!.difficulty == difficulty) {
                                                     isBonusCheck = true;
                                                   }
                                                   return Container(
@@ -380,7 +391,8 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
                                               itemBuilder: (context, phaseIndex) {
                                                 if (phaseIndex == 0) {
                                                   bool isTotalCheck = true;
-                                                  userProvider.charactersProvider.characters[characterIndex].raidContents[index].clearList
+                                                  userProvider
+                                                      .charactersProvider.characters[characterIndex].raidContents[index].clearList
                                                       .forEach((element) {
                                                     if (!(element.check) || element.difficulty != difficulty) {
                                                       isTotalCheck = false;
@@ -398,9 +410,10 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
                                                   );
                                                 } else {
                                                   bool isChecked = false;
-                                                  List<CheckHistory?> list = userProvider
-                                                      .charactersProvider.characters[characterIndex].raidContents[index].clearList;
-                                                  if (list[phaseIndex - 1]!.check && list[phaseIndex - 1]!.difficulty == difficulty) {
+                                                  List<CheckHistory?> list = userProvider.charactersProvider
+                                                      .characters[characterIndex].raidContents[index].clearList;
+                                                  if (list[phaseIndex - 1]!.check &&
+                                                      list[phaseIndex - 1]!.difficulty == difficulty) {
                                                     isChecked = true;
                                                   }
                                                   return Container(
@@ -436,7 +449,8 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
                                                 bool isBonusCheck = false;
                                                 if (phaseIndex == 0) {
                                                   bool isBonusCheck = true;
-                                                  userProvider.charactersProvider.characters[characterIndex].raidContents[index].bonusList
+                                                  userProvider
+                                                      .charactersProvider.characters[characterIndex].raidContents[index].bonusList
                                                       .forEach((element) {
                                                     if (!(element.check) || element.difficulty != difficulty) {
                                                       isBonusCheck = false;
@@ -455,9 +469,10 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
                                                     ),
                                                   );
                                                 } else {
-                                                  List<CheckHistory?> list = userProvider
-                                                      .charactersProvider.characters[characterIndex].raidContents[index].bonusList;
-                                                  if (list[phaseIndex - 1]!.check && list[phaseIndex - 1]!.difficulty == difficulty) {
+                                                  List<CheckHistory?> list = userProvider.charactersProvider
+                                                      .characters[characterIndex].raidContents[index].bonusList;
+                                                  if (list[phaseIndex - 1]!.check &&
+                                                      list[phaseIndex - 1]!.difficulty == difficulty) {
                                                     isBonusCheck = true;
                                                   }
                                                   return Container(
@@ -774,6 +789,15 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
     );
   }
 
+  bool totalClearCheck(RaidContent raidContent) {
+    for (int i = 0; i < raidContent.clearCheckStandardPhase; i++) {
+      if (raidContent.clearList[i].check == false) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   Widget iconPerType(String type) {
     switch (type) {
       case "군단장":
@@ -798,12 +822,14 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
     return Colors.white;
   }
 
-  int clearGoldIndex(RaidContent raidContent) {
+  int clearGoldIndex(RaidContent raidContent, String nickName) {
     int clearGold = 0;
     int bonusGold = 0;
     for (int i = 0; i < raidContent.clearList.length; i++) {
       if (raidContent.clearList[i].check) {
-        clearGold += int.parse(raidContent.reward[raidContent.clearList[i].difficulty]!['클리어골드'][i].toString());
+        if (expeditionBox.get('expeditionList')!.possibleGoldCharacters.contains(nickName)) {
+          clearGold += int.parse(raidContent.reward[raidContent.clearList[i].difficulty]!['클리어골드'][i].toString());
+        }
         if (raidContent.bonusList[i].check) {
           bonusGold += int.parse(raidContent.reward[raidContent.bonusList[i].difficulty]!['더보기골드'][i].toString());
         }

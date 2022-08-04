@@ -32,7 +32,7 @@ class TabletMainScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 // 캐릭터 검색바
                 Align(alignment: Alignment.center, child: RwdCharacterSearchBarWidget()),
@@ -57,19 +57,13 @@ class TabletMainScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                IntrinsicHeight(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      SizedBox(width: 10),
-                      RwdAdventureIslandWidget(),
-                      SizedBox(width: 10),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 10, 15),
-                        child: ProcyonCompassWidget(),
-                      ),
-                    ],
-                  ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10,0,10,10),
+                  child: RwdAdventureIslandWidget(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10,0,10,0),
+                  child: ProcyonCompassWidget(),
                 )
               ],
             ),

@@ -3,7 +3,6 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constant/constant.dart';
-import '../../../../model/dark_mode/dark_theme_provider.dart';
 import '../controller/add_character_provider.dart';
 
 class ManualAddIconWidget extends StatefulWidget {
@@ -69,13 +68,7 @@ class _ManualAddIconWidgetState extends State<ManualAddIconWidget> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(
-                                        color: addCharacterProvider.selected == index
-                                            ? DarkMode.isDarkMode.value
-                                            ? Colors.grey
-                                            : Colors.grey
-                                            : DarkMode.isDarkMode.value
-                                            ? Colors.grey[800]!
-                                            : Colors.white,
+                                        color: addCharacterProvider.selected == index ? Colors.white : Colors.transparent,
                                         width: 1.5),
                                   ),
                                   child: Image.asset(

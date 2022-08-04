@@ -37,7 +37,7 @@ class Island {
   factory Island.fromJson(Map<String, dynamic> json) {
     return Island(
       name: json['Name'],
-      reward: json['Reward'],
+      reward: json['Reward'].length != 0 ? json['Reward'] : '실링',
     );
   }
 }

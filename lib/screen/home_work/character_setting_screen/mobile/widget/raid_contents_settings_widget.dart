@@ -1,11 +1,9 @@
-import 'package:adeline_app/constant/constant.dart';
 import 'package:adeline_app/model/toast/toast.dart';
 import 'package:adeline_app/model/user/content/raid_content.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../model/dark_mode/dark_theme_provider.dart';
-
 import '../../../../../model/user/user_provider.dart';
 
 class RaidContentSettingWidget extends StatefulWidget {
@@ -18,11 +16,11 @@ class RaidContentSettingWidget extends StatefulWidget {
 }
 
 class _RaidContentSettingWidgetState extends State<RaidContentSettingWidget> {
-  List<RaidContent> defaultRaidContents = List.generate(constRaidContents.length, (index) => RaidContent.clone(constRaidContents[index]));
 
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+    print('레이드콘텐츠 길이(Mobile) : ${userProvider.charactersProvider.characters[widget.characterIndex].raidContents.length}');
 
     return Column(
       children: [

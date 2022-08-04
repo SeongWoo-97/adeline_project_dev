@@ -1,11 +1,9 @@
-import 'package:adeline_app/constant/constant.dart';
 import 'package:adeline_app/model/toast/toast.dart';
 import 'package:adeline_app/model/user/content/raid_content.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../model/dark_mode/dark_theme_provider.dart';
-
 import '../../../../../model/user/user_provider.dart';
 
 class NotMobileRaidContentsSettingsWidget extends StatefulWidget {
@@ -18,12 +16,10 @@ class NotMobileRaidContentsSettingsWidget extends StatefulWidget {
 }
 
 class _NotMobileRaidContentsSettingsWidgetState extends State<NotMobileRaidContentsSettingsWidget> {
-  List<RaidContent> defaultRaidContents = List.generate(constRaidContents.length, (index) => RaidContent.clone(constRaidContents[index]));
 
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
-
     return Column(
       children: [
         ListView.builder(
@@ -123,8 +119,9 @@ class _NotMobileRaidContentsSettingsWidgetState extends State<NotMobileRaidConte
                           )
                         ],
                       ),
-                      SizedBox(
+                      Container(
                         height: 25,
+                        margin: const EdgeInsets.only(right: 10),
                         child: Checkbox(
                           value: userProvider.charactersProvider.characters[widget.characterIndex].raidContents[index].isChecked,
                           onChanged: (bool? value) {

@@ -28,7 +28,7 @@ class CharacterInfoModel {
   factory CharacterInfoModel.fromJson(Map<String, dynamic> json) {
     return CharacterInfoModel(
       name: json['nickName'] != null ? json['nickName'] : "오류",
-      level: json['level'] != null ? json['level'] : "오류",
+      level: json['level'] != null ? json['level'] : "0",
       job: json['job'] != null ? json['job'] : "오류",
     );
   }

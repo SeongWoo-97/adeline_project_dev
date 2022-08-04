@@ -5,9 +5,9 @@ class ProcyonCompassWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FittedBox(
-      fit: BoxFit.contain,
-      child: Card(
+    return Card(
+      child: Container(
+        width: 425,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -15,7 +15,7 @@ class ProcyonCompassWidget extends StatelessWidget {
             SizedBox(
               height: 5,
             ),
-            Text('프로키온 나침반 일정', style: Theme.of(context).textTheme.bodyText2),
+            Text('프로키온 나침반 일정', style: Theme.of(context).textTheme.bodyText1),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,7 +114,7 @@ class ProcyonCompassWidget extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
+                  padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [

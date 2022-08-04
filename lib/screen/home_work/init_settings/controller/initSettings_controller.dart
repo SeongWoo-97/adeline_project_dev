@@ -94,7 +94,7 @@ class InitSettingsController extends ChangeNotifier {
   Future getCharacterList(BuildContext context, String name) async {
     try {
       getCharacterLoadingDialog(context); // 로딩 창
-      http.Response response = await http.get(Uri.parse('http://132.226.22.9:3381/lobox/characters/$name')).timeout(Duration(seconds: 7));
+      http.Response response = await http.get(Uri.parse('https://lobox.site/characters/$name')).timeout(Duration(seconds: 7));
       Map<String, dynamic> json = jsonDecode(response.body);
       CharacterList characterList = CharacterList.fromJson(json);
       if (characterList.result != "fail" && characterList.list?.length != 0) {

@@ -5,14 +5,14 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 
 
-class CharacterReOrderScreen extends StatefulWidget {
-  const CharacterReOrderScreen({Key? key}) : super(key: key);
+class MobileCharacterReOrderScreen extends StatefulWidget {
+  const MobileCharacterReOrderScreen({Key? key}) : super(key: key);
 
   @override
-  State<CharacterReOrderScreen> createState() => _CharacterReOrderScreenState();
+  State<MobileCharacterReOrderScreen> createState() => _CharacterReOrderScreenState();
 }
 
-class _CharacterReOrderScreenState extends State<CharacterReOrderScreen> {
+class _CharacterReOrderScreenState extends State<MobileCharacterReOrderScreen> {
   DragAndDropList charactersOrder = DragAndDropList(children: []);
 
   @override

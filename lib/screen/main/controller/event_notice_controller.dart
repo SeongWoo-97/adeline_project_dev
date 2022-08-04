@@ -16,7 +16,7 @@ class EventNoticeProvider extends ChangeNotifier {
 
   // return Mobile Event Widget
   Future<List<Widget>>? fetchLostArkEventNotice() async {
-    http.Response response = await http.get(Uri.parse('http://132.226.22.9:3381/lobox/event'));
+    http.Response response = await http.get(Uri.parse('https://lobox.site/event'));
       List<dynamic> json = jsonDecode(response.body);
       json.forEach((element) => eventList.add(LostArkEventNotice.fromJson(element)));
 
@@ -103,7 +103,7 @@ class EventNoticeProvider extends ChangeNotifier {
 
   // return Desktop, Tablet Event Widget
   Future<List<Widget>>? fetchRwdLostArkEventNotice() async {
-    http.Response response = await http.get(Uri.parse('http://132.226.22.9:3381/lobox/event'));
+    http.Response response = await http.get(Uri.parse('https://lobox.site/event'));
     List<dynamic> json = jsonDecode(response.body);
     List<LostArkEventNotice> list = [];
     List<Widget> eventWidgetList = [];

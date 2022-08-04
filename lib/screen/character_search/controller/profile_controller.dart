@@ -16,7 +16,7 @@ class ProfileController extends ChangeNotifier {
   fetchCharacterProfile(BuildContext context, String nickName) async {
     try {
       http.Response response = await http.get(
-        Uri.parse('http://132.226.22.9:3380/lobox/${nickName}'),
+        Uri.parse('https://lobox.site/lobox/${nickName}'),
         headers: {"Accept": "application/json"},
       ).timeout(Duration(seconds: 7));
       print('response code : ${response.statusCode}');
@@ -32,7 +32,7 @@ class ProfileController extends ChangeNotifier {
         }
       }
     } on SocketException {
-      http.Response response = await http.get(Uri.parse('http://132.226.22.9:3380/notice/inspection'));
+      // http.Response response = await http.get(Uri.parse('http://132.226.22.9/notice/inspection'));
       // 다른포트로 접근해서 서버점검 이 몇시인지 내용알리기
       await errorAlertDialog(context, '서버 점검', '서버점검으로 인해 캐릭터 정보검색을 사용하실수 없습니다.');
       Navigator.pop(context);
@@ -41,7 +41,7 @@ class ProfileController extends ChangeNotifier {
       Navigator.pop(context);
     } catch (e) {
       print('에러 : $e');
-      await errorAlertDialog(context, '오류6', '인터넷 또는 서버가 불안정하여 접속을 할 수가 없습니다. 반복되는 접속 오류는 개발자에게 문의해 주시길 바랍니다.');
+      await errorAlertDialog(context, '오류', '인터넷 또는 서버가 불안정하여 접속을 할 수가 없습니다. 반복되는 접속 오류는 개발자에게 문의해 주시길 바랍니다.');
       Navigator.pop(context);
     }
   }

@@ -7,12 +7,13 @@ import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
 import '../../../../model/dark_mode/dark_theme_provider.dart';
 import '../../../../model/user/content/daily_content.dart';
 import '../../../../model/user/content/restGauge_content.dart';
 import '../../../../model/user/user_provider.dart';
 import 'character_slot_widgets/daily_contents_widget.dart';
-import 'character_slot_widgets/raid_contents/raid_contents_widget.dart';
+import 'character_slot_widgets/raid_contents_widget.dart';
 import 'character_slot_widgets/weekly_contents_widget.dart';
 
 class CharacterSlotWidget extends StatefulWidget {

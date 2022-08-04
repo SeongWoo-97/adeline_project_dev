@@ -1,6 +1,6 @@
 import 'package:adeline_app/model/profile/character_profile_provider.dart';
-import 'package:adeline_app/screen/character_search/controller/profile_controller.dart';
 import 'package:adeline_app/screen/character_search/controller/menu_bar_controller.dart';
+import 'package:adeline_app/screen/character_search/controller/profile_controller.dart';
 import 'package:adeline_app/screen/character_search/widget/avatar_screen.dart';
 import 'package:adeline_app/screen/character_search/widget/collection_screen.dart';
 import 'package:adeline_app/screen/character_search/widget/equip_screen.dart';

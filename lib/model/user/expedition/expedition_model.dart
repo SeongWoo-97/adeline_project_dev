@@ -21,5 +21,8 @@ class Expedition {
   @HiveField(1)
   DateTime recentInitDateTime = DateTime.now(); // 최근 초기화 일자 [원정대 일일콘텐츠 초기화할 때 사용되는 값]
   @HiveField(2)
-  DateTime nextWednesday = DateTime.utc(DateTime.now().year, DateTime.now().month, DateTime.now().day, 6); // 다음주 수요일 값 [주간 콘텐츠 초기화 할때 사용되는 값]
+  DateTime nextWednesday =
+      DateTime.utc(DateTime.now().year, DateTime.now().month, DateTime.now().day, 6); // 다음주 수요일 값 [주간 콘텐츠 초기화 할때 사용되는 값]
+  @HiveField(3,defaultValue: [])
+  List<String> possibleGoldCharacters = [];
 }

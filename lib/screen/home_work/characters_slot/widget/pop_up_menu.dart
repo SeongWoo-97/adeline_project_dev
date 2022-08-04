@@ -1,6 +1,6 @@
 import 'package:adeline_app/model/user/user_provider.dart';
-import 'package:adeline_app/screen/home_work/character_manual_add_screen/character_manual_add_screen.dart';
-import 'package:adeline_app/screen/home_work/character_reorder_screen/character_reorder_screen.dart';
+import 'package:adeline_app/screen/home_work/character_manual_add_screen/character_manual_add_layout.dart';
+import 'package:adeline_app/screen/home_work/character_reorder_screen/character_reorder_layout.dart';
 import 'package:adeline_app/screen/home_work/init_date_check/init_date_check_screen.dart';
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +77,7 @@ class PopupMenuWidget extends StatelessWidget {
                   behavior: HitTestBehavior.translucent,
                   onTap: () async {
                     _customPopupMenuController.hideMenu();
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterManualAddScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterManualAddLayout()));
                   },
                   child: Container(
                     height: 40,
@@ -116,7 +116,7 @@ class PopupMenuWidget extends StatelessWidget {
                   ),
                   onTap: () async {
                     _customPopupMenuController.hideMenu();
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterReOrderScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterReOrderLayout()));
                   },
                 ),
                 GestureDetector(

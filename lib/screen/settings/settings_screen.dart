@@ -1,7 +1,6 @@
 import 'package:adeline_app/main.dart';
 import 'package:adeline_app/model/dark_mode/dark_theme_provider.dart';
 import 'package:adeline_app/model/uri_launch/launch_url.dart';
-import 'package:adeline_app/screen/main/main_layout.dart';
 import 'package:adeline_app/screen/main/mobile/mobile_main.dart';
 import 'package:adeline_app/screen/settings/sources_screen.dart';
 import 'package:adeline_app/screen/settings/update_list_screen.dart';

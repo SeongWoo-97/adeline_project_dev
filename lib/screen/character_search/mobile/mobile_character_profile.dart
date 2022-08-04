@@ -3,8 +3,8 @@ import 'dart:typed_data';
 
 import 'package:adeline_app/model/dark_mode/android/android_dark_theme_data.dart';
 import 'package:adeline_app/model/toast/toast.dart';
-import 'package:adeline_app/screen/character_search/controller/profile_controller.dart';
 import 'package:adeline_app/screen/character_search/controller/menu_bar_controller.dart';
+import 'package:adeline_app/screen/character_search/controller/profile_controller.dart';
 import 'package:adeline_app/screen/character_search/widget/avatar_screen.dart';
 import 'package:adeline_app/screen/character_search/widget/collection_screen.dart';
 import 'package:adeline_app/screen/character_search/widget/equip_screen.dart';

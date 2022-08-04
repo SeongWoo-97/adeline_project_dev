@@ -34,6 +34,7 @@ class _MainLayoutState extends State<MainLayout> {
     noticeProvider.adventureIsland = noticeProvider.fetchAdventureIsland();
     // 공지사항
     noticeProvider.lostArkNotice = noticeProvider.fetchLostArkNotice();
+    noticeProvider.loboxNotice = noticeProvider.fetchLoboxNotice();
     // 크리스탈
     noticeProvider.crystalPrice = noticeProvider.fetchCrystalMarketPrice();
     // 이벤트 목록, 하나로 통합
@@ -46,6 +47,7 @@ class _MainLayoutState extends State<MainLayout> {
     return MaterialApp(
       scrollBehavior: MyCustomScrollBehavior(),
       navigatorObservers: observer.navigator == null ? [] : <NavigatorObserver>[observer],
+      debugShowCheckedModeBanner: false,
       builder: (context, child) {
         return ValueListenableBuilder(
           valueListenable: DarkMode.isDarkMode,

@@ -15,6 +15,7 @@ class NoticeProvider extends ChangeNotifier {
   final AsyncMemoizer _memoizer4 = AsyncMemoizer();
   Future<AdventureIsland?>? adventureIsland;
   Future? lostArkNotice;
+  Future? loboxNotice;
   Future<CrystalPrice>? crystalPrice;
 
   ScrollController scrollController = ScrollController();
@@ -25,7 +26,7 @@ class NoticeProvider extends ChangeNotifier {
   fetchLostArkNotice() async {
     return this._memoizer1.runOnce(() async {
       try {
-        http.Response response = await http.get(Uri.parse('http://132.226.22.9:3381/lobox/notice'));
+        http.Response response = await http.get(Uri.parse('https://lobox.site/notice'));
         List<dynamic> json = jsonDecode(response.body);
         json.forEach((element) => notices.add(LostArkNotice.fromJson(element)));
         return notices;
@@ -38,7 +39,7 @@ class NoticeProvider extends ChangeNotifier {
   Future<dynamic> fetchLoboxNotice() async {
     return this._memoizer2.runOnce(() async {
       try {
-        http.Response response = await http.get(Uri.parse('http://132.226.22.9:3381/notice'));
+        http.Response response = await http.get(Uri.parse('https://lobox.site/loboxNotice'));
         Map<String, dynamic> json = jsonDecode(response.body);
         LoboxNotice notice = LoboxNotice.fromJson(json);
         return notice;
@@ -47,7 +48,7 @@ class NoticeProvider extends ChangeNotifier {
   }
 
   Future<CrystalPrice> fetchCrystalMarketPrice() async {
-    http.Response response = await http.get(Uri.parse('http://152.70.248.4:5000/crystal/'));
+    http.Response response = await http.get(Uri.parse('https://lobox.site/crystal/'));
     Map<String, dynamic> json = jsonDecode(response.body);
     CrystalPrice crystalPrice = CrystalPrice.fromJson(json);
     print('fetchCrystalMarketPrice: 크리스탈 가격 : ${crystalPrice.sell}, ${crystalPrice.buy}');
@@ -56,7 +57,7 @@ class NoticeProvider extends ChangeNotifier {
 
   Future<AdventureIsland?> fetchAdventureIsland() async {
     try {
-      http.Response response = await http.get(Uri.parse('http://152.70.248.4:5000/adventureisland/'));
+      http.Response response = await http.get(Uri.parse('https://lobox.site/adventureisland/'));
       Map<String, dynamic> json = jsonDecode(utf8.decode(response.bodyBytes));
       print(json);
       AdventureIsland adventureIsland = AdventureIsland.fromJson(json);

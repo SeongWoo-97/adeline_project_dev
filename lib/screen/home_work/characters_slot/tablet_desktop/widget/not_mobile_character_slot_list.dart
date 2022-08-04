@@ -1,14 +1,17 @@
 import 'package:adeline_app/constant/constant.dart';
+import 'package:adeline_app/main.dart';
 import 'package:adeline_app/model/user/character/character_model.dart';
 import 'package:adeline_app/model/user/content/daily_content.dart';
 import 'package:adeline_app/model/user/content/raid_content.dart';
 import 'package:adeline_app/model/user/content/restGauge_content.dart';
+import 'package:adeline_app/model/user/expedition/expedition_model.dart';
 import 'package:adeline_app/model/user/user_provider.dart';
 import 'package:adeline_app/screen/home_work/character_setting_screen/character_settings_layout.dart';
 import 'package:adeline_app/screen/home_work/characters_slot/tablet_desktop/widget/character_slot_widget/not_mobile_daily_contents.dart';
 import 'package:adeline_app/screen/home_work/characters_slot/tablet_desktop/widget/character_slot_widget/not_mobile_raid_contents.dart';
 import 'package:adeline_app/screen/home_work/characters_slot/tablet_desktop/widget/character_slot_widget/not_mobile_weekly_contents.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -20,165 +23,184 @@ class NotMobileCharacterSlotListWidget extends StatefulWidget {
 }
 
 class _NotMobileCharacterSlotListWidgetState extends State<NotMobileCharacterSlotListWidget> {
-  int selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<String> possibleGetGoldNameList = Hive.box<Expedition>(hiveExpeditionName).get('expeditionList')!.possibleGoldCharacters;
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Flexible(
-              flex: 3,
-              child: ListView.separated(
-                itemCount: userProvider.charactersProvider.characters.length,
-                shrinkWrap: true,
-                itemBuilder: (context, characterIndex) {
-                  Character character = userProvider.charactersProvider.characters[characterIndex];
-                  return InkWell(
-                    child: Container(
-                      color: selectedIndex == characterIndex ? Colors.black26 : null,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Image.asset(
-                                    'assets/job/${character.jobCode}.png',
-                                    width: 55,
-                                    height: 60,
-                                    color: Colors.white,
-                                  ),
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+        child: userProvider.charactersProvider.characters.isNotEmpty
+            ? Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Flexible(
+                    flex: 3,
+                    child: ListView.separated(
+                      itemCount: userProvider.charactersProvider.characters.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, characterIndex) {
+                        Character character = userProvider.charactersProvider.characters[characterIndex];
+                        bool getGoldCheck = possibleGetGoldNameList.contains(character.nickName);
+                        return InkWell(
+                          child: Container(
+                            color: userProvider.selectedIndex == characterIndex ? Colors.black26 : null,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Image.asset(
+                                          'assets/job/${character.jobCode}.png',
+                                          width: 55,
+                                          height: 60,
+                                          color: Colors.white,
+                                        ),
+                                        Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                getGoldCheck
+                                                    ? Padding(
+                                                      padding: const EdgeInsets.only(right: 5),
+                                                      child: Image.asset('assets/etc/Gold.png', width: 25, height: 20),
+                                                    )
+                                                    : Container(),
+                                                Text(character.nickName, style: Theme.of(context).textTheme.bodyText2),
+                                              ],
+                                            ),
+                                            Text('Lv.${character.level} ${character.job} ',
+                                                style: Theme.of(context).textTheme.caption?.copyWith(color: Colors.grey)),
+                                            Text('주간 골드 : ${userProvider.weeklyGold(characterIndex)} G',
+                                                style: Theme.of(context).textTheme.caption),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 5, top: 5),
+                                      child: InkWell(
+                                        child: Icon(
+                                          Icons.settings,
+                                          size: 23,
+                                        ),
+                                        onTap: () {
+                                          if (character.raidContents.length == 0) {
+                                            character.raidContents = List.generate(
+                                                constRaidContents.length, (index) => RaidContent.clone(constRaidContents[index]));
+                                          }
+                                          Navigator.push(context,
+                                              MaterialPageRoute(builder: (context) => CharacterSettingsLayout(characterIndex)));
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(character.nickName, style: Theme.of(context).textTheme.bodyText2),
-                                      Text('Lv.${character.level} ${character.job} ',
-                                          style: Theme.of(context).textTheme.caption?.copyWith(color: Colors.grey)),
-                                      Text('주간 골드 : ${userProvider.weeklyGold(characterIndex)} G',
-                                          style: Theme.of(context).textTheme.caption),
+                                      Row(children: contentSummaryIconWidget(character)),
+                                      Row(children: restGaugeNumberWidget(context, characterIndex, character)),
                                     ],
                                   ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 5, top: 5),
-                                child: InkWell(
-                                  child: Icon(
-                                    Icons.settings,
-                                    size: 23,
-                                  ),
-                                  onTap: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterSettingsLayout(characterIndex)));
-                                  },
                                 ),
-                              )
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(children: contentSummaryIconWidget(character)),
-                                Row(children: restGaugeNumberWidget(context, characterIndex, character)),
                               ],
                             ),
                           ),
-                        ],
-                      ),
+                          onTap: () {
+                            setState(() {
+                              userProvider.selectedIndex = characterIndex;
+                            });
+                          },
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Divider(height: 5, thickness: 2),
+                        );
+                      },
                     ),
-                    onTap: () {
-                      setState(() {
-                        selectedIndex = characterIndex;
-                      });
-                    },
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 5),
-                    child: Divider(
-                      height: 5,
-                      thickness: 2,
-                    ),
-                  );
-                },
-              ),
-            ),
-            Flexible(
-              flex: 7,
-              child: Card(
-                margin: const EdgeInsets.only(left: 10),
-                child: SingleChildScrollView(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: Text(
-                                '일일 콘텐츠',
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                            ),
-                            NotMobileDailyContentsWidget(selectedIndex),
-                          ],
-                        ),
-                      ),
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: Text(
-                                '주간 콘텐츠',
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                            ),
-                            NotMobileWeeklyContentsWidget(selectedIndex),
-                          ],
-                        ),
-                      ),
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              child: Text(
-                                '레이드 콘텐츠',
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                            ),
-                            // setState Rebuild 만 되지 createState 부터 새로 시작되는것이 아니기 때문에 아래의 코드처럼 사용하지 않으면
-                            // selectedIndex 가 변함에도 같은 인스턴스를 공유하기 때문에 버그가 발생한다.
-                            NotMobileRaidContentsWidget(selectedIndex,
-                                List.generate(constRaidContents.length, (index) => RaidContent.clone(constRaidContents[index]))),
-                          ],
-                        ),
-                      ),
-                    ],
                   ),
-                ),
+                  Flexible(
+                    flex: 7,
+                    child: Card(
+                      margin: const EdgeInsets.only(left: 10),
+                      child: SingleChildScrollView(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                    child: Text(
+                                      '일일 콘텐츠',
+                                      style: Theme.of(context).textTheme.bodyText1,
+                                    ),
+                                  ),
+                                  NotMobileDailyContentsWidget(userProvider.selectedIndex),
+                                ],
+                              ),
+                            ),
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                    child: Text(
+                                      '주간 콘텐츠',
+                                      style: Theme.of(context).textTheme.bodyText1,
+                                    ),
+                                  ),
+                                  NotMobileWeeklyContentsWidget(userProvider.selectedIndex),
+                                ],
+                              ),
+                            ),
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                    child: Text(
+                                      '레이드 콘텐츠',
+                                      style: Theme.of(context).textTheme.bodyText1,
+                                    ),
+                                  ),
+                                  // setState Rebuild 만 되지 createState 부터 새로 시작되는것이 아니기 때문에 아래의 코드처럼 사용하지 않으면
+                                  // selectedIndex 가 변함에도 같은 인스턴스를 공유하기 때문에 버그가 발생한다.
+                                  NotMobileRaidContentsWidget(
+                                      userProvider.selectedIndex,
+                                      List.generate(
+                                          constRaidContents.length, (index) => RaidContent.clone(constRaidContents[index]))),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              )
+            : Center(
+                child: Text('캐릭터가 존재하지 않습니다.'),
               ),
-            )
-          ],
-        ),
       ),
     );
   }
@@ -186,11 +208,12 @@ class _NotMobileCharacterSlotListWidgetState extends State<NotMobileCharacterSlo
   List<Widget> contentSummaryIconWidget(Character character) {
     List<Widget> summaryIcons = [];
     bool dailyNotClear = false;
-    bool dailySummaryIcon = false;
     bool weeklyNotClear = false;
+    bool raidNotClear = false;
+
+    bool dailySummaryIcon = false;
     bool weeklySummaryIcon = false;
-    bool goldNotClear = false;
-    bool goldSummaryIcon = false;
+    bool raidSummaryIcon = false;
 
     character.weeklyContents.forEach(
       (element) {
@@ -224,12 +247,12 @@ class _NotMobileCharacterSlotListWidgetState extends State<NotMobileCharacterSlo
 
     character.raidContents.forEach((raidContent) {
       if (raidContent.isChecked) {
-        goldSummaryIcon = true;
+        raidSummaryIcon = true;
       }
       if (raidContent.isChecked) {
         for (int i = 0; i < raidContent.clearCheckStandardPhase; i++) {
           if (!raidContent.clearList[i].check) {
-            goldNotClear = true;
+            raidNotClear = true;
           }
         }
       }
@@ -261,7 +284,7 @@ class _NotMobileCharacterSlotListWidgetState extends State<NotMobileCharacterSlo
               ),
               Text(
                 '일일',
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 11, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 13),
               ),
             ],
           ),
@@ -295,14 +318,14 @@ class _NotMobileCharacterSlotListWidgetState extends State<NotMobileCharacterSlo
               ),
               Text(
                 '주간',
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 11, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 13),
               ),
             ],
           ),
         ),
       ));
     }
-    if (goldSummaryIcon) {
+    if (raidSummaryIcon) {
       summaryIcons.add(Container(
         margin: const EdgeInsets.only(top: 3, right: 5),
         decoration: BoxDecoration(
@@ -314,7 +337,7 @@ class _NotMobileCharacterSlotListWidgetState extends State<NotMobileCharacterSlo
           padding: const EdgeInsets.fromLTRB(0, 1, 3, 1),
           child: Row(
             children: [
-              goldNotClear
+              raidNotClear
                   ? Container()
                   : Padding(
                       padding: const EdgeInsets.only(left: 3),
@@ -327,14 +350,13 @@ class _NotMobileCharacterSlotListWidgetState extends State<NotMobileCharacterSlo
               SizedBox(width: 3),
               Text(
                 '레이드',
-                style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 11, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 13),
               ),
             ],
           ),
         ),
       ));
     }
-
     return summaryIcons;
   }
 

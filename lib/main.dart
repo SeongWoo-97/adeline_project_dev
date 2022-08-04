@@ -1,7 +1,7 @@
 import 'package:adeline_app/firebase_options.dart';
 import 'package:adeline_app/model/user/content/raid_content.dart';
-import 'package:adeline_app/screen/character_search/controller/profile_controller.dart';
 import 'package:adeline_app/screen/character_search/controller/menu_bar_controller.dart';
+import 'package:adeline_app/screen/character_search/controller/profile_controller.dart';
 import 'package:adeline_app/screen/home_work/character_manual_add_screen/controller/add_character_provider.dart';
 import 'package:adeline_app/screen/home_work/init_settings/controller/initSettings_controller.dart';
 import 'package:adeline_app/screen/main/controller/event_notice_controller.dart';

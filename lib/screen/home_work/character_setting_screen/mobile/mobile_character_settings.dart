@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+
 import '../../../../model/dark_mode/dark_theme_provider.dart';
 import '../../../../model/user/user_provider.dart';
 
@@ -120,7 +121,7 @@ class _MobileCharacterSettingsScreenState extends State<MobileCharacterSettingsS
                             ),
                             onChanged: (value) {
                               setState(() {
-                                if (value.isEmpty || value.length >= 12) {
+                                if (value.isEmpty || value.length > 12) {
                                   nickNameError = true;
                                 } else {
                                   nickNameError = false;

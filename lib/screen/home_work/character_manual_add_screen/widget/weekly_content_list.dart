@@ -1,8 +1,7 @@
-
+import 'package:adeline_app/model/toast/toast.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constant/constant.dart';
@@ -36,8 +35,8 @@ class _WeeklyContentListWidgetState extends State<WeeklyContentListWidget> {
           height: MediaQuery.of(context).size.height * 0.53,
           child: DragAndDropLists(
             children: [weeklyDragAndDropList()],
-            onItemReorder: _onDailyItemReorder,
-            onListReorder: _onDailyListReorder,
+            onItemReorder: _onWeeklyItemReorder,
+            onListReorder: _onWeeklyListReorder,
             listPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
             itemDecorationWhileDragging: BoxDecoration(
               color: Colors.transparent,
@@ -104,7 +103,7 @@ class _WeeklyContentListWidgetState extends State<WeeklyContentListWidget> {
                         onTap: () {
                           addCharacterProvider.weeklyContents.removeAt(i);
                           setState(() {});
-                          toast('삭제가 완료되었습니다.');
+                          ToastMessage.toast('삭제가 완료되었습니다.');
                         },
                       )
                     ],
@@ -148,7 +147,7 @@ class _WeeklyContentListWidgetState extends State<WeeklyContentListWidget> {
                       onTap: () async {
                         addController.text = '${addCharacterProvider.weeklyContents[i].name}';
                         addCharacterProvider.weeklyContents[i] is RestGaugeContent
-                            ? toast('고정 콘텐츠는 수정할 수 없습니다.')
+                            ? ToastMessage.toast('고정 콘텐츠는 수정할 수 없습니다.')
                             : await showDialog(
                             context: context,
                             builder: (_) {
@@ -255,7 +254,7 @@ class _WeeklyContentListWidgetState extends State<WeeklyContentListWidget> {
     return weeklyDragAndDrop;
   }
 
-  _onDailyItemReorder(int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
+  _onWeeklyItemReorder(int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
     print('$oldItemIndex, $newItemIndex');
     AddCharacterProvider addCharacterProvider = Provider.of<AddCharacterProvider>(context, listen: false);
     setState(() {
@@ -268,21 +267,10 @@ class _WeeklyContentListWidgetState extends State<WeeklyContentListWidget> {
     });
   }
 
-  _onDailyListReorder(int oldListIndex, int newListIndex) {
+  _onWeeklyListReorder(int oldListIndex, int newListIndex) {
     setState(() {
       // var movedList = charactersOrder.removeAt(oldListIndex);
       // _contents.insert(newListIndex, movedList);
     });
-  }
-  void toast(String msg) {
-    Fluttertoast.showToast(
-      msg: msg,
-      gravity: ToastGravity.CENTER,
-      fontSize: 16,
-      toastLength: Toast.LENGTH_SHORT,
-      textColor: Colors.white,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.grey,
-    );
   }
 }

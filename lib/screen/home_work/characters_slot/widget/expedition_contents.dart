@@ -1,10 +1,10 @@
 import 'package:adeline_app/main.dart';
 import 'package:adeline_app/model/dark_mode/dark_theme_provider.dart';
 import 'package:adeline_app/screen/home_work/expedition_setting/expedition_settings_layout.dart';
-import 'package:adeline_app/screen/home_work/expedition_setting/mobile/expedition_setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
+
 import '../../../../model/user/expedition/expedition_model.dart';
 import '../../../../model/user/expedition/expedition_provider.dart';
 

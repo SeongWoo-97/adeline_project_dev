@@ -1,8 +1,7 @@
-
+import 'package:adeline_app/model/toast/toast.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constant/constant.dart';
@@ -87,7 +86,7 @@ class _DailyContentListWidgetState extends State<DailyContentListWidget> {
     dailyDragAndDrop = DragAndDropList(
       children: List.generate(
         addCharacterProvider.dailyContents.length,
-            (i) => DragAndDropItem(
+        (i) => DragAndDropItem(
           child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
@@ -100,35 +99,35 @@ class _DailyContentListWidgetState extends State<DailyContentListWidget> {
                     children: [
                       addCharacterProvider.dailyContents[i] is DailyContent
                           ? InkWell(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: Image.asset(
-                            'assets/etc/Minus.png',
-                            width: 25,
-                            height: 25,
-                            color: Colors.red,
-                          ),
-                        ),
-                        onTap: () {
-                          addCharacterProvider.dailyContents.removeAt(i);
-                          setState(() {});
-                          toast('삭제가 완료되었습니다.');
-                        },
-                      )
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                child: Image.asset(
+                                  'assets/etc/Minus.png',
+                                  width: 25,
+                                  height: 25,
+                                  color: Colors.red,
+                                ),
+                              ),
+                              onTap: () {
+                                addCharacterProvider.dailyContents.removeAt(i);
+                                setState(() {});
+                                ToastMessage.toast('삭제가 완료되었습니다.');
+                              },
+                            )
                           : Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: InkWell(
-                          child: Image.asset(
-                            'assets/etc/Minus.png',
-                            width: 25,
-                            height: 25,
-                            color: Colors.red,
-                          ),
-                          onTap: () {
-                            toast('해당 콘텐츠는 삭제할 수 없습니다.');
-                          },
-                        ),
-                      ),
+                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              child: InkWell(
+                                child: Image.asset(
+                                  'assets/etc/Minus.png',
+                                  width: 25,
+                                  height: 25,
+                                  color: Colors.red,
+                                ),
+                                onTap: () {
+                                  ToastMessage.toast('해당 콘텐츠는 삭제할 수 없습니다.');
+                                },
+                              ),
+                            ),
                     ],
                   ),
                   Flexible(
@@ -170,92 +169,93 @@ class _DailyContentListWidgetState extends State<DailyContentListWidget> {
                       onTap: () async {
                         addController.text = '${addCharacterProvider.dailyContents[i].name}';
                         addCharacterProvider.dailyContents[i] is RestGaugeContent
-                            ? toast('고정 콘텐츠는 수정할 수 없습니다.')
+                            ? ToastMessage.toast('고정 콘텐츠는 수정할 수 없습니다.')
                             : await showDialog(
-                            context: context,
-                            builder: (_) {
-                              return StatefulBuilder(builder: (context, setState) {
-                                return PlatformAlertDialog(
-                                  title: Form(
-                                    key: key,
-                                    child: TextFormField(
-                                      controller: addController,
-                                      decoration: InputDecoration(
-                                          contentPadding: EdgeInsets.only(left: 5),
-                                          hintText: '콘텐츠 이름',
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                                            borderRadius: BorderRadius.circular(8),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                                            borderRadius: BorderRadius.circular(8),
-                                          )),
-                                    ),
-                                  ),
-                                  content: Container(
-                                    width: MediaQuery.of(context).size.width * 0.7,
-                                    child: GridView.builder(
-                                        itemCount: iconList.length,
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.vertical,
-                                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                                          maxCrossAxisExtent: 60,
-                                          mainAxisSpacing: 10,
-                                          crossAxisSpacing: 10,
-                                        ),
-                                        itemBuilder: (_, index) {
-                                          // list[index] = IconModel(list[index].iconName);
-                                          return Padding(
-                                            padding: EdgeInsets.all(8),
-                                            child: InkWell(
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10),
-                                                  border: Border.all(
-                                                      color: _selected == index
-                                                          ? DarkMode.isDarkMode.value
-                                                          ? Colors.grey
-                                                          : Colors.grey
-                                                          : DarkMode.isDarkMode.value
-                                                          ? Colors.grey[800]!
-                                                          : Colors.white,
-                                                      width: 1.5),
-                                                ),
-                                                child: Image.asset(
-                                                  '${iconList[index].iconName}',
-                                                  width: 100,
-                                                  height: 100,
-                                                ),
+                                context: context,
+                                builder: (_) {
+                                  return StatefulBuilder(builder: (context, setState) {
+                                    return PlatformAlertDialog(
+                                      title: Form(
+                                        key: key,
+                                        child: TextFormField(
+                                          controller: addController,
+                                          decoration: InputDecoration(
+                                              contentPadding: EdgeInsets.only(left: 5),
+                                              hintText: '콘텐츠 이름',
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                                                borderRadius: BorderRadius.circular(8),
                                               ),
-                                              onTap: () {
-                                                setState(() {
-                                                  _selected = index;
-                                                  iconName = iconList[index].iconName!;
-                                                });
-                                              },
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                                                borderRadius: BorderRadius.circular(8),
+                                              )),
+                                        ),
+                                      ),
+                                      content: Container(
+                                        width: MediaQuery.of(context).size.width * 0.7,
+                                        child: GridView.builder(
+                                            itemCount: iconList.length,
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.vertical,
+                                            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                                              maxCrossAxisExtent: 60,
+                                              mainAxisSpacing: 10,
+                                              crossAxisSpacing: 10,
                                             ),
-                                          );
-                                        }),
-                                  ),
-                                  actions: [
-                                    PlatformDialogAction(
-                                      child: Text('취소'),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                    ),
-                                    PlatformDialogAction(
-                                      child: Text('확인'),
-                                      onPressed: () {
-                                        addCharacterProvider.updateDailyContent(i, DailyContent(addController.text, iconName, true));
-                                        Navigator.pop(context);
-                                      },
-                                    ),
-                                  ],
-                                );
-                              });
-                            });
+                                            itemBuilder: (_, index) {
+                                              // list[index] = IconModel(list[index].iconName);
+                                              return Padding(
+                                                padding: EdgeInsets.all(8),
+                                                child: InkWell(
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(10),
+                                                      border: Border.all(
+                                                          color: _selected == index
+                                                              ? DarkMode.isDarkMode.value
+                                                                  ? Colors.grey
+                                                                  : Colors.grey
+                                                              : DarkMode.isDarkMode.value
+                                                                  ? Colors.grey[800]!
+                                                                  : Colors.white,
+                                                          width: 1.5),
+                                                    ),
+                                                    child: Image.asset(
+                                                      '${iconList[index].iconName}',
+                                                      width: 100,
+                                                      height: 100,
+                                                    ),
+                                                  ),
+                                                  onTap: () {
+                                                    setState(() {
+                                                      _selected = index;
+                                                      iconName = iconList[index].iconName!;
+                                                    });
+                                                  },
+                                                ),
+                                              );
+                                            }),
+                                      ),
+                                      actions: [
+                                        PlatformDialogAction(
+                                          child: Text('취소'),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                        PlatformDialogAction(
+                                          child: Text('확인'),
+                                          onPressed: () {
+                                            addCharacterProvider.updateDailyContent(
+                                                i, DailyContent(addController.text, iconName, true));
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  });
+                                });
                         setState(() {});
                       },
                     ),
@@ -283,7 +283,7 @@ class _DailyContentListWidgetState extends State<DailyContentListWidget> {
     AddCharacterProvider addCharacterProvider = Provider.of<AddCharacterProvider>(context, listen: false);
 
     if (newItemIndex <= 2) {
-      toast('고정 콘텐츠는 수정할 수 없습니다.');
+      ToastMessage.toast('고정 콘텐츠는 수정할 수 없습니다.');
     } else {
       setState(() {
         var movedItem = dailyDragAndDrop.children.removeAt(oldItemIndex);
@@ -301,17 +301,5 @@ class _DailyContentListWidgetState extends State<DailyContentListWidget> {
       // var movedList = charactersOrder.removeAt(oldListIndex);
       // _contents.insert(newListIndex, movedList);
     });
-  }
-
-  void toast(String msg) {
-    Fluttertoast.showToast(
-      msg: msg,
-      gravity: ToastGravity.BOTTOM,
-      fontSize: 16,
-      toastLength: Toast.LENGTH_SHORT,
-      textColor: Colors.white,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.grey,
-    );
   }
 }

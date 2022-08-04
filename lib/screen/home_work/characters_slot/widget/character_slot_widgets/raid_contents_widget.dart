@@ -3,11 +3,11 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../../constant/constant.dart';
-import '../../../../../../model/dark_mode/dark_theme_provider.dart';
-import '../../../../../../model/user/character/character_model.dart';
-import '../../../../../../model/user/content/raid_content.dart';
-import '../../../../../../model/user/user_provider.dart';
+import '../../../../../constant/constant.dart';
+import '../../../../../model/dark_mode/dark_theme_provider.dart';
+import '../../../../../model/user/character/character_model.dart';
+import '../../../../../model/user/content/raid_content.dart';
+import '../../../../../model/user/user_provider.dart';
 
 class RaidContentsWidget extends StatefulWidget {
   final int characterIndex;

@@ -1,5 +1,11 @@
+import 'package:adeline_app/main.dart';
+import 'package:adeline_app/model/user/expedition/expedition_model.dart';
+import 'package:adeline_app/model/user/expedition/expedition_provider.dart';
+import 'package:adeline_app/model/user/user_provider.dart';
 import 'package:adeline_app/screen/home_work/characters_isExist/character_select_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
 
 class RwdDrawerWidget extends StatelessWidget {
   const RwdDrawerWidget({Key? key}) : super(key: key);
@@ -24,7 +30,7 @@ class RwdDrawerWidget extends StatelessWidget {
                 visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
                 title: Text('캐릭터 숙제 관리', style: menuStyle),
                 onTap: () {
-                  Navigator.push(context,MaterialPageRoute(builder: (context) => CharacterSelectScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterSelectScreen()));
                 },
               ),
               ListTile(

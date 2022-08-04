@@ -12,7 +12,12 @@ class ExpeditionProvider extends ChangeNotifier {
   void updateExpeditionContent(int index, ExpeditionContent expeditionContent) {
     expedition.list[index] = expeditionContent;
     expeditionBox.put('expeditionList', expedition);
+    notifyListeners();
+  }
 
+  void savePossibleGetGoldCharacters(List<String> possibleGetGoldNameList){
+    expedition.possibleGoldCharacters = possibleGetGoldNameList;
+    expeditionBox.put('expeditionList', expedition);
     notifyListeners();
   }
 

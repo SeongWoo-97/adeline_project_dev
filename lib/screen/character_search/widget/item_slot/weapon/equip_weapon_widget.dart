@@ -20,7 +20,6 @@ class WeaponWidget extends StatelessWidget {
       Weapon? weapon = profile.equipList?.weapon;
       List<Color> bgColors = slotColor.gradeColors(weapon!.grade);
       Color nameColor = slotColor.itemNameColor(weapon.grade);
-      List<String?> tripods = [weapon.tripod!.tripod1, weapon.tripod!.tripod2, weapon.tripod!.tripod3];
       return size.width >= 800
           ? InkWell(
               child: Row(
@@ -220,30 +219,6 @@ class WeaponWidget extends StatelessWidget {
                                                 physics: NeverScrollableScrollPhysics(),
                                                 itemBuilder: (context, index) {
                                                   return Text(weapon.effect!.plusEffect[index],
-                                                      style: Theme.of(context).textTheme.caption);
-                                                }),
-                                          ),
-                                        ),
-                                        // 트라이포드 효과
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 5, bottom: 5),
-                                          child: Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              '트라이포드 효과',
-                                              style: Theme.of(context).textTheme.bodyText2?.copyWith(color: Color(0xFFA9D0F5)),
-                                            ),
-                                          ),
-                                        ),
-                                        Flexible(
-                                          child: Container(
-                                            width: double.maxFinite,
-                                            child: ListView.builder(
-                                                itemCount: tripods.length,
-                                                shrinkWrap: true,
-                                                physics: NeverScrollableScrollPhysics(),
-                                                itemBuilder: (context, index) {
-                                                  return Text(tripods[index]!.replaceAll('[${profile.info!.job}]', '').trim(),
                                                       style: Theme.of(context).textTheme.caption);
                                                 }),
                                           ),
@@ -487,32 +462,6 @@ class WeaponWidget extends StatelessWidget {
                                                 physics: NeverScrollableScrollPhysics(),
                                                 itemBuilder: (context, index) {
                                                   return Text(weapon.effect!.plusEffect[index],
-                                                      style: Theme.of(context).textTheme.caption);
-                                                }),
-                                          ),
-                                        ),
-                                        // 트라이포드 효과
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 5),
-                                          child: Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              '트라이포드 효과',
-                                              style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                                                    color: Color(0xFFA9D0F5),
-                                                  ),
-                                            ),
-                                          ),
-                                        ),
-                                        Flexible(
-                                          child: Container(
-                                            width: double.maxFinite,
-                                            child: ListView.builder(
-                                                itemCount: tripods.length,
-                                                shrinkWrap: true,
-                                                physics: NeverScrollableScrollPhysics(),
-                                                itemBuilder: (context, index) {
-                                                  return Text(tripods[index]!.replaceAll('[${profile.info!.job}]', '').trim(),
                                                       style: Theme.of(context).textTheme.caption);
                                                 }),
                                           ),
