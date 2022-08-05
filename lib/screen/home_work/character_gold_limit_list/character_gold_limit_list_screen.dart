@@ -32,6 +32,7 @@ class _CharacterGoldLimitListScreenState extends State<CharacterGoldLimitListScr
             ),
             onPressed: () {
               expeditionProvider.savePossibleGetGoldCharacters(possibleGetGoldNameList);
+              userProvider.notifyListeners();
               Navigator.pop(context);
             },
           )

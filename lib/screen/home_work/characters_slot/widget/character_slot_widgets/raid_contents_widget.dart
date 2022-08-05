@@ -1,5 +1,8 @@
+import 'package:adeline_app/main.dart';
+import 'package:adeline_app/model/user/expedition/expedition_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -19,12 +22,13 @@ class RaidContentsWidget extends StatefulWidget {
 }
 
 class _raidContentsWidgetState extends State<RaidContentsWidget> {
-  AddGoldType _goldType = AddGoldType.normal;
-  int busCost = 0;
-  TextEditingController addGoldTextEditingController = TextEditingController();
-  TextEditingController numberOfPersonTextEditingController = TextEditingController();
-  TextEditingController busCostTextEditingController = TextEditingController();
-  List<RaidContent> defaultRaidContents = List.generate(constRaidContents.length, (index) => RaidContent.clone(constRaidContents[index]));
+  AddGoldType _goldType = AddGoldType.add;
+  int minusCost = 0;
+  TextEditingController addGoldTextEditingController = TextEditingController(text: '0');
+  TextEditingController minusGoldTextEditingController = TextEditingController();
+  List<RaidContent> defaultRaidContents =
+      List.generate(constRaidContents.length, (index) => RaidContent.clone(constRaidContents[index]));
+  final expeditionBox = Hive.box<Expedition>(hiveExpeditionName);
 
   @override
   void initState() {
@@ -84,17 +88,15 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
                       Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 5,top: 5),
+                            padding: const EdgeInsets.only(left: 5, top: 5),
                             child: iconPerType(defaultRaidContents[index].type),
                           ),
                           Flexible(
                             child: Container(
                               child: Text(
                                 '${defaultRaidContents[index].name}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText2
-                                    ?.copyWith(color: difficultyText(defaultRaidContents[index].name), overflow: TextOverflow.ellipsis),
+                                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                    color: difficultyText(defaultRaidContents[index].name), overflow: TextOverflow.ellipsis),
                               ),
                             ),
                           ),
@@ -136,10 +138,10 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
           return Padding(
             padding: const EdgeInsets.only(left: 3, right: 3),
             child: Card(
-              child: ListTileTheme(
-                shape: RoundedRectangleBorder(
+              shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
-                ),
+                  side: BorderSide(color: totalClearCheck(raidContents[index]) ? Colors.green : Colors.grey)),
+              child: ListTileTheme(
                 contentPadding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
@@ -154,11 +156,12 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
                               children: [
                                 iconPerType(raidContents[index].type),
                                 SizedBox(width: 5),
-                                Text('${raidContents[index].name}', style: Theme.of(context).textTheme.bodyText1?.copyWith(height: 1.25)),
+                                Text('${raidContents[index].name}',
+                                    style: Theme.of(context).textTheme.bodyText1?.copyWith(height: 1.25)),
                               ],
                             ),
                             Text(
-                              'Gold ${NumberFormat('###,###,###,###').format(clearGoldIndex(raidContents[index]))} G',
+                              'Gold ${NumberFormat('###,###,###,###').format(clearGoldIndex(raidContents[index], character.nickName))} G',
                               style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 15),
                             )
                           ],
@@ -167,7 +170,8 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
                           padding: const EdgeInsets.only(top: 3),
                           child: Row(
                             children: [
-                              Text("추가 골드 : ${NumberFormat('###,###,###,###').format(raidContents[index].addGold)} G",
+                              Text(
+                                  "추가 골드 : ${NumberFormat('###,###,###,###').format((raidContents[index].addGold - raidContents[index].minusGold))} G",
                                   style: Theme.of(context).textTheme.bodyText1?.copyWith(fontSize: 15)),
                               SizedBox(width: 3),
                               InkWell(
@@ -235,7 +239,8 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
                                                   // 클리어 전체 버튼
                                                   if (phaseIndex == 0) {
                                                     bool isTotalCheck = true;
-                                                    userProvider.charactersProvider.characters[characterIndex].raidContents[index].clearList
+                                                    userProvider.charactersProvider.characters[characterIndex].raidContents[index]
+                                                        .clearList
                                                         .forEach((element) {
                                                       if (!(element.check) || element.difficulty != difficulty) {
                                                         isTotalCheck = false;
@@ -253,9 +258,10 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
                                                     );
                                                   } else {
                                                     bool isChecked = false;
-                                                    List<CheckHistory?> list = userProvider
-                                                        .charactersProvider.characters[characterIndex].raidContents[index].clearList;
-                                                    if (list[phaseIndex - 1]!.check && list[phaseIndex - 1]!.difficulty == difficulty) {
+                                                    List<CheckHistory?> list = userProvider.charactersProvider
+                                                        .characters[characterIndex].raidContents[index].clearList;
+                                                    if (list[phaseIndex - 1]!.check &&
+                                                        list[phaseIndex - 1]!.difficulty == difficulty) {
                                                       isChecked = true;
                                                     }
                                                     return Row(
@@ -290,7 +296,8 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
                                                   bool isBonusCheck = false;
                                                   if (phaseIndex == 0) {
                                                     bool isBonusCheck = true;
-                                                    userProvider.charactersProvider.characters[characterIndex].raidContents[index].bonusList
+                                                    userProvider.charactersProvider.characters[characterIndex].raidContents[index]
+                                                        .bonusList
                                                         .forEach((element) {
                                                       if (!(element.check) || element.difficulty != difficulty) {
                                                         isBonusCheck = false;
@@ -301,9 +308,10 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
                                                         onChanged: (value) => userProvider.checkRaidBonusCheck(
                                                             characterIndex, index, difficulty, phaseIndex, value!));
                                                   } else {
-                                                    List<CheckHistory?> list = userProvider
-                                                        .charactersProvider.characters[characterIndex].raidContents[index].bonusList;
-                                                    if (list[phaseIndex - 1]!.check && list[phaseIndex - 1]!.difficulty == difficulty) {
+                                                    List<CheckHistory?> list = userProvider.charactersProvider
+                                                        .characters[characterIndex].raidContents[index].bonusList;
+                                                    if (list[phaseIndex - 1]!.check &&
+                                                        list[phaseIndex - 1]!.difficulty == difficulty) {
                                                       isBonusCheck = true;
                                                     }
                                                     return Checkbox(
@@ -351,7 +359,8 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
                                                 itemBuilder: (context, phaseIndex) {
                                                   if (phaseIndex == 0) {
                                                     bool isTotalCheck = true;
-                                                    userProvider.charactersProvider.characters[characterIndex].raidContents[index].clearList
+                                                    userProvider.charactersProvider.characters[characterIndex].raidContents[index]
+                                                        .clearList
                                                         .forEach((element) {
                                                       if (!(element.check) || element.difficulty != difficulty) {
                                                         isTotalCheck = false;
@@ -363,9 +372,10 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
                                                             characterIndex, index, difficulty, phaseIndex, value!));
                                                   } else {
                                                     bool isChecked = false;
-                                                    List<CheckHistory?> list = userProvider
-                                                        .charactersProvider.characters[characterIndex].raidContents[index].clearList;
-                                                    if (list[phaseIndex - 1]!.check && list[phaseIndex - 1]!.difficulty == difficulty) {
+                                                    List<CheckHistory?> list = userProvider.charactersProvider
+                                                        .characters[characterIndex].raidContents[index].clearList;
+                                                    if (list[phaseIndex - 1]!.check &&
+                                                        list[phaseIndex - 1]!.difficulty == difficulty) {
                                                       isChecked = true;
                                                     }
                                                     return Checkbox(
@@ -394,7 +404,8 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
                                                   bool isBonusCheck = false;
                                                   if (phaseIndex == 0) {
                                                     bool isBonusCheck = true;
-                                                    userProvider.charactersProvider.characters[characterIndex].raidContents[index].bonusList
+                                                    userProvider.charactersProvider.characters[characterIndex].raidContents[index]
+                                                        .bonusList
                                                         .forEach((element) {
                                                       if (!(element.check) || element.difficulty != difficulty) {
                                                         isBonusCheck = false;
@@ -407,9 +418,10 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
                                                           characterIndex, index, difficulty, phaseIndex, value!),
                                                     );
                                                   } else {
-                                                    List<CheckHistory?> list = userProvider
-                                                        .charactersProvider.characters[characterIndex].raidContents[index].bonusList;
-                                                    if (list[phaseIndex - 1]!.check && list[phaseIndex - 1]!.difficulty == difficulty) {
+                                                    List<CheckHistory?> list = userProvider.charactersProvider
+                                                        .characters[characterIndex].raidContents[index].bonusList;
+                                                    if (list[phaseIndex - 1]!.check &&
+                                                        list[phaseIndex - 1]!.difficulty == difficulty) {
                                                       isBonusCheck = true;
                                                     }
                                                     return Checkbox(
@@ -445,17 +457,26 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
     );
   }
 
+  bool totalClearCheck(RaidContent raidContent) {
+    for (int i = 0; i < raidContent.clearCheckStandardPhase; i++) {
+      if (raidContent.clearList[i].check == false) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   Future<void> addGoldAlertDialog(BuildContext context, int index) async {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
     Character character = userProvider.charactersProvider.characters[widget.characterIndex];
     List<RaidContent> raidContents = character.raidContents;
+    _goldType = AddGoldType.add;
     showPlatformDialog(
       context: context,
       builder: (BuildContext context) {
         addGoldTextEditingController.text = raidContents[index].addGold.toString();
-        busCost = 0;
-        busCostTextEditingController.clear();
-        numberOfPersonTextEditingController.clear();
+        minusGoldTextEditingController.text = raidContents[index].minusGold.toString();
+        // minusGoldTextEditingController.clear();
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return PlatformAlertDialog(
@@ -466,10 +487,10 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
                     children: [
                       Flexible(
                         child: ListTile(
-                          title: const Text('일반'),
+                          title: const Text('수입'),
                           horizontalTitleGap: 0,
                           leading: Radio<AddGoldType>(
-                            value: AddGoldType.normal,
+                            value: AddGoldType.add,
                             groupValue: _goldType,
                             onChanged: (AddGoldType? value) {
                               setState(() {
@@ -481,10 +502,10 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
                       ),
                       Flexible(
                         child: ListTile(
-                          title: const Text('버스'),
+                          title: const Text('지출'),
                           horizontalTitleGap: 0,
                           leading: Radio<AddGoldType>(
-                            value: AddGoldType.bus,
+                            value: AddGoldType.minus,
                             groupValue: _goldType,
                             onChanged: (AddGoldType? value) {
                               setState(() {
@@ -496,13 +517,13 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
                       ),
                     ],
                   ),
-                  _goldType.name == "normal"
+                  _goldType.name == "add"
                       ? TextFormField(
                           textAlign: TextAlign.center,
                           keyboardType: TextInputType.number,
                           controller: addGoldTextEditingController,
                           decoration: InputDecoration(
-                            hintText: '골드 입력',
+                            hintText: '수입 골드',
                             contentPadding: EdgeInsets.zero,
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey, width: 0.5),
@@ -514,188 +535,32 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
                             ),
                           ),
                         )
-                      : Column(
-                          children: [
-                            Text('손님 수'),
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: ElevatedButton(
-                                    child: Text(
-                                      '1명',
-                                      style: TextStyle(color: DarkMode.isDarkMode.value ? Colors.white : Colors.black),
-                                    ),
-                                    onPressed: () {
-                                      numberOfPersonTextEditingController.text = "1";
-                                      if (numberOfPersonTextEditingController.text.isNotEmpty &&
-                                          busCostTextEditingController.text.isNotEmpty) {
-                                        setState(() {
-                                          int numberOfPerson = int.parse(numberOfPersonTextEditingController.text);
-                                          int Cost = int.parse(busCostTextEditingController.text);
-                                          busCost = numberOfPerson * Cost;
-                                        });
-                                      }
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Flexible(
-                                  child: ElevatedButton(
-                                    child: Text(
-                                      '2명',
-                                      style: TextStyle(color: DarkMode.isDarkMode.value ? Colors.white : Colors.black),
-                                    ),
-                                    onPressed: () {
-                                      numberOfPersonTextEditingController.text = "2";
-                                      if (numberOfPersonTextEditingController.text.isNotEmpty &&
-                                          busCostTextEditingController.text.isNotEmpty) {
-                                        setState(() {
-                                          int numberOfPerson = int.parse(numberOfPersonTextEditingController.text);
-                                          int Cost = int.parse(busCostTextEditingController.text);
-                                          busCost = numberOfPerson * Cost;
-                                        });
-                                      }
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Flexible(
-                                  child: ElevatedButton(
-                                    child: Text(
-                                      '3명',
-                                      style: TextStyle(color: DarkMode.isDarkMode.value ? Colors.white : Colors.black),
-                                    ),
-                                    onPressed: () {
-                                      numberOfPersonTextEditingController.text = "3";
-                                      if (numberOfPersonTextEditingController.text.isNotEmpty &&
-                                          busCostTextEditingController.text.isNotEmpty) {
-                                        setState(() {
-                                          int numberOfPerson = int.parse(numberOfPersonTextEditingController.text);
-                                          int Cost = int.parse(busCostTextEditingController.text);
-                                          busCost = numberOfPerson * Cost;
-                                        });
-                                      }
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Flexible(
-                                  child: ElevatedButton(
-                                    child: Text(
-                                      '7명',
-                                      style: TextStyle(color: DarkMode.isDarkMode.value ? Colors.white : Colors.black),
-                                    ),
-                                    onPressed: () {
-                                      numberOfPersonTextEditingController.text = "7";
-                                      setState(() {
-                                        if (numberOfPersonTextEditingController.text.isNotEmpty &&
-                                            busCostTextEditingController.text.isNotEmpty) {
-                                          setState(() {
-                                            int numberOfPerson = int.parse(numberOfPersonTextEditingController.text);
-                                            int Cost = int.parse(busCostTextEditingController.text);
-                                            busCost = numberOfPerson * Cost;
-                                          });
-                                        }
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ],
+                      : TextFormField(
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          controller: minusGoldTextEditingController,
+                          decoration: InputDecoration(
+                            hintText: '지출 골드',
+                            contentPadding: EdgeInsets.zero,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: SizedBox(
-                                    child: TextFormField(
-                                      textAlign: TextAlign.center,
-                                      keyboardType: TextInputType.number,
-                                      controller: numberOfPersonTextEditingController,
-                                      decoration: InputDecoration(
-                                        hintText: '인원',
-                                        contentPadding: EdgeInsets.zero,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                      ),
-                                      onChanged: (value) {
-                                        if (numberOfPersonTextEditingController.text.isNotEmpty &&
-                                            busCostTextEditingController.text.isNotEmpty) {
-                                          setState(() {
-                                            int numberOfPerson = int.parse(numberOfPersonTextEditingController.text);
-                                            int Cost = int.parse(busCostTextEditingController.text);
-                                            busCost = numberOfPerson * Cost;
-                                          });
-                                        }
-                                      },
-                                    ),
-                                    height: 30,
-                                  ),
-                                ),
-                                Text(' * '),
-                                Flexible(
-                                  child: SizedBox(
-                                    height: 30,
-                                    child: TextFormField(
-                                      textAlign: TextAlign.center,
-                                      keyboardType: TextInputType.number,
-                                      controller: busCostTextEditingController,
-                                      decoration: InputDecoration(
-                                        hintText: '버스비',
-                                        contentPadding: EdgeInsets.zero,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                      ),
-                                      onChanged: (value) {
-                                        if (numberOfPersonTextEditingController.text.isNotEmpty &&
-                                            busCostTextEditingController.text.isNotEmpty) {
-                                          setState(() {
-                                            int numberOfPerson = int.parse(numberOfPersonTextEditingController.text);
-                                            int Cost = int.parse(busCostTextEditingController.text);
-                                            busCost = numberOfPerson * Cost;
-                                          });
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                )
-                              ],
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Text('합계 : $busCost G'),
-                            )
-                          ],
+                          ),
                         ),
                 ],
               ),
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (_goldType == AddGoldType.normal) {
-                      userProvider.updateAddGold(widget.characterIndex, index, int.parse(addGoldTextEditingController.text));
-                    } else {
-                      if (numberOfPersonTextEditingController.text.isNotEmpty && busCostTextEditingController.text.isNotEmpty) {
-                        userProvider.updateAddGold(widget.characterIndex, index, busCost);
-                      }
-                    }
-                    FocusScope.of(context).unfocus();
+                    int add = int.parse(addGoldTextEditingController.text);
+                    int minus = int.parse(minusGoldTextEditingController.text);
+                    userProvider.updateAddGold(widget.characterIndex, index, add, minus);
+                    FocusScope.of(context).unfocus(); // 키보드 해제
                     Navigator.pop(context);
                   },
                   child: Text('확인'),
@@ -712,12 +577,14 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
     switch (type) {
       case "군단장":
         return Image.asset("assets/week/Crops.png", width: 25, height: 25);
-      case "어비스 던전":
+      case "오레하":
+        return Image.asset("assets/week/AbyssDungeon.png", width: 25, height: 25);
+      case "카양겔":
         return Image.asset("assets/week/AbyssDungeon.png", width: 25, height: 25);
       case "어비스 레이드":
         return Image.asset("assets/week/AbyssRaid.png", width: 25, height: 25);
     }
-    return Image.asset("assets/week/Crops.png", width: 25, height: 25);
+    return Image.asset("assets/week/AbyssRaid.png", width: 25, height: 25);
   }
 
   Color difficultyText(String name) {
@@ -730,20 +597,22 @@ class _raidContentsWidgetState extends State<RaidContentsWidget> {
     return DarkMode.isDarkMode.value ? Colors.white : Colors.black;
   }
 
-  int clearGoldIndex(RaidContent raidContent) {
+  int clearGoldIndex(RaidContent raidContent, String nickName) {
     int clearGold = 0;
     int bonusGold = 0;
     for (int i = 0; i < raidContent.clearList.length; i++) {
       if (raidContent.clearList[i].check) {
-        clearGold += int.parse(raidContent.reward[raidContent.clearList[i].difficulty]!['클리어골드'][i].toString());
+        if (expeditionBox.get('expeditionList')!.possibleGoldCharacters.contains(nickName)) {
+          clearGold += int.parse(raidContent.reward[raidContent.clearList[i].difficulty]!['클리어골드'][i].toString());
+        }
         if (raidContent.bonusList[i].check) {
           bonusGold += int.parse(raidContent.reward[raidContent.bonusList[i].difficulty]!['더보기골드'][i].toString());
         }
       }
     }
-    clearGold += raidContent.addGold;
+    clearGold += (raidContent.addGold - raidContent.minusGold);
     return clearGold - bonusGold;
   }
 }
 
-enum AddGoldType { normal, bus }
+enum AddGoldType { add, minus }

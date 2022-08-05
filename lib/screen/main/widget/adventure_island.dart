@@ -58,13 +58,13 @@ class _RwdAdventureIslandWidgetState extends State<RwdAdventureIslandWidget> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Image.asset(
-                                'assets/adventure_island/${snapshot.data?.islandList[0].name}.jpg',
+                                'assets/adventure_island/${snapshot.data?.islandList[1].name}.jpg',
                                 height: 150,
                                 cacheHeight: 150,
                                 cacheWidth: 200,
                               ),
                               Image.asset(
-                                'assets/adventure_reward/${snapshot.data?.islandList[0].reward}.png',
+                                'assets/adventure_reward/${snapshot.data?.islandList[1].reward}.png',
                                 width: 40,
                                 height: 40,
                               )
@@ -76,13 +76,13 @@ class _RwdAdventureIslandWidgetState extends State<RwdAdventureIslandWidget> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Image.asset(
-                                'assets/adventure_island/${snapshot.data?.islandList[0].name}.jpg',
+                                'assets/adventure_island/${snapshot.data?.islandList[2].name}.jpg',
                                 height: 150,
                                 cacheHeight: 150,
                                 cacheWidth: 200,
                               ),
                               Image.asset(
-                                'assets/adventure_reward/${snapshot.data?.islandList[0].reward}.png',
+                                'assets/adventure_reward/${snapshot.data?.islandList[2].reward}.png',
                                 width: 40,
                                 height: 40,
                               )

@@ -24,8 +24,8 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
   AddGoldType _goldType = AddGoldType.normal;
   int busCost = 0;
   TextEditingController addGoldTextEditingController = TextEditingController();
-  TextEditingController numberOfPersonTextEditingController = TextEditingController();
-  TextEditingController busCostTextEditingController = TextEditingController();
+  TextEditingController minusGoldTextEditingController = TextEditingController();
+
   final expeditionBox = Hive.box<Expedition>(hiveExpeditionName);
   List<RaidContent> defaultRaidContents = [];
 
@@ -534,9 +534,6 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
       context: context,
       builder: (BuildContext context) {
         addGoldTextEditingController.text = raidContents[index].addGold.toString();
-        busCost = 0;
-        busCostTextEditingController.clear();
-        numberOfPersonTextEditingController.clear();
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return PlatformAlertDialog(
@@ -583,7 +580,7 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
                           keyboardType: TextInputType.number,
                           controller: addGoldTextEditingController,
                           decoration: InputDecoration(
-                            hintText: '골드 입력',
+                            hintText: '수입 골드',
                             contentPadding: EdgeInsets.zero,
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey, width: 0.5),
@@ -595,188 +592,32 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
                             ),
                           ),
                         )
-                      : Column(
-                          children: [
-                            Text('손님 수'),
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: ElevatedButton(
-                                    child: Text(
-                                      '1명',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    onPressed: () {
-                                      numberOfPersonTextEditingController.text = "1";
-                                      if (numberOfPersonTextEditingController.text.isNotEmpty &&
-                                          busCostTextEditingController.text.isNotEmpty) {
-                                        setState(() {
-                                          int numberOfPerson = int.parse(numberOfPersonTextEditingController.text);
-                                          int Cost = int.parse(busCostTextEditingController.text);
-                                          busCost = numberOfPerson * Cost;
-                                        });
-                                      }
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Flexible(
-                                  child: ElevatedButton(
-                                    child: Text(
-                                      '2명',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    onPressed: () {
-                                      numberOfPersonTextEditingController.text = "2";
-                                      if (numberOfPersonTextEditingController.text.isNotEmpty &&
-                                          busCostTextEditingController.text.isNotEmpty) {
-                                        setState(() {
-                                          int numberOfPerson = int.parse(numberOfPersonTextEditingController.text);
-                                          int Cost = int.parse(busCostTextEditingController.text);
-                                          busCost = numberOfPerson * Cost;
-                                        });
-                                      }
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Flexible(
-                                  child: ElevatedButton(
-                                    child: Text(
-                                      '3명',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    onPressed: () {
-                                      numberOfPersonTextEditingController.text = "3";
-                                      if (numberOfPersonTextEditingController.text.isNotEmpty &&
-                                          busCostTextEditingController.text.isNotEmpty) {
-                                        setState(() {
-                                          int numberOfPerson = int.parse(numberOfPersonTextEditingController.text);
-                                          int Cost = int.parse(busCostTextEditingController.text);
-                                          busCost = numberOfPerson * Cost;
-                                        });
-                                      }
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 2,
-                                ),
-                                Flexible(
-                                  child: ElevatedButton(
-                                    child: Text(
-                                      '7명',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    onPressed: () {
-                                      numberOfPersonTextEditingController.text = "7";
-                                      setState(() {
-                                        if (numberOfPersonTextEditingController.text.isNotEmpty &&
-                                            busCostTextEditingController.text.isNotEmpty) {
-                                          setState(() {
-                                            int numberOfPerson = int.parse(numberOfPersonTextEditingController.text);
-                                            int Cost = int.parse(busCostTextEditingController.text);
-                                            busCost = numberOfPerson * Cost;
-                                          });
-                                        }
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ],
+                      : TextFormField(
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          controller: addGoldTextEditingController,
+                          decoration: InputDecoration(
+                            hintText: '지출 골드',
+                            contentPadding: EdgeInsets.zero,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: SizedBox(
-                                    child: TextFormField(
-                                      textAlign: TextAlign.center,
-                                      keyboardType: TextInputType.number,
-                                      controller: numberOfPersonTextEditingController,
-                                      decoration: InputDecoration(
-                                        hintText: '인원',
-                                        contentPadding: EdgeInsets.zero,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                      ),
-                                      onChanged: (value) {
-                                        if (numberOfPersonTextEditingController.text.isNotEmpty &&
-                                            busCostTextEditingController.text.isNotEmpty) {
-                                          setState(() {
-                                            int numberOfPerson = int.parse(numberOfPersonTextEditingController.text);
-                                            int Cost = int.parse(busCostTextEditingController.text);
-                                            busCost = numberOfPerson * Cost;
-                                          });
-                                        }
-                                      },
-                                    ),
-                                    height: 30,
-                                  ),
-                                ),
-                                Text(' * '),
-                                Flexible(
-                                  child: SizedBox(
-                                    height: 30,
-                                    child: TextFormField(
-                                      textAlign: TextAlign.center,
-                                      keyboardType: TextInputType.number,
-                                      controller: busCostTextEditingController,
-                                      decoration: InputDecoration(
-                                        hintText: '버스비',
-                                        contentPadding: EdgeInsets.zero,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(color: Colors.grey, width: 0.5),
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                      ),
-                                      onChanged: (value) {
-                                        if (numberOfPersonTextEditingController.text.isNotEmpty &&
-                                            busCostTextEditingController.text.isNotEmpty) {
-                                          setState(() {
-                                            int numberOfPerson = int.parse(numberOfPersonTextEditingController.text);
-                                            int Cost = int.parse(busCostTextEditingController.text);
-                                            busCost = numberOfPerson * Cost;
-                                          });
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                )
-                              ],
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey, width: 0.5),
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Text('합계 : $busCost G'),
-                            )
-                          ],
+                          ),
                         ),
                 ],
               ),
               actions: [
                 TextButton(
                   onPressed: () {
-                    if (_goldType == AddGoldType.normal) {
-                      userProvider.updateAddGold(widget.characterIndex, index, int.parse(addGoldTextEditingController.text));
-                    } else {
-                      if (numberOfPersonTextEditingController.text.isNotEmpty && busCostTextEditingController.text.isNotEmpty) {
-                        userProvider.updateAddGold(widget.characterIndex, index, busCost);
-                      }
-                    }
-                    FocusScope.of(context).unfocus();
+                    int add = int.parse(addGoldTextEditingController.text);
+                    int minus = int.parse(minusGoldTextEditingController.text);
+                    userProvider.updateAddGold(widget.characterIndex, index, add, minus);
+                    FocusScope.of(context).unfocus(); // 키보드 해제
                     Navigator.pop(context);
                   },
                   child: Text('확인'),
@@ -835,7 +676,7 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
         }
       }
     }
-    clearGold += raidContent.addGold;
+    clearGold += (raidContent.addGold - raidContent.minusGold);
     return clearGold - bonusGold;
   }
 }

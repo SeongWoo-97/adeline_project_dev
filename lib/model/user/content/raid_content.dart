@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 
 part 'raid_content.g.dart';
+
 @HiveType(typeId: 5)
 class RaidContent {
   @HiveField(0)
@@ -22,13 +23,15 @@ class RaidContent {
   @HiveField(8)
   bool isChecked = false;
   @HiveField(9)
-  Map<String, Map<String, dynamic>> reward;
+  Map<String, Map<String, dynamic>> reward; // 골드 보상
   @HiveField(10)
   List<CheckHistory> clearList;
   @HiveField(11)
   List<CheckHistory> bonusList;
   @HiveField(12)
   int clearCheckStandardPhase;
+  @HiveField(13,defaultValue: 0)
+  int minusGold = 0;
 
   RaidContent({
     required this.type,
@@ -44,11 +47,10 @@ class RaidContent {
   });
 
   factory RaidContent.clone(RaidContent raidContent) {
-
     List<CheckHistory> list1 =
         List.generate(raidContent.totalPhase, (index) => CheckHistory(difficulty: raidContent.difficulty.first, check: false));
     List<CheckHistory> list2 =
-    List.generate(raidContent.totalPhase, (index) => CheckHistory(difficulty: raidContent.difficulty.first, check: false));
+        List.generate(raidContent.totalPhase, (index) => CheckHistory(difficulty: raidContent.difficulty.first, check: false));
     return RaidContent(
       type: raidContent.type,
       name: raidContent.name,
@@ -61,10 +63,6 @@ class RaidContent {
       bonusList: list2,
       clearCheckStandardPhase: raidContent.clearCheckStandardPhase,
     );
-  }
-
-  set setAddGold(int gold) {
-    addGold = gold;
   }
 }
 

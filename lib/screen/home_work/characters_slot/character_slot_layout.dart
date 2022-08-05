@@ -178,7 +178,7 @@ class _CharacterSlotLayoutState extends State<CharacterSlotLayout> {
 
   @override
   Widget build(BuildContext context) {
-    UserProvider userProvider = Provider.of<UserProvider>(context);
+    UserProvider userProvider = Provider.of<UserProvider>(context,listen: false);
     ExpeditionProvider expeditionProvider = Provider.of<ExpeditionProvider>(context, listen: false);
     expeditionProvider.expedition = expedition;
     userProvider.charactersProvider.characters = characterList;

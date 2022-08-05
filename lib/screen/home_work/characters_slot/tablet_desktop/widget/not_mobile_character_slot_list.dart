@@ -92,6 +92,7 @@ class _NotMobileCharacterSlotListWidgetState extends State<NotMobileCharacterSlo
                                         child: Icon(
                                           Icons.settings,
                                           size: 23,
+                                          color: Colors.grey,
                                         ),
                                         onTap: () {
                                           if (character.raidContents.length == 0) {

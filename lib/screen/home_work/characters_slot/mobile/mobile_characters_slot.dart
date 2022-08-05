@@ -1,4 +1,5 @@
 import 'package:adeline_app/model/user/user_provider.dart';
+import 'package:adeline_app/screen/home_work/character_gold_limit_list/character_gold_limit_list_screen.dart';
 import 'package:adeline_app/screen/home_work/character_manual_add_screen/character_manual_add_layout.dart';
 import 'package:adeline_app/screen/home_work/character_reorder_screen/character_reorder_layout.dart';
 import 'package:adeline_app/screen/home_work/characters_slot/widget/character_slot_list.dart';
@@ -189,6 +190,29 @@ class _MobileCharactersSlotScreenState extends State<MobileCharactersSlotScreen>
                         onTap: () async {
                           _customPopupMenuController.hideMenu();
                           Navigator.push(context, MaterialPageRoute(builder: (context) => InitDateCheckScreen()));
+                        },
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        child: Container(
+                          height: 40,
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  child: Text(
+                                    '골드 획득 캐릭터 지정',
+                                    style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        onTap: () {
+                          _customPopupMenuController.hideMenu();
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterGoldLimitListScreen()));
                         },
                       ),
                     ],

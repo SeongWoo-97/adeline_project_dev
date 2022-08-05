@@ -1,3 +1,7 @@
+import 'package:adeline_app/main.dart';
+import 'package:adeline_app/model/toast/toast.dart';
+import 'package:adeline_app/model/user/expedition/expedition_model.dart';
+import 'package:adeline_app/model/user/user.dart';
 import 'package:adeline_app/model/user/user_provider.dart';
 import 'package:adeline_app/screen/home_work/character_manual_add_screen/character_manual_add_layout.dart';
 import 'package:adeline_app/screen/home_work/character_reorder_screen/character_reorder_layout.dart';
@@ -6,9 +10,12 @@ import 'package:adeline_app/screen/home_work/characters_slot/tablet_desktop/widg
 import 'package:adeline_app/screen/home_work/characters_slot/tablet_desktop/widget/not_mobile_content_board.dart';
 import 'package:adeline_app/screen/home_work/characters_slot/tablet_desktop/widget/not_mobile_expedition_content.dart';
 import 'package:adeline_app/screen/home_work/characters_slot/widget/total_gold.dart';
+import 'package:adeline_app/screen/main/main_layout.dart';
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../../character_gold_limit_list/character_gold_limit_list_screen.dart';
@@ -46,6 +53,7 @@ class NotMobileCharacterSlotScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       GestureDetector(
+
                         behavior: HitTestBehavior.translucent,
                         child: Container(
                           height: 40,
@@ -92,6 +100,61 @@ class NotMobileCharacterSlotScreen extends StatelessWidget {
                               });
                         },
                       ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        child: Container(
+                          height: 40,
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  child: Text(
+                                    '전체 초기화',
+                                    style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Colors.black),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        onTap: () async {
+                          _customPopupMenuController.hideMenu();
+                          showPlatformDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return PlatformAlertDialog(
+                                content: Text(
+                                  '캐릭터마다 설정했던 모든 정보가 사라집니다. 초기화하시겠습니까?',
+                                ),
+                                actions: [
+                                  PlatformDialogAction(
+                                    child: PlatformText('취소'),
+                                    // 캐릭터 순서 페이지로 이동
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                  PlatformDialogAction(
+                                    child: PlatformText('초기화'),
+                                    // 캐릭터 순서 페이지로 이동
+                                    onPressed: () {
+                                      final characterBox = Hive.box<User>(hiveUserName);
+                                      final expeditionBox = Hive.box<Expedition>(hiveExpeditionName);
+                                      characterBox.delete('user');
+                                      expeditionBox.delete('expeditionList');
+                                      ToastMessage.toast('캐릭터 초기화 완료!');
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      ),
+
                       GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: () async {

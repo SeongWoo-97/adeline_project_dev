@@ -27,8 +27,8 @@ class GemSlotWidget extends StatelessWidget {
               children: [
                 Text('Lv.${gem.title!.replaceAll(RegExp(r'[^0-9]'), '')}', style: Theme.of(context).textTheme.caption),
                 Container(
-                  width: 30,
-                  height: 30,
+                  width: 40,
+                  height: 40,
                   margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
                   child: ClipOval(child: Image.network('https://cdn-lostark.game.onstove.com/' + gem.imgUrl.toString())),
                   decoration: BoxDecoration(

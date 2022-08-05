@@ -44,7 +44,7 @@ class _NotMobileExpeditionContentWidgetState extends State<NotMobileExpeditionCo
                 child: Icon(
                   Icons.settings,
                   color: Colors.grey,
-                  size: 25,
+                  size: 23,
                 ),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => ExpeditionSettingsLayout()));

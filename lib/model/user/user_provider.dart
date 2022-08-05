@@ -32,8 +32,9 @@ class UserProvider extends ChangeNotifier {
   }
 
   // 레이드 콘텐츠 추가골드
-  void updateAddGold(int characterIndex, int index, int gold) {
-    charactersProvider.characters[characterIndex].raidContents[index].addGold = gold;
+  void updateAddGold(int characterIndex, int index, int addGold,int minusGold) {
+    charactersProvider.characters[characterIndex].raidContents[index].addGold = addGold;
+    charactersProvider.characters[characterIndex].raidContents[index].minusGold = minusGold;
     notifyListeners();
   }
 
@@ -116,7 +117,7 @@ class UserProvider extends ChangeNotifier {
             }
           }
         }
-        totalGold.value += clearGold + (raidContent.addGold) - bonusGold;
+        totalGold.value += clearGold + (raidContent.addGold - raidContent.minusGold) - bonusGold;
       });
     });
     return totalGold.value;

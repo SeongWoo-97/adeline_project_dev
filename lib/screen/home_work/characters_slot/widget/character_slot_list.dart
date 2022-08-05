@@ -1,10 +1,13 @@
 import 'package:adeline_app/constant/constant.dart';
+import 'package:adeline_app/main.dart';
 import 'package:adeline_app/model/user/character/character_model.dart';
 import 'package:adeline_app/model/user/content/raid_content.dart';
+import 'package:adeline_app/model/user/expedition/expedition_model.dart';
 import 'package:adeline_app/screen/home_work/character_setting_screen/character_settings_layout.dart';
 import 'package:adeline_app/screen/main/mobile/home_screen/widget/admob_widget.dart';
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -27,11 +30,14 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<String> possibleGetGoldNameList = Hive.box<Expedition>(hiveExpeditionName).get('expeditionList')!.possibleGoldCharacters;
     return Expanded(
       child: ListView.builder(
         itemCount: userProvider.charactersProvider.characters.length,
         itemBuilder: (context, characterIndex) {
           Character character = userProvider.charactersProvider.characters[characterIndex];
+          bool getGoldCheck = possibleGetGoldNameList.contains(character.nickName);
+
           return Padding(
             padding: const EdgeInsets.fromLTRB(5, 3, 5, 5),
             child: Card(
@@ -66,13 +72,20 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.baseline,
                                 textBaseline: TextBaseline.alphabetic,
                                 children: [
+                                  getGoldCheck
+                                      ? Padding(
+                                          padding: const EdgeInsets.only(right: 3),
+                                          child: Image.asset('assets/etc/Gold.png', width: 16, height: 20),
+                                        )
+                                      : Container(),
                                   Text(character.nickName, style: Theme.of(context).textTheme.bodyText2),
                                   SizedBox(width: 3),
                                   Text('${character.job} Lv.${character.level} ',
                                       style: Theme.of(context).textTheme.caption?.copyWith(color: Colors.grey)),
                                 ],
                               ),
-                              Text('주간 골드 : ${userProvider.weeklyGold(characterIndex)} G', style: Theme.of(context).textTheme.caption),
+                              Text('주간 골드 : ${userProvider.weeklyGold(characterIndex)} G',
+                                  style: Theme.of(context).textTheme.caption),
                               // 카던, 가디언, 에포나 숙제 3종 휴식게이지
                               Row(children: restGaugeNumberWidget(context, characterIndex, character)),
                               SizedBox(height: 2),
@@ -118,16 +131,17 @@ class _CharacterSlotWidgetState extends State<CharacterSlotWidget> {
                               icon: Icon(Icons.settings, color: DarkMode.isDarkMode.value ? Colors.white : Colors.grey),
                               onPressed: () {
                                 if (character.raidContents.length == 0) {
-                                  character.raidContents =
-                                      List.generate(constRaidContents.length, (index) => RaidContent.clone(constRaidContents[index]));
+                                  character.raidContents = List.generate(
+                                      constRaidContents.length, (index) => RaidContent.clone(constRaidContents[index]));
                                 }
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterSettingsLayout(characterIndex)));
+                                Navigator.push(
+                                    context, MaterialPageRoute(builder: (context) => CharacterSettingsLayout(characterIndex)));
                               },
                             )
                           ],
                         ),
                         widgetPerContents(character.options[character.tag], characterIndex),
-                        Align(alignment: Alignment.center,child: AdmobWidget()),
+                        Align(alignment: Alignment.center, child: AdmobWidget()),
                       ],
                     ),
                   );

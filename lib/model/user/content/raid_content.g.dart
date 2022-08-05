@@ -31,13 +31,14 @@ class RaidContentAdapter extends TypeAdapter<RaidContent> {
     )
       ..addGold = fields[6] as int
       ..clearChecked = fields[7] as bool
-      ..isChecked = fields[8] as bool;
+      ..isChecked = fields[8] as bool
+      ..minusGold = fields[13] == null ? 0 : fields[13] as int;
   }
 
   @override
   void write(BinaryWriter writer, RaidContent obj) {
     writer
-      ..writeByte(13)
+      ..writeByte(14)
       ..writeByte(0)
       ..write(obj.type)
       ..writeByte(1)
@@ -63,7 +64,9 @@ class RaidContentAdapter extends TypeAdapter<RaidContent> {
       ..writeByte(11)
       ..write(obj.bonusList)
       ..writeByte(12)
-      ..write(obj.clearCheckStandardPhase);
+      ..write(obj.clearCheckStandardPhase)
+      ..writeByte(13)
+      ..write(obj.minusGold);
   }
 
   @override
