@@ -20,7 +20,7 @@ class RwdLoboxNoticeWidget extends StatelessWidget {
                   children: [
                     Text('${snapshot.data?.title}', style: Theme.of(context).textTheme.bodyText2),
                     Text('${snapshot.data?.des}', style: Theme.of(context).textTheme.bodyText2),
-                    Text('\n모험섬, 크리스탈 시세 API 제공 - 모코코더#3931', style: Theme.of(context).textTheme.bodyText2),
+                    Text('\n모험섬, 크리스탈 API 제공 - 모코코더#3931', style: Theme.of(context).textTheme.bodyText2),
                   ],
                 ),
               ),

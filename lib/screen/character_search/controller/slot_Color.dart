@@ -9,20 +9,20 @@ class slotColor {
           list.add(Colors.white);
           break;
         case 2: // 희귀
-          list.add(Color.fromRGBO(17, 31, 44, .7));
+          list.add(Color.fromRGBO(17, 31, 44, 1));
           list.add(Color.fromRGBO(17, 61, 93, 1));
           break;
         case 3: // 영웅
-          list.add(Color.fromRGBO(72, 13, 93, .8));
           list.add(Color.fromRGBO(38, 19, 49, 1));
+          list.add(Color.fromRGBO(72, 13, 93, 1));
           break;
         case 4: // 전설
+          list.add(Color.fromRGBO(54, 32, 3, 1));
           list.add(Color.fromRGBO(158, 95, 4, .9));
-          list.add(Color.fromRGBO(54, 32, 3, .85));
           break;
         case 5: // 유물
-          list.add(Color.fromRGBO(162, 64, 6, 1));
           list.add(Color.fromRGBO(52, 26, 9, 1));
+          list.add(Color.fromRGBO(162, 64, 6, 1));
           break;
         case 6: // 고대
           list.add(Color.fromRGBO(61, 51, 37, 1));

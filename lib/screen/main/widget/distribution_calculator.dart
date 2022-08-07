@@ -1,3 +1,4 @@
+import 'package:adeline_app/model/toast/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -66,6 +67,7 @@ class _RwdDistributionCaluWidgetState extends State<RwdDistributionCaluWidget> {
                 height: 40,
                 child: TextFormField(
                   controller: itemPriceController,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
                     hintText: '경매 아이템 가격',
@@ -86,8 +88,18 @@ class _RwdDistributionCaluWidgetState extends State<RwdDistributionCaluWidget> {
                           onTap: () async {
                             ClipboardData data = ClipboardData(text: distributionValue1.toString());
                             await Clipboard.setData(data);
+                            ToastMessage.toast('복사 완료!');
                           },
-                          child: Text('${getTotalGold(distributionValue1)} G')))
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text('${getTotalGold(distributionValue1)} G'),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: Icon(Icons.copy_outlined,size: 15,),
+                              ),
+                            ],
+                          )))
                 ],
               ),
             ),
@@ -102,8 +114,18 @@ class _RwdDistributionCaluWidgetState extends State<RwdDistributionCaluWidget> {
                           onTap: () async {
                             ClipboardData data = ClipboardData(text: distributionValue2.toString());
                             await Clipboard.setData(data);
+                            ToastMessage.toast('복사 완료!');
                           },
-                          child: Text('${getTotalGold(distributionValue2)} G')))
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text('${getTotalGold(distributionValue2)} G'),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: Icon(Icons.copy_outlined,size: 15,),
+                              ),
+                            ],
+                          )))
                 ],
               ),
             ),

@@ -1,6 +1,6 @@
 {
-  "name": "adeline_project_dev",
-  "short_name": "adeline_project_dev",
+  "name": "로박스",
+  "short_name": "로박스",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#0175C2",
