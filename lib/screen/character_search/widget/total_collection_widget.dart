@@ -17,8 +17,6 @@ class TotalCollectionPerWidget extends StatelessWidget {
     CollectionNormalForm? orpheusStar = profile.profile.collectivePoint?.orpheusStar;
     CollectionNormalForm? heartGiant = profile.profile.collectivePoint?.heartGiant;
     CollectionMococoForm? seedMococo = profile.profile.collectivePoint?.seedMococo;
-    double width = 25;
-    double height = 25;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

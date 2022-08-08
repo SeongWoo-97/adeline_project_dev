@@ -18,6 +18,7 @@ class _RwdCharacterSearchBarWidgetState extends State<RwdCharacterSearchBarWidge
       height: 40,
       child: TextFormField(
         textAlign: TextAlign.center,
+        controller: charSearchController,
         decoration: InputDecoration(hintText: '캐릭터 검색', hintStyle: Theme.of(context).textTheme.bodyText2),
         onFieldSubmitted: (value) {
           if (value.characters.length <= 12 && value.characters.length >= 2) {

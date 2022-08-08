@@ -1,4 +1,3 @@
-
 import 'dart:ui';
 
 import 'package:adeline_app/model/dark_mode/responsive/rwd_dark_theme_data.dart';
@@ -12,17 +11,13 @@ import 'package:adeline_app/screen/main/widget/procyon_compass.dart';
 import 'package:adeline_app/screen/main/widget/rwd_lobox_notice_widget.dart';
 import 'package:flutter/material.dart';
 
-
 class DesktopMainScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Theme(
       data: rwdDarkThemeData,
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Lobox2 width : ${MediaQuery.of(context).size.width} height : ${MediaQuery.of(context).size.height}'),
-        ),
+        appBar: AppBar(title: Text('')),
         drawer: RwdDrawerWidget(),
         body: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,9 +41,7 @@ class DesktopMainScreen extends StatelessWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Flexible(
-                                flex: 9,
-                                child: RwdCrystalAndNoticePrice()),
+                            Flexible(flex: 9, child: RwdCrystalAndNoticePrice()),
                             Flexible(
                               flex: 3,
                               child: Padding(

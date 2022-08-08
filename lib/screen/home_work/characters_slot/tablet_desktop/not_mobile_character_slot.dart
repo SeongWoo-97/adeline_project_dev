@@ -29,7 +29,7 @@ class NotMobileCharacterSlotScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          '숙제 관리 ${MediaQuery.of(context).size.width},${MediaQuery.of(context).size.height}',
+          '숙제 관리',
         ),
         actions: [
           CustomPopupMenu(

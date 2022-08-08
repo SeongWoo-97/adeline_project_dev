@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class BinpagoWebView extends StatefulWidget {
-  const BinpagoWebView({Key? key}) : super(key: key);
+class MobileBinpagoWebView extends StatefulWidget {
+  const MobileBinpagoWebView({Key? key}) : super(key: key);
 
   @override
-  _BinpagoWebViewState createState() => _BinpagoWebViewState();
+  _MobileBinpagoWebViewState createState() => _MobileBinpagoWebViewState();
 }
 
-class _BinpagoWebViewState extends State<BinpagoWebView> {
+class _MobileBinpagoWebViewState extends State<MobileBinpagoWebView> {
   bool isLoading = true;
   String url = 'https://ialy1595.me/kouku/';
   late WebViewController _webViewController;

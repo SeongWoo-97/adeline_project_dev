@@ -1,6 +1,6 @@
+import 'package:adeline_app/screen/merchant_location/controller/merchant_location_controller.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -8,13 +8,13 @@ import 'package:photo_view/photo_view.dart';
 
 import '../../constant/constant.dart';
 
-class MerchantLocationScreen extends StatefulWidget {
-  const MerchantLocationScreen({Key? key}) : super(key: key);
+class MobileMerchantLocationScreen extends StatefulWidget {
+  const MobileMerchantLocationScreen({Key? key}) : super(key: key);
   @override
-  _MerchantLocationScreenState createState() => _MerchantLocationScreenState();
+  _MobileMerchantLocationScreenState createState() => _MobileMerchantLocationScreenState();
 }
 
-class _MerchantLocationScreenState extends State<MerchantLocationScreen> {
+class _MobileMerchantLocationScreenState extends State<MobileMerchantLocationScreen> {
   final TextEditingController _typeAheadController = TextEditingController();
   SuggestionsBoxController _suggestionsBoxController = SuggestionsBoxController();
   CupertinoSuggestionsBoxController _cupertinoSuggestionsBoxController = CupertinoSuggestionsBoxController();
@@ -270,94 +270,6 @@ class _MerchantLocationScreenState extends State<MerchantLocationScreen> {
       ),
     );
   }
-
-  RenderBox? _findBorderBox(RenderBox box) {
-    RenderBox? borderBox;
-
-    box.visitChildren((child) {
-      if (child is RenderCustomPaint) {
-        borderBox = child;
-      }
-
-      final box = _findBorderBox(child as RenderBox);
-      if (box != null) {
-        borderBox = box;
-      }
-    });
-
-    return borderBox;
-  }
 }
 
-class StateService {
-  static final List<String> states = [
-    '로그힐',
-    '안게모스 산 기슭',
-    '국경지대',
-    '살란드 구릉지',
-    '오즈혼 구릉지',
-    '자고라스 산',
-    '레이크바',
-    '메드리닉 수도원',
-    '빌브린 숲',
-    '격전의 평야',
-    '디오리카 평원',
-    '해무리 언덕',
-    '배꽃나무 자생지',
-    '흑장미 교회당',
-    '라니아 단구',
-    '보레아 영지',
-    '크로커니스 해변',
-    '바다향기 숲',
-    '달콤한 숲',
-    '성큼바위 숲',
-    '침묵하는 거인의 숲',
-    '델파이 현',
-    '등나무 언덕',
-    '소리의 숲',
-    '거울 계곡',
-    '황혼의 연무',
-    '메마른 통로',
-    '갈라진 땅',
-    '네벨호른',
-    '바람결 구릉지',
-    '토트리치',
-    '리제 폭포',
-    '크로나 항구',
-    '파르나 숲',
-    '페스나르 고원',
-    '베르닐 삼림',
-    '발란카르 산맥',
-    '얼어붙은 바다',
-    '칼날바람 언덕',
-    '서리감옥 고원',
-    '머무른 시간의 호수',
-    '얼음나비 절벽',
-    '은빛물결 호수',
-    '유리연꽃 호수',
-    '바람향기 언덕',
-    '파괴된 제나일',
-    '엘조윈의 그늘',
-    '시작의 땅',
-    '미완의 정원',
-    '검은모루 작업장',
-    '무쇠망치 작업장',
-    '기약의 땅',
-    '칼라자 마을',
-    '얕은 바닷길',
-    '별모래 해변',
-    '티카티카 군락지',
-    '비밀의 숲',
-    '칸다리아 영지',
-    '벨리온 유적지',
-    '어금니의 강',
-    '웅크린 늑대의 땅',
-  ];
 
-  static List<String> getSuggestions(String query) {
-    List<String> matches = <String>[];
-    matches.addAll(states);
-    matches.retainWhere((s) => s.toLowerCase().contains(query.toLowerCase()));
-    return matches;
-  }
-}

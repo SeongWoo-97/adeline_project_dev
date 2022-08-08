@@ -55,20 +55,19 @@ dependencies:
   flutter_typeahead: ^4.0.0
   shared_preferences: ^2.0.13
   webview_flutter: ^3.0.2
+  webview_flutter_web: ^0.1.0+4
   google_mobile_ads: ^1.2.0
   flutter_html: ^3.0.0-alpha.5
+  http: ^0.13.4
   screenshot: ^1.2.3
   image_gallery_saver: ^1.7.1
   share_plus: ^4.0.9
   permission_handler: ^10.0.0
-  responsive_builder: ^0.4.2
-  responsive_sizer: ^3.0.8
   expandable_page_view: ^1.0.13
   percent_indicator: ^4.0.1
   page_view_dot_indicator: ^1.1.0
   dropdown_search: ^3.0.1
   custom_pop_up_menu: ^1.2.3+1
-  http: ^0.13.4
 dev_dependencies:
   hive_generator: ^1.1.2
   build_runner: ^2.1.8
@@ -111,6 +110,7 @@ flutter:
     - assets/adventure_reward/
     - assets/procyon_compass/
     - assets/collection_small_image/
+    - assets/cheating_paper/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

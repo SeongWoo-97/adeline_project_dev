@@ -1,8 +1,9 @@
+import 'package:adeline_app/screen/binpago_webview/not_mobile_binpago_webview.dart';
+import 'package:adeline_app/screen/merchant_location/merchant_location_layout.dart';
 import 'package:flutter/material.dart';
 
 import '../../../model/dark_mode/dark_theme_provider.dart';
-import '../../binpago_webview/binpago_webview.dart';
-import '../../merchant_location/merchant_location_screen.dart';
+
 
 class DrawerScreen extends StatelessWidget {
   @override
@@ -26,7 +27,7 @@ class DrawerScreen extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => MerchantLocationScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MerchantLocationLayout()));
               },
             ),
             ListTile(
@@ -34,7 +35,7 @@ class DrawerScreen extends StatelessWidget {
               title: const Text('쿠크세이튼 빙고 도우미', style: const TextStyle(fontFamily: 'NotoSansKR', fontSize: 16),),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => BinpagoWebView()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => NotMobileBinpagoWebView()));
               },
             ),
             // ListTile(

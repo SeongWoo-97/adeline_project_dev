@@ -1,6 +1,10 @@
-import 'package:adeline_app/screen/binpago_webview/binpago_webview.dart';
+import 'package:adeline_app/screen/binpago_webview/binpago_layout.dart';
+import 'package:adeline_app/screen/binpago_webview/mobile_binpago_webview.dart';
+import 'package:adeline_app/screen/cheating_paper/not_mobile_cheating_paper.dart';
 import 'package:adeline_app/screen/home_work/characters_isExist/character_select_screen.dart';
-import 'package:adeline_app/screen/merchant_location/merchant_location_screen.dart';
+import 'package:adeline_app/screen/merchant_location/merchant_location_layout.dart';
+import 'package:adeline_app/screen/merchant_location/mobile_merchant_location_screen.dart';
+import 'package:adeline_app/screen/settings/sources_screen.dart';
 import 'package:flutter/material.dart';
 
 class RwdDrawerWidget extends StatelessWidget {
@@ -19,7 +23,7 @@ class RwdDrawerWidget extends StatelessWidget {
             children: [
               Container(
                 margin: const EdgeInsets.fromLTRB(15, 15, 0, 5),
-                child: Text('도구', style: subMenuStyle),
+                child: Text('도구', style: subMenuStyle?.copyWith(color: Colors.grey)),
               ),
               ListTile(
                 visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
@@ -34,28 +38,38 @@ class RwdDrawerWidget extends StatelessWidget {
                 title: Text('떠돌이 상인 지도', style: menuStyle),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MerchantLocationScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => MerchantLocationLayout()));
                 },
               ),
-              // ListTile(
-              //   visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
-              //   title: Text('레이드 보상 계산기', style: menuStyle),
-              //   onTap: () {},
-              // ),
+              ListTile(
+                visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
+                title: Text('레이드 커닝페이퍼', style: menuStyle),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => NotMobileCheatingPaperScreen()));
+
+                },
+              ),
+
               ListTile(
                 visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
                 title: Text('쿠크세이튼 빙고 도우미', style: menuStyle),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => BinpagoWebView()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => BinpagoLayout()));
 
                 },
               ),
+
               // Divider(color: Colors.grey, height: 6),
-              // Container(
-              //   margin: const EdgeInsets.fromLTRB(15, 5, 0, 0),
-              //   child: Text('검색', style: subMenuStyle),
-              // ),
+              ListTile(
+                visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
+                title: Text('출처', style: menuStyle),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SourcesScreen()));
+                },
+              ),
               // ListTile(
               //   visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
               //   title: Text('멀티 검색', style: menuStyle),

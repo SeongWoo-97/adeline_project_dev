@@ -11,7 +11,6 @@ class RwdAdventureIslandWidget extends StatefulWidget {
 }
 
 class _RwdAdventureIslandWidgetState extends State<RwdAdventureIslandWidget> {
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -44,11 +43,17 @@ class _RwdAdventureIslandWidgetState extends State<RwdAdventureIslandWidget> {
                                 height: 150,
                                 cacheHeight: 150,
                                 cacheWidth: 200,
+                                errorBuilder: (context,error,stackTrace) {
+                                  return Container();
+                                },
                               ),
                               Image.asset(
                                 'assets/adventure_reward/${snapshot.data?.islandList[0].reward}.png',
                                 width: 40,
                                 height: 40,
+                                errorBuilder: (context,error,stackTrace) {
+                                  return Container();
+                                },
                               )
                             ],
                           ),
@@ -60,13 +65,17 @@ class _RwdAdventureIslandWidgetState extends State<RwdAdventureIslandWidget> {
                               Image.asset(
                                 'assets/adventure_island/${snapshot.data?.islandList[1].name}.jpg',
                                 height: 150,
-                                cacheHeight: 150,
-                                cacheWidth: 200,
+                                errorBuilder: (context,error,stackTrace) {
+                                  return Container();
+                                },
                               ),
                               Image.asset(
                                 'assets/adventure_reward/${snapshot.data?.islandList[1].reward}.png',
                                 width: 40,
                                 height: 40,
+                                errorBuilder: (context,error,stackTrace) {
+                                  return Container();
+                                },
                               )
                             ],
                           ),
@@ -78,13 +87,17 @@ class _RwdAdventureIslandWidgetState extends State<RwdAdventureIslandWidget> {
                               Image.asset(
                                 'assets/adventure_island/${snapshot.data?.islandList[2].name}.jpg',
                                 height: 150,
-                                cacheHeight: 150,
-                                cacheWidth: 200,
+                                errorBuilder: (context,error,stackTrace) {
+                                  return Container();
+                                },
                               ),
                               Image.asset(
                                 'assets/adventure_reward/${snapshot.data?.islandList[2].reward}.png',
                                 width: 40,
                                 height: 40,
+                                errorBuilder: (context,error,stackTrace) {
+                                  return Container();
+                                },
                               )
                             ],
                           ),
