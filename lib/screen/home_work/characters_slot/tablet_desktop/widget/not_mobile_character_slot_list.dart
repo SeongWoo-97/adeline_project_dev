@@ -10,6 +10,7 @@ import 'package:adeline_app/screen/home_work/character_setting_screen/character_
 import 'package:adeline_app/screen/home_work/characters_slot/tablet_desktop/widget/character_slot_widget/not_mobile_daily_contents.dart';
 import 'package:adeline_app/screen/home_work/characters_slot/tablet_desktop/widget/character_slot_widget/not_mobile_raid_contents.dart';
 import 'package:adeline_app/screen/home_work/characters_slot/tablet_desktop/widget/character_slot_widget/not_mobile_weekly_contents.dart';
+import 'package:adeline_app/screen/kakao_adfit/home_work_kakao_adfit.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
@@ -139,59 +140,64 @@ class _NotMobileCharacterSlotListWidgetState extends State<NotMobileCharacterSlo
                     child: Card(
                       margin: const EdgeInsets.only(left: 10),
                       child: SingleChildScrollView(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Column(
                           children: [
-                            Flexible(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                    child: Text(
-                                      '일일 콘텐츠',
-                                      style: Theme.of(context).textTheme.bodyText1,
-                                    ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                        child: Text(
+                                          '일일 콘텐츠',
+                                          style: Theme.of(context).textTheme.bodyText1,
+                                        ),
+                                      ),
+                                      NotMobileDailyContentsWidget(userProvider.selectedIndex),
+                                    ],
                                   ),
-                                  NotMobileDailyContentsWidget(userProvider.selectedIndex),
-                                ],
-                              ),
-                            ),
-                            Flexible(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                    child: Text(
-                                      '주간 콘텐츠',
-                                      style: Theme.of(context).textTheme.bodyText1,
-                                    ),
+                                ),
+                                Flexible(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                        child: Text(
+                                          '주간 콘텐츠',
+                                          style: Theme.of(context).textTheme.bodyText1,
+                                        ),
+                                      ),
+                                      NotMobileWeeklyContentsWidget(userProvider.selectedIndex),
+                                    ],
                                   ),
-                                  NotMobileWeeklyContentsWidget(userProvider.selectedIndex),
-                                ],
-                              ),
-                            ),
-                            Flexible(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                    child: Text(
-                                      '레이드 콘텐츠',
-                                      style: Theme.of(context).textTheme.bodyText1,
-                                    ),
+                                ),
+                                Flexible(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                        child: Text(
+                                          '레이드 콘텐츠',
+                                          style: Theme.of(context).textTheme.bodyText1,
+                                        ),
+                                      ),
+                                      // setState Rebuild 만 되지 createState 부터 새로 시작되는것이 아니기 때문에 아래의 코드처럼 사용하지 않으면
+                                      // selectedIndex 가 변함에도 같은 인스턴스를 공유하기 때문에 버그가 발생한다.
+                                      NotMobileRaidContentsWidget(
+                                          userProvider.selectedIndex,
+                                          List.generate(
+                                              constRaidContents.length, (index) => RaidContent.clone(constRaidContents[index]))),
+                                    ],
                                   ),
-                                  // setState Rebuild 만 되지 createState 부터 새로 시작되는것이 아니기 때문에 아래의 코드처럼 사용하지 않으면
-                                  // selectedIndex 가 변함에도 같은 인스턴스를 공유하기 때문에 버그가 발생한다.
-                                  NotMobileRaidContentsWidget(
-                                      userProvider.selectedIndex,
-                                      List.generate(
-                                          constRaidContents.length, (index) => RaidContent.clone(constRaidContents[index]))),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
+                            KakaoAdfitHomeWork(),
                           ],
                         ),
                       ),

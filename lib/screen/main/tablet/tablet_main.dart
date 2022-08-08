@@ -6,6 +6,7 @@ import 'package:adeline_app/screen/main/widget/character_search_bar.dart';
 import 'package:adeline_app/screen/main/widget/crystal_price.dart';
 import 'package:adeline_app/screen/main/widget/distribution_calculator.dart';
 import 'package:adeline_app/screen/main/widget/drawer.dart';
+import 'package:adeline_app/screen/kakao_adfit/kakao_adfit.dart';
 import 'package:adeline_app/screen/main/widget/lostark_coupon.dart';
 import 'package:adeline_app/screen/main/widget/procyon_compass.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +58,7 @@ class TabletMainScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+                Center(child: KaKaoAdfitBanner()),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10,0,10,10),
                   child: RwdAdventureIslandWidget(),

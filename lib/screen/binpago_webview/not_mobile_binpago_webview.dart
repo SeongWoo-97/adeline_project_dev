@@ -11,12 +11,6 @@ class NotMobileBinpagoWebView extends StatefulWidget {
 
 class _NotMobileBinpagoWebViewState extends State<NotMobileBinpagoWebView> {
   @override
-  void initState() {
-    super.initState();
-    Iframe();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -32,12 +26,11 @@ class _NotMobileBinpagoWebViewState extends State<NotMobileBinpagoWebView> {
       body: Stack(
         children: [
           Center(child: CircularProgressIndicator()),
-          HtmlElementView(viewType: 'iframe'),
+          Iframe(),
         ],
       ),
     );
   }
-
   Iframe() {
     ui.platformViewRegistry.registerViewFactory(
         'iframe',
@@ -46,5 +39,6 @@ class _NotMobileBinpagoWebViewState extends State<NotMobileBinpagoWebView> {
           ..height = '360'
           ..src = 'https://ialy1595.me/kouku'
           ..style.border = 'none');
+    return HtmlElementView(viewType: 'iframe',);
   }
 }

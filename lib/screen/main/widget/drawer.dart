@@ -6,10 +6,11 @@ import 'package:adeline_app/screen/merchant_location/merchant_location_layout.da
 import 'package:adeline_app/screen/merchant_location/mobile_merchant_location_screen.dart';
 import 'package:adeline_app/screen/settings/sources_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RwdDrawerWidget extends StatelessWidget {
-  const RwdDrawerWidget({Key? key}) : super(key: key);
-
+  final Uri icePeng = Uri.parse('https://loa.icepeng.com/');
+  final Uri total_discord = Uri.parse('https://discord.gg/lark');
   @override
   Widget build(BuildContext context) {
     TextStyle? subMenuStyle = Theme.of(context).textTheme.bodyText2;
@@ -43,14 +44,13 @@ class RwdDrawerWidget extends StatelessWidget {
               ),
               ListTile(
                 visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
-                title: Text('레이드 커닝페이퍼', style: menuStyle),
+                title: Text('레이드 공략 요약본', style: menuStyle),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.push(context, MaterialPageRoute(builder: (context) => NotMobileCheatingPaperScreen()));
 
                 },
               ),
-
               ListTile(
                 visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
                 title: Text('쿠크세이튼 빙고 도우미', style: menuStyle),
@@ -60,11 +60,42 @@ class RwdDrawerWidget extends StatelessWidget {
 
                 },
               ),
-
               // Divider(color: Colors.grey, height: 6),
+              Container(
+                margin: const EdgeInsets.fromLTRB(15, 15, 0, 5),
+                child: Text('바로가기', style: subMenuStyle?.copyWith(color: Colors.grey)),
+              ),
               ListTile(
                 visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
-                title: Text('출처', style: menuStyle),
+                title: Text('각인 검색기 (아이스펭)', style: menuStyle),
+                onTap: () {
+                  Navigator.pop(context);
+                  _launchUrl(icePeng);
+                },
+              ),
+              ListTile(
+                visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
+                title: Text('로아 통합 디스코드', style: menuStyle),
+                onTap: () {
+                  Navigator.pop(context);
+                  _launchUrl(total_discord);
+                },
+              ),
+              Container(
+                margin: const EdgeInsets.fromLTRB(15, 15, 0, 5),
+                child: Text('기타', style: subMenuStyle?.copyWith(color: Colors.grey)),
+              ),
+              ListTile(
+                visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
+                title: Text('숙제 관리 초기화', style: menuStyle),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SourcesScreen()));
+                },
+              ),
+              ListTile(
+                visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
+                title: Text('소스 출처', style: menuStyle),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.push(context, MaterialPageRoute(builder: (context) => SourcesScreen()));
@@ -133,5 +164,10 @@ class RwdDrawerWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+  Future<void> _launchUrl(Uri uri) async {
+    if (!await launchUrl(uri)) {
+      throw 'Could not launch $uri';
+    }
   }
 }

@@ -68,6 +68,7 @@ dependencies:
   page_view_dot_indicator: ^1.1.0
   dropdown_search: ^3.0.1
   custom_pop_up_menu: ^1.2.3+1
+  url_strategy: ^0.2.0
 dev_dependencies:
   hive_generator: ^1.1.2
   build_runner: ^2.1.8
@@ -110,7 +111,13 @@ flutter:
     - assets/adventure_reward/
     - assets/procyon_compass/
     - assets/collection_small_image/
-    - assets/cheating_paper/
+    - assets/cheating_paper/발탄/
+    - assets/cheating_paper/비아키스/
+    - assets/cheating_paper/쿠크세이튼/
+    - assets/cheating_paper/아브렐슈드(노말)/
+    - assets/cheating_paper/아브렐슈드(하드)/
+    - assets/cheating_paper/카양겔/
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

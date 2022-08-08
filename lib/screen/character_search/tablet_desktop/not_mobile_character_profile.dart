@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:adeline_app/screen/character_search/controller/menu_bar_controller.dart';
 import 'package:adeline_app/screen/character_search/controller/profile_controller.dart';
+import 'package:adeline_app/screen/kakao_adfit/char_search_kakao_adfit.dart';
 import 'package:adeline_app/screen/character_search/widget/avatar_screen.dart';
 import 'package:adeline_app/screen/character_search/widget/collection_screen.dart';
 import 'package:adeline_app/screen/character_search/widget/equip_screen.dart';
@@ -11,6 +12,7 @@ import 'package:adeline_app/screen/character_search/widget/menu_bar.dart';
 import 'package:adeline_app/screen/character_search/widget/profile_info.dart';
 import 'package:adeline_app/screen/character_search/widget/skill/skill_screen.dart';
 import 'package:adeline_app/screen/custom_scroll.dart';
+import 'package:adeline_app/screen/kakao_adfit/kakao_adfit.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -60,44 +62,49 @@ class _NotMobileCharacterProfileScreenState extends State<NotMobileCharacterProf
             return ScrollConfiguration(
               behavior: CustomScroll(),
               child: SingleChildScrollView(
-                child: Screenshot(
-                  controller: screenshotController,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-                        child: ProfileInfoWidget(),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
-                        child: Card(
-                          child: Column(
-                            children: [
-                              MenuBarWidget(),
-                              ExpandablePageView(
-                                controller: menuBarController.pageController,
-                                onPageChanged: (value) => menuBarController.menuOnChanged(value),
+                child: Column(
+                  children: [
+                    Center(child: CharSearchKakaoAdfit()),
+                    Screenshot(
+                      controller: screenshotController,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+                            child: ProfileInfoWidget(),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
+                            child: Card(
+                              child: Column(
                                 children: [
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  MenuBarWidget(),
+                                  ExpandablePageView(
+                                    controller: menuBarController.pageController,
+                                    onPageChanged: (value) => menuBarController.menuOnChanged(value),
                                     children: [
-                                      Flexible(child: EquipScreen()),
-                                      Flexible(child: SkillScreen()),
+                                      Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Flexible(child: EquipScreen()),
+                                          Flexible(child: SkillScreen()),
+                                        ],
+                                      ),
+                                      CollectionScreen(),
+                                      AvatarScreen(),
                                     ],
                                   ),
-                                  CollectionScreen(),
-                                  AvatarScreen(),
                                 ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             );

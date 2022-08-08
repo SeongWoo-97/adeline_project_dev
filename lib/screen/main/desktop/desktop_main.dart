@@ -6,6 +6,7 @@ import 'package:adeline_app/screen/main/widget/character_search_bar.dart';
 import 'package:adeline_app/screen/main/widget/crystal_price.dart';
 import 'package:adeline_app/screen/main/widget/distribution_calculator.dart';
 import 'package:adeline_app/screen/main/widget/drawer.dart';
+import 'package:adeline_app/screen/kakao_adfit/kakao_adfit.dart';
 import 'package:adeline_app/screen/main/widget/lostark_coupon.dart';
 import 'package:adeline_app/screen/main/widget/procyon_compass.dart';
 import 'package:adeline_app/screen/main/widget/rwd_lobox_notice_widget.dart';
@@ -53,6 +54,7 @@ class DesktopMainScreen extends StatelessWidget {
                                     RwdCouponWidget(),
                                     SizedBox(height: 10),
                                     RwdLoboxNoticeWidget(),
+                                    SizedBox(height: 10),
                                   ],
                                 ),
                               ),
@@ -71,6 +73,7 @@ class DesktopMainScreen extends StatelessWidget {
                           ],
                         ),
                       ),
+                      Center(child: KaKaoAdfitBanner()),
                     ],
                   ),
                 ),

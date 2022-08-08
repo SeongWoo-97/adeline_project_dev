@@ -68,7 +68,7 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
             shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 2.5,
+              childAspectRatio: 1 / .5,
               mainAxisSpacing: 5,
             ),
             itemCount: defaultRaidContents.length,
