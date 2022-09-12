@@ -1,5 +1,5 @@
 import 'package:adeline_app/main.dart';
-import 'package:adeline_app/screen/home_work/characters_slot/character_slot_layout.dart';
+import 'package:adeline_app/screen/home_work/character_slot_layout.dart';
 import 'package:adeline_app/screen/home_work/init_settings/initSettings_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';

@@ -166,7 +166,7 @@ class _RwdCrystalAndNoticePriceState extends State<RwdCrystalAndNoticePrice> {
                 Consumer<NoticeProvider>(
                   builder: (context, instance, child) {
                     return Container(
-                      height: 130,
+                      height: 160,
                       child: FutureBuilder(
                         future: instance.lostArkNotice,
                         builder: (context, snapshot) {
@@ -202,7 +202,7 @@ class _RwdCrystalAndNoticePriceState extends State<RwdCrystalAndNoticePrice> {
                                             child: Text(
                                               "[${noticeProvider.notices[index].category}] ${noticeProvider.notices[index].title}",
                                               overflow: TextOverflow.ellipsis,
-                                              style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 15),
+                                              style: Theme.of(context).textTheme.bodyText2,
                                             ),
                                           ),
                                         ),
@@ -219,7 +219,7 @@ class _RwdCrystalAndNoticePriceState extends State<RwdCrystalAndNoticePrice> {
                                             child: Text(
                                               "[${noticeProvider.notices[index].category}] ${noticeProvider.notices[index].title}",
                                               overflow: TextOverflow.ellipsis,
-                                              style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 15),
+                                              style: Theme.of(context).textTheme.bodyText2,
                                             ),
                                           ),
                                         ),
@@ -235,7 +235,7 @@ class _RwdCrystalAndNoticePriceState extends State<RwdCrystalAndNoticePrice> {
                                             child: Text(
                                               "[${noticeProvider.notices[index].category}] ${noticeProvider.notices[index].title}",
                                               overflow: TextOverflow.ellipsis,
-                                              style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 15),
+                                              style: Theme.of(context).textTheme.bodyText2,
                                             ),
                                           ),
                                         ),
@@ -262,10 +262,10 @@ class _RwdCrystalAndNoticePriceState extends State<RwdCrystalAndNoticePrice> {
                     );
                   },
                 ),
-                SizedBox(height: 10),
                 Consumer<EventNoticeProvider>(
                   builder: (context,instance,child) {
                     return Container(
+                      margin: const EdgeInsets.only(top: 15,bottom: 5),
                       child: FutureBuilder(
                         future: instance.lostArkEventNotice,
                         builder: (context, AsyncSnapshot<List<Widget>> snapshot) {
@@ -285,6 +285,7 @@ class _RwdCrystalAndNoticePriceState extends State<RwdCrystalAndNoticePrice> {
                                 padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
                                 child: Wrap(
                                   children: snapshot.data!,
+                                  runSpacing: 10,
                                 ),
                               );
                             }

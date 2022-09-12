@@ -25,15 +25,6 @@ class _NotMobileCheatingPaperScreenState extends State<NotMobileCheatingPaperScr
     return Scaffold(
       appBar: AppBar(
         title: Text('레이드 공략 요약본'),
-        actions: [
-          InkWell(
-            child: Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.only(right: 10),
-              child: Text('제작자 - 덕진 (블로그 이동)'),
-            ),
-          ),
-        ],
       ),
       body: Row(
         children: [

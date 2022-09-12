@@ -30,6 +30,7 @@ class _CollectionMenuBarWidgetState extends State<CollectionMenuBarWidget> {
                   CollectionButton(5, '세계수의 잎'),
                   CollectionButton(6, '이그네아의 징표'),
                   CollectionButton(7, '오르페우스의 별'),
+                  CollectionButton(8, '기억의 오르골'),
                 ];
                 options.forEach((element) {
                   buttons.add(

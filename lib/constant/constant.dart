@@ -140,6 +140,31 @@ final List<RaidContent> constRaidContents = [
     bonusList: [],
   ),
   RaidContent(
+    type: "군단장",
+    name: "일리아칸",
+    getGoldLevelLimit: 9999,
+    clearGold: 0,
+    clearCheckStandardPhase: 3,
+    totalPhase: 3,
+    difficulty: ['노말', '하드'],
+    reward: {
+      '노말': {
+        '클리어골드': [1500, 1750, 2250],
+        '더보기골드': [900, 1100, 1500],
+        '입장레벨제한': 1580,
+        '골드획득레벨제한': 9999,
+      },
+      '하드': {
+        '클리어골드': [1750, 2000, 2750],
+        '더보기골드': [1200, 1400, 1900],
+        '입장레벨제한': 1600,
+        '골드획득레벨제한': 9999,
+      }
+    },
+    clearList: [],
+    bonusList: [],
+  ),
+  RaidContent(
     type: "아르고스",
     name: "아르고스",
     getGoldLevelLimit: 1475,

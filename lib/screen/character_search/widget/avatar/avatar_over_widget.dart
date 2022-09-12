@@ -106,6 +106,7 @@ class AvatarOverWidget extends StatelessWidget {
                         contentPadding: const EdgeInsets.fromLTRB(10, 20, 10, 5),
                         content: SingleChildScrollView(
                           child: Container(
+                            width: MediaQuery.of(context).size.width * 0.4,
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [

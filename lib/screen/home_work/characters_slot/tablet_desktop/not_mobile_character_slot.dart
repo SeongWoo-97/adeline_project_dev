@@ -5,17 +5,14 @@ import 'package:adeline_app/model/user/user.dart';
 import 'package:adeline_app/model/user/user_provider.dart';
 import 'package:adeline_app/screen/home_work/character_manual_add_screen/character_manual_add_layout.dart';
 import 'package:adeline_app/screen/home_work/character_reorder_screen/character_reorder_layout.dart';
-import 'package:adeline_app/screen/home_work/characters_slot/character_slot_layout.dart';
-import 'package:adeline_app/screen/kakao_adfit/home_work_kakao_adfit.dart';
+import 'package:adeline_app/screen/home_work/character_slot_layout.dart';
 import 'package:adeline_app/screen/home_work/characters_slot/tablet_desktop/widget/not_mobile_character_slot_list.dart';
 import 'package:adeline_app/screen/home_work/characters_slot/tablet_desktop/widget/not_mobile_content_board.dart';
 import 'package:adeline_app/screen/home_work/characters_slot/tablet_desktop/widget/not_mobile_expedition_content.dart';
 import 'package:adeline_app/screen/home_work/characters_slot/widget/total_gold.dart';
-import 'package:adeline_app/screen/main/main_layout.dart';
 import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
@@ -29,9 +26,7 @@ class NotMobileCharacterSlotScreen extends StatelessWidget {
     UserProvider userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          '숙제 관리 ${MediaQuery.of(context).size.width}',
-        ),
+        title: Text('숙제 관리'),
         actions: [
           CustomPopupMenu(
             controller: _customPopupMenuController,
@@ -54,7 +49,6 @@ class NotMobileCharacterSlotScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       GestureDetector(
-
                         behavior: HitTestBehavior.translucent,
                         child: Container(
                           height: 40,
@@ -155,7 +149,6 @@ class NotMobileCharacterSlotScreen extends StatelessWidget {
                           );
                         },
                       ),
-
                       GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: () async {

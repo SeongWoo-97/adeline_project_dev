@@ -1,8 +1,7 @@
-import 'package:adeline_app/screen/binpago_webview/not_mobile_binpago_webview.dart';
-import 'package:adeline_app/screen/merchant_location/merchant_location_layout.dart';
 import 'package:flutter/material.dart';
 
 import '../../../model/dark_mode/dark_theme_provider.dart';
+import '../../binpago_webview/mobile_binpago_webview.dart';
 
 
 class DrawerScreen extends StatelessWidget {
@@ -22,20 +21,10 @@ class DrawerScreen extends StatelessWidget {
             ),
             ListTile(
               visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
-              title: const Text(
-                '떠돌이 상인 지도', style: const TextStyle(fontFamily: 'NotoSansKR', fontSize: 16),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => MerchantLocationLayout()));
-              },
-            ),
-            ListTile(
-              visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
               title: const Text('쿠크세이튼 빙고 도우미', style: const TextStyle(fontFamily: 'NotoSansKR', fontSize: 16),),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => NotMobileBinpagoWebView()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MobileBinpagoWebView()));
               },
             ),
             // ListTile(

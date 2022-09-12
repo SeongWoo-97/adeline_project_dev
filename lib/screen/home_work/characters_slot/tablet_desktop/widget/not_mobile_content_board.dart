@@ -102,7 +102,7 @@ class _NotMobileContentBoardWidgetState extends State<NotMobileContentBoardWidge
           ),
           margin: const EdgeInsets.only(right: 10),
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(5, 3, 5, 0),
+            padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

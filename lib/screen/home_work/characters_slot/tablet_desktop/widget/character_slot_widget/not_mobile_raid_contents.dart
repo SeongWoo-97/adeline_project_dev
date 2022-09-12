@@ -64,46 +64,42 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
               ),
             ),
           ),
-          GridView.builder(
+          ListView.builder(
             shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 1 / .5,
-              mainAxisSpacing: 5,
-            ),
             itemCount: defaultRaidContents.length,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(left: 3, right: 3),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    side: BorderSide(color: Colors.grey, width: 0.8),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5, top: 5),
-                            child: iconPerType(defaultRaidContents[index].type),
-                          ),
-                          Flexible(
-                            child: Container(
-                              child: Text(
-                                '${defaultRaidContents[index].name}',
-                                style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                                    color: difficultyText(defaultRaidContents[index].name), overflow: TextOverflow.ellipsis),
+                child: InkWell(
+                  child: Card(
+                    margin: const EdgeInsets.all(5),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      side: BorderSide(color: Colors.grey, width: 0.8),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: iconPerType(defaultRaidContents[index].type),
+                            ),
+                            Flexible(
+                              child: Container(
+                                child: Text(
+                                  '${defaultRaidContents[index].name}',
+                                  style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                                      color: difficultyText(defaultRaidContents[index].name), overflow: TextOverflow.ellipsis),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: Padding(
+                          ],
+                        ),
+                        Padding(
                           padding: const EdgeInsets.only(right: 5),
                           child: Container(
                             height: 25,
@@ -118,9 +114,14 @@ class _NotMobileRaidContentsWidgetState extends State<NotMobileRaidContentsWidge
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
+                  onTap: () {
+                    setState(() {
+                      defaultRaidContents[index].isChecked = !defaultRaidContents[index].isChecked;
+                    });
+                  },
                 ),
               );
             },

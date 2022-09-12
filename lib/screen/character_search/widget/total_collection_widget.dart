@@ -16,7 +16,9 @@ class TotalCollectionPerWidget extends StatelessWidget {
     CollectionNormalForm? greatWorksArt = profile.profile.collectivePoint?.greatWorksArt;
     CollectionNormalForm? orpheusStar = profile.profile.collectivePoint?.orpheusStar;
     CollectionNormalForm? heartGiant = profile.profile.collectivePoint?.heartGiant;
+    CollectionNormalForm? memoryBox = profile.profile.collectivePoint?.memoryBox;
     CollectionMococoForm? seedMococo = profile.profile.collectivePoint?.seedMococo;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -148,6 +150,22 @@ class TotalCollectionPerWidget extends StatelessWidget {
                     height: 5,
                   ),
                   Text('${leafWorld?.count}')
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Column(
+                children: [
+                  Image.asset(
+                    'assets/collection_small_image/9.webp',
+                    width: 30,
+                    height: 30,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text('${memoryBox?.count}')
                 ],
               ),
             ),

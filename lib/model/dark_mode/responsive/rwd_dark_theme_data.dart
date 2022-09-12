@@ -14,13 +14,12 @@ ThemeData rwdDarkThemeData = ThemeData(
   disabledColor: Colors.grey,
   cardColor: Color(0xFF212121),
   cardTheme: CardTheme(
-    elevation: 0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8),
-      side: BorderSide(color: Colors.white70, width: 1),
-    ),
-    margin: const EdgeInsets.all(0)
-  ),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(color: Colors.white70, width: 1),
+      ),
+      margin: const EdgeInsets.all(0)),
   canvasColor: Color(0xFF212121),
   brightness: Brightness.dark,
   // buttonTheme: Theme.of(context).buttonTheme.copyWith(colorScheme: ColorScheme.dark() : ColorScheme.light()),
@@ -30,7 +29,7 @@ ThemeData rwdDarkThemeData = ThemeData(
     iconTheme: IconThemeData(color: Colors.white),
     toolbarHeight: 45,
     titleTextStyle: TextStyle(
-      fontFamily: 'NanumGothic',
+      fontFamily: 'NotoSansKR',
       fontWeight: FontWeight.bold,
       fontSize: 16,
       color: Colors.white,
@@ -41,10 +40,10 @@ ThemeData rwdDarkThemeData = ThemeData(
     selectionColor: Colors.white,
   ),
   textTheme: TextTheme(
-    headline1: TextStyle(fontSize: 18, color: Colors.white, fontFamily: 'NanumGothic', fontWeight: FontWeight.bold),
-    bodyText1: TextStyle(fontSize: 18, color: Colors.white, fontFamily: 'NanumGothic', fontWeight: FontWeight.w400),
-    bodyText2: TextStyle(fontSize: 16, color: Colors.white, fontFamily: 'NanumGothic', fontWeight: FontWeight.w400),
-    caption: TextStyle(fontSize: 14, color: Colors.white, fontFamily: 'NanumGothic', fontWeight: FontWeight.w400),
+    headline1: TextStyle(fontSize: 18, color: Colors.white, fontFamily: 'NotoSansKR', fontWeight: FontWeight.bold),
+    bodyText1: TextStyle(fontSize: 18, color: Colors.white, fontFamily: 'NotoSansKR'),
+    bodyText2: TextStyle(fontSize: 16, color: Colors.white, fontFamily: 'NotoSansKR'),
+    caption: TextStyle(fontSize: 14, color: Colors.white, fontFamily: 'NotoSansKR'),
   ),
   listTileTheme: ListTileThemeData(),
   elevatedButtonTheme: ElevatedButtonThemeData(
@@ -53,7 +52,7 @@ ThemeData rwdDarkThemeData = ThemeData(
       textStyle: TextStyle(
         fontSize: 14,
         color: Colors.white,
-        fontFamily: 'NanumGothic',
+        fontFamily: 'NotoSansKR',
       ),
       elevation: 0,
       side: BorderSide(width: 1, color: Colors.grey),

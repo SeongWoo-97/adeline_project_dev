@@ -94,7 +94,7 @@ class UserProvider extends ChangeNotifier {
           }
         }
       }
-      clearGold += raidContent.addGold;
+      clearGold += raidContent.addGold - raidContent.minusGold;
     });
     charactersProvider.characters[characterIndex].totalGold = clearGold - bonusGold;
     return NumberFormat('###,###,###,###').format(clearGold - bonusGold);

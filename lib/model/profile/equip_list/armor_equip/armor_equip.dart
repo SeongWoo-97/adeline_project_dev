@@ -19,8 +19,8 @@ class ArmorEquip {
       grade: json['grade'],
       itemTitle: EquipItemTitle.fromJson(json['item_title']),
       effect: ArmorEffect.fromJson(json['effect']),
-      setLevel: json['set_level'] != null ? json['set_level'] : null,
-      setEffect: json['set_effect'] != null ? json['set_effect'] : null,
+      setLevel: json['set_level'] != null ? json['set_level'] : "",
+      setEffect: json['set_effect'] != null ? json['set_effect'] : "적용되는 세트효과가 없습니다.",
     );
   }
 }

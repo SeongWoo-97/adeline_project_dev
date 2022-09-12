@@ -6,20 +6,20 @@ class ArmorEffect {
 
   factory ArmorEffect.fromJson(Map<String, dynamic> json) {
     List<String> basic = [];
-    List<String> plus = [];
+    List<String>? plus = [];
     if (json['basic_effect'] != null) {
       json['basic_effect'].forEach((v) {
         basic.add(v);
       });
     }
-    if (json['plus_effect'] != null) {
+    if (json['plus_effect'].length != 0) {
       json['plus_effect'].forEach((v) {
         plus.add(v);
       });
     }
     return ArmorEffect(
       basicEffect: basic,
-      plusEffect: plus,
+      plusEffect: plus.length != 0 ? plus : ['추가효과가 적용되지 않습니다'],
     );
   }
 }

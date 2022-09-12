@@ -20,7 +20,6 @@ class _RaidContentSettingWidgetState extends State<RaidContentSettingWidget> {
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context, listen: false);
-    print('레이드콘텐츠 길이(Mobile) : ${userProvider.charactersProvider.characters[widget.characterIndex].raidContents.length}');
 
     return Column(
       children: [

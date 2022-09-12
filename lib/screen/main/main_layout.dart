@@ -48,6 +48,7 @@ class _MainLayoutState extends State<MainLayout> {
       scrollBehavior: MyCustomScrollBehavior(),
       navigatorObservers: observer.navigator == null ? [] : <NavigatorObserver>[observer],
       debugShowCheckedModeBanner: false,
+      title: '로박스',
       builder: (context, child) {
         return ValueListenableBuilder(
           valueListenable: DarkMode.isDarkMode,

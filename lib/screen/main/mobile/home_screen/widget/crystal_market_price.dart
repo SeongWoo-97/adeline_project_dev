@@ -150,21 +150,10 @@ class _CrystalMarketPriceWidgetState extends State<CrystalMarketPriceWidget> {
     );
   }
 
-  Future<dynamic> fetchCrystalMarketPrice() async {
-    return this._memoizer.runOnce(() async {
-      try {
-        http.Response response = await http.get(Uri.parse('http://152.70.248.4:5000/crystal/'));
-        Map<String, dynamic> json = jsonDecode(response.body);
-        print('... : $json');
-        CrystalPrice crystalPrice = CrystalPrice.fromJson(json);
-        return crystalPrice;
-      } catch (e) {
-        Future.delayed(Duration(seconds: 10), () {
-          print('재접속');
-          fetchCrystalMarketPrice();
-          setState(() {});
-        });
-      }
-    });
+  Future<CrystalPrice> fetchCrystalMarketPrice() async {
+    http.Response response = await http.get(Uri.parse('https://lobox.site/crystal/'));
+    Map<String, dynamic> json = jsonDecode(response.body);
+    CrystalPrice crystalPrice = CrystalPrice.fromJson(json);
+    return crystalPrice;
   }
 }

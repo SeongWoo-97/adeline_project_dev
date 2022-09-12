@@ -1,9 +1,6 @@
 import 'package:adeline_app/screen/binpago_webview/binpago_layout.dart';
-import 'package:adeline_app/screen/binpago_webview/mobile_binpago_webview.dart';
 import 'package:adeline_app/screen/cheating_paper/not_mobile_cheating_paper.dart';
 import 'package:adeline_app/screen/home_work/characters_isExist/character_select_screen.dart';
-import 'package:adeline_app/screen/merchant_location/merchant_location_layout.dart';
-import 'package:adeline_app/screen/merchant_location/mobile_merchant_location_screen.dart';
 import 'package:adeline_app/screen/settings/sources_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -11,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 class RwdDrawerWidget extends StatelessWidget {
   final Uri icePeng = Uri.parse('https://loa.icepeng.com/');
   final Uri total_discord = Uri.parse('https://discord.gg/lark');
+  final Uri kakaoTalk = Uri.parse('https://open.kakao.com/o/sTNAkmKd');
   @override
   Widget build(BuildContext context) {
     TextStyle? subMenuStyle = Theme.of(context).textTheme.bodyText2;
@@ -32,14 +30,6 @@ class RwdDrawerWidget extends StatelessWidget {
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.push(context, MaterialPageRoute(builder: (context) => CharacterSelectScreen()));
-                },
-              ),
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
-                title: Text('떠돌이 상인 지도', style: menuStyle),
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MerchantLocationLayout()));
                 },
               ),
               ListTile(
@@ -79,6 +69,14 @@ class RwdDrawerWidget extends StatelessWidget {
                 onTap: () {
                   Navigator.pop(context);
                   _launchUrl(total_discord);
+                },
+              ),
+              ListTile(
+                visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
+                title: Text('버그 제보 및 건의 (카톡)', style: menuStyle),
+                onTap: () {
+                  Navigator.pop(context);
+                  _launchUrl(kakaoTalk);
                 },
               ),
               Container(

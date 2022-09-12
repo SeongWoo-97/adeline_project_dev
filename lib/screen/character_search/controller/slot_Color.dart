@@ -5,8 +5,9 @@ class slotColor {
     List<Color> list = [];
     if (grade != null) {
       switch (grade) {
-        case 1:
-          list.add(Colors.white);
+        case 1: // 고급
+          list.add(Color.fromRGBO(24, 34, 11, 1));
+          list.add(Color.fromRGBO(48, 73, 17, 1));
           break;
         case 2: // 희귀
           list.add(Color.fromRGBO(17, 31, 44, 1));
@@ -33,7 +34,8 @@ class slotColor {
           list.add(Color.fromRGBO(47, 171, 168, 1));
           break;
         default:
-          list.add(Colors.white);
+          list.add(Color.fromRGBO(24, 34, 11, 1));
+          list.add(Color.fromRGBO(48, 73, 17, 1));
           break;
       }
     }
@@ -45,6 +47,7 @@ class slotColor {
     if (grade != null) {
       switch (grade) {
         case 1: // 고급
+          color = Color(0xFF6fc300);
           break;
         case 2: // 희귀
           color = Color(0xFF00B0FA);
@@ -95,6 +98,7 @@ class slotColor {
     }
     return color;
   }
+
   static Color cardNameColor(int? grade) {
     Color color = Colors.white;
     if (grade != null) {

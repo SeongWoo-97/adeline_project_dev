@@ -62,6 +62,10 @@ class _SourcesScreenState extends State<SourcesScreen> {
                 LaunchUrl.launchURL("https://blog.naver.com/bdj4767");
               },
             ),
+            InkWell(
+              child: Text('레이드 공략 요약본 제공\n- 제작자 : 큐티근육맨(니나브)\n'),
+              onTap: () {},
+            ),
             InkWell(child: Text('소스를 제공해 주신 분들 감사합니다.(꾸벅)'))
           ],
         ),

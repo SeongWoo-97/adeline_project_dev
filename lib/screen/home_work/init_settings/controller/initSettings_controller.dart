@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:adeline_app/main.dart';
 import 'package:adeline_app/model/character_list/character_list.dart';
 import 'package:adeline_app/model/toast/toast.dart';
-import 'package:adeline_app/screen/home_work/characters_slot/character_slot_layout.dart';
+import 'package:adeline_app/screen/home_work/character_slot_layout.dart';
 import 'package:adeline_app/screen/main/mobile/mobile_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';

@@ -39,30 +39,6 @@
 <!-- This script installs service_worker.js to provide PWA functionality to
      application. For more information, see:
      https://developers.google.com/web/fundamentals/primers/service-workers -->
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyDjGcfYTCQACB6H6Kk5wkWYlSO1Ep_OceU",
-    authDomain: "lobox-5bb45.firebaseapp.com",
-    projectId: "lobox-5bb45",
-    storageBucket: "lobox-5bb45.appspot.com",
-    messagingSenderId: "933193905508",
-    appId: "1:933193905508:web:2c7f771fa81458f1d17671",
-    measurementId: "G-6C3LXWQZ88"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-
-</script>
 <script>
     var serviceWorkerVersion = null;
     var scriptLoaded = false;
@@ -126,7 +102,6 @@
       // Service workers not supported. Just drop the <script> tag.
       loadMainDartJs();
     }
-
 </script>
 </body>
 </html>

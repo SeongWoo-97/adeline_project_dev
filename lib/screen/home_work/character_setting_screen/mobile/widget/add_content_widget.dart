@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../../../../../constant/constant.dart';
 import '../../../../../model/add_content_provider/add_content_provider.dart';
-import '../../../../../model/dark_mode/dark_theme_provider.dart';
 
 class AddContentIconWidget extends StatefulWidget {
   final String contentListType;
@@ -67,13 +66,7 @@ class _AddContentWidgetState extends State<AddContentIconWidget> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                      color: addContentProvider.selected == index
-                                          ? DarkMode.isDarkMode.value
-                                          ? Colors.grey
-                                          : Colors.grey
-                                          : DarkMode.isDarkMode.value
-                                          ? Colors.grey[800]!
-                                          : Colors.white,
+                                      color: addContentProvider.selected == index ? Colors.white : Colors.transparent,
                                       width: 1.5),
                                 ),
                                 child: Image.asset(

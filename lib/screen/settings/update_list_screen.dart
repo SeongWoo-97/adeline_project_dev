@@ -21,6 +21,65 @@ class _UpdateListScreenState extends State<UpdateListScreen> {
         children: [
           ExpansionTile(
             title: Text(
+              '2.0.1 Ver (2022.09.12)',
+            ),
+            backgroundColor: DarkMode.isDarkMode.value ? Colors.grey[800] : Colors.white,
+            collapsedIconColor: DarkMode.isDarkMode.value ? Colors.white : Colors.grey,
+            iconColor: DarkMode.isDarkMode.value ? Colors.white : Colors.grey,
+            expandedAlignment: Alignment.topLeft,
+            childrenPadding: const EdgeInsets.only(bottom: 10),
+            textColor: DarkMode.isDarkMode.value ? Colors.white : Colors.black,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('버그', style: Theme.of(context).textTheme.bodyText1),
+                    Text('- 숙제관리 2일 이상 미접속시 휴식게이지가 정상적으로 집계되지 않는 버그 수정'),
+                  ],
+                ),
+              )
+            ],
+          ),
+
+          ExpansionTile(
+            title: Text(
+              '2.0.0 Ver (2022.08.26)',
+            ),
+            backgroundColor: DarkMode.isDarkMode.value ? Colors.grey[800] : Colors.white,
+            collapsedIconColor: DarkMode.isDarkMode.value ? Colors.white : Colors.grey,
+            iconColor: DarkMode.isDarkMode.value ? Colors.white : Colors.grey,
+            expandedAlignment: Alignment.topLeft,
+            childrenPadding: const EdgeInsets.only(bottom: 10),
+            textColor: DarkMode.isDarkMode.value ? Colors.white : Colors.black,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('안내', style: Theme.of(context).textTheme.bodyText1),
+                    Text('- 신규 내실 기억의 오르골 추가'),
+                    Text('- 레이드 콘텐츠 클리어 시 테두리 초록색으로 변경'),
+                    Text('개선', style: Theme.of(context).textTheme.bodyText1),
+                    Text('- 레이드 추가 골드 개선'),
+                    Text('일반/버스 -> 수입/지출 로 변경하였습니다. 추가골드는 수입과 지출의 합으로 결정됩니다.',style: Theme.of(context).textTheme.caption),
+                    Text('추가 골드는 "골드 획득 캐릭터"에 영향을 받지 않습니다.',style: Theme.of(context).textTheme.caption),
+                    Text('추가', style: Theme.of(context).textTheme.bodyText1),
+                    Text('- 골드 획득 캐릭터 지정 기능 추가'),
+                    Text('버그', style: Theme.of(context).textTheme.bodyText1),
+                    Text('- 일부 캐릭터에서 검색이 안되는 버그 수정'),
+                    Text('- 트라이포드 버그 수정'),
+                    Text('- 레이드 아이콘 콘텐츠 별로 구분되지 않는 버그 수정'),
+                    Text('- 닉네임 12글자 수정 불가능한 버그 수정'),
+                  ],
+                ),
+              )
+            ],
+          ),
+          ExpansionTile(
+            title: Text(
               '1.5.6 Ver',
             ),
             backgroundColor: DarkMode.isDarkMode.value ? Colors.grey[800] : Colors.white,

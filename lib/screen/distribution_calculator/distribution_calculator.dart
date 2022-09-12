@@ -218,7 +218,7 @@ class _DistributionCaluScreenState extends State<DistributionCaluScreen> with Au
                     alignment: Alignment.center,
                   );
                 },
-              )
+              ),
             ],
           ),
         ));

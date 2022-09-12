@@ -6,7 +6,9 @@ class CollectivePoint {
   CollectionNormalForm? voyageItem;
   CollectionNormalForm? ignaeaToken;
   CollectionNormalForm? leafWorld;
+  CollectionNormalForm? memoryBox;
   CollectionMococoForm? seedMococo;
+
 
   CollectivePoint({
     this.mindIsland,
@@ -17,6 +19,7 @@ class CollectivePoint {
     this.voyageItem,
     this.ignaeaToken,
     this.leafWorld,
+    this.memoryBox,
   });
 
   factory CollectivePoint.fromJson(Map<String, dynamic> json) {
@@ -28,6 +31,7 @@ class CollectivePoint {
       voyageItem: json['voyage_item'] != null ? CollectionNormalForm.fromJson(json['voyage_item']) : null,
       ignaeaToken: json['ignaea_token'] != null ? CollectionNormalForm.fromJson(json['ignaea_token']) : null,
       leafWorld: json['leaf_world'] != null ? CollectionNormalForm.fromJson(json['leaf_world']) : null,
+      memoryBox: json['memory_box'] != null ? CollectionNormalForm.fromJson(json['memory_box']) : null,
       seedMococo: json['seed_mococo'] != null ? CollectionMococoForm.fromJson(json['seed_mococo']) : null,
     );
   }

@@ -12,7 +12,7 @@ class EquipEngraveWidget extends StatelessWidget {
     CharacterProfile profile = profileProvider.profile;
     List<Widget> equipEngraves = [];
     if (profile.equipEngrave?.length != 0) {
-      List.generate(2, (index) {
+      List.generate(profile.equipEngrave!.length, (index) {
         if (profile.equipEngrave![index].name != null) {
           equipEngraves.add(
             Flexible(

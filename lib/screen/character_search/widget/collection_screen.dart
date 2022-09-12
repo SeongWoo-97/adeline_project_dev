@@ -32,6 +32,8 @@ class CollectionScreen extends StatelessWidget {
             CollectionNormalScreen(collectionImageIndex: 8,collectionName: '세계수의 잎',form: profile.collectivePoint?.leafWorld),
             CollectionNormalScreen(collectionImageIndex: 7,collectionName: '이그네아의 징표',form: profile.collectivePoint?.ignaeaToken),
             CollectionNormalScreen(collectionImageIndex: 2,collectionName: '오르페우스의 별',form: profile.collectivePoint?.orpheusStar),
+            CollectionNormalScreen(collectionImageIndex: 9,collectionName: '기억의 오르골',form: profile.collectivePoint?.memoryBox),
+
           ],
         ),
       ],

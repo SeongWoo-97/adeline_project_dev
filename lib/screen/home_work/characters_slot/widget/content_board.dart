@@ -74,6 +74,10 @@ class _ContentBoardWidgetState extends State<ContentBoardWidget> {
         'count': 0,
         'color': Colors.deepPurpleAccent,
       },
+      '일리아칸': {
+        'count': 0,
+        'color': Colors.green.shade700,
+      },
     };
 
     userProvider.charactersProvider.characters.forEach((character) {

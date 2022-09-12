@@ -411,12 +411,15 @@ class _SkillScreenState extends State<SkillScreen> {
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 0, 0, 5),
-          child: Row(
+          child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                ' 사용 스킬 포인트 ${profileProvider.profile.info?.useSkillPoint} / 보유 스킬 포인트 ${profileProvider.profile.info?.haveSkillPoint}',
-                style: Theme.of(context).textTheme.bodyText2,
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  ' 사용 스킬 포인트 ${profileProvider.profile.info?.useSkillPoint} / 보유 스킬 포인트 ${profileProvider.profile.info?.haveSkillPoint}',
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
               ),
               Flexible(
                 child: SwitchListTile(
