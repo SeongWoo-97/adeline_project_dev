@@ -26,8 +26,8 @@ class _CharacterSlotLayoutState extends State<CharacterSlotLayout> {
   List<Character> characterList = [];
   List<ExpeditionContent> expeditionList = [];
   late Expedition expedition;
-  // DateTime nowDate = DateTime.now();
-  DateTime nowDate = DateTime.utc(2022, 9, 17, 7, Random().nextInt(59), Random().nextInt(59));
+  DateTime nowDate = DateTime.now();
+  // DateTime nowDate = DateTime.utc(2022, 9, 17, 7, Random().nextInt(59), Random().nextInt(59));
   DateTime? init6AmTime;
 
   // 현재는 오전 6시 이후에만 초기화가 진행됨
